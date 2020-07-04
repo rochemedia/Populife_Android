@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_edit_lock_gourp_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:textColor="@color/text_gray_dark"
+        android:singleLine="true"
+        android:hint="@string/enter_group_name"
+        android:textColorHint="@color/text_gray_medium"
+        android:maxLength="20"
+        android:padding="12dp"
+        android:textSize="16sp"/>
+
+</LinearLayout>

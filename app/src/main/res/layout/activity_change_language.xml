@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/ll_change_language_system"
+        style="@style/list_item_overall">
+
+        <TextView
+            style="@style/list_item_title"
+            android:text="@string/language_system" />
+
+        <TextView style="@style/list_item_description" />
+
+        <ImageView
+            android:id="@+id/iv_change_language_system"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_blue_20dp"
+            android:visibility="invisible" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <include layout="@layout/layout_view_line_24dp" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/ll_change_language_english"
+        style="@style/list_item_overall">
+
+        <TextView
+            style="@style/list_item_title"
+            android:text="@string/language_english" />
+
+        <TextView style="@style/list_item_description" />
+
+        <ImageView
+            android:id="@+id/iv_change_language_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_blue_20dp"
+            android:visibility="invisible" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <include layout="@layout/layout_view_line_24dp" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/ll_change_language_simplified_chinese"
+        style="@style/list_item_overall">
+
+        <TextView
+            style="@style/list_item_title"
+            android:text="@string/language_simplified_chinese" />
+
+        <TextView style="@style/list_item_description" />
+
+        <ImageView
+            android:id="@+id/iv_change_language_simplified_chinese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_blue_20dp"
+            android:visibility="invisible" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <include layout="@layout/layout_view_line_24dp" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/ll_change_language_japanese"
+        style="@style/list_item_overall">
+
+        <TextView
+            style="@style/list_item_title"
+            android:text="@string/language_japanese" />
+
+        <TextView style="@style/list_item_description" />
+
+        <ImageView
+            android:id="@+id/iv_change_language_japanese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_blue_20dp"
+            android:visibility="invisible" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <include layout="@layout/layout_view_line_24dp" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/ll_change_language_french"
+        style="@style/list_item_overall">
+
+        <TextView
+            style="@style/list_item_title"
+            android:text="@string/language_french" />
+
+        <TextView style="@style/list_item_description" />
+
+        <ImageView
+            android:id="@+id/iv_change_language_french"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_blue_20dp"
+            android:visibility="invisible" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <include layout="@layout/layout_view_line_24dp" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/ll_change_language_german"
+        style="@style/list_item_overall"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/list_item_title"
+            android:text="@string/language_german" />
+
+        <TextView style="@style/list_item_description" />
+
+        <ImageView
+            android:id="@+id/iv_change_language_german"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_blue_20dp"
+            android:visibility="invisible" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <!--    <include layout="@layout/layout_view_line_24dp" />-->
+
+</android.support.v7.widget.LinearLayoutCompat>

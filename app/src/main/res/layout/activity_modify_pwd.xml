@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <EditText
+            android:id="@+id/et_modify_pwd_old"
+            style="@style/et_style_input_width_match"
+            android:hint="@string/current_pwd"
+            android:inputType="textPassword"
+            android:maxLength="20"/>
+
+        <include layout="@layout/layout_view_line"/>
+
+        <EditText
+            android:id="@+id/et_modify_pwd_new"
+            style="@style/et_style_input_width_match"
+            android:hint="@string/new_pwd"
+            android:inputType="textPassword"
+            android:maxLength="20"/>
+
+        <include layout="@layout/layout_view_line"/>
+
+        <EditText
+            android:id="@+id/et_modify_pwd_confirm"
+            style="@style/et_style_input_width_match"
+            android:hint="@string/confirm_pwd"
+            android:inputType="textPassword"
+            android:maxLength="20"/>
+
+        <include layout="@layout/layout_view_line"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/note_pwd_format"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/text_gray_light"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

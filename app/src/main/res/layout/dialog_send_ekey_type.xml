@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:background="@color/transparent"
+    android:orientation="vertical"
+    android:paddingBottom="8dp">
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/ll_dialog_send_ekey_period"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_dialog_send_ekey_period"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/border_round_up"
+            android:gravity="center"
+            android:text="@string/period"
+            android:textAllCaps="false"
+            android:textColor="@color/text_gray_dark" />
+
+        <include
+            android:id="@+id/layout_line"
+            layout="@layout/layout_view_line" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/ll_dialog_send_ekey_permanent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_dialog_send_ekey_permanent"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/permanent"
+            android:textAllCaps="false"
+            android:textColor="@color/text_gray_dark" />
+
+        <include layout="@layout/layout_view_line" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_dialog_send_ekey_one_time"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="@drawable/border_round_down"
+        android:gravity="center"
+        android:text="@string/one_time"
+        android:textAllCaps="false"
+        android:textColor="@color/text_gray_dark" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_dialog_send_ekey_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_round_all"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/text_gray_dark" />
+
+</android.support.v7.widget.LinearLayoutCompat>

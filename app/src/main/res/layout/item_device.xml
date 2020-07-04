@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_bg_white_gray"
+    android:gravity="center_vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/bg_circle_main_color"
+        android:padding="5dp"
+        android:src="@drawable/ic_lock_type_door_small"/>
+
+    <TextView
+        android:id="@+id/tv_item_device_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:text="@string/name"
+        android:textColor="@color/text_gray_medium"
+        android:textSize="14sp"/>
+
+    <ImageView
+        android:id="@+id/iv_item_device_add_mark"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_add"
+        android:tint="@color/colorPrimary"
+        android:visibility="visible"/>
+
+</android.support.v7.widget.LinearLayoutCompat>

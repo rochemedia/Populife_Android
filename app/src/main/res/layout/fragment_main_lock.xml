@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/page_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/nav_tab_lock"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_main_lock_add"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_add"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_main_lock_online_service"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/iv_main_lock_add"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_service_white" />
+
+            <ImageView
+                android:id="@+id/iv_main_lock_msg_new"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_circle_red"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_container_main_lock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.populstay.populife.ui.NoScrollViewPager
+            android:id="@+id/nsv_main_lock"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Populife</string>
+    <string name="note_network_error">Network connection failed, please confirm to enable WiFi or cellular network</string>
+    <string name="customer_service_email" translatable="false">support@populife.co</string>
+    <string name="nav_tab_lock">Lock</string>
+    <string name="nav_tab_general">General</string>
+    <string name="nav_tab_me">Me</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="sign_in">Sign in</string>
+    <string name="enter_phone_num">Enter phone number</string>
+    <string name="enter_email">Enter email</string>
+    <string name="enter_pwd">Enter password</string>
+    <string name="enter_new_pwd">Enter new password</string>
+    <string name="forgot_pwd">Forgot password?</string>
+    <string name="page_action" translatable="false">action</string>
+    <string name="page_title" translatable="false">title</string>
+    <string name="sign_up">Sign up</string>
+    <string name="reset_pwd">Reset password</string>
+    <string name="note_pwd_wrong_times">Password entered too many times. Do you forget your password?</string>
+    <string name="enter_verifiction_code">Enter verification code</string>
+    <string name="note_verifiction_code_invalid">Verification code is invalid</string>
+    <string name="get_code">Get code</string>
+    <string name="notification">Notification</string>
+    <string name="message_detail">Notification detail</string>
+    <string name="help_center">Help center</string>
+    <string name="gateway">Gateway</string>
+    <string name="settings">Settings</string>
+    <string name="account">Account:\ </string>
+    <string name="nick_name">Nickname</string>
+    <string name="modify_pwd">Modify password</string>
+    <string name="touch_id_login">Touch ID Login</string>
+    <string name="switch_language">Switch language</string>
+    <string name="language_system">Follow system</string>
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_simplified_chinese" translatable="false">简体中文</string>
+    <string name="language_japanese" translatable="false">日本語</string>
+    <string name="language_french" translatable="false">Français</string>
+    <string name="language_german" translatable="false">Deutsch</string>
+    <string name="sign_out">Sign out</string>
+    <string name="select_lock">Select lock</string>
+    <string name="delete_account">Delete account</string>
+    <string name="save">Save</string>
+    <string name="lock_users">Lock users</string>
+    <string name="lock_group">Lock group</string>
+    <string name="other_uppercase">Other</string>
+    <string name="other_lowercase">other</string>
+    <string name="about">About</string>
+    <string name="copyright_claim" tools:ignore="TypographyDashes">Copyright©2018-2020 Populife All Rights Reserved</string>
+    <string name="common_questions">Common questions</string>
+    <string name="customer_feedback">Customer feedback</string>
+    <string name="online_communication">Online communication</string>
+    <string name="user_manual_app">App user manual</string>
+    <string name="user_manual_deadbolt">Deadbolt user manual</string>
+    <string name="user_manual_keybox">Keybox user manual</string>
+    <string name="user_manual_gateway">Gateway user manual</string>
+    <string name="send_email">Send email</string>
+    <string name="note_nickname_format">Note: no more than 20 characters</string>
+    <string name="modify_nickname">Modify nickname</string>
+    <string name="bind_email">Bind email</string>
+    <string name="bind_phone">Bind phone</string>
+    <string name="bind">Bind</string>
+    <string name="current_pwd">Current password</string>
+    <string name="new_pwd">New password</string>
+    <string name="confirm_pwd">Confirm password</string>
+    <string name="note_modify_pwd_success">Modify password successfully</string>
+    <string name="note_modify_pwd_fail">Modify password failed</string>
+    <string name="note_current_pwd_incorrect">Current password is incorrect</string>
+    <string name="note_pwd_format" tools:ignore="TypographyDashes">Password must be 6-20 characters</string>
+    <string name="note_confirm_pwd">Please confirm your password</string>
+    <string name="note_success_get_verification_code_phone">A verification code has been sent to your phone</string>
+    <string name="note_success_get_verification_code_email">A verification code has been sent to your email</string>
+    <string name="note_get_verification_code_fail">Get verification code failed</string>
+    <string name="note_get_verification_code_success">Get verification code successfully</string>
+    <string name="note_get_verification_code_time_limit">Verification code has been accessed too many times today, please try tomorrow</string>
+    <string name="note_phone_has_been_registered">The phone number has been registered</string>
+    <string name="note_email_has_been_registered">The email has been registered</string>
+    <string name="note_phone_has_not_been_registered">The phone number has not been registered</string>
+    <string name="note_email_has_not_been_registered">The email has not been registered</string>
+    <string name="note_phone_or_pwd_incorrect">Phone number or password is incorrect</string>
+    <string name="note_email_or_pwd_incorrect">Email or password is incorrect</string>
+    <string name="note_phone_invalid">Phone number is invalid</string>
+    <string name="note_email_invalid">Email is invalid</string>
+    <string name="note_sign_in_fail">Log in failed</string>
+    <string name="note_register_fail">Register failed</string>
+
+    <string name="note_delete_account">After deleting the account, all the data will be deleted and cannot be recovered. Sure to delete?</string>
+    <string name="note_reset_pwd_success">Reset password successfully</string>
+    <string name="note_reset_pwd_fail">Reset password failed</string>
+    <string name="note_delete_account_success">Delete account successfully</string>
+    <string name="note_delete_account_fail">Delete account failed</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="note_exit">Sure to sign out?</string>
+    <string name="note_clear_notifications">Sure to clear all the notifications?</string>
+    <string name="clear">Clear</string>
+    <string name="note_clear_notifications_success">Clear notifications successfully</string>
+    <string name="note_clear_notifications_fail">Clear notifications failed</string>
+    <string name="note_delete_notification">Sure to delete the notification?</string>
+    <string name="note_delete_notification_fail">Delete notification failed</string>
+    <string name="note_delete_feedback">Sure to delete the feedback?</string>
+    <string name="note_delete_feedback_fail">Delete feedback failed</string>
+    <string name="feedback">Feedback</string>
+    <string name="new_feedback">New feedback</string>
+    <string name="hint_feedback_input">Please input the problems you have encountered or any better suggestions. We are looking forward to hearing from you.</string>
+    <string name="submit">Submit</string>
+    <string name="input_something">Please input something</string>
+    <string name="note_submit_feedback_fail">Submit feedback failed</string>
+    <string name="no_data">No data</string>
+    <string name="lock_group_add">Add new group</string>
+    <string name="lock_group_modify">Modify group name</string>
+    <string name="note_name_already_exists">The name already exists</string>
+    <string name="note_add_group_fail">Add new group failed</string>
+    <string name="note_modify_group_fail">Modify group name failed</string>
+    <string name="note_delete_group">Sure to delete the group?</string>
+    <string name="note_delete_group_fail">Delete group failed</string>
+    <string name="note_nothing_changed">Nothing changed</string>
+    <string name="enter_nickname">Enter nickname</string>
+    <string name="enter_group_name">Enter group name</string>
+    <string name="note_modify_nickname_fail">Modify nickname failed</string>
+    <string name="note_modify_name_success">Modify name successfully</string>
+    <string name="note_modify_name_fail">Modify name failed</string>
+    <string name="num_zero" translatable="false">0</string>
+    <string name="words_num_limit_200" translatable="false">/200</string>
+    <string name="lock_add">Add lock</string>
+    <string name="phone_near_lock">The phone should be near the lock</string>
+    <string name="touch_to_activate_the_lock">During adding the lock, touch to light up the lock keypad all the time to make the lock addable.</string>
+    <string name="next">Next</string>
+    <string name="locks_nearby">Locks nearby</string>
+    <string name="lock_name">Lock name</string>
+    <string name="lock_action_records">Records</string>
+    <string name="lock_action_settings">Settings</string>
+    <string name="lock_action_ic_cards">IC cards</string>
+    <string name="lock_settings">Lock settings</string>
+    <string name="ic_card_management">IC cards</string>
+    <string name="bluetooth_keys">Bluetooth keys</string>
+    <string name="passcode_management">Passwords</string>
+
+    <string name="note_lock_init_ing" tools:ignore="TypographyEllipsis">Initializing lock...</string>
+    <string name="note_lock_init_success">Initialize lock successfully</string>
+    <string name="note_lock_init_fail">Initialize lock failed</string>
+    <string name="note_upload_lock_data">Please click the cloud icon at the top right to upload lock data</string>
+    <string name="enter_lock_name">Enter lock name</string>
+    <string name="note_lock_name_add_fail">Save lock name failed</string>
+    <string name="name">Name</string>
+    <string name="battery">Battery</string>
+    <string name="unit_percent" translatable="false">%</string>
+    <string name="hundred_percent" translatable="false">100%</string>
+    <string name="complete">Complete</string>
+    <string name="complete_lock_configuration">Complete the lock configuration first</string>
+    <string name="added_successfully">Added successfully</string>
+    <string name="administrator">Administrator</string>
+    <string name="permanent">Permanent</string>
+    <string name="day">day</string>
+    <string name="days">day(s)</string>
+    <string name="frozen">Frozen</string>
+    <string name="expired">Expired</string>
+    <string name="expiring">Expiring</string>
+    <string name="one_time">One-time</string>
+    <string name="cyclic">Cyclic</string>
+    <string name="note_permission_scan_locks">You must allow the permission in order to scan your locks</string>
+    <string name="serial_number">Serial number</string>
+    <string name="mac_id" translatable="false">MAC/ID</string>
+    <string name="validity_period">Validity period</string>
+    <string name="admin_password">Admin password</string>
+    <string name="lock_time">Lock time</string>
+    <string name="lock_update">Lock update</string>
+    <string name="send">Send</string>
+    <string name="share">Share</string>
+    <string name="note_key_frozen">(Your key has been frozen)</string>
+    <string name="note_key_not_become_valid">(Your key has not become valid)</string>
+    <string name="note_key_expired">(Your key has expired)</string>
+    <string name="note_clear_records">Sure to clear all the records?</string>
+    <string name="note_clear_records_fail">Clear records failed</string>
+    <string name="note_delete_record">Sure to delete the record?</string>
+    <string name="note_delete_record_fail">Delete record failed</string>
+    <string name="search_records">Search records</string>
+    <string name="enter_keyword">Enter keyword</string>
+    <string name="search">Search</string>
+    <string name="unlock_with_app">Unlock with app</string>
+    <string name="lock_with_app">Lock with app</string>
+    <string name="unlock_with_keyboard">Unlock with keyboard</string>
+    <string name="search_keyword_unlock_with_app" translatable="false">Unlock with app</string>
+    <string name="search_keyword_lock_with_app" translatable="false">Lock with app</string>
+    <string name="search_keyword_unlock_with_keyboard" translatable="false">Unlock with keyboard</string>
+    <string name="choose_key_type">Choose key type</string>
+    <string name="period">Period</string>
+    <string name="receiver">Receiver</string>
+    <string name="receiver_account">Receiver\'s account</string>
+    <string name="name_the_key">Name the key</string>
+    <string name="name_the_passcode">Name the password</string>
+    <string name="start_time">Start time</string>
+    <string name="end_time">End time</string>
+    <string name="authorize_admin">Authorize admin</string>
+    <string name="note_make_sure_lock_nearby">Connect timeout. Please make sure the lock is nearby</string>
+    <string name="note_lock_reset_still_delete">This lock may have been reset. Continue to delete?</string>
+    <string name="note_one_time">One-time key is valid for 1 hour and can only be used once.</string>
+    <string name="note_permission">Please enable the permission in order to use the functions properly</string>
+    <string name="note_permission_contact">Please enable the contact permission in order to read the contacts</string>
+    <string name="note_permission_avatar">Please enable the permission in order to modify your avatar</string>
+    <string name="note_receiver_format">The receiver\'s account must be a mobile or an email</string>
+    <string name="note_time_start_greater_than_end">End time should be after Start time</string>
+    <string name="send_ekey_success">Send Bluetooth key successfully</string>
+    <string name="send_ekey_fail">Send Bluetooth key failed</string>
+    <string name="note_receive_user_not_found">Receive user not found</string>
+    <string name="note_send_ekey_to_registered_user">You can only send Bluetooth key to a registered user</string>
+    <string name="note_cannot_send_ekey_to_yourself">You cannot send Bluetooth key to yourself</string>
+    <string name="note_no_auth_send_ekey">You aren\'t authorized to send Bluetooth key</string>
+    <string name="note_cannot_exceed_expiration_send_ekey">Can\'t exceed your own expiration date</string>
+    <string name="cyclic_mode">Cyclic mode</string>
+    <string name="weekend">Weekend</string>
+    <string name="daily">Daily</string>
+    <string name="workday">Workday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="note_password_permanent">The password must be used at least once in 24 hours, or it will be invalid.</string>
+    <string name="note_password_period">The password must be used at least once within 24 hours after it takes effect, or it will be invalid.</string>
+    <string name="note_password_one_time">The password is valid for 6 hours and can only be used once.</string>
+    <string name="note_password_clear">The password is valid for 24 hours. After being entered on the lock, the previously used passwords will be invald.</string>
+    <string name="note_password_customize" tools:ignore="TypographyDashes">Manually enter 6-9 digits as the password. Can be added via phone bluetooth next to the lock.</string>
+    <string name="note_password_cyclic">The password must be used at least once within 24 hours after it takes effect, or it will be invalid.</string>
+    <string name="note_create_password_first">Please create password first</string>
+    <string name="create_password_fail">Create password failed</string>
+    <string name="pending">Pending</string>
+    <string name="clear_all_bluetooth_keys">Clear all Bluetooth keys</string>
+    <string name="reset_all_ekeys">Reset all Bluetooth keys</string>
+    <string name="send_bluetooth_key">Send Bluetooth key</string>
+    <string name="ekey_detail">Bluetooth key detail</string>
+    <string name="inactive">Inactive</string>
+    <string name="active">Active</string>
+    <string name="password_detail">Password detail</string>
+    <string name="sender">Sender</string>
+    <string name="sending_time">Sending time</string>
+    <string name="records">Records</string>
+    <string name="freeze">Freeze</string>
+    <string name="unfreeze">Unfreeze</string>
+    <string name="authorize">Authorize</string>
+    <string name="deauthorize">Deauthorize</string>
+    <string name="ekey_freeze_success">Freeze Bluetooth key successfully</string>
+    <string name="ekey_freeze_fail">Freeze Bluetooth key failed</string>
+    <string name="ekey_un_freeze_success">Unfreeze Bluetooth key successfully</string>
+    <string name="ekey_un_freeze_fail">Unfreeze Bluetooth key failed</string>
+    <string name="ekey_authorize_success">Authorize Bluetooth key successfully</string>
+    <string name="ekey_authorize_fail">Authorize Bluetooth key failed</string>
+    <string name="ekey_un_authorize_success">Deauthorize Bluetooth key successfully</string>
+    <string name="ekey_un_authorize_fail">Deauthorize Bluetooth key failed</string>
+    <string name="note_delete_ekey">The Bluetooth key will be DELETED when the user\'s APP connects to network</string>
+    <string name="ekey_delete_success">Delete Bluetooth key successfully</string>
+    <string name="ekey_delete_fail">Delete Bluetooth key failed</string>
+    <string name="passcode_delete_success">Delete password successfully</string>
+    <string name="passcode_delete_fail">Delete password failed</string>
+    <string name="note_pending_ekey_cannot_freeze">The key to be received cannot be frozen</string>
+    <string name="clear_all_passwords">Clear all passwords</string>
+    <string name="create_password">Create password</string>
+    <string name="automatic_locking">Automatic locking</string>
+    <string name="modify_lock_name">Modify lock name</string>
+    <string name="modify_name">Modify name</string>
+    <string name="modify_passcode">Modify password</string>
+    <string name="modify_passcode_name">Modify password name</string>
+    <string name="enter_password">Enter password</string>
+    <string name="note_passcode_format" tools:ignore="TypographyDashes">Note: 6-9 digits</string>
+    <string name="note_passcode_invalid">The password is invalid</string>
+    <string name="note_password_exist">This password already exists</string>
+    <string name="note_modify_admin_passcode_fail">Modify password failed</string>
+    <string name="select_group">Select group</string>
+    <string name="calibrate_time">Calibrate time</string>
+    <string name="calibrate_time_success">Calibrate time successfully</string>
+    <string name="check_for_update">Check for UPDATE</string>
+    <string name="no_update">No update</string>
+    <string name="set_time">Set time</string>
+    <string name="note_auto_lock">The lock will be locked automatically within this time</string>
+    <string name="seconds">seconds</string>
+    <string name="reading_auto_lock_time" tools:ignore="TypographyEllipsis">Reading automatic locking time...</string>
+    <string name="modify_auto_lock_success">Set automatic locking successfully</string>
+    <string name="modify_auto_lock_fail">Set automatic locking failed</string>
+    <string name="enter_account_passwprd">Please enter your account password</string>
+    <string name="note_pwd_invalid">The password is invalid</string>
+    <string name="note_confirm_delete">Sure to delete?</string>
+    <string name="note_delete_autu_key">Do you want to delete the authoried admin Bluetooth key?</string>
+    <string name="note_delete_sent_key">Delete all Bluetooth keys sent by it at the same time. The Bluetooth key cannot be restored after deletion.</string>
+    <string name="ekeys_associated_with_user">Bluetooth keys associated with user</string>
+    <string name="expiring_keys">Expiring keys</string>
+    <string name="note_passcode_reset_confirm">All passwords for this lock will be deleted. Sure to clear?</string>
+    <string name="note_passcode_reset_success">Reset passwords successfully</string>
+    <string name="note_passcode_reset_fail">Reset passwords failed</string>
+    <string name="note_ekey_reset_clear_confirm">All Bluetooth keys for this lock will be deleted. Sure to clear?</string>
+    <string name="reset">Reset</string>
+    <string name="note_no_passcode_in_list">There is no password in the list</string>
+    <string name="note_no_ekey_in_list">There is no Bluetooth key in the list</string>
+    <string name="note_ekey_reset_success">Reset Bluetooth keys successfully</string>
+    <string name="note_ekey_reset_fail">Reset Bluetooth keys failed</string>
+    <string name="note_bluetooth_keys_clear_success">Clear Bluetooth keys successfully</string>
+    <string name="note_bluetooth_keys_clear_fail">Clear Bluetooth keys failed</string>
+    <string name="unlocked_successfully">Unlocked successfully</string>
+    <string name="locked_successfully">Locked successfully</string>
+    <string name="enter_customized_passcode">Enter customized password</string>
+    <string name="passcode_format_6_9_digits" tools:ignore="TypographyDashes">6-9 digits in length</string>
+    <string name="note_passcode_customize_fail">Add password failed</string>
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
+    <string name="gateway_add">Add gateway</string>
+    <string name="gateway_choose">Choose gateway</string>
+    <string name="gateway_config">Configure network</string>
+    <string name="note_reconnect_power">Reconnect the Power</string>
+    <string name="note_light_flash_click_next">Click Next when the light flashes alternately</string>
+    <string name="enter_wifi_name">Enter WiFi name</string>
+    <string name="enter_wifi_pwd">Enter WiFi password</string>
+    <string name="wifi_name">WiFi name</string>
+    <string name="wifi_pwd">WiFi password</string>
+    <string name="gateway_name">Gateway name</string>
+    <string name="enter_gateway_name">Enter gateway name</string>
+    <string name="note_add_gateway_wifi_connected">The gateway can only be added when the phone is connected to WiFi</string>
+    <string name="enable_bluetooth">Please enable phone Bluetooth first</string>
+    <string name="safety_verification">Safety verification</string>
+    <string name="verify">Verify</string>
+    <string name="note_safety_verifiction_send_code">Please click to get the verification code. The verification code will be sent to</string>
+    <string name="modify_period">Modify period</string>
+    <string name="note_modify_period_success">Modify peroid successfully</string>
+    <string name="note_modify_period_fail">Modify peroid failed</string>
+    <string name="password">Password</string>
+    <string name="enter_passcode_name">Enter password name</string>
+    <string name="note_passcode_modify_success">Modify password successfully</string>
+    <string name="note_passcode_modify_fail">Modify password failed</string>
+    <string name="operation_success">Operation successfully</string>
+    <string name="operation_fail">Operation failed, please try later</string>
+    <string name="note_unused_passcode_cannot_be_modified">Unused password cannot be modified</string>
+    <string name="choose_avatar">Choose avatar</string>
+    <string name="take_a_photo">Take a photo</string>
+    <string name="choose_from_album">Choose from album</string>
+    <string name="rename">Rename</string>
+    <string name="locks_connected_to_gateway">Lock(s) connected to this gateway</string>
+    <string name="signal_strong">Signal strong</string>
+    <string name="signal_medium">Signal medium</string>
+    <string name="signal_weak">Signal weak</string>
+    <string name="note_no_such_gateway_exists">No such Gateway exists</string>
+    <string name="connect_timeout">Connect timeout</string>
+    <string name="note_gateway_init_success">Gateway init successfully</string>
+    <string name="note_gateway_init_fail">Gateway init failed</string>
+    <string name="note_gateway_donot_exists">No such gateway exists, please configure the gateway first</string>
+    <string name="ic_card_add_bluetooth">Bluetooth add card</string>
+    <string name="ic_card_add_keyboard">Keyboard add card</string>
+    <string name="ic_card_upload">Upload IC cards</string>
+    <string name="ic_card_add">Add IC card</string>
+    <string name="ic_card_clear">Clear all cards</string>
+    <string name="keyboard_clear_cards">Keyboard clear cards</string>
+    <string name="gateway_delete_success">Delete gateway successfully</string>
+    <string name="note_delete_gateway">The gateway will be DELETED when the user\'s APP connects to network</string>
+    <string name="note_lock_not_found">Lock not found</string>
+    <string name="read_lock_time">Read lock time</string>
+    <string name="read_lock_time_fail">Failed to read</string>
+    <string name="calibrate_lock_time">Calibrate lock time</string>
+    <string name="calibrate_lock_time_fail">Failed to calibrate</string>
+    <string name="unlock_remotely">Unlock remotely</string>
+    <string name="reading_lock_time" tools:ignore="TypographyEllipsis">Reading lock time...</string>
+    <string name="calibrating_lock_time" tools:ignore="TypographyEllipsis">Calibrating lock time...</string>
+    <string name="freeze_lock">Freeze lock</string>
+    <string name="unfreeze_lock">Unfreeze lock</string>
+    <string name="note_unlock_remotely">Unlock remotely via the gateway?</string>
+    <string name="unlock">Unlock</string>
+    <string name="start_camera_fail">Start camera failed</string>
+    <string name="configuring_gateway" tools:ignore="TypographyEllipsis">Configuring gateway...</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="note_remote_unlock_instruction">This feature allows you to unlock the smart lock remotely via a gateway. This feature can ONLY be turned ON or OFF via bluetooth near the lock.</string>
+    <string name="turn_on">Turn On</string>
+    <string name="turn_off">Turn Off</string>
+    <string name="current_mode">Current mode:</string>
+    <string name="allow_remote_unlocking">Allow remote unlocking</string>
+    <string name="card_number">Card No:</string>
+    <string name="note_delete_account_remove_lock">Please remove the locks first in the lock settings</string>
+    <string name="note_lock_within_bluetooth">Make sure your lock is within Bluetooth</string>
+    <string name="enter_characters_on_lock_keyboard">Please enter the characters on the lock keyboard</string>
+    <string name="synchronize_data">Synchronize data</string>
+    <string name="ic_card_keyboard_command_add" translatable="false">*85#</string>
+    <string name="ic_card_keyboard_command_clear" translatable="false">*69#</string>
+    <string name="note_ic_card_keyboard_add">Please put the IC card in the card reading area and enter the characters above on the lock keyboard. Click \"Synchronize data\" after the IC card is added. Make sure your lock is within Bluetooth.</string>
+    <string name="note_ic_card_keyboard_clear">Please note that all IC cards of this lock will be cleared after you enter the characters above on the lock keyboard. Click \"Synchronize data\" after the IC card is cleared. Make sure your lock is within Bluetooth.</string>
+    <string name="note_ic_card_upload">Upload IC cards means reading valid IC cards from the lock and upload them to the Server. Please turn on your phone\'s Bluetooth and make sure it is near the lock.</string>
+    <string name="upload">Upload</string>
+    <string name="name_the_ic_card">Name the IC card</string>
+    <string name="note_ic_card_has_been_added">This card has been added</string>
+    <string name="try_to_connect_the_lock" tools:ignore="TypographyEllipsis">Try to connect the lock...</string>
+    <string name="lock_connected_to_add_ic_card">Connected, place the card against the card reader sensor on the smart lock.</string>
+    <string name="note_ic_card_delete">Make sure the door lock is nearby and all IC Cards will be cleared</string>
+    <string name="note_phone_has_been_used">The phone number has been used</string>
+    <string name="note_email_has_been_used">The email has been used</string>
+    <string name="note_account_bind_fail">Bind failed</string>
+    <string name="note_login_new_device">Your account is logged in on another device, please log in again.</string>
+    <string name="lock_type_deadbolt">Deadbolt</string>
+    <string name="lock_type_keybox">Keybox</string>
+    <string name="lock_type_mortise">Mortise</string>
+    <string name="go_to_login">Go to login</string>
+    <string name="note_login_fingerprint_verification">Place your finger on the fingerprint sensor to complete the verification.</string>
+    <string name="touch_id_for_populife">Touch ID for \"Populife\"</string>
+    <string name="try_again">Try Again</string>
+    <string name="customize">Customize</string>
+    <string name="click_again_to_exit">Click again to exit</string>
+    <string name="note_low_battery">The battery is low, please replace the battery in time</string>
+    <string name="lock_not_supported">This lock is not supported</string>
+    <string name="version_no" translatable="false">Version: %s</string>
+    <string name="vibration_feedback">Vibration feedback</string>
+    <string name="sync_password_status">Sync password status</string>
+    <string name="note_sync_password_status">Sync to update password status. Make sure your phone is near the lock.</string>
+    <string name="sync_operate_records">Sync records</string>
+    <string name="note_sync_operate_records">Sync lock operation records. Make sure your phone is near the lock.</string>
+    <string name="sync_battery">Sync lock battery</string>
+    <string name="note_sync_battery">Sync to update lock battery. Make sure your phone is near the lock.</string>
+    <string name="lock_sound">Lock sound</string>
+    <string name="note_lock_sound_instruction">By turning ON lock sound, you can hear the sound of lock when operating, including reminding of pressing buttons, unlocking and locking, and wrong password.</string>
+    <string name="note_scan_device_no_result">Please touch the lock keypad to activate the lock, and make sure your phone is near the lock.</string>
+    <string name="note_lock_add_guide_keybox_open">During adding the Keybox, please keep the Keybox OPEN all the time as shown in the picture.</string>
+    <string name="note_confirm_keybox_open">The Keybox is open as the guide above</string>
+    <string name="note_confirm_lock_keypad_lit_up">The lock keypad is lit up as the guide above</string>
+    <string name="note_keybox_default_password">In the factory mode, the default password of the Keybox is 1234. To unlock the Keybox, enter 1234 on the keypad and end with # or the UNLOCK button on the bottom right.</string>
+    <string name="note">Note</string>
+    <string name="note_create_customize_password">If you want to create your own password, please select \"Customize\" type on top left. Otherwise, you can get a random password by othe types.\n\nIf you are creating a \"Customize\" password, make sure the phone Bluetooth is enabled and your phone is near the lock.</string>
+    <string name="user_terms_privacy_policy">User Terms and Privacy Policy</string>
+    <string name="note_user_terms_privacy_policy">Thank you for using Populife. Please read the User Terms and Privacy Policy carefully before using it. Click Agree to continue if you agree with all the policies, or click Disagree to exit.</string>
+    <string name="agree">Agree</string>
+    <string name="disagree">Disagree</string>
+    <string name="note_sign_up_agree_user_terms">By signing up, you agree to our User Terms and Privacy Policy</string>
+
+    <!-- 密码分享 -->
+    <string name="hello_here_is_your_passcode">Hello, here is your password:\ </string>
+    <string name="weekend_cyclic">Weekend Cyclic</string>
+    <string name="daily_cyclic">Daily Cyclic</string>
+    <string name="workday_cyclic">Workday Cyclic</string>
+    <string name="monday_cyclic">Monday Cyclic</string>
+    <string name="tuesday_cyclic">Tuesday Cyclic</string>
+    <string name="wednesday_cyclic">Wednesday Cyclic</string>
+    <string name="thursday_cyclic">Thursday Cyclic</string>
+    <string name="friday_cyclic">Friday Cyclic</string>
+    <string name="saturday_cyclic">Saturday Cyclic</string>
+    <string name="sunday_cyclic">Sunday Cyclic</string>
+    <string name="symbol_colon">:\ </string>
+    <string name="use_it_within_6_hours">. Use it within 6 hours</string>
+    <string name="use_it_within_24_hours">. Use it within 24 hours</string>
+    <string name="type">Type</string>
+    <string name="to_unlock_press_no_passcode_no">To Unlock - Press # PASSWORD #</string>
+    <string name="note_no_key_bottom_right_dont_share_passcode">Notes: The # key is the UNLOCKING key at the bottom right. Please don\'t share the password with anyone.</string>
+    <string name="note_use_passcode_once_before">Notes: The Password should be used at least ONCE before\ </string>
+    <string name="no_key_bottom_right_dont_share_passcode">. The # key is the UNLOCKING key at the bottom right. Please don\'t share the password with anyone.</string>
+
+    <!-- 客服，常见问题 -->
+    <!-- 分类 -->
+    <string name="common_question_group_lock">Lock</string>
+    <string name="common_question_group_keyboard">Keyboard</string>
+    <string name="common_question_group_password">Password</string>
+    <string name="common_question_group_app_unlocking">APP unlocking</string>
+    <string name="common_question_group_others">Others</string>
+    <!-- 标题 -->
+    <!-- Lock -->
+    <string name="common_question_title_lock_0">How to use smart locks and the APP?</string>
+    <string name="common_question_title_lock_1">How to add a lock?</string>
+    <string name="common_question_title_lock_2">What unlocking methods does the smart lock support?</string>
+    <string name="common_question_title_lock_3">How to calibrate the lock time?</string>
+    <!-- Keyboard -->
+    <string name="common_question_title_keyboard_0">Why does the lock keyboard light up and then darken immediately?</string>
+    <string name="common_question_title_keyboard_1">Why does the lock keyboard flash for a few times after it lights up?</string>
+    <string name="common_question_title_keyboard_2">Why is the lock keyboard not lit?</string>
+    <!-- Password -->
+    <string name="common_question_title_password_0">What is the maximum validity period of the password?</string>
+    <string name="common_question_title_password_1">If the mobile phone and the lock are not in the same area, which time zone is valid for validity period?</string>
+    <string name="common_question_title_password_2">Some locks have a password validity period that can specify the start and end time, while some don\'t?</string>
+    <string name="common_question_title_password_3">Why can\'t the password open the lock?</string>
+    <!-- App unlocking -->
+    <string name="common_question_title_app_unlocking_0">Can I unlock the APP when there is no network?</string>
+    <string name="common_question_title_app_unlocking_1">Why can\'t the APP open the lock?</string>
+    <!-- Others -->
+    <string name="common_question_title_others_0">How to make the key and password in use invalid?</string>
+    <string name="common_question_title_others_1">What are the functions of the gateway?</string>
+
+    <string name="unit_year">y</string>
+    <string name="unit_month">M</string>
+    <string name="unit_day">d</string>
+    <string name="unit_hour">H</string>
+    <string name="unit_minute">m</string>
+    <string name="unit_second">s</string>
+
+</resources>

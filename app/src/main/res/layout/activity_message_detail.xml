@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/ll_message_detail"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_message_detail_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="16dp"
+            android:textColor="@color/text_gray_medium"
+            android:textSize="14sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/iv_item_message"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_circle_main_color"
+                android:padding="8dp"
+                android:src="@drawable/ic_notification"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tv_message_detail_content"
+                    android:layout_alignLeft="@+id/tv_message_detail_content"
+                    android:layout_alignRight="@+id/tv_message_detail_content"
+                    android:layout_alignTop="@+id/tv_message_detail_content"
+                    android:background="@drawable/msg_pop_left"/>
+
+                <TextView
+                    android:id="@+id/tv_message_detail_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="24dp"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="24dp"
+                    android:textColor="@color/text_gray_medium"
+                    android:textSize="16sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

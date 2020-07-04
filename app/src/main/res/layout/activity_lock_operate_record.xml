@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:onClick="finishCurrentActivity">
+
+            <ImageButton
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:background="@null"
+                android:onClick="finishCurrentActivity"
+                android:src="@drawable/ic_back" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/lock_action_records"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_lock_operate_record_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="@string/clear"
+            android:textColor="@color/white"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/iv_lock_operate_record_sync"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/tv_lock_operate_record_clear"
+            android:padding="12dp"
+            android:src="@drawable/ic_sync" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_lock_operate_record_sync"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:padding="12dp"-->
+<!--            android:src="@drawable/ic_sync" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_lock_operate_record_clear"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_toLeftOf="@id/iv_lock_operate_record_sync"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="12dp"-->
+<!--            android:text="@string/clear"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="14sp" />-->
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_background"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/tv_lock_operate_records_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_white_round"
+            android:drawableLeft="@drawable/ic_search_black_24dp"
+            android:drawablePadding="8dp"
+            android:padding="8dp"
+            android:text="@string/search_records"
+            android:textColor="@color/text_gray_light"
+            android:textSize="14sp"/>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ExpandableListView
+                android:id="@+id/eplv_lock_operate_records"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:childDivider="@color/gray_line"
+                android:divider="@color/gray_line"
+                android:dividerHeight="0.5dp"
+                android:listSelector="@color/transparent"
+                android:overScrollMode="never"
+                android:paddingLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+                android:scrollbars="none" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <include layout="@layout/layout_no_data" />
+
+    </FrameLayout>
+
+</LinearLayout>

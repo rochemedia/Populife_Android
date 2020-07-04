@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.populstay.populife.ui.NoScrollViewPager
+        android:id="@+id/nsv_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <include layout="@layout/layout_view_line"/>
+
+    <RadioGroup
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@color/gray_nav_bg"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/nav_main_lock"
+            style="@style/style_bottom_nav_radio_button"
+            android:checked="true"
+            android:drawableTop="@drawable/ic_nav_lock"
+            android:text="@string/nav_tab_lock"/>
+
+        <RadioButton
+            android:id="@+id/nav_main_general"
+            style="@style/style_bottom_nav_radio_button"
+            android:drawableTop="@drawable/ic_nav_general"
+            android:text="@string/nav_tab_general"/>
+
+        <RadioButton
+            android:id="@+id/nav_main_me"
+            style="@style/style_bottom_nav_radio_button"
+            android:drawableTop="@drawable/ic_nav_me"
+            android:text="@string/nav_tab_me"/>
+
+    </RadioGroup>
+
+</LinearLayout>

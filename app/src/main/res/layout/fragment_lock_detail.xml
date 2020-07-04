@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_lock_detail_add"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lock_add"
+                    android:textColor="@color/text_main"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/iv_lock_detail_add"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/bg_add_lock_unlock"
+                    android:padding="50dp"
+                    android:src="@drawable/img_lock_add"
+                    android:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="@string/phone_near_lock"
+                    android:textColor="@color/text_main"
+                    android:textSize="14sp" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="3" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_lock_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_lock_detail_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:paddingLeft="32dp"
+                        android:paddingRight="32dp"
+                        android:textColor="@color/text_main"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_lock_detail_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="32dp"
+                        android:paddingRight="32dp"
+                        android:textColor="@color/text_gray_dark"
+                        android:textSize="14sp" />
+
+                    <include layout="@layout/layout_space_vertical" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_lock_detail_unlocking"
+                            android:layout_width="180dp"
+                            android:layout_height="180dp"
+                            android:layout_gravity="center_horizontal"
+                            android:visibility="gone">
+
+                            <com.gcssloop.widget.ArcSeekBar
+                                android:id="@+id/arc_seek_bar_unlocking"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:visibility="gone"
+                                app:arc_colors="@array/arc_colors_locking"
+                                app:arc_open_angle="300"
+                                app:arc_rotate_angle="120"
+                                app:arc_thumb_color="@color/transparent"
+                                app:arc_width="6dp" />
+
+                            <ImageView
+                                android:id="@+id/iv_lock_detail_unlocking"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="6dp"
+                                android:src="@drawable/ic_unlock" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_lock_detail_unlock_lock"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="120dp"
+                                android:layout_height="120dp">
+
+                                <com.gcssloop.widget.ArcSeekBar
+                                    android:id="@+id/arc_seek_bar_unlock"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:visibility="gone"
+                                    app:arc_colors="@array/arc_colors_locking"
+                                    app:arc_open_angle="300"
+                                    app:arc_rotate_angle="120"
+                                    app:arc_thumb_color="@color/transparent"
+                                    app:arc_width="4dp" />
+
+                                <ImageView
+                                    android:id="@+id/iv_lock_detail_unlock"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="4dp"
+                                    android:src="@drawable/ic_unlock" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                android:layout_marginTop="24dp">
+
+                                <com.gcssloop.widget.ArcSeekBar
+                                    android:id="@+id/arc_seek_bar_lock"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:visibility="gone"
+                                    app:arc_colors="@array/arc_colors_locking"
+                                    app:arc_open_angle="300"
+                                    app:arc_rotate_angle="120"
+                                    app:arc_thumb_color="@color/transparent"
+                                    app:arc_width="4dp" />
+
+                                <ImageView
+                                    android:id="@+id/iv_lock_detail_lock"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="4dp"
+                                    android:src="@drawable/ic_lock" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                    <include layout="@layout/layout_space_vertical" />
+
+                    <com.populstay.populife.ui.MyGridView
+                        android:id="@+id/gv_lock_detail_action"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:horizontalSpacing="8dp"
+                        android:numColumns="4"
+                        android:overScrollMode="never"
+                        android:padding="16dp"
+                        android:scrollbars="none" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="16dp"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_lock_detail_battery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="12dp"
+                        android:src="@drawable/ic_battery_100" />
+
+                    <ImageView
+                        android:id="@+id/iv_lock_detail_remote_unlock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_unlock_gateway" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

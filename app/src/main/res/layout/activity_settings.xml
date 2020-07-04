@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar"/>
+
+    <LinearLayout
+        android:id="@+id/ll_settings_lock_user"
+        style="@style/list_item_overall"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            style="@style/list_item_title"
+            android:text="@string/lock_users"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_arrow_more_detail"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_view_line"/>
+
+    <LinearLayout
+        style="@style/list_item_overall"
+        android:id="@+id/ll_settings_lock_group">
+
+
+        <TextView
+            style="@style/list_item_title"
+            android:text="@string/lock_group"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_arrow_more_detail"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/list_item_overall"
+        android:id="@+id/ll_settings_about"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            style="@style/list_item_title"
+            android:text="@string/about"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_arrow_more_detail"/>
+
+    </LinearLayout>
+
+</LinearLayout>
