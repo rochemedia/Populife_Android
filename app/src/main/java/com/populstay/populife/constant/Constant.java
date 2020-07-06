@@ -13,4 +13,7 @@ public class Constant {
 	public static final int ACCOUNT_TYPE_EMAIL = 2;
 
 	public static final String MEI_QIA_APP_KEY = "ae9801332af752b9d267531885ad6f39";
+
+	// false 正式环境，true测试环境
+	public static final boolean DEBUG = true;
 }

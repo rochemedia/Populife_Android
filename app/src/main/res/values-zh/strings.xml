@@ -406,7 +406,6 @@
     <string name="note_user_terms_privacy_policy">感谢使用波普生活。在使用前，请仔细阅读用户协议和隐私政策，并点击同意继续使用，否则点击不同意退出。</string>
     <string name="agree">同意</string>
     <string name="disagree">不同意</string>
-    <string name="note_sign_up_agree_user_terms">注册即表示您同意用户协议和隐私政策</string>
 
     <!-- 密码分享 -->
     <string name="hello_here_is_your_passcode">您好，您的密码是：</string>

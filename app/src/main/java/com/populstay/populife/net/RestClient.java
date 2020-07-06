@@ -10,6 +10,7 @@ import com.populstay.populife.net.callback.RequestCallbacks;
 import com.populstay.populife.net.download.DownloadHandler;
 import com.populstay.populife.ui.loader.LoaderStyle;
 import com.populstay.populife.ui.loader.PeachLoader;
+import com.populstay.populife.util.log.PeachLogger;
 
 import java.io.File;
 import java.util.WeakHashMap;
@@ -84,6 +85,8 @@ public class RestClient {
 			if (LOADER_STYLE != null) {
 				PeachLoader.showLoading(CONTEXT, LOADER_STYLE);
 			}
+
+		  PeachLogger.d("Http", "request--url=" + URL + ", PARAMS=" + (null != PARAMS ? PARAMS.toString() : ""));
 
 			switch (method) {
 				case GET:

@@ -5,6 +5,6 @@
 
     <size android:width="1dp"/>
 
-    <solid android:color="@color/white"/>
+    <solid android:color="@color/edit_focus_line"/>
 
 </shape>

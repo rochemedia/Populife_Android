@@ -2,6 +2,8 @@ package com.populstay.populife.util.string;
 
 
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
+import android.util.Log;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -50,8 +52,29 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean isEmail(String email) {
-		String str = "^([a-zA-Z0-9]*[-_.]?[a-zA-Z0-9]+)*@([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)+[\\.][A-Za-z]{2,3}([\\.][A-Za-z]{2})?$";
-		Pattern p = Pattern.compile(str);
+		// 邮箱地址为空
+		if (TextUtils.isEmpty(email)) {
+			return false;
+		}
+		if (!email.contains("@")) {
+			return false;
+		}
+		// 邮箱地址长度超过50个字符
+		if (email.length() > 50) {
+			return false;
+		}
+		// 邮箱地址最后一位是"."
+		if (email.endsWith(".")) {
+			return false;
+		}
+		// 邮箱地址中包含有一个以上的连续的"."，此校验主要是为了防止用户多输入一个"."
+		if (email.contains("..")) {
+			return false;
+		}
+
+		// 前面是优化逻辑，做初步判断，毕竟复杂的正则比较耗时
+		String strPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$";
+		Pattern p = Pattern.compile(strPattern);
 		Matcher m = p.matcher(email);
 		return m.matches();
 	}
@@ -157,6 +180,14 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean isMobileNum(String mobiles) {
+		if (TextUtils.isEmpty(mobiles)){
+			return false;
+		}
+		int len = mobiles.length();
+		if (len > 11 || len <11){
+			return false;
+		}
+
 		Pattern p = Pattern.compile("^((16[0-9])|(19[0-9])|(13[0-9])|(14[0-9])|(15[^4,\\D])|(17[0-9])|(18[0-9]))\\d{8}$");
 		Matcher m = p.matcher(mobiles);
 		return m.matches();
