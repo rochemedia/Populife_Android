@@ -13,6 +13,7 @@ import android.util.Log;
 import android.webkit.WebView;
 
 import com.populstay.populife.activity.MainActivity;
+import com.populstay.populife.activity.SignActivity;
 import com.populstay.populife.base.BaseApplication;
 
 import java.util.Locale;
@@ -177,6 +178,13 @@ public class LanguageUtil {
 		// 杀掉进程，如果是跨进程则杀掉当前进程
 //        android.os.Process.killProcess(android.os.Process.myPid());
 //        System.exit(0);
+	}
+
+	public static void toRestartSignActvity(Context context) {
+		Intent intent = new Intent(context, SignActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		intent.putExtra(SignActivity.KEY_ACCOUNT_SIGN_ACTION_TYPE, SignActivity.VAL_ACCOUNT_SIGN_UP);
+		context.startActivity(intent);
 	}
 
 	/**

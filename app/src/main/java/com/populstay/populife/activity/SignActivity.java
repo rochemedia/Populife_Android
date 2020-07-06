@@ -4,10 +4,10 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,6 +24,8 @@ import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.permission.PermissionListener;
 import com.populstay.populife.sign.ISignListener;
 import com.populstay.populife.sign.SignHandler;
+import com.populstay.populife.ui.widget.exedittext.ExEditText;
+import com.populstay.populife.ui.widget.extextview.ExTextView;
 import com.populstay.populife.util.activity.ActivityCollector;
 import com.populstay.populife.util.device.DeviceUtil;
 import com.populstay.populife.util.locale.LanguageUtil;
@@ -44,22 +46,25 @@ import java.util.WeakHashMap;
  */
 public class SignActivity extends BaseActivity implements View.OnClickListener, ISignListener, ITimerListener {
 
+	public static final String TAG = SignActivity.class.getSimpleName();
+
 	public static final String VAL_ACCOUNT_SIGN_IN = "val_account_sign_in";
+	public static final String VAL_ACCOUNT_SIGN_IN_BY_VERIFY_CODE = "val_account_sign_in_by_verify_code";
 	public static final String VAL_ACCOUNT_SIGN_UP = "val_account_sign_up";
 	public static final String VAL_ACCOUNT_RESET_PWD = "val_account_reset_pwd";
+	public static final String VAL_ACCOUNT_RESET_PWD_GET_VERIFY_CODE = "val_account_reset_pwd_get_verify_code";
 	public static final String KEY_ACCOUNT_SIGN_ACTION_TYPE = "key_account_sign_action_type";
 
 	private RelativeLayout mRlBack;
-	private TextView mTvPageTitle, mTvPageAction, mTvPhone, mTvEmail, mTvPhoneTab, mTvEmailTab,
-			mTvGetCode, mTvActionBtn, mTvForgetPwd, mTvUserTerms;
-	private LinearLayout mLlCountry, mLlVerification;
+	private TextView mTvPageTitle, mTvPageAction, mTvActionBtn, mTvForgetPwd, mTvSwitchSignType,mTvSwitchLanguage;
+	private ExTextView mTvUserTerms;
 	private CountryCodePicker mCountryCodePicker;
-	private EditText mEtUserName, mEtPwd, mEtCode;
+	private ExEditText mEtUserName, mEtPwd, mEtConfirmPwd, mEtCode;
 
 	private BaseCountDownTimer mTimer = null;
 	private ISignListener mISignListener = this;
-	private String mAccountActionType = VAL_ACCOUNT_SIGN_IN;
-	private int mSignType = Constant.ACCOUNT_TYPE_EMAIL;
+	private String mAccountActionType = VAL_ACCOUNT_SIGN_UP;
+	private int mSignType = Constant.ACCOUNT_TYPE_PHONE;
 
 	/**
 	 * 启动当前 activity
@@ -79,6 +84,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 		setContentView(R.layout.activity_sign);
 
 		mAccountActionType = getIntent().getStringExtra(KEY_ACCOUNT_SIGN_ACTION_TYPE);
+		PeachLogger.d(TAG, "mAccountActionType=" + mAccountActionType);
 
 		initView();
 		initListener();
@@ -88,21 +94,16 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 		mRlBack = findViewById(R.id.page_back);
 		mTvPageTitle = findViewById(R.id.page_title);
 		mTvPageAction = findViewById(R.id.page_action);
-		mTvPhone = findViewById(R.id.tv_sign_phone);
-		mTvEmail = findViewById(R.id.tv_sign_email);
-		mTvPhoneTab = findViewById(R.id.tv_sign_phone_tab);
-		mTvEmailTab = findViewById(R.id.tv_sign_email_tab);
-		mTvGetCode = findViewById(R.id.tv_sign_get_code);
 		mTvActionBtn = findViewById(R.id.tv_sign_action_btn);
 		mTvForgetPwd = findViewById(R.id.tv_forget_pwd);
+		mTvSwitchSignType = findViewById(R.id.tv_switch_sign_type);
+		mTvSwitchLanguage = findViewById(R.id.tv_switch_language);
 		mTvUserTerms = findViewById(R.id.tv_sign_user_terms);
-		mLlCountry = findViewById(R.id.ll_sign_country);
-		mLlVerification = findViewById(R.id.ll_sign_verification_code);
-		mCountryCodePicker = findViewById(R.id.cpp_login);
 		mEtUserName = findViewById(R.id.et_sign_user_name);
+		mCountryCodePicker = mEtUserName.findViewById(R.id.cc_picker);
 		mEtPwd = findViewById(R.id.et_sign_pwd);
+		mEtConfirmPwd = findViewById(R.id.et_confirm_pwd);
 		mEtCode = findViewById(R.id.et_sign_verification_code);
-
 		initUI(mAccountActionType);
 
 		setCountryInfo();
@@ -138,31 +139,62 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 	 *                          VAL_ACCOUNT_RESET_PWD	重置密码
 	 */
 	private void initUI(String accountActionType) {
+		mRlBack.setVisibility(View.VISIBLE);
+		mTvPageAction.setVisibility(View.GONE);
+		mTvSwitchSignType.setVisibility(View.GONE);
+		mTvForgetPwd.setVisibility(View.GONE);
+		mEtConfirmPwd.setVisibility(View.GONE);
+		mTvSwitchLanguage.setVisibility(View.GONE);
 		switch (accountActionType) {
 			case VAL_ACCOUNT_SIGN_IN:
-				mRlBack.setVisibility(View.GONE);
-				mTvPageTitle.setText(R.string.sign_in);
 				mTvPageAction.setText(R.string.sign_up);
+				mTvPageTitle.setText(R.string.sign_in);
 				mTvActionBtn.setText(R.string.sign_in);
-				mLlVerification.setVisibility(View.GONE);
+				mEtCode.setVisibility(View.GONE);
+				mEtPwd.setVisibility(View.VISIBLE);
 				mTvUserTerms.setVisibility(View.GONE);
+				mTvSwitchSignType.setVisibility(View.VISIBLE);
+				mTvForgetPwd.setVisibility(View.VISIBLE);
+				mTvSwitchSignType.setText(getResources().getString(R.string.sign_in_by_verify_code));
+				break;
+
+			case VAL_ACCOUNT_SIGN_IN_BY_VERIFY_CODE:
+				mTvPageAction.setText(R.string.sign_up);
+				mTvPageTitle.setText(R.string.sign_in_by_verify_code);
+				mTvActionBtn.setText(R.string.sign_in);
+				mEtCode.setVisibility(View.VISIBLE);
+				mEtPwd.setVisibility(View.GONE);
+				mTvUserTerms.setVisibility(View.GONE);
+				mTvSwitchSignType.setText(getResources().getString(R.string.sign_in));
 				break;
 
 			case VAL_ACCOUNT_SIGN_UP:
+				mRlBack.setVisibility(View.GONE);
+				mTvPageAction.setVisibility(View.VISIBLE);
+				mTvPageAction.setText(R.string.sign_in);
 				mTvPageTitle.setText(R.string.sign_up);
-				mTvPageAction.setVisibility(View.GONE);
 				mTvActionBtn.setText(R.string.sign_up);
-				mTvForgetPwd.setVisibility(View.GONE);
+				mTvSwitchSignType.setVisibility(View.GONE);
+				mEtConfirmPwd.setVisibility(View.VISIBLE);
+				mTvSwitchLanguage.setVisibility(View.VISIBLE);
 				break;
 
-			case VAL_ACCOUNT_RESET_PWD:
+			case VAL_ACCOUNT_RESET_PWD_GET_VERIFY_CODE:
+				mEtPwd.setVisibility(View.GONE);
+				mEtConfirmPwd.setVisibility(View.GONE);
 				mTvPageTitle.setText(R.string.reset_pwd);
-				mTvPageAction.setVisibility(View.GONE);
-				mTvActionBtn.setText(R.string.reset_pwd);
-				mTvForgetPwd.setVisibility(View.GONE);
+				mTvActionBtn.setText(R.string.next_step);
 				mTvUserTerms.setVisibility(View.GONE);
 				break;
-
+			case VAL_ACCOUNT_RESET_PWD:
+				mEtPwd.setVisibility(View.VISIBLE);
+				mEtConfirmPwd.setVisibility(View.VISIBLE);
+				mTvPageTitle.setText(R.string.reset_pwd);
+				mTvActionBtn.setText(R.string.reset_pwd);
+				mTvUserTerms.setVisibility(View.GONE);
+				mEtCode.setVisibility(View.GONE);
+				mEtUserName.setVisibility(View.GONE);
+				break;
 			default:
 				break;
 		}
@@ -170,39 +202,183 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
 	private void initListener() {
 		mTvPageAction.setOnClickListener(this);
-		mTvPhone.setOnClickListener(this);
-		mTvEmail.setOnClickListener(this);
-		mTvGetCode.setOnClickListener(this);
 		mTvActionBtn.setOnClickListener(this);
 		mTvForgetPwd.setOnClickListener(this);
-		mTvUserTerms.setOnClickListener(this);
+		mTvSwitchSignType.setOnClickListener(this);
+		mTvSwitchLanguage.setOnClickListener(this);
+		mEtUserName.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				setEnableGetCodeBtn();
+				setEnableActionBtn();
+				checkUserNameType();
+			}
+		});
+		mEtPwd.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				setEnableActionBtn();
+				//checkPwdValidity();
+			}
+		});
+		mEtConfirmPwd.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				setEnableActionBtn();
+				//checkPwdValidity();
+			}
+		});
+		mEtCode.getVerifictionCodeView().setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (checkCodeForm()) {
+					// 获取验证码
+					getVerificationCode();
+				}
+			}
+		});
+		mEtCode.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				setEnableActionBtn();
+			}
+		});
+
+		mTvUserTerms.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mTvUserTerms.setSelected(!mTvUserTerms.isSelected());
+				setEnableActionBtn();
+			}
+		});
+		mTvUserTerms.setText(getResources().getString(R.string.note_sign_up_agree_user_terms), 7, -1, new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				goToNewActivity(PrivacyPolicyActivity.class);
+			}
+		});
+	}
+
+	private void checkUserNameType(){
+		if (StringUtil.isMobileNum(mEtUserName.getTextStr())){
+			mSignType = Constant.ACCOUNT_TYPE_PHONE;
+		}else {
+			mSignType = Constant.ACCOUNT_TYPE_EMAIL;
+		}
+	}
+
+	private void checkPwdValidity(){
+		String pwd = mEtPwd.getTextStr();
+		String confirmPwd =  mEtConfirmPwd.getTextStr();
+		int lenPwd = pwd.length();
+		int lenConfirmPwd = confirmPwd.length();
+		if (lenPwd > 0 || lenConfirmPwd > 0){
+			mEtPwd.showEditCheckHint(lenPwd < 8, "密码至少8位");
+		}
+
+		if (lenConfirmPwd > 0){
+			mEtConfirmPwd.showEditCheckHint(!pwd.equals(confirmPwd), "两次录入密码不一致");
+		}
+	}
+
+	private void setEnableGetCodeBtn(){
+		mEtCode.getVerifictionCodeView().setEnabled(!TextUtils.isEmpty(mEtUserName.getTextStr()));
+	}
+
+	private void setEnableActionBtn() {
+		boolean isNotEmptyUserName = !TextUtils.isEmpty(mEtUserName.getTextStr());
+		boolean isNotEmptyPwd = !TextUtils.isEmpty(mEtPwd.getTextStr());
+		boolean isNotEmptyConfirmPwd = !TextUtils.isEmpty(mEtConfirmPwd.getTextStr());
+		boolean isNotEmptyCode = !TextUtils.isEmpty(mEtCode.getTextStr());
+		boolean isSelectedUserTerms = mTvUserTerms.isSelected();
+
+		boolean isEnable = false;
+
+		switch (mAccountActionType) {
+			case VAL_ACCOUNT_SIGN_IN:
+				isEnable = isNotEmptyUserName && isNotEmptyPwd;
+				break;
+			case VAL_ACCOUNT_SIGN_IN_BY_VERIFY_CODE:
+			case VAL_ACCOUNT_RESET_PWD_GET_VERIFY_CODE:
+				isEnable = isNotEmptyUserName && isNotEmptyCode;
+				break;
+			case VAL_ACCOUNT_SIGN_UP:
+				isEnable = isNotEmptyUserName && isNotEmptyPwd && isNotEmptyConfirmPwd && isNotEmptyCode && isSelectedUserTerms;
+				break;
+			case VAL_ACCOUNT_RESET_PWD:
+				isEnable = isNotEmptyPwd && isNotEmptyConfirmPwd;
+				break;
+		}
+
+		mTvActionBtn.setEnabled(isEnable);
 	}
 
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
 			case R.id.page_action:
-				actionStart(SignActivity.this, VAL_ACCOUNT_SIGN_UP);
-				break;
-
-			case R.id.tv_sign_phone:
-				changeSignType(Constant.ACCOUNT_TYPE_PHONE);
-				break;
-
-			case R.id.tv_sign_email:
-				changeSignType(Constant.ACCOUNT_TYPE_EMAIL);
-				break;
-
-			case R.id.tv_sign_get_code:
-				if (checkCodeForm()) {
-					// 获取验证码
-					getVerificationCode();
+				if (VAL_ACCOUNT_SIGN_IN_BY_VERIFY_CODE.equals(mAccountActionType) || VAL_ACCOUNT_SIGN_IN.equals(mAccountActionType)){
+					actionStart(SignActivity.this, VAL_ACCOUNT_SIGN_UP);
+				}else {
+					actionStart(SignActivity.this, VAL_ACCOUNT_SIGN_IN);
 				}
 				break;
+
+			//case R.id.tv_sign_phone:
+				//changeSignType(Constant.ACCOUNT_TYPE_PHONE);
+				//break;
+
+			//case R.id.tv_sign_email:
+				//changeSignType(Constant.ACCOUNT_TYPE_EMAIL);
+				//break;
 
 			case R.id.tv_sign_action_btn:
 				if (checkForm()) {
 					switch (mAccountActionType) {
+						case VAL_ACCOUNT_SIGN_IN_BY_VERIFY_CODE:
+							// 验证码登录
+							signInByCode();
+							break;
 						case VAL_ACCOUNT_SIGN_IN:
 							// 登录
 							signIn();
@@ -211,6 +387,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 						case VAL_ACCOUNT_SIGN_UP:
 							// 注册
 							signUp();
+							break;
+						case VAL_ACCOUNT_RESET_PWD_GET_VERIFY_CODE:
+							// 重置密码，获取验证码流程
+							gotoResetPwd();
 							break;
 
 						case VAL_ACCOUNT_RESET_PWD:
@@ -225,13 +405,16 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 				break;
 
 			case R.id.tv_forget_pwd:
-				actionStart(SignActivity.this, VAL_ACCOUNT_RESET_PWD);
+				actionStart(SignActivity.this, VAL_ACCOUNT_RESET_PWD_GET_VERIFY_CODE);
 				break;
-
-			case R.id.tv_sign_user_terms:
-				goToNewActivity(PrivacyPolicyActivity.class);
+			case R.id.tv_switch_sign_type:
+				actionStart(SignActivity.this, VAL_ACCOUNT_SIGN_IN.equals(mAccountActionType) ? VAL_ACCOUNT_SIGN_IN_BY_VERIFY_CODE : VAL_ACCOUNT_SIGN_IN);
 				break;
-
+			case R.id.tv_switch_language:
+				Intent intent = new Intent(this, ChangeLanguageActivity.class);
+				intent.putExtra(ChangeLanguageActivity.FROM_ENTRY_KEY,ChangeLanguageActivity.FROM_ENTRY_VAL_SIGN);
+				startActivity(intent);
+				break;
 			default:
 				break;
 		}
@@ -347,6 +530,58 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 					})
 					.build()
 					.post();
+		}else if (mAccountActionType.equals(VAL_ACCOUNT_SIGN_IN_BY_VERIFY_CODE)) {
+			// 验证码登录方式，获取验证码
+			WeakHashMap<String, Object> params = new WeakHashMap<>();
+			params.put("username", mSignType == Constant.ACCOUNT_TYPE_PHONE ? mCountryCodePicker.getSelectedCountryCodeWithPlus()
+					+ mEtUserName.getText().toString() : mEtUserName.getText().toString());
+			if (mSignType == Constant.ACCOUNT_TYPE_PHONE) { // 使用手机找回密码时，需传入国家编码（如：+86）
+				params.put("country", mCountryCodePicker.getSelectedCountryCodeWithPlus());
+			}
+			RestClient.builder()
+					.url(Urls.USER_LOGIN_BYCODE_SEND_CODE)
+					.params(params)
+					.success(new ISuccess() {
+						@Override
+						public void onSuccess(String response) {
+							PeachLogger.d("USER_LOGIN_BYCODE_SEND_CODE", response);
+							JSONObject result = JSON.parseObject(response);
+							int code = result.getInteger("code");
+							switch (code) {
+								case 200:
+									// 获取验证码成功，开始倒计时
+									startTimer();
+
+									if (mSignType == Constant.ACCOUNT_TYPE_PHONE) {
+										toast(R.string.note_success_get_verification_code_phone);
+									} else if (mSignType == Constant.ACCOUNT_TYPE_EMAIL) {
+										toast(R.string.note_success_get_verification_code_email);
+									}
+
+									break;
+
+								case 920:
+									if (mSignType == Constant.ACCOUNT_TYPE_PHONE) {
+										toast(R.string.note_phone_has_not_been_registered);
+									} else if (mSignType == Constant.ACCOUNT_TYPE_EMAIL) {
+										toast(R.string.note_email_has_not_been_registered);
+									}
+									break;
+
+								default:
+									toast(R.string.note_get_verification_code_fail);
+									break;
+							}
+						}
+					})
+					.failure(new IFailure() {
+						@Override
+						public void onFailure() {
+							toast(R.string.note_get_verification_code_fail);
+						}
+					})
+					.build()
+					.post();
 		}
 	}
 
@@ -366,6 +601,70 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 			mTimer.cancel();
 			mTimer = null;
 		}
+	}
+
+	/**
+	 * 验证码登录
+	 */
+	private void signInByCode() {
+		final String countryCode = mCountryCodePicker.getSelectedCountryCodeWithPlus();
+		final String userName = mSignType == Constant.ACCOUNT_TYPE_PHONE ? countryCode + mEtUserName.getText().toString()
+				: mEtUserName.getText().toString();
+		final String code = mEtCode.getText().toString();
+		RestClient.builder()
+				.url(Urls.USER_LOGIN_BYCODE)
+				.loader(SignActivity.this)
+				.params("username", userName)
+				.params("code", code)
+				.params("deviceId", DeviceUtil.getDeviceId(SignActivity.this))
+				.success(new ISuccess() {
+					@Override
+					public void onSuccess(final String response) {
+						PeachLogger.d("SIGN_IN", response);
+						JSONObject result = JSON.parseObject(response);
+						int code = result.getInteger("code");
+						switch (code) {
+							case 200:
+								JSONObject accountInfo = result.getJSONObject("data");
+								//处理异地登录
+								if ("test@populife.co".equals(userName) || "+8613201812820".equals(userName)) { // 测试账号，不检测异地登录，直接登录进入主页
+									//TODO mhs loginPwd 这个要干嘛，配置网关为什么要这个，验证码登录没有loginPwd怎么办?
+									//PeachPreference.putStr(PeachPreference.ACCOUNT_PWD, loginPwd);
+									SignHandler.onSignIn(response, mISignListener);
+								} else {
+									if (accountInfo.containsKey("phone") || accountInfo.containsKey("email")) {// 新设备登录，跳转到验证码验证页面
+										//TODO mhs loginPwd 这个要干嘛
+										LoginVerifyActivity.actionStart(SignActivity.this, mSignType, countryCode, userName, response, "");
+									} else {//没有异地登录（依旧在同一设备登录）
+										//TODO mhs loginPwd 这个要干嘛
+										//PeachPreference.putStr(PeachPreference.ACCOUNT_PWD, loginPwd);
+										SignHandler.onSignIn(response, mISignListener);
+									}
+								}
+								break;
+
+							case 910:
+								if (mSignType == Constant.ACCOUNT_TYPE_PHONE) {
+									toast(R.string.note_phone_or_pwd_incorrect);
+								} else if (mSignType == Constant.ACCOUNT_TYPE_EMAIL) {
+									toast(R.string.note_email_or_pwd_incorrect);
+								}
+								break;
+
+							default:
+								toast(R.string.note_sign_in_fail);
+								break;
+						}
+					}
+				})
+				.failure(new IFailure() {
+					@Override
+					public void onFailure() {
+						toast(R.string.note_sign_in_fail);
+					}
+				})
+				.build()
+				.post();
 	}
 
 	/**
@@ -461,8 +760,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 							case 952:
 								toast(R.string.note_email_has_been_registered);
 								break;
-
+							// 953验证码已过期,954验证码错误
 							case 953:
+							case 954:
 								toast(R.string.note_verifiction_code_invalid);
 								break;
 
@@ -480,6 +780,15 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 				})
 				.build()
 				.post();
+	}
+
+	/**
+	 * 跳转重置密码页面
+	 */
+	private void gotoResetPwd(){
+		if(!TextUtils.isEmpty(mEtCode.getText().toString().trim())){
+			actionStart(SignActivity.this, VAL_ACCOUNT_RESET_PWD);
+		}
 	}
 
 	/**
@@ -537,23 +846,19 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 			mSignType = signType;
 			switch (signType) {
 				case Constant.ACCOUNT_TYPE_PHONE:
-					mTvPhoneTab.setBackgroundColor(getResources().getColor(R.color.white));
-					mTvEmailTab.setBackgroundColor(getResources().getColor(R.color.transparent));
 
 					mEtUserName.setHint(getString(R.string.enter_phone_num));
-					mEtUserName.setInputType(InputType.TYPE_CLASS_NUMBER);
+					//mEtUserName.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-					mLlCountry.setVisibility(View.VISIBLE);
+					//mLlCountry.setVisibility(View.VISIBLE);
 					break;
 
 				case Constant.ACCOUNT_TYPE_EMAIL:
-					mTvPhoneTab.setBackgroundColor(getResources().getColor(R.color.transparent));
-					mTvEmailTab.setBackgroundColor(getResources().getColor(R.color.white));
 
 					mEtUserName.setHint(getString(R.string.enter_email));
-					mEtUserName.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+					//mEtUserName.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
-					mLlCountry.setVisibility(View.GONE);
+					//mLlCountry.setVisibility(View.GONE);
 					break;
 
 				default:
@@ -564,8 +869,8 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 			mEtCode.setText("");
 
 			stopTimer();
-			mTvGetCode.setEnabled(true);
-			mTvGetCode.setText(getString(R.string.get_code));
+			mEtCode.getVerifictionCodeView().setEnabled(true);
+			mEtCode.getVerifictionCodeView().setText(getString(R.string.get_code));
 		}
 	}
 
@@ -601,9 +906,18 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 	private boolean checkForm() {
 		final String userName = mEtUserName.getText().toString().trim();
 		final String pwd = mEtPwd.getText().toString().trim();
+		final String confirmPwd = mEtConfirmPwd.getText().toString().trim();
 		final String code = mEtCode.getText().toString().trim();
 
 		boolean isPass = true;
+
+		if (!userName.isEmpty()){
+			if (StringUtil.isMobileNum(userName)){
+				mSignType = Constant.ACCOUNT_TYPE_PHONE;
+			}else {
+				mSignType = Constant.ACCOUNT_TYPE_EMAIL;
+			}
+		}
 
 		switch (mAccountActionType) {
 			case VAL_ACCOUNT_SIGN_IN:
@@ -634,7 +948,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 				break;
 
 			case VAL_ACCOUNT_SIGN_UP:
-			case VAL_ACCOUNT_RESET_PWD:
 				switch (mSignType) {
 					case Constant.ACCOUNT_TYPE_PHONE:
 						if (userName.isEmpty()) {
@@ -642,6 +955,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 							isPass = false;
 						} else if (pwd.isEmpty() || pwd.length() < 6) {
 							toast(R.string.note_pwd_format);
+							isPass = false;
+						} else if (!pwd.equals(confirmPwd)){
+							toast(R.string.note_confirm_pwd_not_format);
 							isPass = false;
 						} else if (code.isEmpty()) {
 							toast(R.string.note_verifiction_code_invalid);
@@ -656,6 +972,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 						} else if (pwd.isEmpty() || pwd.length() < 6) {
 							toast(R.string.note_pwd_format);
 							isPass = false;
+						} else if (!pwd.equals(confirmPwd)){
+							toast(R.string.note_confirm_pwd_not_format);
+							isPass = false;
 						} else if (code.isEmpty()) {
 							toast(R.string.note_verifiction_code_invalid);
 							isPass = false;
@@ -664,6 +983,15 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
 					default:
 						break;
+				}
+				break;
+			case VAL_ACCOUNT_RESET_PWD:
+				if (pwd.isEmpty() || pwd.length() < 6) {
+					toast(R.string.note_pwd_format);
+					isPass = false;
+				} else if (!pwd.equals(confirmPwd)){
+					toast(R.string.note_confirm_pwd_not_format);
+					isPass = false;
 				}
 				break;
 
@@ -697,14 +1025,14 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
 	@Override
 	public void onTimerTick(final long secondsLeft) {
-		mTvGetCode.setEnabled(false);
-		mTvGetCode.setText(MessageFormat.format("{0} s", secondsLeft));
+		mEtCode.getVerifictionCodeView().setEnabled(false);
+		mEtCode.getVerifictionCodeView().setText(MessageFormat.format("{0} s", secondsLeft));
 	}
 
 	@Override
 	public void onTimerFinish() {
-		mTvGetCode.setEnabled(true);
-		mTvGetCode.setText(getString(R.string.get_code));
+		mEtCode.getVerifictionCodeView().setEnabled(true);
+		mEtCode.getVerifictionCodeView().setText(getString(R.string.get_code));
 	}
 
 	@Override

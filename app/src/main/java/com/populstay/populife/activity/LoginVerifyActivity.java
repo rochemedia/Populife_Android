@@ -147,13 +147,13 @@ public class LoginVerifyActivity extends BaseActivity implements View.OnClickLis
 			params.put("country", mCountryCode);
 		}
 		RestClient.builder()
-				.url(Urls.VERIFICATION_CODE_RESETPWD_DELETEACCOUNT_NEWDEVICELOGIN)
+				.url(Urls.USER_LOGIN_BYCODE_SEND_CODE)
 				.loader(this)
 				.params(params)
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {
-						PeachLogger.d("GET_VIRIFICATION_CODE_NEW_DEVICE_LOGIN", response);
+						PeachLogger.d("USER_LOGIN_BYCODE_SEND_CODE", response);
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");
 						if (code == 200) {
@@ -181,18 +181,19 @@ public class LoginVerifyActivity extends BaseActivity implements View.OnClickLis
 	 */
 	private void validateVerificationCode() {
 		RestClient.builder()
-				.url(Urls.VERIFICATION_CODE_VALIDATE)
+				.url(Urls.USER_LOGIN_BYCODE)
 				.loader(this)
-				.params("phone", mLoginAccount)
+				//.params("phone", mLoginAccount)
+				.params("username", mLoginAccount)
 				.params("code", mEtCode.getText().toString().trim())
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {
-						PeachLogger.d("VERIFICATION_CODE_VALIDATE", response);
+						PeachLogger.d("USER_LOGIN_BYCODE", response);
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");
 						if (code == 200) {
-							boolean isValid = result.getBoolean("data");
+							boolean isValid = result.getBoolean("success");
 							if (isValid) {
 								//验证成功，执行登录成功后的逻辑
 								PeachPreference.putStr(PeachPreference.ACCOUNT_PWD, mLoginPwd);

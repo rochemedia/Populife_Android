@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/left_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/label_tv"
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20.5dp"
+                android:text="@null"
+                android:textColor="#FF212322"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+                android:id="@+id/cc_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="visible"
+                app:ccp_showFlag="false"
+                app:ccp_showFullName="false"
+                app:ccp_textColor="#FF212322"
+                app:ccp_textSize="14sp" />
+
+            <TextView
+                android:id="@+id/cc_picker_line"
+                android:layout_width="0.5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#FF212322"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+        <com.populstay.populife.ui.widget.exedittext.ClearEditText
+            android:id="@+id/content_et"
+            style="@style/et_style_input_width_match"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/right_ll"
+            android:layout_toRightOf="@+id/left_ll"
+            android:textColor="#FF212322"
+            android:textColorHint="#FFCCCDCD"
+            android:textCursorDrawable="@drawable/bg_edittext_cursor_white"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/right_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:layout_marginLeft="20dp"
+                android:id="@+id/right_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_content_hide_icon"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:id="@+id/right_tv"
+                android:enabled="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_btn_red"
+                android:paddingLeft="10dp"
+                android:paddingTop="6dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="6dp"
+                android:text="@string/get_verify_code_btn_text"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <View
+        android:layout_marginTop="20dp"
+        android:id="@+id/bottom_line_view"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_line" />
+
+
+    <TextView
+        android:id="@+id/edit_status_hint_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="#EE2737"
+        android:textSize="12sp"
+        android:text="@null"
+        android:visibility="gone" />
+
+
+</LinearLayout>

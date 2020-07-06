@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.populstay.populife.ui.loader.LoaderStyle;
 import com.populstay.populife.ui.loader.PeachLoader;
+import com.populstay.populife.util.log.PeachLogger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,15 +34,20 @@ public final class RequestCallbacks implements Callback<String> {
 
 	@Override
 	public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+		String url = response.raw().request().url().url().toString();
+		int code = response.code();
+		String message = response.message();
+		String body = response.body();
+		PeachLogger.d("Http", "RequestCallbacks--onResponse--url=" + url + ", code=" + code + ", message=" + message + ", body=" + body);
 		if (response.isSuccessful()) {
 			if (call.isExecuted()) {
 				if (SUCCESS != null) {
-					SUCCESS.onSuccess(response.body());
+					SUCCESS.onSuccess(body);
 				}
 			}
 		} else {
 			if (ERROR != null) {
-				ERROR.onError(response.code(), response.message());
+				ERROR.onError(code, message);
 			}
 		}
 
@@ -50,6 +56,7 @@ public final class RequestCallbacks implements Callback<String> {
 
 	@Override
 	public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+		PeachLogger.d("Http", "RequestCallbacks--onFailure=" + t.getMessage());
 		if (FAILURE != null) {
 
 			FAILURE.onFailure();

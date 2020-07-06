@@ -54,7 +54,7 @@ public class BaseApplication extends Application {
 		super.onCreate();
 
 		// 初始化 开发/发布 模式
-		initDebugMode(false);
+		initDebugMode(Constant.DEBUG);
 
 		//  设置本地化语言
 		languageWork();

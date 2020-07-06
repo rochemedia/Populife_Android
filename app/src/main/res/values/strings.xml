@@ -425,7 +425,6 @@
     <string name="note_user_terms_privacy_policy">Thank you for using Populife. Please read the User Terms and Privacy Policy carefully before using it. Click Agree to continue if you agree with all the policies, or click Disagree to exit.</string>
     <string name="agree">Agree</string>
     <string name="disagree">Disagree</string>
-    <string name="note_sign_up_agree_user_terms">By signing up, you agree to our User Terms and Privacy Policy</string>
 
     <!-- 密码分享 -->
     <string name="hello_here_is_your_passcode">Hello, here is your password:\ </string>
@@ -483,5 +482,14 @@
     <string name="unit_hour">H</string>
     <string name="unit_minute">m</string>
     <string name="unit_second">s</string>
+
+    <string name="sign_in_by_verify_code">验证码登录</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="next_step">继续</string>
+    <string name="note_confirm_pwd_not_format">两次录入密码不一致</string>
+    <string name="user_name_edit_hint">手机号/邮箱</string>
+    <string name="verification_code">验证码</string>
+    <string name="note_sign_up_agree_user_terms">我已阅读并同意[服务协议与隐私政策]</string>
+    <string name="get_verify_code_btn_text">获取验证码</string>
 
 </resources>

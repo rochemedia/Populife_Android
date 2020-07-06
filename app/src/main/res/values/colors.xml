@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1C1E4D</color>
-    <color name="colorPrimaryDark">#1C1E4D</color>
-    <color name="colorAccent">#f94e88</color>
+    <color name="colorPrimaryDark">#FFFFFFFF</color>
+    <color name="colorPrimary">#ee2737</color>
+    <color name="colorAccent">#FF212322</color>
+    <color name="colorWindowBackground">#FFFFFFFF</color>
     <!--<color name="colorPrimary">#a42f5d</color>-->
     <!--<color name="colorPrimaryDark">#a42f5d</color>-->
     <!--<color name="colorAccent">#f94e88</color>-->
@@ -15,6 +16,8 @@
     <color name="gray_medium">#b1b3b6</color>
     <color name="gray_dark">#191818</color>
     <color name="gray_line">#e6e7e8</color>
+    <color name="edit_focus_line">#ee2737</color>
+    <color name="edit_un_focus_line">#e6e7e8</color>
     <color name="gray_item_bg">@color/gray_line</color>
     <color name="gray_lock_disable">#77b1b3b6</color>
     <color name="gray_main">#5e5d5e</color>
@@ -48,5 +51,8 @@
 
     <color name="color_4a4a4a">#4a4a4a</color>
     <color name="color_b1b3b6">#b1b3b6</color>
+
+    <color name="sign_page_title_text">#FF212322</color>
+    <color name="sign_page_action_text">#FF212322</color>
 
 </resources>

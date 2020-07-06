@@ -270,7 +270,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 	 * 指纹验证失败
 	 */
 	private void onAuthFail() {
-		SignActivity.actionStart(SplashActivity.this, SignActivity.VAL_ACCOUNT_SIGN_IN);
+		SignActivity.actionStart(SplashActivity.this, SignActivity.VAL_ACCOUNT_SIGN_UP);
 		finish();
 	}
 

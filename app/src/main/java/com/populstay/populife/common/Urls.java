@@ -1,20 +1,26 @@
 package com.populstay.populife.common;
 
+import com.populstay.populife.constant.Constant;
+
 /**
  * 网络请求 URL 常量
  * Created by Jerry
  */
 public class Urls {
 
-	public static final String BASE_URL = "https://server.populife.yigululock.com"; // 项目地址
+	public static final String BASE_URL = Constant.DEBUG ?  "http://114.67.117.65:2100" : "https://server.populife.yigululock.com"; // 项目地址
 
 	public static final String SIGN_UP = "user/register"; //（post）用户注册
-	public static final String SIGN_IN = "user/login"; //（post）用户登录
+	//public static final String SIGN_IN = "user/login"; //（post）用户登录
+	public static final String SIGN_IN = "user/login/bypass"; //（post）用户登录
 	public static final String SIGN_IN_NEW_DEVICE_PUSH = "user/relogin/push/notice"; //（post）重登录推送通知（用户在另一设备登录时，向前一设备推送下线通知）
 	public static final String QUERY_LATEST_DEVICE_ID = "user/get/deviceId"; //（get）查询最新的设备id, 判断是否已经在异地登录
 	public static final String VERIFICATION_CODE_REGISTER_OR_BIND = "user/send/code"; //（post）用户注册、绑定手机号、绑定邮箱地址时发送的验证码
 	public static final String VERIFICATION_CODE_RESETPWD_DELETEACCOUNT_NEWDEVICELOGIN = "user/retrieve/password/send/code"; //（post）获取验证码：1、（忘记密码后）重置密码时；2、删除账号；3、异地新设备登录，需要验证
 	public static final String VERIFICATION_CODE_VALIDATE = "user/validate/verifycode"; //（get）检验系统发送的验证码与用户输入的验证码是否一致
+
+	public static final String USER_LOGIN_BYCODE_SEND_CODE = "user/login/bycode/send/code";// 验证码登陆前，发送验证雄码
+	public static final String USER_LOGIN_BYCODE = "user/login/bycode";// 1、验证码登录 2、异地新设备登录，发送验证
 
 	public static final String USER_LOCK_INFO = "user/login/first/get"; //（get）登录成功后调用，查询用户拥有的锁及附属的相关信息
 	public static final String NICKNAME_MODIFY = "user/nickname/modify"; //（post）修改用户昵称

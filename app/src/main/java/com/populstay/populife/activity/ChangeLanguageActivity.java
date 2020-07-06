@@ -12,6 +12,9 @@ import com.populstay.populife.util.locale.LanguageUtil;
 
 public class ChangeLanguageActivity extends BaseActivity implements View.OnClickListener {
 
+	public static final String FROM_ENTRY_KEY = "from_entry";
+	public static final String FROM_ENTRY_VAL_SIGN = "from_entry_val_sign";
+	private String mFromEntry;
 	private TextView mTvSave;
 	private LinearLayoutCompat mLlSystem, mLlEnglish, mLlChinese, mLlJapanese, mLlFrench,mLlGerman;
 	private ImageView mIvSystem, mIvEnglish, mIvChinese, mIvJapanese, mIvFrench,mIvGerman;
@@ -22,9 +25,13 @@ public class ChangeLanguageActivity extends BaseActivity implements View.OnClick
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_change_language);
-
+		getIntentData();
 		initView();
 		initListener();
+	}
+
+	private void getIntentData() {
+		mFromEntry = getIntent().getStringExtra(FROM_ENTRY_KEY);
 	}
 
 	private void initView() {
@@ -172,7 +179,11 @@ public class ChangeLanguageActivity extends BaseActivity implements View.OnClick
 		boolean sameLanguage = LanguageUtil.isSameLanguage(mLanguageType);
 		if (!sameLanguage) {
 			LanguageUtil.setLocale(mLanguageType);
-			LanguageUtil.toRestartMainActvity(this);
+			if (FROM_ENTRY_VAL_SIGN.equals(mFromEntry)){
+				LanguageUtil.toRestartSignActvity(this);
+			}else {
+				LanguageUtil.toRestartMainActvity(this);
+			}
 		}
 		// 设置完语言后缓存type
 		LanguageUtil.putLanguageType(mLanguageType);
