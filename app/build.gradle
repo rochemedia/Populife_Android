@@ -9,8 +9,8 @@ android {
         applicationId "com.populstay.populife"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 31
-        versionName "2.8.1"
+        versionCode 32
+        versionName "2.8.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
