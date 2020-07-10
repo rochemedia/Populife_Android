@@ -1,5 +1,8 @@
 package com.populstay.populife.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.populstay.populife.R;
@@ -45,45 +49,87 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 	 */
 	private boolean isSelfCancelled;
 	private int mAuthFailNum; // 指纹验证失败次数
+	private ImageView mIvImgSplash1, mIvImgSplash2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
+		mIvImgSplash1 = findViewById(R.id.iv_img_splash_1);
+		mIvImgSplash2 = findViewById(R.id.iv_img_splash_2);
+		playSplashAnim();
+	}
 
-		new Thread() {
+	private void playSplashAnim() {
+		AnimatorSet set = new AnimatorSet().setDuration(1200);
+		AnimatorSet subSet1 = new AnimatorSet();
+		AnimatorSet subSet2 = new AnimatorSet();
+		AnimatorSet subSet3 = new AnimatorSet();
+		AnimatorSet subSet4 = new AnimatorSet();
+
+		subSet1.play(ObjectAnimator.ofFloat(mIvImgSplash1,"translationY",300).setDuration(300))
+				.after(ObjectAnimator.ofFloat(mIvImgSplash1, "alpha", 0f, 1f).setDuration(100));
+
+		subSet2.play(ObjectAnimator.ofFloat(mIvImgSplash2,"translationY",-300).setDuration(300))
+				.after(ObjectAnimator.ofFloat(mIvImgSplash2, "alpha", 0f, 1f).setDuration(100));
+
+		subSet3.play(ObjectAnimator.ofFloat(mIvImgSplash1, "scaleY", 1.5f).setDuration(300))
+				.with(ObjectAnimator.ofFloat(mIvImgSplash1, "scaleX", 1.5f).setDuration(300))
+				.with(ObjectAnimator.ofFloat(mIvImgSplash2, "scaleY", 1.5f).setDuration(300))
+				.with(ObjectAnimator.ofFloat(mIvImgSplash2, "scaleX", 1.5f).setDuration(300));
+
+		subSet4.play(ObjectAnimator.ofFloat(mIvImgSplash1, "alpha", 1f, 0f).setDuration(100))
+				.with(ObjectAnimator.ofFloat(mIvImgSplash2, "alpha", 1f, 0f).setDuration(100));
+
+		//1.按先后顺序执行动画
+		set.playSequentially(subSet1,subSet2,subSet3,subSet4);
+		set.start();
+
+		set.addListener(new Animator.AnimatorListener() {
 			@Override
-			public void run() {
-				super.run();
-				try {
-					sleep(1000);
-					if (isFinishing()) {
-						return;
+			public void onAnimationStart(Animator animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animator animation) {
+
+				if (isFinishing()) {
+					return;
+				}
+
+				// 检查用户是否已经登录
+				AccountManager.checkAccount(new IUserChecker() {
+					@Override
+					public void onSignIn() {
+						// 指纹验证（设备支持指纹验证 且 开启指纹验证）
+						if (PeachPreference.isTouchIdLogin() && FingerprintUtil.isSupportFingerprint(SplashActivity.this)) {
+							initKey();
+							initCipher();
+						} else {
+							onAuthSuccess();
+						}
 					}
 
-						// 检查用户是否已经登录
-						AccountManager.checkAccount(new IUserChecker() {
-							@Override
-							public void onSignIn() {
-								// 指纹验证（设备支持指纹验证 且 开启指纹验证）
-								if (PeachPreference.isTouchIdLogin() && FingerprintUtil.isSupportFingerprint(SplashActivity.this)) {
-									initKey();
-									initCipher();
-								} else {
-									onAuthSuccess();
-								}
-							}
+					@Override
+					public void onNotSignIn() {
+						onAuthFail();
+					}
+				});
 
-							@Override
-							public void onNotSignIn() {
-								onAuthFail();
-							}
-						});
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
 			}
-		}.start();
+
+			@Override
+			public void onAnimationCancel(Animator animation) {
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animator animation) {
+
+			}
+		});
+
 	}
 
 	@TargetApi(23)

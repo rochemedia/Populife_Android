@@ -50,8 +50,8 @@ public class ExTextView extends TextView {
 
         SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(textStr);
 
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#FF000019"));
-        spannableBuilder.setSpan(colorSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#000019"));
+        //spannableBuilder.setSpan(colorSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 
         ClickableSpan clickableSpanTwo = new ClickableSpan() {
@@ -66,6 +66,9 @@ public class ExTextView extends TextView {
             public void updateDrawState(@NonNull TextPaint ds) {
                 super.updateDrawState(ds);
                 ds.setUnderlineText(false);
+                ds.setColor(Color.parseColor("#ee2737"));
+
+
             }
         };
         spannableBuilder.setSpan(clickableSpanTwo, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -19,6 +19,8 @@ public class Urls {
 	public static final String VERIFICATION_CODE_RESETPWD_DELETEACCOUNT_NEWDEVICELOGIN = "user/retrieve/password/send/code"; //（post）获取验证码：1、（忘记密码后）重置密码时；2、删除账号；3、异地新设备登录，需要验证
 	public static final String VERIFICATION_CODE_VALIDATE = "user/validate/verifycode"; //（get）检验系统发送的验证码与用户输入的验证码是否一致
 
+	/*public static final String USER_LOGIN_BYCODE_SEND_CODE = VERIFICATION_CODE_RESETPWD_DELETEACCOUNT_NEWDEVICELOGIN;// 验证码登陆前，发送验证雄码
+	public static final String USER_LOGIN_BYCODE = VERIFICATION_CODE_VALIDATE;// 1、验证码登录 2、异地新设备登录，发送验证*/
 	public static final String USER_LOGIN_BYCODE_SEND_CODE = "user/login/bycode/send/code";// 验证码登陆前，发送验证雄码
 	public static final String USER_LOGIN_BYCODE = "user/login/bycode";// 1、验证码登录 2、异地新设备登录，发送验证
 

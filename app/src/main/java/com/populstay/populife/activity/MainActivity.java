@@ -2,11 +2,8 @@ package com.populstay.populife.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,7 +17,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -53,8 +49,6 @@ public class MainActivity extends BaseActivity {
 	private int mCurrentTab = TAB_LOCK;
 	private NoScrollViewPager mViewPager;
 	private RadioGroup navigation;
-	// 底部导航栏的图片
-	private Drawable mLockImg, mGeneImg, mMeImg;
 	private AlertDialog DIALOG;
 	private TextView mTvPrivacyPolicy;
 	private AppCompatButton mBtnNotAgree, mBtnAgree;
@@ -138,11 +132,6 @@ public class MainActivity extends BaseActivity {
 		setupViewPager(mViewPager);
 
 		navigation = findViewById(R.id.navigation);
-
-		mLockImg = ((RadioButton) findViewById(R.id.nav_main_lock)).getCompoundDrawables()[1];
-		mGeneImg = ((RadioButton) findViewById(R.id.nav_main_general)).getCompoundDrawables()[1];
-		mMeImg = ((RadioButton) findViewById(R.id.nav_main_me)).getCompoundDrawables()[1];
-
 		setCurrentTab(mCurrentTab);
 	}
 
@@ -154,33 +143,6 @@ public class MainActivity extends BaseActivity {
 	private void setCurrentTab(int clickedTab) {
 		mCurrentTab = clickedTab;
 		mViewPager.setCurrentItem(clickedTab, false);
-
-		Resources res = getResources();
-		int colorMain = res.getColor(R.color.colorPrimary);
-		int colorGray = res.getColor(R.color.text_gray_light);
-
-		switch (clickedTab) {
-			case TAB_LOCK:
-				mLockImg.setColorFilter(colorMain, PorterDuff.Mode.SRC_IN);
-				mGeneImg.setColorFilter(colorGray, PorterDuff.Mode.SRC_IN);
-				mMeImg.setColorFilter(colorGray, PorterDuff.Mode.SRC_IN);
-				break;
-
-			case TAB_GENERAL:
-				mLockImg.setColorFilter(colorGray, PorterDuff.Mode.SRC_IN);
-				mGeneImg.setColorFilter(colorMain, PorterDuff.Mode.SRC_IN);
-				mMeImg.setColorFilter(colorGray, PorterDuff.Mode.SRC_IN);
-				break;
-
-			case TAB_ME:
-				mLockImg.setColorFilter(colorGray, PorterDuff.Mode.SRC_IN);
-				mGeneImg.setColorFilter(colorGray, PorterDuff.Mode.SRC_IN);
-				mMeImg.setColorFilter(colorMain, PorterDuff.Mode.SRC_IN);
-				break;
-
-			default:
-				break;
-		}
 	}
 
 	private void setupViewPager(ViewPager viewPager) {

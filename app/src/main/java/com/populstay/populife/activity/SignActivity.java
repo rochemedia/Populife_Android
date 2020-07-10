@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -54,6 +55,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 	public static final String VAL_ACCOUNT_RESET_PWD = "val_account_reset_pwd";
 	public static final String VAL_ACCOUNT_RESET_PWD_GET_VERIFY_CODE = "val_account_reset_pwd_get_verify_code";
 	public static final String KEY_ACCOUNT_SIGN_ACTION_TYPE = "key_account_sign_action_type";
+	public static final String KEY_CODE = "key_code";
+	public static final String KEY_USERNAME = "key_username";
+	public static final String KEY_SIGN_TYPE = "key_sign_type";
+	public static final int RESET_PWD_REQUEST_CODE = 0;
 
 	private RelativeLayout mRlBack;
 	private TextView mTvPageTitle, mTvPageAction, mTvActionBtn, mTvForgetPwd, mTvSwitchSignType,mTvSwitchLanguage;
@@ -65,6 +70,8 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 	private ISignListener mISignListener = this;
 	private String mAccountActionType = VAL_ACCOUNT_SIGN_UP;
 	private int mSignType = Constant.ACCOUNT_TYPE_PHONE;
+	private String code;
+	private String username;
 
 	/**
 	 * 启动当前 activity
@@ -84,6 +91,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 		setContentView(R.layout.activity_sign);
 
 		mAccountActionType = getIntent().getStringExtra(KEY_ACCOUNT_SIGN_ACTION_TYPE);
+		code = getIntent().getStringExtra(KEY_CODE);
+		username = getIntent().getStringExtra(KEY_USERNAME);
+		mSignType = getIntent().getIntExtra(KEY_SIGN_TYPE, Constant.ACCOUNT_TYPE_PHONE);
 		PeachLogger.d(TAG, "mAccountActionType=" + mAccountActionType);
 
 		initView();
@@ -478,7 +488,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 					})
 					.build()
 					.post();
-		} else if (mAccountActionType.equals(VAL_ACCOUNT_RESET_PWD)) {
+		} else if (mAccountActionType.equals(VAL_ACCOUNT_RESET_PWD_GET_VERIFY_CODE)) {
 			//（忘记密码后）重置密码时，获取验证码
 			WeakHashMap<String, Object> params = new WeakHashMap<>();
 			params.put("username", mSignType == Constant.ACCOUNT_TYPE_PHONE ? mCountryCodePicker.getSelectedCountryCodeWithPlus()
@@ -787,7 +797,13 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 	 */
 	private void gotoResetPwd(){
 		if(!TextUtils.isEmpty(mEtCode.getText().toString().trim())){
-			actionStart(SignActivity.this, VAL_ACCOUNT_RESET_PWD);
+
+			Intent intent = new Intent(this, SignActivity.class);
+			intent.putExtra(KEY_ACCOUNT_SIGN_ACTION_TYPE, VAL_ACCOUNT_RESET_PWD);
+			intent.putExtra(KEY_CODE, mEtCode.getText().toString().trim());
+			intent.putExtra(KEY_USERNAME, mEtUserName.getText().toString().trim());
+			intent.putExtra(KEY_SIGN_TYPE, mSignType);
+			startActivityForResult(intent,RESET_PWD_REQUEST_CODE);
 		}
 	}
 
@@ -799,9 +815,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 				.url(Urls.ACCOUNT_PWD_RESET)
 				.loader(SignActivity.this)
 				.params("username", mSignType == Constant.ACCOUNT_TYPE_PHONE ? mCountryCodePicker.getSelectedCountryCodeWithPlus()
-						+ mEtUserName.getText().toString() : mEtUserName.getText().toString())
+						+ username : username)
 				.params("password", mEtPwd.getText().toString())
-				.params("code", mEtCode.getText().toString())
+				.params("code", code)
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {
@@ -810,6 +826,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 						int code = result.getInteger("code");
 						if (code == 200) {
 							toast(R.string.note_reset_pwd_success);
+							setResult(RESULT_OK);
 							finish();
 						} else if (code == 954 || code == 953) {
 							toast(R.string.note_verifiction_code_invalid);
@@ -921,68 +938,34 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
 		switch (mAccountActionType) {
 			case VAL_ACCOUNT_SIGN_IN:
-				switch (mSignType) {
-					case Constant.ACCOUNT_TYPE_PHONE:
-						if (userName.isEmpty()) {
-							toast(R.string.note_phone_invalid);
-							isPass = false;
-						} else if (pwd.isEmpty() || pwd.length() < 6) {
-							toast(R.string.note_pwd_format);
-							isPass = false;
-						}
-						break;
-
-					case Constant.ACCOUNT_TYPE_EMAIL:
-						if (userName.isEmpty() || !StringUtil.isEmail(userName)) {
-							toast(R.string.note_email_invalid);
-							isPass = false;
-						} else if (pwd.isEmpty() || pwd.length() < 6) {
-							toast(R.string.note_pwd_format);
-							isPass = false;
-						}
-						break;
-
-					default:
-						break;
+				if (!StringUtil.isMobileNum(userName) && !StringUtil.isEmail(userName)) {
+					toast(R.string.note_phone_or_email_invalid);
+					isPass = false;
+				} else if (pwd.isEmpty() || pwd.length() < 6) {
+					toast(R.string.note_pwd_format);
+					isPass = false;
+				}
+				break;
+			case VAL_ACCOUNT_RESET_PWD_GET_VERIFY_CODE:
+				if (!StringUtil.isMobileNum(userName) && !StringUtil.isEmail(userName)) {
+					toast(R.string.note_phone_or_email_invalid);
+					isPass = false;
 				}
 				break;
 
 			case VAL_ACCOUNT_SIGN_UP:
-				switch (mSignType) {
-					case Constant.ACCOUNT_TYPE_PHONE:
-						if (userName.isEmpty()) {
-							toast(R.string.note_phone_invalid);
-							isPass = false;
-						} else if (pwd.isEmpty() || pwd.length() < 6) {
-							toast(R.string.note_pwd_format);
-							isPass = false;
-						} else if (!pwd.equals(confirmPwd)){
-							toast(R.string.note_confirm_pwd_not_format);
-							isPass = false;
-						} else if (code.isEmpty()) {
-							toast(R.string.note_verifiction_code_invalid);
-							isPass = false;
-						}
-						break;
-
-					case Constant.ACCOUNT_TYPE_EMAIL:
-						if (userName.isEmpty() || !StringUtil.isEmail(userName)) {
-							toast(R.string.note_email_invalid);
-							isPass = false;
-						} else if (pwd.isEmpty() || pwd.length() < 6) {
-							toast(R.string.note_pwd_format);
-							isPass = false;
-						} else if (!pwd.equals(confirmPwd)){
-							toast(R.string.note_confirm_pwd_not_format);
-							isPass = false;
-						} else if (code.isEmpty()) {
-							toast(R.string.note_verifiction_code_invalid);
-							isPass = false;
-						}
-						break;
-
-					default:
-						break;
+				if (!StringUtil.isMobileNum(userName) && !StringUtil.isEmail(userName)) {
+					toast(R.string.note_phone_or_email_invalid);
+					isPass = false;
+				} else if (pwd.isEmpty() || pwd.length() < 6) {
+					toast(R.string.note_pwd_format);
+					isPass = false;
+				} else if (!pwd.equals(confirmPwd)){
+					toast(R.string.note_confirm_pwd_not_format);
+					isPass = false;
+				} else if (code.isEmpty()) {
+					toast(R.string.note_verifiction_code_invalid);
+					isPass = false;
 				}
 				break;
 			case VAL_ACCOUNT_RESET_PWD:
@@ -1038,5 +1021,13 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 	@Override
 	protected void queryLatestDeviceId() {
 
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (RESET_PWD_REQUEST_CODE == requestCode && RESULT_OK == resultCode){
+			finish();
+		}
 	}
 }

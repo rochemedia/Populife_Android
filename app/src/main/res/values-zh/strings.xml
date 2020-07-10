@@ -2,8 +2,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">波普生活</string>
     <string name="note_network_error">网络连接异常，请检查网络是否正常</string>
-    <string name="nav_tab_lock">锁</string>
-    <string name="nav_tab_general">通用</string>
+    <string name="nav_tab_lock">智能</string>
+    <string name="nav_tab_general">发现</string>
     <string name="nav_tab_me">我的</string>
     <string name="phone">手机</string>
     <string name="email">邮箱</string>

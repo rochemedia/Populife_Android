@@ -16,7 +16,7 @@
     <RadioGroup
         android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="56dp"
         android:background="@color/gray_nav_bg"
         android:orientation="horizontal">
 
@@ -24,19 +24,19 @@
             android:id="@+id/nav_main_lock"
             style="@style/style_bottom_nav_radio_button"
             android:checked="true"
-            android:drawableTop="@drawable/ic_nav_lock"
+            android:drawableTop="@drawable/ic_nac_smart_selector"
             android:text="@string/nav_tab_lock"/>
 
         <RadioButton
             android:id="@+id/nav_main_general"
             style="@style/style_bottom_nav_radio_button"
-            android:drawableTop="@drawable/ic_nav_general"
+            android:drawableTop="@drawable/ic_nac_discovery_selector"
             android:text="@string/nav_tab_general"/>
 
         <RadioButton
             android:id="@+id/nav_main_me"
             style="@style/style_bottom_nav_radio_button"
-            android:drawableTop="@drawable/ic_nav_me"
+            android:drawableTop="@drawable/ic_nac_me_selector"
             android:text="@string/nav_tab_me"/>
 
     </RadioGroup>

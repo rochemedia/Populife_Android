@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img_bg"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/common_page_title_bar_height"
         android:gravity="center_vertical">
 
         <RelativeLayout
@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:onClick="finishCurrentActivity"
-            android:paddingLeft="16dp"
+            android:paddingLeft="@dimen/common_page_left_right_space"
             android:paddingRight="8dp">
 
             <ImageButton
@@ -30,228 +30,137 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/page_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@string/page_title"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-        <TextView
             android:id="@+id/page_action"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:background="@null"
             android:gravity="center"
-            android:paddingRight="20dp"
+            android:paddingRight="@dimen/common_page_left_right_space"
             android:text="@string/page_action"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:textColor="@color/sign_page_action_text"
+            android:textSize="@dimen/sign_page_action_text" />
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:id="@+id/page_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-
-        <TextView
-            android:id="@+id/tv_sign_email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="12dp"
-            android:text="@string/email"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tv_sign_phone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="12dp"
-            android:text="@string/phone"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="2dp">
-
-        <TextView
-            android:id="@+id/tv_sign_email_tab"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/white" />
-
-        <TextView
-            android:id="@+id/tv_sign_phone_tab"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <include
-        layout="@layout/layout_view_line"
-        android:background="@color/white" />
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/page_title"
+        android:textColor="@color/sign_page_title_text"
+        android:textSize="@dimen/sign_page_title_text" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="@dimen/common_page_left_right_space">
 
-        <LinearLayout
+
+        <com.populstay.populife.ui.widget.exedittext.ExEditText
+            android:id="@+id/et_sign_user_name"
             android:layout_width="match_parent"
-            android:layout_height="58dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_edit_text_margin_top"
+            app:hint="@string/user_name_edit_hint"
+            app:inputType="account" />
 
-            <LinearLayout
-                android:id="@+id/ll_sign_country"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:visibility="gone">
-
-                <com.rilixtech.widget.countrycodepicker.CountryCodePicker
-                    android:id="@+id/cpp_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    app:ccp_showFlag="false"
-                    app:ccp_showFullName="false"
-                    app:ccp_textColor="@color/white"
-                    app:ccp_textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="12dp"
-                    android:background="@color/white" />
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/et_sign_user_name"
-                style="@style/et_style_input_width_match"
-                android:hint="@string/enter_email"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/white"
-                android:textCursorDrawable="@drawable/bg_edittext_cursor_white" />
-
-        </LinearLayout>
-
-        <include layout="@layout/layout_view_line" />
-
-        <EditText
+        <com.populstay.populife.ui.widget.exedittext.ExEditText
+            app:label="@string/password"
+            app:hint="@string/password"
+            app:inputType="password"
+            app:maxLength="20"
             android:id="@+id/et_sign_pwd"
-            style="@style/et_style_input_width_match"
-            android:hint="@string/enter_pwd"
-            android:inputType="textPassword"
-            android:maxLength="20"
-            android:textColor="@color/white"
-            android:textCursorDrawable="@drawable/bg_edittext_cursor_white" />
+            android:layout_marginTop="@dimen/common_edit_text_margin_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <include layout="@layout/layout_view_line" />
+        <com.populstay.populife.ui.widget.exedittext.ExEditText
+            app:label="@string/confirm_password"
+            app:hint="@string/confirm_password"
+            app:inputType="password"
+            app:maxLength="20"
+            android:id="@+id/et_confirm_pwd"
+            android:layout_marginTop="@dimen/common_edit_text_margin_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <LinearLayout
-            android:id="@+id/ll_sign_verification_code"
-            android:layout_width="wrap_content"
+        <com.populstay.populife.ui.widget.exedittext.ExEditText
+            android:id="@+id/et_sign_verification_code"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/common_edit_text_margin_top"
+            app:hint="@string/verification_code"
+            app:inputType="verificationCode"
+            app:label="@string/verification_code"
+            app:maxLength="6"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:gravity="center_vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/et_sign_verification_code"
-                    style="@style/et_style_input_width_weight"
-                    android:hint="@string/enter_verifiction_code"
-                    android:inputType="number"
-                    android:maxLength="6"
-                    android:textColor="@color/white"
-                    android:textCursorDrawable="@drawable/bg_edittext_cursor_white" />
+            <TextView
+                android:id="@+id/tv_switch_sign_type"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/common_edit_text_margin_top"
+                android:padding="8dp"
+                android:text="@string/sign_in_by_verify_code"
+                android:textColor="#FF212322"
+                android:textSize="14sp" />
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tv_sign_get_code_bg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/selector_btn_stroke_white"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="@string/get_code"
-                        android:textSize="12sp"
-                        android:visibility="invisible" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_forget_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/common_edit_text_margin_top"
+                android:padding="8dp"
+                android:text="@string/forgot_pwd"
+                android:textColor="#FF212322"
+                android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/tv_sign_get_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@id/tv_sign_get_code_bg"
-                        android:layout_alignRight="@id/tv_sign_get_code_bg"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/selector_btn_stroke_white"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="@string/get_code"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
+        </RelativeLayout>
 
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <include layout="@layout/layout_view_line" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_sign_action_btn"
-            style="@style/btn_style_main"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/selector_btn_stroke_white"
-            android:text="@string/sign_in" />
-
-        <TextView
-            android:id="@+id/tv_forget_pwd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:padding="8dp"
-            android:text="@string/forgot_pwd"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <include layout="@layout/layout_space_vertical" />
-
-        <TextView
+        <com.populstay.populife.ui.widget.extextview.ExTextView
+            android:layout_marginTop="@dimen/common_edit_text_margin_top"
+            android:padding="4dp"
             android:id="@+id/tv_sign_user_terms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:padding="8dp"
             android:text="@string/note_sign_up_agree_user_terms"
-            android:textColor="@color/white"
+            android:textColor="#FF212322"
             android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_sign_action_btn"
+            style="@style/btn_style_main"
+            android:layout_marginTop="@dimen/sign_action_btn_margin_top"
+            android:background="@drawable/selector_btn_main"
+            android:enabled="false"
+            android:text="@string/sign_in" />
+
+        <include layout="@layout/layout_space_vertical" />
+
+
+        <TextView
+            android:id="@+id/tv_switch_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="8dp"
+            android:text="@string/switch_language"
+            android:textColor="#FF212322"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

@@ -6,8 +6,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="@dimen/common_page_title_bar_height"
+        android:background="@color/colorTitleBarBg"
         android:gravity="center_vertical">
 
         <TextView
@@ -18,7 +18,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@string/nav_tab_lock"
-            android:textColor="@color/white"
+            android:textColor="@color/sign_page_title_text"
             android:textSize="16sp" />
 
         <ImageView
@@ -40,7 +40,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_service_white" />
+                android:src="@drawable/ic_service_gray" />
 
             <ImageView
                 android:id="@+id/iv_main_lock_msg_new"

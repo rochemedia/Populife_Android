@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 import com.populstay.populife.R;
 import com.populstay.populife.base.BaseActivity;
@@ -24,7 +25,7 @@ public class PrivacyPolicyActivity extends BaseActivity {
 	}
 
 	private void initView() {
-		findViewById(R.id.page_title).setVisibility(View.GONE);
+		((TextView)findViewById(R.id.page_title)).setText(R.string.terms_of_use);
 		findViewById(R.id.page_action).setVisibility(View.GONE);
 
 		mWebView = findViewById(R.id.wv_privacy_policy);
