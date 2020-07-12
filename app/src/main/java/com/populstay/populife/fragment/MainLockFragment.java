@@ -11,7 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.meiqia.core.MQManager;
 import com.meiqia.core.bean.MQMessage;
 import com.meiqia.core.callback.OnGetMessageListCallback;
@@ -20,11 +26,23 @@ import com.meiqia.meiqiasdk.util.MQIntentBuilder;
 import com.populstay.populife.R;
 import com.populstay.populife.activity.LockAddSelectTypeActivity;
 import com.populstay.populife.base.BaseVisibilityFragment;
+import com.populstay.populife.common.Urls;
+import com.populstay.populife.entity.LockGroup;
+import com.populstay.populife.home.HomeListActivity;
+import com.populstay.populife.home.entity.Home;
+import com.populstay.populife.home.entity.HomeDevice;
+import com.populstay.populife.net.RestClient;
+import com.populstay.populife.net.callback.IError;
+import com.populstay.populife.net.callback.IFailure;
+import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.permission.PermissionListener;
 import com.populstay.populife.ui.MQGlideImageLoader;
 import com.populstay.populife.ui.NoScrollViewPager;
+import com.populstay.populife.util.CollectionUtil;
+import com.populstay.populife.util.GsonUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
+import com.populstay.populife.util.string.StringUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +64,7 @@ public class MainLockFragment extends BaseVisibilityFragment {
 	private NoScrollViewPager mViewPager;
 	private ImageView mIvAddLock, mIvNewMsg;
 	private RelativeLayout mRlOnlineService;
+	private TextView mTvSwitchHome;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,8 +72,104 @@ public class MainLockFragment extends BaseVisibilityFragment {
 
 		initView(view);
 		initListener();
+		requestLockGroup();
 		return view;
 	}
+
+
+	private void requestLockGroup() {
+		RestClient.builder()
+				.url(Urls.LOCK_GROUP_LIST)
+				.loader(getActivity())
+				.params("userId", PeachPreference.readUserId())
+				.success(new ISuccess() {
+					@Override
+					public void onSuccess(String response) {
+						/*if (mRefreshLayout != null) {
+							mRefreshLayout.setRefreshing(false);
+						}*/
+
+						PeachLogger.d("LOCK_GROUP_LIST", response);
+
+						JSONObject result = JSON.parseObject(response);
+						int code = result.getInteger("code");
+						if (code == 200) {
+							List<Home> datas = GsonUtil.fromJson(result.getJSONArray("data").toJSONString(),new TypeToken<List<Home>>(){});
+
+
+
+
+
+							if (!CollectionUtil.isEmpty(datas)){
+								requestDeviceListForGroup(datas.get(0).getId());
+							}
+						}
+					}
+				})
+				.failure(new IFailure() {
+					@Override
+					public void onFailure() {
+						/*if (mRefreshLayout != null) {
+							mRefreshLayout.setRefreshing(false);
+						}*/
+					}
+				})
+				.error(new IError() {
+					@Override
+					public void onError(int code, String msg) {
+						/*if (mRefreshLayout != null) {
+							mRefreshLayout.setRefreshing(false);
+						}*/
+					}
+				})
+				.build()
+				.get();
+	}
+
+	private void requestDeviceListForGroup(String homeId) {
+		RestClient.builder()
+				.url(Urls.LOCK_GROUP_GET_DEVICE)
+				.loader(getActivity())
+				.params("userId", PeachPreference.readUserId())
+				.params("homeId", homeId)
+				.success(new ISuccess() {
+					@Override
+					public void onSuccess(String response) {
+						/*if (mRefreshLayout != null) {
+							mRefreshLayout.setRefreshing(false);
+						}*/
+
+						PeachLogger.d("LOCK_GROUP_LIST", response);
+
+						JSONObject result = JSON.parseObject(response);
+						int code = result.getInteger("code");
+						if (code == 200) {
+							List<HomeDevice> datas = GsonUtil.fromJson(result.getJSONArray("data").toJSONString(),new TypeToken<List<HomeDevice>>(){});
+
+
+						}
+					}
+				})
+				.failure(new IFailure() {
+					@Override
+					public void onFailure() {
+						/*if (mRefreshLayout != null) {
+							mRefreshLayout.setRefreshing(false);
+						}*/
+					}
+				})
+				.error(new IError() {
+					@Override
+					public void onError(int code, String msg) {
+						/*if (mRefreshLayout != null) {
+							mRefreshLayout.setRefreshing(false);
+						}*/
+					}
+				})
+				.build()
+				.get();
+	}
+
 
 	@Override
 	protected void onVisibilityChanged(boolean visible) {
@@ -108,6 +223,7 @@ public class MainLockFragment extends BaseVisibilityFragment {
 	}
 
 	private void initView(View view) {
+		mTvSwitchHome = view.findViewById(R.id.tv_switch_home);
 		mIvAddLock = view.findViewById(R.id.iv_main_lock_add);
 		mIvNewMsg = view.findViewById(R.id.iv_main_lock_msg_new);
 		mRlOnlineService = view.findViewById(R.id.rl_main_lock_online_service);
@@ -115,12 +231,19 @@ public class MainLockFragment extends BaseVisibilityFragment {
 
 		mViewPager = view.findViewById(R.id.nsv_main_lock);
 		setupViewPager(mViewPager);
-
 		if (mAccountLockNum <= 1) {//没有锁或只有1把锁，显示锁详情页面
 			setCurrentTab(TAB_LOCK_DETAIL);
 		} else {//拥有多把锁（>=2），显示锁列表页面
 			setCurrentTab(TAB_LOCK_LIST);
 		}
+		showAddLockBtn(mAccountLockNum > 0);
+	}
+
+	private void showAddLockBtn(boolean isShow){
+		if (null == mIvAddLock){
+			return;
+		}
+		mIvAddLock.setVisibility(isShow ? View.VISIBLE : View.GONE);
 	}
 
 	private void initListener() {
@@ -154,6 +277,12 @@ public class MainLockFragment extends BaseVisibilityFragment {
 								toast(R.string.note_permission);
 							}
 						});
+			}
+		});
+		mTvSwitchHome.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				HomeListActivity.actionStart(getActivity(), HomeListActivity.VAL_ACTION_TYPE_SWITCH_HOME);
 			}
 		});
 	}

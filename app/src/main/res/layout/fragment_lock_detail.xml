@@ -25,33 +25,28 @@
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_weight="2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lock_add"
-                    android:textColor="@color/text_main"
-                    android:textSize="16sp" />
+                    android:layout_weight="3" />
 
                 <ImageView
-                    android:id="@+id/iv_lock_detail_add"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    android:layout_margin="12dp"
-                    android:background="@drawable/bg_add_lock_unlock"
-                    android:padding="50dp"
-                    android:src="@drawable/img_lock_add"
-                    android:tint="@color/colorPrimary" />
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:text="@string/phone_near_lock"
-                    android:textColor="@color/text_main"
+                    android:src="@drawable/img_add_device" />
+
+                <TextView
+                    android:layout_marginTop="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_device_hint"
+                    android:textColor="@color/common_text_color"
                     android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_lock_detail_add"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="186dp"
+                    android:layout_height="50dp"
+                    android:text="@string/add_device"
+                    style="@style/btn_style_main" />
 
                 <Space
                     android:layout_width="wrap_content"

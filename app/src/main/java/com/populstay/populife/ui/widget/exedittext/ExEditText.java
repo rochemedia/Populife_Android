@@ -28,6 +28,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
     private int inputType = TYPE_NORMAL;
 
     private View rootView;
+    private View editContainer;
     private TextView labelTv;
     private ClearEditText contentEt;
     private ImageView rightIcon;
@@ -56,6 +57,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
 
     private void initView(Context context, AttributeSet attrs) {
         rootView = LayoutInflater.from(getContext()).inflate(R.layout.common_edit_text_layout, null);
+        editContainer = rootView.findViewById(R.id.rl_edit_container);
         labelTv = rootView.findViewById(R.id.label_tv);
         contentEt = rootView.findViewById(R.id.content_et);
         rightIcon = rootView.findViewById(R.id.right_icon);
@@ -92,9 +94,16 @@ public class ExEditText extends FrameLayout implements IExEdit {
             isVisiblePwd = typedArray.getBoolean(R.styleable.ExEditText_isVisiblePwd,isVisiblePwd);
             inputType = typedArray.getInteger(R.styleable.ExEditText_inputType, TYPE_NORMAL);
             setType(inputType);
+            setPaddingInner((int)typedArray.getDimension(R.styleable.ExEditText_paddingLeftInner,0), 0, (int)typedArray.getDimension(R.styleable.ExEditText_paddingRightInner,0), 0);
             typedArray.recycle();
         }
 
+    }
+
+    private void setPaddingInner(int left, int top, int right, int bottom) {
+        if (null != editContainer){
+            editContainer.setPadding(left, top, right, bottom);
+        }
     }
 
     public void setType(int type) {
@@ -102,6 +111,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
         switch (inputType){
             case TYPE_NORMAL:
                 contentEt.setInputType(InputType.TYPE_CLASS_TEXT);
+                showCcPicker(false);
                 break;
             case TYPE_ACCOUNT:
                 contentEt.setInputType(InputType.TYPE_CLASS_TEXT);

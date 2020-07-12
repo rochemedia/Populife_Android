@@ -82,7 +82,8 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	private LockActionAdapter mAdapter;
 	private List<LockAction> mActions = new ArrayList<>();
 	private TextView mTvLockName, mTvLockStatus;
-	private ImageView mIvAddLock, mIvRemoteUnlock, mIvBattery, mIvUnlocking, mIvUnlock, mIvLock;
+	private ImageView  mIvRemoteUnlock, mIvBattery, mIvUnlocking, mIvUnlock, mIvLock;
+	private TextView mIvAddLock;
 	private FrameLayout mFlLockInfo;
 	private RelativeLayout mRlUnlocking;
 	private LinearLayout mLlLockAdd, mLlUnlockLock;
@@ -263,7 +264,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		mBarLock = view.findViewById(R.id.arc_seek_bar_lock);
 		mTvLockName = view.findViewById(R.id.tv_lock_detail_name);
 		mTvLockStatus = view.findViewById(R.id.tv_lock_detail_status);
-		mIvAddLock = view.findViewById(R.id.iv_lock_detail_add);
+		mIvAddLock = view.findViewById(R.id.tv_lock_detail_add);
 		mIvRemoteUnlock = view.findViewById(R.id.iv_lock_detail_remote_unlock);
 		mIvBattery = view.findViewById(R.id.iv_lock_detail_battery);
 		mIvUnlocking = view.findViewById(R.id.iv_lock_detail_unlocking);
@@ -342,7 +343,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-			case R.id.iv_lock_detail_add:
+			case R.id.tv_lock_detail_add:
 				goToNewActivity(LockAddSelectTypeActivity.class);
 				break;
 

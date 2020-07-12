@@ -185,6 +185,8 @@
         <attr name="label" format="string" />
         <attr name="isVisiblePwd" format="boolean" />
         <attr name="maxLength" format="integer" />
+        <attr name="paddingLeftInner" format="dimension" />
+        <attr name="paddingRightInner" format="dimension" />
     </declare-styleable>
 
 </resources>

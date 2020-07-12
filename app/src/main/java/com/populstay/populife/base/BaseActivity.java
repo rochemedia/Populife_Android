@@ -24,6 +24,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.populstay.populife.R;
 import com.populstay.populife.activity.SignActivity;
 import com.populstay.populife.common.Urls;
+import com.populstay.populife.eventbus.Event;
 import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.permission.PermissionListener;
@@ -36,9 +37,14 @@ import com.populstay.populife.util.bluetooth.BluetoothUtil;
 import com.populstay.populife.util.device.DeviceUtil;
 import com.populstay.populife.util.dialog.DialogUtil;
 import com.populstay.populife.util.locale.LanguageUtil;
+import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.net.NetworkUtil;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.toast.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +75,9 @@ public class BaseActivity extends AppCompatActivity {
 
 		// 将当前 activity 加入到活动收集器中
 		ActivityCollector.addActivity(this);
-
+		if (!EventBus.getDefault().isRegistered(this)) {
+			EventBus.getDefault().register(this);
+		}
 		registerReceiver(mReceiver, getIntentFilter());
 //		// 注册美洽
 //		LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, intentFilter);
@@ -229,6 +237,7 @@ public class BaseActivity extends AppCompatActivity {
 		// 当前 activity 销毁时,将其从活动收集器中移除
 		ActivityCollector.removeActivity(this);
 
+		EventBus.getDefault().unregister(this);
 		unregisterReceiver(mReceiver);
 //		LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
 	}
@@ -347,4 +356,20 @@ public class BaseActivity extends AppCompatActivity {
 					}
 				}, null);
 	}
+
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onEvent(Event event){
+		if (null == event || event.type <=0){
+			PeachLogger.d("onEvent--无效事件");
+			return;
+		}
+		onEventSub(event);
+	}
+
+	public void onEventSub(Event event){
+
+	}
+
+
 }

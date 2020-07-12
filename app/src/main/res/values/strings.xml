@@ -493,5 +493,20 @@
     <string name="get_verify_code_btn_text">获取验证码</string>
     <string name="terms_of_use">服务条款</string>
     <string name="note_phone_or_email_invalid">手机号或邮箱账号错误</string>
+    <string name="not_device_hint">还没有设备</string>
+    <string name="add_device">添加智能设备</string>
+    <string name="my_space">我的空间</string>
+    <string name="switch_space">切换空间</string>
+    <string name="manage_space">空间管理</string>
+    <string name="create_space">新建空间</string>
+    <string name="all_device_num_space">全部设备数量</string>
+    <string name="delete_space">删除空间</string>
+    <string name="create_space_name_hint">请输入新建家庭名字</string>
+    <string name="create">创建</string>
+    <string name="new_create_space">新建空间</string>
+    <string name="rename_space">修改名称</string>
+    <string name="confirm">确定</string>
+    <string name="device_num_match">%d个设备</string>
+    <string name="space_num_match">%d个空间</string>
 
 </resources>

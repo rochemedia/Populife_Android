@@ -250,6 +250,15 @@
         <activity
             android:name=".activity.PDFActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".home.HomeListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".home.HomeDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".home.HomeCreateActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

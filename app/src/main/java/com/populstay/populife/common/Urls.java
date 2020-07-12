@@ -48,6 +48,7 @@ public class Urls {
 	public static final String LOCK_GROUP_ADD = "home/add"; //（post）添加家庭（分组），方便对锁分类管理
 	public static final String LOCK_GROUP_MODIFY = "home/modify"; //（post）修改家庭（分组）信息
 	public static final String LOCK_GROUP_DELETE = "home/delete"; //（post）删除家庭（分组）信息，将关联的锁改为未关联家庭（未分组）
+	public static final String LOCK_GROUP_GET_DEVICE = "home/device/get"; //（get）根据当前用户id、组id，获取家庭中的设备
 	public static final String LOCK_GROUP_BIND = "setting/lock/home/bind"; //（post）根据当前用户id、锁id、以及选择的分组id绑定锁分组，将当前用户拥有的锁绑定在自己的分组下，方便对锁进行分类
 
 	public static final String LOCK_INIT = "lock/init"; //（post）初始化锁,(谁初始化锁，谁就是该锁的管理员。初始化后，之前所有的钥匙密码失效)
@@ -103,4 +104,5 @@ public class Urls {
 	public static final String IC_CARD_DELETE = "icc/delete"; //（post）通过卡号删除IC卡
 	public static final String IC_CARD_CLEAR = "icc/empty"; //（post）删除锁id下所有的IC卡
 	public static final String IC_CARD_UPLOAD = "icc/internal/upload"; //（post）上传锁内ic卡，如果records参数为空则删除该锁下所有的ic卡
+
 }
