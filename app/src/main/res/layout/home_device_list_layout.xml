@@ -15,4 +15,12 @@
 
    <!-- <include layout="@layout/layout_no_data"/>-->
 
+    <ImageView
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/iv_add_more_device_btn"
+        android:src="@drawable/ic_add_device"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_height="wrap_content"/>
+
 </FrameLayout>

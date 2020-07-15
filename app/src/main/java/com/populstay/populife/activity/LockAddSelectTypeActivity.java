@@ -71,6 +71,7 @@ public class LockAddSelectTypeActivity extends BaseActivity implements View.OnCl
 			@Override
 			public void onItemClick(View v, int position) {
 				mDeviceListAdapter.selectItem(position);
+
 			}
 		});
 	}

@@ -257,8 +257,11 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	private RecyclerView mDeviceListView;
 	private DeviceListAdapter mDeviceListAdapter;
 	private List<HomeDevice> mDeviceList;
+	private ImageView mIvAddMoreDeviceBtn;
 	private void initDeviceListUI(View view) {
 
+		mIvAddMoreDeviceBtn = view.findViewById(R.id.iv_add_more_device_btn);
+		mIvAddMoreDeviceBtn.setOnClickListener(this);
 		mDeviceListView = view.findViewById(R.id.home_device_list_recyclerview);
 		mDeviceListView.setLayoutManager(new GridLayoutManager(getContext(),2));
 		mDeviceList = new ArrayList<>();
@@ -388,6 +391,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	public void onClick(View view) {
 		switch (view.getId()) {
 			case R.id.tv_lock_detail_add:
+			case R.id.iv_add_more_device_btn:
 				goToNewActivity(LockAddSelectTypeActivity.class);
 				break;
 
