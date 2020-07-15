@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/device_card_two_bg"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:src="@drawable/deadbolt_inactive"
+        android:id="@+id/iv_device_icon"
+        android:layout_width="wrap_content"
+        android:layout_weight="2"
+        android:layout_height="0dp"/>
+
+    <TextView
+        android:id="@+id/tv_device_name"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical|left"
+        android:layout_height="0dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/lock_type_deadbolt"
+        android:textColor="@color/device_card_text_color_inactive"
+        android:textSize="20sp" />
+
+
+</LinearLayout>

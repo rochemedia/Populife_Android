@@ -223,6 +223,11 @@
 
             </FrameLayout>
 
+            <include layout="@layout/home_device_list_layout"
+                android:id="@+id/fl_device_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
         </FrameLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>

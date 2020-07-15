@@ -12,6 +12,9 @@ public class HomeDevice implements Parcelable {
     // 设备是否被冻结
     private boolean freezed;
 
+    public HomeDevice() {
+    }
+
     protected HomeDevice(Parcel in) {
         deviceId = in.readString();
         name = in.readString();
@@ -75,4 +78,6 @@ public class HomeDevice implements Parcelable {
         parcel.writeString(modelNum);
         parcel.writeByte((byte) (freezed ? 1 : 0));
     }
+
+
 }

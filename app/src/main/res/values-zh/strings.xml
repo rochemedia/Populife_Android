@@ -464,4 +464,8 @@
     <string name="unit_minute">分</string>
     <string name="unit_second">秒</string>
 
+
+
+    <string name="device_name_gateway">网关</string>
+
 </resources>

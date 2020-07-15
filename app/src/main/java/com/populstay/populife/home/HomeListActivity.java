@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,6 +26,8 @@ import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.util.GsonUtil;
 import com.populstay.populife.util.storage.PeachPreference;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,7 @@ public class HomeListActivity extends BaseActivity implements View.OnClickListen
     private List<Home> mHomeDatas = new ArrayList<>();
     private TextView mTvPageTitle, mTvHomeCount;
     private TextView mTvCreateSpaceBtn, mTvManageSpaceBtn;
+    private String mCurrentHomeId = PeachPreference.getLastSelectHomeId();
 
 
     @Override
@@ -91,6 +95,10 @@ public class HomeListActivity extends BaseActivity implements View.OnClickListen
             public void onItemClick(View v, int position) {
                 if (VAL_ACTION_TYPE_SWITCH_HOME.equals(mActionType)) {
                     mHomeListAdapter.selectItem(position);
+                    Home home = mHomeDatas.get(position);
+                    PeachPreference.setLastSelectHomeId(home.getId());
+                    EventBus.getDefault().post(new Event(Event.EventType.CHANGE_HOME, home.getId()));
+                    finish();
                 } else {
                     HomeDetailsActivity.actionStart(HomeListActivity.this, mHomeDatas.get(position));
                 }
@@ -131,7 +139,13 @@ public class HomeListActivity extends BaseActivity implements View.OnClickListen
                             setHomeCount(datas.size());
                             mHomeDatas.clear();
                             mHomeDatas.addAll(datas);
-                            mHomeListAdapter.notifyDataSetChanged();
+                            int selectPosition = 0;
+                            for (int i = 0, len = mHomeDatas.size(); i < len; i++) {
+                                if (!TextUtils.isEmpty(mCurrentHomeId) && mCurrentHomeId.equals(mHomeDatas.get(i).getId())){
+                                    selectPosition = i;
+                                }
+                            }
+                            mHomeListAdapter.selectItem(selectPosition);
                         }
                     }
                 })

@@ -508,5 +508,6 @@
     <string name="confirm">确定</string>
     <string name="device_num_match">%d个设备</string>
     <string name="space_num_match">%d个空间</string>
+    <string name="device_name_gateway">Gateway</string>
 
 </resources>

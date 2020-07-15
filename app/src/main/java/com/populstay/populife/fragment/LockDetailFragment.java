@@ -12,6 +12,9 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +31,15 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gcssloop.widget.ArcSeekBar;
+import com.google.gson.reflect.TypeToken;
 import com.populstay.populife.R;
 import com.populstay.populife.activity.LockAddSelectTypeActivity;
+import com.populstay.populife.activity.LockDetailActivity;
 import com.populstay.populife.activity.LockManageBluetoothKeyActivity;
 import com.populstay.populife.activity.LockManageIcCardActivity;
 import com.populstay.populife.activity.LockManagePasswordActivity;
 import com.populstay.populife.activity.LockSettingsActivity;
+import com.populstay.populife.adapter.DeviceListAdapter;
 import com.populstay.populife.adapter.LockActionAdapter;
 import com.populstay.populife.app.MyApplication;
 import com.populstay.populife.base.BaseFragment;
@@ -41,6 +47,10 @@ import com.populstay.populife.common.Urls;
 import com.populstay.populife.entity.Key;
 import com.populstay.populife.entity.LockAction;
 import com.populstay.populife.enumtype.Operation;
+import com.populstay.populife.eventbus.Event;
+import com.populstay.populife.home.entity.Home;
+import com.populstay.populife.home.entity.HomeDevice;
+import com.populstay.populife.home.entity.HomeDeviceInfo;
 import com.populstay.populife.lock.ILockGetBattery;
 import com.populstay.populife.lock.ILockLock;
 import com.populstay.populife.lock.ILockUnlock;
@@ -50,6 +60,8 @@ import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.push.EventPushService;
 import com.populstay.populife.ui.MyGridView;
+import com.populstay.populife.util.CollectionUtil;
+import com.populstay.populife.util.GsonUtil;
 import com.populstay.populife.util.date.DateUtil;
 import com.populstay.populife.util.device.DeviceUtil;
 import com.populstay.populife.util.dialog.DialogUtil;
@@ -57,6 +69,8 @@ import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
 import com.ttlock.bl.sdk.util.DigitUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +88,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	public static final String VAL_TAG_FRAGMENT = "val_tag_fragment";//显示在 MainLockFragment 中
 	public static final String VAL_TAG_ACTIVITY = "val_tag_activity";//显示在 LockDetailActivity 中
 	private static final String KEY_KEY_ID = "key_key_id";
+	private static final String HOME_ID = "home_id";
 	private static final String KEY_TAG = "key_tag";
 	private Key mCurKEY;
 	private ArcSeekBar mBarUnlocking, mBarUnlock, mBarLock;
@@ -84,31 +99,30 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	private TextView mTvLockName, mTvLockStatus;
 	private ImageView  mIvRemoteUnlock, mIvBattery, mIvUnlocking, mIvUnlock, mIvLock;
 	private TextView mIvAddLock;
-	private FrameLayout mFlLockInfo;
+	private FrameLayout mFlLockInfo, mFlDeviceList;
 	private RelativeLayout mRlUnlocking;
 	private LinearLayout mLlLockAdd, mLlUnlockLock;
 	private int mOpenid;
 	private String mTag;
 	private String mKeyId;
+	private String mHomeId;
 	private int mKeyType;//钥匙类型（1限时，2永久，3单次，4循环）
 	private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			final String action = intent.getAction();
 			if (EventPushService.ACTION_KEY_STATUS_CHANGE.equals(action)) { // 钥匙状态发生变化
-				requestUserLockInfo(mKeyId);
+				//requestUserLockInfo(mKeyId);
+				requestDeviceData();
 			}
 		}
 	};
 	private boolean mIsLockCalled;//闭锁时，onLockSuccess/onLockFail是否被调用过
 	private boolean mIsUnlockCalled;//开锁时，onUnlockSuccess/onUnlockFail是否被调用过
-
 	public static LockDetailFragment newInstance(String actionType, String keyId) {
-
 		Bundle args = new Bundle();
 		args.putString(KEY_TAG, actionType);
 		args.putString(KEY_KEY_ID, keyId);
-
 		LockDetailFragment fragment = new LockDetailFragment();
 		fragment.setArguments(args);
 		return fragment;
@@ -234,8 +248,36 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		initView(view);
 		initListener();
 		registerReceiver();
-		requestUserLockInfo(mKeyId);
+		//requestUserLockInfo(mKeyId);
+		initDeviceListUI(view);
+		requestDeviceData();
 		return view;
+	}
+
+	private RecyclerView mDeviceListView;
+	private DeviceListAdapter mDeviceListAdapter;
+	private List<HomeDevice> mDeviceList;
+	private void initDeviceListUI(View view) {
+
+		mDeviceListView = view.findViewById(R.id.home_device_list_recyclerview);
+		mDeviceListView.setLayoutManager(new GridLayoutManager(getContext(),2));
+		mDeviceList = new ArrayList<>();
+		mDeviceListAdapter = new DeviceListAdapter(mDeviceList, getContext(), DeviceListAdapter.SHOW_TYPE_TWO_CARD);
+		mDeviceListView.setAdapter(mDeviceListAdapter);
+		mDeviceListAdapter.setOnItemClickListener(new DeviceListAdapter.OnItemClickListener() {
+			@Override
+			public void onItemClick(View v, int position) {
+				mDeviceListAdapter.selectItem(position);
+				HomeDevice homeDevice = mDeviceList.get(position);
+
+				if (!HomeDeviceInfo.IDeviceModel.MODEL_GATEWAY.equals(homeDevice.getModelNum())){
+					LockDetailActivity.actionStart(getActivity(), homeDevice.getDeviceId());
+				}else {
+					// 网关
+				}
+			}
+		});
+
 	}
 
 	private void registerReceiver() {
@@ -255,6 +297,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		if (bundle != null) {
 			mTag = bundle.getString(KEY_TAG);
 			mKeyId = bundle.getString(KEY_KEY_ID);
+			mHomeId = bundle.getString(HOME_ID);
 		}
 	}
 
@@ -271,6 +314,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		mIvUnlock = view.findViewById(R.id.iv_lock_detail_unlock);
 		mIvLock = view.findViewById(R.id.iv_lock_detail_lock);
 		mFlLockInfo = view.findViewById(R.id.fl_lock_detail);
+		mFlDeviceList = view.findViewById(R.id.fl_device_list);
 		mLlLockAdd = view.findViewById(R.id.ll_lock_detail_add);
 		mRlUnlocking = view.findViewById(R.id.rl_lock_detail_unlocking);
 		mLlUnlockLock = view.findViewById(R.id.ll_lock_detail_unlock_lock);
@@ -521,7 +565,8 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 						PeachLogger.d("LOCK_EKEY_DELETE", response);
 
 						if (VAL_TAG_FRAGMENT.equals(mTag)) {
-							requestUserLockInfo(mKeyId);
+							//requestUserLockInfo(mKeyId);
+							requestDeviceData();
 						} else if (VAL_TAG_ACTIVITY.equals(mTag)) {
 							if (getActivity() != null) {
 								getActivity().finish();
@@ -673,7 +718,8 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	 * 进行数据刷新操作
 	 */
 	public void doRefresh() {
-		requestUserLockInfo(mKeyId);
+		//requestUserLockInfo(mKeyId);
+		requestDeviceData();
 //		getLockBattery();
 	}
 
@@ -714,6 +760,84 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		});
 	}
 
+
+	private void requestDeviceData(){
+		// 主页面中
+		if (VAL_TAG_FRAGMENT.equals(mTag)){
+			requestDeviceListForGroup(mHomeId);
+		}
+		// 独立详情页面
+		else {
+			requestUserLockInfo(mKeyId);
+		}
+	}
+
+
+
+	private void requestDeviceListForGroup(String homeId) {
+		RestClient.builder()
+				.url(Urls.LOCK_GROUP_GET_DEVICE)
+				.loader(getActivity())
+				.params("userId", PeachPreference.readUserId())
+				.params("homeId", homeId)
+				.success(new ISuccess() {
+					@Override
+					public void onSuccess(String response) {
+						if (mRefreshLayout != null) {
+							mRefreshLayout.setRefreshing(false);
+						}
+
+						JSONObject result = JSON.parseObject(response);
+						int code = result.getInteger("code");
+						if (code == 200) {
+
+							List<HomeDevice> datas = GsonUtil.fromJson(result.getJSONArray("data").toJSONString(),new TypeToken<List<HomeDevice>>(){});
+
+							// 没有设备,显示添加锁UI
+							if (CollectionUtil.isEmpty(datas)){
+								setLockInfoVisible(SHOW_DEVICE_ADD);
+							}
+							// 有一个设备，请求详情
+							else if (datas.size() == 1){
+								mKeyId = datas.get(0).getDeviceId();
+								requestUserLockInfo(mKeyId);
+							}
+							// 显示设备列表
+							else {
+								setLockInfoVisible(SHOW_DEVICE_LIST);
+								mDeviceList.clear();
+								mDeviceList.addAll(datas);
+								mDeviceListAdapter.notifyDataSetChanged();
+							}
+						}else {
+							if (mRefreshLayout != null) {
+								mRefreshLayout.setRefreshing(false);
+							}
+						}
+					}
+				})
+				.failure(new IFailure() {
+					@Override
+					public void onFailure() {
+						if (mRefreshLayout != null) {
+							mRefreshLayout.setRefreshing(false);
+						}
+					}
+				})
+				.error(new IError() {
+					@Override
+					public void onError(int code, String msg) {
+						if (mRefreshLayout != null) {
+							mRefreshLayout.setRefreshing(false);
+						}
+					}
+				})
+				.build()
+				.get();
+	}
+
+
+
 	/**
 	 * 登录成功后调用，查询用户拥有的锁及附属的相关信息
 	 */
@@ -737,7 +861,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 						int code = result.getInteger("code");
 						if (code == 920) {//没有锁信息
 							PeachPreference.setAccountLockNum(PeachPreference.readUserId(), 0);
-							setLockInfoVisible(false);
+							setLockInfoVisible(SHOW_DEVICE_ADD);
 						} else if (code == 200) {
 							JSONObject lockInfo = result.getJSONObject("data");
 							if (lockInfo != null && !lockInfo.isEmpty()) { //有锁信息，显示对应的锁UI或锁列表UI
@@ -745,9 +869,9 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 								PeachPreference.setAccountLockNum(PeachPreference.readUserId(), lockNum);
 								if (VAL_TAG_FRAGMENT.equals(mTag)) {
 									if (lockNum <= 0) { //锁数量为0，显示添加锁UI
-										setLockInfoVisible(false);
+										setLockInfoVisible(SHOW_DEVICE_ADD);
 									} else if (lockNum == 1) { //锁数量为1，获取锁详细信息，并显示锁详情UI
-										setLockInfoVisible(true);
+										setLockInfoVisible(SHOW_LOCK_INFO);
 										parseLockInfo(lockInfo);
 									} else { //锁数量>=2，显示锁列表UI
 										MainLockFragment fragment = (MainLockFragment) getParentFragment();
@@ -761,13 +885,13 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 											getActivity().finish();
 										}
 									} else { //锁数量为1，获取锁详细信息，并显示锁详情UI
-										setLockInfoVisible(true);
+										setLockInfoVisible(SHOW_LOCK_INFO);
 										parseLockInfo(lockInfo);
 									}
 								}
 							} else { //无锁信息，显示添加锁UI
 								PeachPreference.setAccountLockNum(PeachPreference.readUserId(), 0);
-								setLockInfoVisible(false);
+								setLockInfoVisible(SHOW_DEVICE_ADD);
 							}
 //							PeachPreference.saveUserLockInfo(String.valueOf(lockInfo));
 						}
@@ -793,17 +917,25 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				.get();
 	}
 
-	private void setLockInfoVisible(boolean hasLockInfo) {
-		if (hasLockInfo) {
-			if (mLlLockAdd != null)
-				mLlLockAdd.setVisibility(View.GONE);
-			if (mFlLockInfo != null)
-				mFlLockInfo.setVisibility(View.VISIBLE);
-		} else {
-			if (mLlLockAdd != null)
+
+	public static final int SHOW_DEVICE_ADD = 0;
+	public static final int SHOW_LOCK_INFO = 1;
+	public static final int SHOW_DEVICE_LIST = 2;
+
+	private void setLockInfoVisible(int showType) {
+		mLlLockAdd.setVisibility(View.GONE);
+		mFlLockInfo.setVisibility(View.GONE);
+		mFlDeviceList.setVisibility(View.GONE);
+		switch (showType) {
+			case SHOW_DEVICE_ADD:
 				mLlLockAdd.setVisibility(View.VISIBLE);
-			if (mFlLockInfo != null)
-				mFlLockInfo.setVisibility(View.GONE);
+				break;
+			case SHOW_LOCK_INFO:
+				mFlLockInfo.setVisibility(View.VISIBLE);
+				break;
+			case SHOW_DEVICE_LIST:
+				mFlDeviceList.setVisibility(View.VISIBLE);
+				break;
 		}
 	}
 
@@ -1101,7 +1233,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 			case "110408"://已删除
 			case "110410"://已重置
-				setLockInfoVisible(false);
+				setLockInfoVisible(SHOW_DEVICE_ADD);
 				break;
 
 			case "110500"://已过期
@@ -1183,7 +1315,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 			case "110408"://已删除
 			case "110410"://已重置
-				setLockInfoVisible(false);
+				setLockInfoVisible(SHOW_DEVICE_ADD);
 				break;
 
 			case "110500"://已过期
@@ -1207,5 +1339,18 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		if (getActivity() != null) {
 			getActivity().unregisterReceiver(mReceiver);
 		}
+	}
+
+	@Override
+	public void onEventSub(Event event) {
+		super.onEventSub(event);
+		switch (event.type){
+			case Event.EventType.GET_HOME_DATA_COMPLETE:
+			case Event.EventType.CHANGE_HOME:
+				mHomeId = (String) event.obj;
+				requestDeviceData();
+				break;
+		}
+
 	}
 }

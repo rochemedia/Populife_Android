@@ -14,11 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.populstay.populife.R;
+import com.populstay.populife.eventbus.Event;
 import com.populstay.populife.permission.PermissionListener;
 import com.populstay.populife.util.activity.ActivityCollector;
 import com.populstay.populife.util.bluetooth.BluetoothUtil;
+import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.net.NetworkUtil;
 import com.populstay.populife.util.toast.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +45,13 @@ public abstract class BaseFragment extends Fragment {
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		EventBus.getDefault().register(this);
+	}
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
 	}
 
 	@Override
@@ -191,5 +203,18 @@ public abstract class BaseFragment extends Fragment {
 				}
 			}
 		}
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onEvent(Event event){
+		if (null == event || event.type <=0){
+			PeachLogger.d("Fragment onEvent--无效事件");
+			return;
+		}
+		onEventSub(event);
+	}
+
+	public void onEventSub(Event event){
+
 	}
 }

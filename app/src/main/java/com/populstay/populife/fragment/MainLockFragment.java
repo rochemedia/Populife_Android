@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.populstay.populife.activity.LockAddSelectTypeActivity;
 import com.populstay.populife.base.BaseVisibilityFragment;
 import com.populstay.populife.common.Urls;
 import com.populstay.populife.entity.LockGroup;
+import com.populstay.populife.eventbus.Event;
 import com.populstay.populife.home.HomeListActivity;
 import com.populstay.populife.home.entity.Home;
 import com.populstay.populife.home.entity.HomeDevice;
@@ -43,6 +45,8 @@ import com.populstay.populife.util.GsonUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,6 +81,7 @@ public class MainLockFragment extends BaseVisibilityFragment {
 	}
 
 
+	private Home currentHome;
 	private void requestLockGroup() {
 		RestClient.builder()
 				.url(Urls.LOCK_GROUP_LIST)
@@ -95,14 +100,13 @@ public class MainLockFragment extends BaseVisibilityFragment {
 						int code = result.getInteger("code");
 						if (code == 200) {
 							List<Home> datas = GsonUtil.fromJson(result.getJSONArray("data").toJSONString(),new TypeToken<List<Home>>(){});
-
-
-
-
-
-							if (!CollectionUtil.isEmpty(datas)){
-								requestDeviceListForGroup(datas.get(0).getId());
+							currentHome = datas.get(0);
+							String currentHomeId = PeachPreference.getLastSelectHomeId();
+							if (TextUtils.isEmpty(currentHomeId)){
+								PeachPreference.setLastSelectHomeId(currentHome.getId());
+								currentHomeId = currentHome.getId();
 							}
+							EventBus.getDefault().post(new Event(Event.EventType.GET_HOME_DATA_COMPLETE,currentHomeId));
 						}
 					}
 				})
@@ -125,51 +129,6 @@ public class MainLockFragment extends BaseVisibilityFragment {
 				.build()
 				.get();
 	}
-
-	private void requestDeviceListForGroup(String homeId) {
-		RestClient.builder()
-				.url(Urls.LOCK_GROUP_GET_DEVICE)
-				.loader(getActivity())
-				.params("userId", PeachPreference.readUserId())
-				.params("homeId", homeId)
-				.success(new ISuccess() {
-					@Override
-					public void onSuccess(String response) {
-						/*if (mRefreshLayout != null) {
-							mRefreshLayout.setRefreshing(false);
-						}*/
-
-						PeachLogger.d("LOCK_GROUP_LIST", response);
-
-						JSONObject result = JSON.parseObject(response);
-						int code = result.getInteger("code");
-						if (code == 200) {
-							List<HomeDevice> datas = GsonUtil.fromJson(result.getJSONArray("data").toJSONString(),new TypeToken<List<HomeDevice>>(){});
-
-
-						}
-					}
-				})
-				.failure(new IFailure() {
-					@Override
-					public void onFailure() {
-						/*if (mRefreshLayout != null) {
-							mRefreshLayout.setRefreshing(false);
-						}*/
-					}
-				})
-				.error(new IError() {
-					@Override
-					public void onError(int code, String msg) {
-						/*if (mRefreshLayout != null) {
-							mRefreshLayout.setRefreshing(false);
-						}*/
-					}
-				})
-				.build()
-				.get();
-	}
-
 
 	@Override
 	protected void onVisibilityChanged(boolean visible) {
@@ -214,10 +173,10 @@ public class MainLockFragment extends BaseVisibilityFragment {
 					fragment.doRefresh();
 				}
 			} else if (curTabIndex == 1) {
-				LockListFragment fragment = (LockListFragment) adapter.getItem(1);
+				/*LockListFragment fragment = (LockListFragment) adapter.getItem(1);
 				if (fragment != null) {
 					fragment.doRefresh();
-				}
+				}*/
 			}
 		}
 	}
@@ -301,7 +260,7 @@ public class MainLockFragment extends BaseVisibilityFragment {
 	private void setupViewPager(ViewPager viewPager) {
 		ViewPagerAdapter localViewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
 		localViewPagerAdapter.addFragment(LockDetailFragment.newInstance(LockDetailFragment.VAL_TAG_FRAGMENT, ""));
-		localViewPagerAdapter.addFragment(new LockListFragment());
+		//localViewPagerAdapter.addFragment(new LockListFragment());
 		viewPager.setAdapter(localViewPagerAdapter);
 	}
 

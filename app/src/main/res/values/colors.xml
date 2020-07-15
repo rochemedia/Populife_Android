@@ -58,4 +58,10 @@
     <color name="sign_page_title_text">#FF212322</color>
     <color name="sign_page_action_text">#FF212322</color>
 
+
+
+    <color name="device_card_text_color_active">#ffffff</color>
+    <color name="device_card_text_color_inactive">#212322</color>
+    <color name="device_card_text_color_freeze">#C0C1C0</color>
+
 </resources>

@@ -21,5 +21,9 @@ public class Event {
         int DELETE_SPACE = 2;
         // 修改空间名称
         int RENAME_SPACE = 3;
+        // 获取家庭组数据完成
+        int GET_HOME_DATA_COMPLETE = 4;
+        // 选择家庭组变化
+        int CHANGE_HOME = 5;
     }
 }
