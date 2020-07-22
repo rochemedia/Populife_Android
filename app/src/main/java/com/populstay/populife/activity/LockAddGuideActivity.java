@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.populstay.populife.R;
 import com.populstay.populife.base.BaseActivity;
 import com.populstay.populife.home.entity.HomeDeviceInfo;
+import com.populstay.populife.ui.widget.HelpPopupWindow;
 
 public class LockAddGuideActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -19,6 +20,8 @@ public class LockAddGuideActivity extends BaseActivity implements View.OnClickLi
 
     private TextView  mTvNext, mTvPageTitle;
     private CheckBox mCbBtAndLbsOpen, mCbNetOpen, mCkBatteryInstall, mCbKeepOpenDoor, mCbConfirmTime;
+
+    private HelpPopupWindow mHelpPopupWindow;
 
     public static void actionStart(Context context, String lockType) {
         Intent intent = new Intent(context, LockAddGuideActivity.class);
@@ -61,7 +64,8 @@ public class LockAddGuideActivity extends BaseActivity implements View.OnClickLi
         tvQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonQuestionDetailActivity.actionStart(LockAddGuideActivity.this, "0", "1");
+                //CommonQuestionDetailActivity.actionStart(LockAddGuideActivity.this, "0", "1");
+                showHelpPopupWindow(v);
             }
         });
 
@@ -77,6 +81,13 @@ public class LockAddGuideActivity extends BaseActivity implements View.OnClickLi
 
             }
         });
+    }
+
+    private void showHelpPopupWindow(View anchor){
+        if (null == mHelpPopupWindow){
+            mHelpPopupWindow = new HelpPopupWindow(this);
+        }
+        mHelpPopupWindow.show(anchor);
     }
 
     private void initListener() {
@@ -122,5 +133,13 @@ public class LockAddGuideActivity extends BaseActivity implements View.OnClickLi
 				&& mCbKeepOpenDoor.isChecked()
 				&& mCbConfirmTime.isChecked();
 		mTvNext.setEnabled(nextEnable);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != mHelpPopupWindow){
+            mHelpPopupWindow.dismiss();
+        }
     }
 }

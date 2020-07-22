@@ -1,12 +1,10 @@
 package com.populstay.populife.activity;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -240,7 +238,7 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 	}
 
 	private int mLockId, mBattery;
-	private String mLockAliasName;
+	private String mLockName;
 	private HomeDevice mHomeDevice = new HomeDevice();
 
 	/**
@@ -267,7 +265,7 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 							mLockId = data.getInteger("lockId");
 							mBattery = (int) requestParams.get("electricQuantity");
 							mHomeDevice.setDeviceId(String.valueOf(mLockId));
-							mHomeDevice.setName(mLockAliasName);
+							mHomeDevice.setName(mLockName);
 							PeachPreference.setBoolean(PeachPreference.HAVE_NEW_MESSAGE, true);
 							toast(R.string.note_lock_init_success);
 							AddDeviceSuccessActivity.actionStart(FoundDeviceActivity.this, HomeDeviceInfo.IDeviceModel.MODEL_LOCK_DEADBOLT, mHomeDevice);
@@ -303,10 +301,10 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 		params.put("userId", PeachPreference.readUserId());
 		String name = lockInfo.getString("lockName");
 		PeachLogger.d("lockName", "lockName="+name);
+		//todo
 		params.put("name", name);
-		//String alias = lockInfo.getString("alias");
-		mLockAliasName = name;
-		//params.put("alias", alias);
+		//params.put("lockName", name);
+		mLockName = name;
 		params.put("mac", lockInfo.getString("lockMac"));
 		params.put("key", lockInfo.getString("lockKey"));
 		params.put("flagPos", lockInfo.getInteger("lockFlagPos"));

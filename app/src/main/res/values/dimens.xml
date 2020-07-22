@@ -9,5 +9,8 @@
     <dimen name="sign_page_action_text">16sp</dimen>
     <dimen name="common_page_title_text">18sp</dimen>
 
+    <dimen name="help_win_width">280dp</dimen>
+    <dimen name="help_win_height">110dp</dimen>
+
 
 </resources>
