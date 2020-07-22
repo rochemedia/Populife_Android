@@ -169,6 +169,23 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 						finish();
 					}
 				});
+		TextView  tvPageTitle = findViewById(R.id.page_title);
+		tvPageTitle.setText(getResources().getString(R.string.locks_nearby));
+		initTitleBarRightBtn();
+	}
+
+	private void initTitleBarRightBtn() {
+		TextView tvSupport = findViewById(R.id.page_action);
+		tvSupport.setText("");
+		tvSupport.setCompoundDrawablesWithIntrinsicBounds(
+				getResources().getDrawable(R.drawable.support_icon), null, null, null);
+
+		tvSupport.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+			}
+		});
 	}
 
 	private void upDateSeekbarScanDevice(){
