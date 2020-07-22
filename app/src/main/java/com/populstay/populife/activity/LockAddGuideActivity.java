@@ -17,7 +17,7 @@ public class LockAddGuideActivity extends BaseActivity implements View.OnClickLi
     private static final String KEY_LOCK_TYPE = "KEY_LOCK_TYPE";
     private String lockType;
 
-    private TextView mTvQuestion, mTvNext, mTvPageTitle;
+    private TextView  mTvNext, mTvPageTitle;
     private CheckBox mCbBtAndLbsOpen, mCbNetOpen, mCkBatteryInstall, mCbKeepOpenDoor, mCbConfirmTime;
 
     public static void actionStart(Context context, String lockType) {
@@ -42,7 +42,6 @@ public class LockAddGuideActivity extends BaseActivity implements View.OnClickLi
 
     private void initView() {
         mTvPageTitle = findViewById(R.id.page_title);
-        mTvQuestion = findViewById(R.id.page_action);
         mTvNext = findViewById(R.id.tv_lock_add_guide_next);
 
         mCbBtAndLbsOpen = findViewById(R.id.cb_bt_and_lbs_open);
@@ -50,10 +49,37 @@ public class LockAddGuideActivity extends BaseActivity implements View.OnClickLi
         mCkBatteryInstall = findViewById(R.id.ck_battery_install);
         mCbKeepOpenDoor = findViewById(R.id.cb_keep_open_door);
         mCbConfirmTime = findViewById(R.id.cb_confirm_time);
+        initTitleBarRightBtn();
+    }
+
+    private void initTitleBarRightBtn() {
+        TextView tvQuestion = findViewById(R.id.page_action);
+        tvQuestion.setText("");
+        tvQuestion.setCompoundDrawablesWithIntrinsicBounds(
+                getResources().getDrawable(R.drawable.help_icon), null, null, null);
+
+        tvQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonQuestionDetailActivity.actionStart(LockAddGuideActivity.this, "0", "1");
+            }
+        });
+
+        TextView tvSupport = findViewById(R.id.page_action_2);
+        tvSupport.setVisibility(View.VISIBLE);
+        tvSupport.setText("");
+        tvSupport.setCompoundDrawablesWithIntrinsicBounds(
+                getResources().getDrawable(R.drawable.support_icon), null, null, null);
+
+        tvSupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void initListener() {
-        mTvQuestion.setOnClickListener(this);
         mTvNext.setOnClickListener(this);
         mCbBtAndLbsOpen.setOnCheckedChangeListener(this);
         mCbNetOpen.setOnCheckedChangeListener(this);
@@ -71,10 +97,6 @@ public class LockAddGuideActivity extends BaseActivity implements View.OnClickLi
             mTvPageTitle.setText(R.string.lock_add);
         }
 
-        mTvQuestion.setText("");
-        mTvQuestion.setCompoundDrawablesWithIntrinsicBounds(
-                getResources().getDrawable(R.drawable.ic_question_mark), null, null, null);
-
         mCbBtAndLbsOpen.setChecked(isBleEnable());
         mCbNetOpen.setChecked(isNetEnable());
     }
@@ -82,10 +104,6 @@ public class LockAddGuideActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.page_action:
-                CommonQuestionDetailActivity.actionStart(LockAddGuideActivity.this, "0", "1");
-                break;
-
             case R.id.tv_lock_add_guide_next:
                 if (isBleNetEnable()) {
                     ActivateDeviceActivity.actionStart(this,lockType);

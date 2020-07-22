@@ -37,17 +37,6 @@
                 app:paddingRightInner="@dimen/common_page_left_right_space"
                 android:layout_height="wrap_content"/>
 
-            <org.angmarch.views.NiceSpinner
-                app:dropDownListPaddingBottom="100dp"
-                android:gravity="left"
-                android:layout_marginLeft="@dimen/common_page_left_right_space"
-                android:layout_marginRight="@dimen/common_page_left_right_space"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:id="@+id/sp_home_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#F00" />
 
             <View
                 android:id="@+id/bottom_line_view"

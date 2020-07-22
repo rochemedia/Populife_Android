@@ -55,7 +55,6 @@ public class LockAddSelectTypeActivity extends BaseActivity implements View.OnCl
 
 	private void initView() {
 		((TextView) findViewById(R.id.page_title)).setText(R.string.add_device);
-		findViewById(R.id.page_action).setVisibility(View.GONE);
 
 		mLlDeadbolt = findViewById(R.id.ll_lock_type_deadbolt);
 		mLlKeybox = findViewById(R.id.ll_lock_type_keybox);
@@ -82,6 +81,22 @@ public class LockAddSelectTypeActivity extends BaseActivity implements View.OnCl
 						goToNewActivity(GatewayAddGuideActivity.class);
 						break;
 				}
+			}
+		});
+
+		initTitleBarRightBtn();
+	}
+
+	private void initTitleBarRightBtn() {
+		TextView tvSupport = findViewById(R.id.page_action);
+		tvSupport.setText("");
+		tvSupport.setCompoundDrawablesWithIntrinsicBounds(
+				getResources().getDrawable(R.drawable.support_icon), null, null, null);
+
+		tvSupport.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
 			}
 		});
 	}

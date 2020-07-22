@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:ellipsize="end"
+            android:visibility="gone"
             android:maxLines="1"
             android:text="@string/nav_tab_lock"
             android:textColor="@color/sign_page_title_text"
@@ -43,12 +44,13 @@
             android:layout_alignParentRight="true"
             android:layout_width="45dp"
             android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
             android:padding="10dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_service_gray" />
+                android:src="@drawable/support_icon" />
 
             <ImageView
                 android:id="@+id/iv_main_lock_msg_new"

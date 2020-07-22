@@ -66,6 +66,35 @@ public class ActivateDeviceActivity extends BaseActivity implements View.OnClick
         mTvShowCountDownTime = findViewById(R.id.tv_show_count_down_time);
         mTvNext = findViewById(R.id.tv_next);
         mCbConfirmActivateDevice = findViewById(R.id.cb_confirm_activate_device);
+        initTitleBarRightBtn();
+    }
+
+    private void initTitleBarRightBtn() {
+        TextView tvQuestion = findViewById(R.id.page_action);
+        tvQuestion.setText("");
+        tvQuestion.setCompoundDrawablesWithIntrinsicBounds(
+                getResources().getDrawable(R.drawable.help_icon), null, null, null);
+
+        tvQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PDFActivity.actionStart(ActivateDeviceActivity.this, getString(R.string.user_manual_gateway),
+                        "user_manual_gateway.pdf", true);
+            }
+        });
+
+        TextView tvSupport = findViewById(R.id.page_action_2);
+        tvSupport.setVisibility(View.VISIBLE);
+        tvSupport.setText("");
+        tvSupport.setCompoundDrawablesWithIntrinsicBounds(
+                getResources().getDrawable(R.drawable.support_icon), null, null, null);
+
+        tvSupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void setListener() {

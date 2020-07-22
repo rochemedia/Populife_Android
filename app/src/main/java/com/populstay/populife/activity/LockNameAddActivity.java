@@ -35,11 +35,6 @@ import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
 
-import org.angmarch.views.NiceSpinner;
-import org.angmarch.views.NiceSpinnerAdapterWrapper;
-import org.angmarch.views.SimpleSpinnerTextFormatter;
-import org.angmarch.views.SpinnerTextFormatter;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
@@ -55,7 +50,6 @@ public class LockNameAddActivity extends BaseActivity implements View.OnClickLis
 
 	private String mLockInitData;
 	private int mLockId, mBattery;
-	private NiceSpinner mSpHomeGroup;
 	private List<HomeDevice> mHomeGroupDatas;
 
 	@Override
@@ -86,66 +80,6 @@ public class LockNameAddActivity extends BaseActivity implements View.OnClickLis
 		mTvComplete = findViewById(R.id.tv_lock_name_add_complete);
 		mIvUpload = findViewById(R.id.iv_lock_name_add_upload);
 		mIvUpload.setVisibility(View.INVISIBLE);
-
-		mSpHomeGroup = findViewById(R.id.sp_home_group);
-		mHomeGroupDatas = new ArrayList<>();
-		for (int i = 0; i < 30; i++) {
-			mHomeGroupDatas.add(new HomeDevice("item"+i));
-		}
-		MySpinnerAdapter spinnerAdapter  = new MySpinnerAdapter();
-
-		mSpHomeGroup.setAdapter(spinnerAdapter);
-		mSpHomeGroup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
-	}
-
-	class MySpinnerAdapter extends BaseAdapter implements SpinnerAdapter{
-
-		@Override
-		public View getDropDownView(int position, View convertView, ViewGroup parent) {
-			if (convertView == null)
-				convertView = LayoutInflater.from(LockNameAddActivity.this).inflate(R.layout.home_group_spinner_item, null);
-			TextView text =  convertView
-					.findViewById(R.id.tv_name);
-			text.setText("选择了:" + mHomeGroupDatas.get(position));
-			text.setBackgroundColor(Color.GREEN);
-			return convertView;
-		}
-
-		@Override
-		public int getCount() {
-			return CollectionUtil.isEmpty(mHomeGroupDatas) ? 0 : mHomeGroupDatas.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return CollectionUtil.isEmpty(mHomeGroupDatas) ? null : mHomeGroupDatas.get(position);
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			if (convertView == null)
-				convertView = LayoutInflater.from(LockNameAddActivity.this).inflate(R.layout.home_group_spinner_item, null);
-			TextView text =  convertView
-					.findViewById(R.id.tv_name);
-			text.setText("选择了:" + mHomeGroupDatas.get(position));
-			text.setBackgroundColor(Color.GREEN);
-			return convertView;
-		}
 	}
 
 	private void initListener() {

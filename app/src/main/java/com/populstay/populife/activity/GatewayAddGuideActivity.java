@@ -18,7 +18,7 @@ import java.util.List;
 
 public class GatewayAddGuideActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
-	private TextView mTvPageTitle, mTvShowCountDownTime, mTvNext, mTvQuestion;
+	private TextView mTvPageTitle, mTvShowCountDownTime, mTvNext;
 	private BaseCountDownTimer mCountDownTimer;
 	private CheckBox mCbConfirmActivateDevice;
 	private CheckBox mCbConfirmGatewayReconnect;
@@ -58,14 +58,37 @@ public class GatewayAddGuideActivity extends BaseActivity implements View.OnClic
 		mCbConfirmActivateDevice = findViewById(R.id.cb_confirm_activate_device);
 		mCbConfirmGatewayReconnect = findViewById(R.id.cb_confirm_gateway_reconnect);
 
-		mTvQuestion = findViewById(R.id.page_action);
-		mTvQuestion.setText("");
-		mTvQuestion.setCompoundDrawablesWithIntrinsicBounds(
-				getResources().getDrawable(R.drawable.ic_question_mark), null, null, null);
+		initTitleBarRightBtn();
+	}
+
+	private void initTitleBarRightBtn() {
+		/*TextView tvQuestion = findViewById(R.id.page_action);
+		tvQuestion.setText("");
+		tvQuestion.setCompoundDrawablesWithIntrinsicBounds(
+				getResources().getDrawable(R.drawable.help_icon), null, null, null);
+
+		tvQuestion.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				PDFActivity.actionStart(GatewayAddGuideActivity.this, getString(R.string.user_manual_gateway),
+						"user_manual_gateway.pdf", true);
+			}
+		});*/
+
+		TextView tvSupport = findViewById(R.id.page_action);
+		tvSupport.setText("");
+		tvSupport.setCompoundDrawablesWithIntrinsicBounds(
+				getResources().getDrawable(R.drawable.support_icon), null, null, null);
+
+		tvSupport.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+			}
+		});
 	}
 
 	private void setListener() {
-		mTvQuestion.setOnClickListener(this);
 		mTvNext.setOnClickListener(this);
 		mCbConfirmActivateDevice.setOnCheckedChangeListener(this);
 		mCbConfirmGatewayReconnect.setOnCheckedChangeListener(this);
@@ -96,10 +119,6 @@ public class GatewayAddGuideActivity extends BaseActivity implements View.OnClic
 								}
 							});
 				}
-				break;
-			case R.id.page_action:
-				PDFActivity.actionStart(GatewayAddGuideActivity.this, getString(R.string.user_manual_gateway),
-						"user_manual_gateway.pdf", true);
 				break;
 		}
 	}

@@ -30,7 +30,7 @@ public class LockAddGuideKeyboxOpenActivity extends BaseActivity implements View
 		mTvQuestion = findViewById(R.id.page_action);
 		mTvQuestion.setText("");
 		mTvQuestion.setCompoundDrawablesWithIntrinsicBounds(
-				getResources().getDrawable(R.drawable.ic_question_mark), null, null, null);
+				getResources().getDrawable(R.drawable.help_icon), null, null, null);
 
 		mTvNext = findViewById(R.id.tv_lock_add_guide_next);
 		/*mIvGuide = findViewById(R.id.iv_lock_add_guide_img);
