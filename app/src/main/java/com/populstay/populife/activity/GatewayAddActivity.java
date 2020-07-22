@@ -1,14 +1,24 @@
 package com.populstay.populife.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -16,12 +26,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.populstay.populife.R;
 import com.populstay.populife.adapter.GatewayAddListAdapter;
 import com.populstay.populife.base.BaseActivity;
+import com.populstay.populife.base.BaseApplication;
 import com.populstay.populife.common.Urls;
+import com.populstay.populife.home.entity.HomeDevice;
+import com.populstay.populife.home.entity.HomeDeviceInfo;
 import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.IError;
 import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.ui.CustomProgress;
+import com.populstay.populife.ui.widget.exedittext.ExEditText;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.net.NetworkUtil;
 import com.populstay.populife.util.storage.PeachPreference;
@@ -42,10 +56,12 @@ import java.util.List;
 
 public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 
-	private LinearLayout mLlConfig;
+	private LinearLayout mLlConfig,mLlFoundDeviceView;
 	private TextView mTvTitle, mTvOk;
-	private EditText mEtWifiName, mEtWifiPwd, mEtGatewayName;
+	private ExEditText mEtWifiName, mEtWifiPwd;
+	private EditText mEtGatewayName;
 	private AVLoadingIndicatorView mLoadingView;
+	private SeekBar mSeekbarScanDevice;
 
 	private ListView mListView;
 	private GatewayAddListAdapter mAdapter;
@@ -54,6 +70,21 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 	private G2GatewayAPI mGatewayAPI;
 	private CustomProgress mCustomProgress;
 	private ExtendedBluetoothDevice mSelectedDevice;
+
+	private AlertDialog DIALOG;
+	public static final int SCAN_TIME_OUT_SECONDS = 10 * 1000;
+	private int mCurrentScanProgress = 0;
+	private Runnable mRunnable = new Runnable() {
+		@Override
+		public void run() {
+			Log.e("mhs","mRunnable--mCurrentScanProgress="+mCurrentScanProgress);
+			if (mCurrentScanProgress >= SCAN_TIME_OUT_SECONDS){
+				showNoResultDialog();
+			}else {
+				upDateSeekbarScanDevice();
+			}
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +98,7 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 
 	private void initView() {
 		mTvTitle = findViewById(R.id.tv_gateway_add_title);
-		mTvTitle.setText(R.string.gateway_choose);
+		mTvTitle.setText(R.string.add_gateway_title);
 
 		mLlConfig = findViewById(R.id.ll_gateway_add);
 
@@ -82,6 +113,17 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 		mLoadingView = findViewById(R.id.loading_view_gateway_add);
 
 		mEtWifiName.setText(NetworkUtil.getWifiSSid());
+
+		mLlFoundDeviceView = findViewById(R.id.ll_found_device_view);
+		mSeekbarScanDevice = findViewById(R.id.seekbar_scan_device);
+		mSeekbarScanDevice.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// 返回true，禁止手动拖动进度值
+				return true;
+			}
+		});
+
 	}
 
 	private void initListener() {
@@ -97,7 +139,7 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 							@Override
 							public void run() {
 								stopLoading();
-								mTvTitle.setText(R.string.gateway_config);
+								mListView.setVisibility(View.GONE);
 								mLlConfig.setVisibility(View.VISIBLE);
 								mEtGatewayName.setText(mSelectedDevice.getName());
 							}
@@ -144,20 +186,89 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 
 			}
 		});
+		startScanGateway();
+		initSeekbarScanDevice();
+	}
 
+
+	private void startScanGateway(){
+		if (null == mGatewayAPI){
+			return;
+		}
 		mGatewayAPI.startScanGateway(new ScanCallback() {
 			@Override
 			public void onScanResult(ExtendedBluetoothDevice extendedBluetoothDevice) {
 				mLoadingView.setVisibility(View.GONE);
 				PeachLogger.d(extendedBluetoothDevice);
-				if (mAdapter != null)
+				if (mAdapter != null){
 					mAdapter.updateDevice(extendedBluetoothDevice);
+				}
+				BaseApplication.getHandler().removeCallbacks(mRunnable);
+				mListView.setVisibility(View.VISIBLE);
+				mLlFoundDeviceView.setVisibility(View.GONE);
+				if (DIALOG != null) {
+					DIALOG.cancel();
+				}
 			}
 
 			@Override
 			public void onScanFailed(int i) {
 			}
 		});
+	}
+
+	private void upDateSeekbarScanDevice(){
+		mCurrentScanProgress += 500;
+		mSeekbarScanDevice.setProgress(mCurrentScanProgress);
+		BaseApplication.getHandler().postDelayed(mRunnable, 500);
+	}
+
+	private void initSeekbarScanDevice(){
+		mSeekbarScanDevice.setMax(SCAN_TIME_OUT_SECONDS);
+		mCurrentScanProgress = 0;
+		upDateSeekbarScanDevice();
+	}
+
+	private void showNoResultDialog() {
+		DIALOG = new AlertDialog.Builder(this).create();
+		DIALOG.setCanceledOnTouchOutside(false);
+		DIALOG.show();
+		final Window window = DIALOG.getWindow();
+		if (window != null) {
+			window.setContentView(R.layout.dialog_input);
+			window.setGravity(Gravity.CENTER);
+			window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+			//设置属性
+			final WindowManager.LayoutParams params = window.getAttributes();
+			params.width = WindowManager.LayoutParams.MATCH_PARENT;
+			params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+			params.dimAmount = 0.5f;
+			window.setAttributes(params);
+
+			((TextView) window.findViewById(R.id.tv_dialog_input_title)).setText(R.string.search_timeout);
+			window.findViewById(R.id.et_dialog_input_content).setVisibility(View.GONE);
+			TextView tvContent = window.findViewById(R.id.tv_dialog_content);
+			tvContent.setVisibility(View.VISIBLE);
+			tvContent.setText(R.string.scan_gateway_fial_hint);
+			Button leftButton = window.findViewById(R.id.btn_dialog_input_cancel);
+			leftButton.setText(R.string.retry_scan);
+			leftButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					DIALOG.cancel();
+					startScanGateway();
+					initSeekbarScanDevice();
+				}
+			});
+			Button rightButton = window.findViewById(R.id.btn_dialog_input_ok);
+			rightButton.setText(R.string.cancel);
+			rightButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					finish();
+				}
+			});
+		}
 	}
 
 	/**
@@ -285,8 +396,14 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 							if (isInitSuccess) {
 								toast(getString(R.string.note_gateway_init_success));
 								refreshBtnState();
-								Intent intent = new Intent(GatewayAddActivity.this, GatewayListActivity.class);
-								startActivity(intent);
+								/*Intent intent = new Intent(GatewayAddActivity.this, GatewayListActivity.class);
+								startActivity(intent);*/
+								HomeDevice device = new HomeDevice();
+								// todo
+								device.setName(mEtGatewayName.getText().toString().trim());
+								device.setDeviceId("test111");
+								device.setModelNum("G2");
+								AddDeviceSuccessActivity.actionStart(GatewayAddActivity.this, HomeDeviceInfo.IDeviceModel.MODEL_GATEWAY, device);
 							} else {
 								toast(R.string.note_gateway_init_fail);
 								refreshBtnState();

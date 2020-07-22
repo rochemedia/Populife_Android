@@ -158,6 +158,12 @@ public class ExEditText extends FrameLayout implements IExEdit {
         }
     }
 
+    public void setSelection(int position) {
+        if (null != contentEt) {
+            contentEt.setSelection(position);
+        }
+    }
+
     @Override
     public void setHint(String text) {
         if (null != contentEt) {

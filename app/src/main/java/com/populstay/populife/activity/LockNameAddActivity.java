@@ -2,11 +2,20 @@ package com.populstay.populife.activity;
 
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
+import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatSpinner;
+import android.text.Spannable;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -14,15 +23,25 @@ import com.alibaba.fastjson.JSONObject;
 import com.populstay.populife.R;
 import com.populstay.populife.base.BaseActivity;
 import com.populstay.populife.common.Urls;
+import com.populstay.populife.home.entity.HomeDevice;
 import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.IError;
 import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.ui.CustomProgress;
+import com.populstay.populife.ui.widget.exedittext.ExEditText;
+import com.populstay.populife.util.CollectionUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
 
+import org.angmarch.views.NiceSpinner;
+import org.angmarch.views.NiceSpinnerAdapterWrapper;
+import org.angmarch.views.SimpleSpinnerTextFormatter;
+import org.angmarch.views.SpinnerTextFormatter;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.WeakHashMap;
 
 public class LockNameAddActivity extends BaseActivity implements View.OnClickListener {
@@ -30,12 +49,14 @@ public class LockNameAddActivity extends BaseActivity implements View.OnClickLis
 	public static final String KEY_LOCK_INIT_DATA = "key_lock_init_data";
 
 	private LinearLayout mLlSuccessfully;
-	private EditText mEtName;
+	private ExEditText mEtName;
 	private TextView mTvName, mTvBattery, mTvOK, mTvComplete;
 	private ImageView mIvUpload;
 
 	private String mLockInitData;
 	private int mLockId, mBattery;
+	private NiceSpinner mSpHomeGroup;
+	private List<HomeDevice> mHomeGroupDatas;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +66,12 @@ public class LockNameAddActivity extends BaseActivity implements View.OnClickLis
 		getIntentData();
 		initView();
 		initListener();
-		initializeLock(mLockInitData);
+		//initializeLock(mLockInitData);
 	}
 
 	private void getIntentData() {
 		mLockInitData = getIntent().getStringExtra(KEY_LOCK_INIT_DATA);
+		mLockInitData = "{\"adminPwd\":\"NTMsNTMsNTQsNTMsNTMsNjAsNDksNTUsNTAsNjEsMTIz\",\"aesKeyStr\":\"f2,e3,90,b5,5b,b5,cd,bb,a1,07,49,aa,1f,d4,fa,88\",\"electricQuantity\":100,\"firmwareRevision\":\"4.2.18.0929\",\"hardwareRevision\":\"1.4\",\"lockFlagPos\":0,\"lockKey\":\"MTA2LDEwNywxMTEsOTksMTEwLDExMCwxMDcsMTA2LDExMSwxMTAsMzY\\u003d\",\"lockMac\":\"E9:76:88:91:72:A6\",\"lockName\":\"PPL-DB_a67291\",\"lockVersion\":\"{\\\"groupId\\\":10,\\\"orgId\\\":32,\\\"protocolType\\\":5,\\\"protocolVersion\\\":3,\\\"scene\\\":2}\",\"modelNum\":\"SN138-PPL-DB_PV53\",\"nbRssi\":0,\"noKeyPwd\":\"7896123\",\"pwdInfo\":\"84/bVNM6tMef2dsN5QHvXu+cjckhmM2ruN/NkESPjLL/ak9MPQRDUKGmZU7Tcf54FHNXhX5AzXSI44ro99W+OMvEP2UKx/lQKCh17POJFGZO0hkcfCtf6dwY4bH2sIzgTEjF9FYTfrl2IWxGInf/XbGjYo8WMYHGB6iJrBxz5wvxVZd+3TMBcGzm9HJATl8vg9DxNHXpRftVsPHZPMI5uJTOUZQWcZHUkC3MRoed68dB19/RbinX7y+eyd2FWmRB7STDdKADOs/yAwzBu+PwEKr+/8RnNrtCUvhEnP2ksXmAmCw6n0PKJBGRO41bhvMuejG0KFxkRzAZM8a4D8futNrdBvjMiKVJAv9oGa7fHLf+w0Dua1E9yMpfhpvtnzOVSs73ZoTSuo3yrvpNiHFfI4bfg78NXtvwSyS6D4beRwPcU4fFwMm+6xtmNW4TvQ5pchH0y66xc3J509jLxiQZxo5j/xz4pGkISuTG3X9/XgiJjmtmh/znN/o0FxF4oR2Bd2BgUf464/986NVzEzTBIIHgTMGIzJmuN5UICyhNqOMKZit6V8wCRsdvXXZEtIXJ680n3hRyEd/iXZ3O0pU3hauMWhnuEFcDub82L5E8cuzLa290pM7H5JFRLSCMbrzLgeP5BSz3KlR7h3C3HsVA2/0JAcd0mAJBXUtkwcG1EqpOUzVcDRoXz8w+MCWS891SGOlPPH4WIj9SFGX5p9+vjqEm1EIWyQQHroBjNaR0VvzMk5K7ago4Fep0n7Wt9Ab5BIKgkGROx2gAe933iMkHh97bUb2L8xX8wUFWfP9stPd70dJ0T9jEe1MXgZXjIXkWFTp6hbHVR7zlMBZywclz6RpevIlxYJ5Qt47U/3p/l7g\\u003d\",\"specialValue\":456177,\"timestamp\":1595129810125,\"timezoneRawOffset\":28800000}";
 	}
 
 	private void initView() {
@@ -64,6 +86,66 @@ public class LockNameAddActivity extends BaseActivity implements View.OnClickLis
 		mTvComplete = findViewById(R.id.tv_lock_name_add_complete);
 		mIvUpload = findViewById(R.id.iv_lock_name_add_upload);
 		mIvUpload.setVisibility(View.INVISIBLE);
+
+		mSpHomeGroup = findViewById(R.id.sp_home_group);
+		mHomeGroupDatas = new ArrayList<>();
+		for (int i = 0; i < 30; i++) {
+			mHomeGroupDatas.add(new HomeDevice("item"+i));
+		}
+		MySpinnerAdapter spinnerAdapter  = new MySpinnerAdapter();
+
+		mSpHomeGroup.setAdapter(spinnerAdapter);
+		mSpHomeGroup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
+	}
+
+	class MySpinnerAdapter extends BaseAdapter implements SpinnerAdapter{
+
+		@Override
+		public View getDropDownView(int position, View convertView, ViewGroup parent) {
+			if (convertView == null)
+				convertView = LayoutInflater.from(LockNameAddActivity.this).inflate(R.layout.home_group_spinner_item, null);
+			TextView text =  convertView
+					.findViewById(R.id.tv_name);
+			text.setText("选择了:" + mHomeGroupDatas.get(position));
+			text.setBackgroundColor(Color.GREEN);
+			return convertView;
+		}
+
+		@Override
+		public int getCount() {
+			return CollectionUtil.isEmpty(mHomeGroupDatas) ? 0 : mHomeGroupDatas.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return CollectionUtil.isEmpty(mHomeGroupDatas) ? null : mHomeGroupDatas.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			if (convertView == null)
+				convertView = LayoutInflater.from(LockNameAddActivity.this).inflate(R.layout.home_group_spinner_item, null);
+			TextView text =  convertView
+					.findViewById(R.id.tv_name);
+			text.setText("选择了:" + mHomeGroupDatas.get(position));
+			text.setBackgroundColor(Color.GREEN);
+			return convertView;
+		}
 	}
 
 	private void initListener() {
@@ -87,7 +169,7 @@ public class LockNameAddActivity extends BaseActivity implements View.OnClickLis
 				break;
 
 			case R.id.tv_lock_name_add_complete:
-				goToNewActivity(MainActivity.class);
+				bindHome(PeachPreference.getLastSelectHomeId());
 				break;
 
 			case R.id.iv_lock_name_add_upload:
@@ -104,6 +186,7 @@ public class LockNameAddActivity extends BaseActivity implements View.OnClickLis
 	 */
 	private void initializeLock(final String lockDataJson) {
 		final WeakHashMap<String, Object> requestParams = parseLockData(lockDataJson);
+		PeachLogger.d("LOCK_INIT", requestParams.toString());
 		final CustomProgress customProgress = CustomProgress.show(this,
 				getString(R.string.note_lock_init_ing), false, null);
 		RestClient.builder()
@@ -158,6 +241,7 @@ public class LockNameAddActivity extends BaseActivity implements View.OnClickLis
 		final WeakHashMap<String, Object> params = new WeakHashMap<>();
 		params.put("userId", PeachPreference.readUserId());
 		String name = lockInfo.getString("lockName");
+		PeachLogger.d("lockName", "lockName="+name);
 		params.put("name", name);
 		// 显示蓝牙锁名称
 		mEtName.setText(name);
@@ -240,6 +324,39 @@ public class LockNameAddActivity extends BaseActivity implements View.OnClickLis
 							}
 							mTvBattery.setTextColor(txtColor);
 							mLlSuccessfully.setVisibility(View.VISIBLE);
+						} else {
+							toast(R.string.note_lock_name_add_fail);
+						}
+					}
+				})
+				.failure(new IFailure() {
+					@Override
+					public void onFailure() {
+						toast(R.string.note_lock_name_add_fail);
+					}
+				})
+				.build()
+				.post();
+	}
+
+	/**
+	 * 绑定家庭
+	 *
+	 */
+	private void bindHome(final String homeId) {
+		RestClient.builder()
+				.url(Urls.LOCK_BIND_HOME)
+				.loader(this)
+				.params("lockId", mLockId)
+				.params("homeId", homeId)
+				.success(new ISuccess() {
+					@SuppressLint("SetTextI18n")
+					@Override
+					public void onSuccess(String response) {
+						JSONObject result = JSON.parseObject(response);
+						int code = result.getInteger("code");
+						if (code == 200) {
+							goToNewActivity(MainActivity.class);
 						} else {
 							toast(R.string.note_lock_name_add_fail);
 						}

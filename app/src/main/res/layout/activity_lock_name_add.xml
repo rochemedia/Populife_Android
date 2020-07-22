@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include layout="@layout/layout_view_titlebar"/>
+
+    <ImageView
+
+        android:visibility="gone"
+        android:id="@+id/iv_lock_name_add_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@drawable/ic_cloud_upload"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -15,44 +24,40 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/iv_lock_name_add_upload"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:src="@drawable/ic_cloud_upload"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="80dp"
-                android:text="@string/lock_name"
-                android:textColor="@color/text_gray_dark"
-                android:textSize="14sp"/>
-
-            <EditText
+            <com.populstay.populife.ui.widget.exedittext.ExEditText
                 android:id="@+id/et_lock_name_add"
+                app:hint="@string/enter_lock_name"
+                app:inputType="normal"
+                app:maxLength="30"
+                android:layout_marginTop="@dimen/common_edit_text_margin_top"
+                android:layout_width="match_parent"
+                app:paddingLeftInner="@dimen/common_page_left_right_space"
+                app:paddingRightInner="@dimen/common_page_left_right_space"
+                android:layout_height="wrap_content"/>
+
+            <org.angmarch.views.NiceSpinner
+                app:dropDownListPaddingBottom="100dp"
+                android:gravity="left"
+                android:layout_marginLeft="@dimen/common_page_left_right_space"
+                android:layout_marginRight="@dimen/common_page_left_right_space"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:id="@+id/sp_home_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/bg_trans_stroke"
-                android:gravity="center"
-                android:hint="@string/enter_lock_name"
-                android:maxLength="30"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:singleLine="true"
-                android:textColor="@color/text_gray_dark"
-                android:textColorHint="@color/text_gray_medium"
-                android:textSize="14sp"/>
+                android:background="#F00" />
+
+            <View
+                android:id="@+id/bottom_line_view"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_line" />
 
             <TextView
+                android:layout_marginLeft="@dimen/common_page_left_right_space"
+                android:layout_marginRight="@dimen/common_page_left_right_space"
                 android:id="@+id/tv_lock_name_add_ok"
                 style="@style/btn_style_main"
                 android:layout_marginTop="50dp"

@@ -25,11 +25,15 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
     public static final int SHOW_TYPE_TWO_CARD = 1;
     private int mSelectedPosition;
     private DeviceListAdapter.OnItemClickListener mOnItemClickListener;
+    private int mUseFrom = USE_FROM_DEVICE_LIST;
+    public static final int USE_FROM_SELECT_DEVICE_TYPE_LIST = 0;
+    public static final int USE_FROM_DEVICE_LIST = 1;
 
-    public DeviceListAdapter(List<HomeDevice> mDatas, Context mContext, int mShowType) {
+    public DeviceListAdapter(List<HomeDevice> mDatas, Context mContext, int mShowType,  int mUseFrom) {
         this.mDatas = mDatas;
         this.mContext = mContext;
         this.mShowType = mShowType;
+        this.mUseFrom = mUseFrom;
     }
 
     @NonNull
@@ -48,7 +52,11 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
     public void onBindViewHolder(@NonNull final DeviceListAdapter.ViewHolder viewHolder, int position) {
 
         HomeDevice item = mDatas.get(position);
-        viewHolder.tvDeviceName.setText(HomeDeviceInfo.getNameByModel(item.getModelNum()));
+        if (USE_FROM_SELECT_DEVICE_TYPE_LIST == mUseFrom){
+            viewHolder.tvDeviceName.setText(HomeDeviceInfo.getNameByModel(item.getModelNum()));
+        }else {
+            viewHolder.tvDeviceName.setText(item.getName());
+        }
         if (mSelectedPosition == position ){
             viewHolder.tvDeviceName.setTextColor(mContext.getResources().getColor(R.color.device_card_text_color_active));
             viewHolder.ivDeviceIcon.setImageResource(HomeDeviceInfo.getIconActiveByModel(item.getModelNum()));

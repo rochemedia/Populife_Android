@@ -54,6 +54,7 @@ public class Urls {
 	public static final String LOCK_INIT = "lock/init"; //（post）初始化锁,(谁初始化锁，谁就是该锁的管理员。初始化后，之前所有的钥匙密码失效)
 	public static final String LOCK_ADMIN_DELETE = "lock/del"; //（post）删除锁(只有管理员可以操作)
 	public static final String LOCK_NAME_MODIFY = "lock/rename"; //（post）修改锁名称
+	public static final String LOCK_BIND_HOME= "lock/bind-home"; //（post）绑定一个家庭
 	public static final String LOCK_LIST = "lock/list"; //（post）锁列表,实指该用户所拥有的钥匙列表
 	public static final String LOCK_FIRMWARE_INFO = "setting/lock/version"; //（get）根据参数锁id检查锁固件版本和是否有新固件版本可升级
 	public static final String LOCK_OPERATE_RECORDS_GET = "operation/log/get"; //（get）查询锁所有的操作记录，按操作日期（天）分组，默认取最近20条，从操作时间由近至远排列
@@ -104,5 +105,8 @@ public class Urls {
 	public static final String IC_CARD_DELETE = "icc/delete"; //（post）通过卡号删除IC卡
 	public static final String IC_CARD_CLEAR = "icc/empty"; //（post）删除锁id下所有的IC卡
 	public static final String IC_CARD_UPLOAD = "icc/internal/upload"; //（post）上传锁内ic卡，如果records参数为空则删除该锁下所有的ic卡
+
+
+	public static final String LOCK_GET_BASEINFO = "lock/baseInfo/get"; //（get）获取锁信息
 
 }

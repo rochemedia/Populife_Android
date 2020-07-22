@@ -265,7 +265,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		mDeviceListView = view.findViewById(R.id.home_device_list_recyclerview);
 		mDeviceListView.setLayoutManager(new GridLayoutManager(getContext(),2));
 		mDeviceList = new ArrayList<>();
-		mDeviceListAdapter = new DeviceListAdapter(mDeviceList, getContext(), DeviceListAdapter.SHOW_TYPE_TWO_CARD);
+		mDeviceListAdapter = new DeviceListAdapter(mDeviceList, getContext(), DeviceListAdapter.SHOW_TYPE_TWO_CARD, DeviceListAdapter.USE_FROM_DEVICE_LIST);
 		mDeviceListView.setAdapter(mDeviceListAdapter);
 		mDeviceListAdapter.setOnItemClickListener(new DeviceListAdapter.OnItemClickListener() {
 			@Override
@@ -802,10 +802,10 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 								setLockInfoVisible(SHOW_DEVICE_ADD);
 							}
 							// 有一个设备，请求详情
-							else if (datas.size() == 1){
+							/*else if (datas.size() == 1){
 								mKeyId = datas.get(0).getDeviceId();
 								requestUserLockInfo(mKeyId);
-							}
+							}*/
 							// 显示设备列表
 							else {
 								setLockInfoVisible(SHOW_DEVICE_LIST);
@@ -845,14 +845,14 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	/**
 	 * 登录成功后调用，查询用户拥有的锁及附属的相关信息
 	 */
-	public void requestUserLockInfo(String keyId) {
+	public void requestUserLockInfo(String lockId) {
 		WeakHashMap<String, Object> params = new WeakHashMap<>();
 		params.put("userId", PeachPreference.readUserId());
-		if (!StringUtil.isBlank(keyId)) {
-			params.put("keyId", keyId);
+		if (!StringUtil.isBlank(lockId)) {
+			params.put("lockId", lockId);
 		}
 		RestClient.builder()
-				.url(Urls.USER_LOCK_INFO)
+				.url(Urls.LOCK_GET_BASEINFO)
 				.params(params)
 				.success(new ISuccess() {
 					@Override
@@ -869,7 +869,11 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 						} else if (code == 200) {
 							JSONObject lockInfo = result.getJSONObject("data");
 							if (lockInfo != null && !lockInfo.isEmpty()) { //有锁信息，显示对应的锁UI或锁列表UI
-								int lockNum = lockInfo.getInteger("lockNum");
+								setLockInfoVisible(SHOW_LOCK_INFO);
+								parseLockInfo(lockInfo);
+
+
+								/*int lockNum = lockInfo.getInteger("lockNum");
 								PeachPreference.setAccountLockNum(PeachPreference.readUserId(), lockNum);
 								if (VAL_TAG_FRAGMENT.equals(mTag)) {
 									if (lockNum <= 0) { //锁数量为0，显示添加锁UI
@@ -892,7 +896,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 										setLockInfoVisible(SHOW_LOCK_INFO);
 										parseLockInfo(lockInfo);
 									}
-								}
+								}*/
 							} else { //无锁信息，显示添加锁UI
 								PeachPreference.setAccountLockNum(PeachPreference.readUserId(), 0);
 								setLockInfoVisible(SHOW_DEVICE_ADD);
@@ -944,52 +948,67 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	}
 
 	private void parseLockInfo(@NonNull JSONObject lockInfo) {
-		mKeyType = lockInfo.getInteger("keyType");
-		String userType = lockInfo.getString("userType");
-		String keyStatus = lockInfo.getString("keyStatus");
-		int lockId = lockInfo.getInteger("lockId");
-		int keyId = lockInfo.getInteger("keyId");
+		//mKeyType = lockInfo.getInteger("keyType");
+		//String userType = lockInfo.getString("userType");
+		//String keyStatus = lockInfo.getString("keyStatus");
+		int lockId = lockInfo.getInteger("lockId");//科技侠的锁id
+		//int keyId = lockInfo.getInteger("keyId");
 		String lockVersion = String.valueOf(lockInfo.getJSONObject("lockVersion"));
-		String lockName = lockInfo.getString("name");
-		String lockAlias = lockInfo.getString("alias");
-		String lockMac = lockInfo.getString("mac");
-		int electricQuantity = lockInfo.getInteger("electricQuantity");
-		int lockFlagPos = lockInfo.getInteger("flagPos");
+		String lockName = lockInfo.getString("name");//锁的蓝牙名称
+		String lockAlias = lockInfo.getString("alias");//锁别名
+		String lockMac = lockInfo.getString("mac");//锁mac地址
+		int electricQuantity = lockInfo.getInteger("electricQuantity");//锁电量
+		int lockFlagPos = lockInfo.getInteger("flagPos");//锁开门标志位
 		String adminPwd = "";
 		if (lockInfo.containsKey("adminPwd"))
-			adminPwd = lockInfo.getString("adminPwd");
-		String lockKey = lockInfo.getString("key");
+			adminPwd = lockInfo.getString("adminPwd");//管理员钥匙会有，锁的管理员密码，锁管理相关操作需要携带，校验管理员权限
+		String lockKey = lockInfo.getString("key");//锁开门的关键信息，开门用的
 		String noKeyPwd = "";
 		if (lockInfo.containsKey("noKeyPwd"))
-			noKeyPwd = lockInfo.getString("noKeyPwd");
-		String deletePwd = "";
-		if (lockInfo.containsKey("deletePwd"))
-			deletePwd = lockInfo.getString("deletePwd");
-		String pwdInfo = lockInfo.getString("pwdInfo");
-		long timestamp = lockInfo.getLong("timestamp");
-		String aesKeyStr = lockInfo.getString("aesKey");
-		long startDate = lockInfo.getLong("startDate") * 1000;
-		long endDate = lockInfo.getLong("endDate") * 1000;
-		int specialValue = lockInfo.getInteger("specialValue");
-		int timezoneRawOffset = lockInfo.getInteger("timezoneRawOffSet");
-		int keyRight = lockInfo.getInteger("keyRight");
+			noKeyPwd = lockInfo.getString("noKeyPwd");//管理员键盘密码
+//		String deletePwd = "";
+//		if (lockInfo.containsKey("deletePwd"))
+//			deletePwd = lockInfo.getString("deletePwd");
+		String pwdInfo = lockInfo.getString("pwdInfo");//密码数据，用于生成密码，SDK提供
+		long timestamp = lockInfo.getLong("timestamp");//时间戳，用于初始化密码数据
+		String aesKeyStr = lockInfo.getString("aesKey");//Aes加解密key
+//		long startDate = lockInfo.getLong("startDate") * 1000;
+//		long endDate = lockInfo.getLong("endDate") * 1000;
+		int specialValue = lockInfo.getInteger("specialValue");//锁特征值，用于表示锁支持的功能
+		int timezoneRawOffset = lockInfo.getInteger("timezoneRawOffSet");//锁所在时区和UTC时区时间的差数，单位milliseconds
+//		int keyRight = lockInfo.getInteger("keyRight");
 //		int remoteEnable = lockInfo.getInteger("remoteEnable");
 //		int keyboardPwdVersion=lockInfo.getInteger("keyboardPwdVersion");
-		boolean isAllowRemoteUnlock = false;
-		if (lockInfo.containsKey("allowRemoteUnlock"))
-			isAllowRemoteUnlock = lockInfo.getBoolean("allowRemoteUnlock");
+//		boolean isAllowRemoteUnlock = false;
+//		if (lockInfo.containsKey("allowRemoteUnlock"))
+//			isAllowRemoteUnlock = lockInfo.getBoolean("allowRemoteUnlock");
 //		String remarks=lockInfo.getString();
-		String modelNum = lockInfo.getString("modelNum");
-		String hardwareRevision = lockInfo.getString("hardwareRevision");
-		String firmwareRevision = lockInfo.getString("firmwareRevision");
-		String group = lockInfo.getString("homeName");
+		String modelNum = lockInfo.getString("modelNum");//产品型号（用于锁固件升级）
+		String hardwareRevision = lockInfo.getString("hardwareRevision");//硬件版本号（用于锁固件升级）
+		String firmwareRevision = lockInfo.getString("firmwareRevision");//固件版本号（用于锁固件升级）
+		//String group = lockInfo.getString("homeName");
+
+
+		long initDate = lockInfo.getLong("initDate");//初始化时间
+		// TODO
+		String keyId = lockInfo.getString("keyId");//管理员钥匙id
+		int status = lockInfo.getInteger("status");//锁状态（0删除，1正常）
+		int protocolType = lockInfo.getInteger("protocolType");//协议类型
+		int protocolVersion = lockInfo.getInteger("protocolVersion");//锁版本信息
+		int scene = lockInfo.getInteger("scene");//场景
+		int orgId = lockInfo.getInteger("orgId");//应用商
+		int groupId = lockInfo.getInteger("groupId");//公司
+		boolean isAdmin = lockInfo.getBoolean("isAdmin");//true为管理员，false否
+
+
 
 		mCurKEY.setUserId(PeachPreference.readUserId());
 
-		mCurKEY.setUserType(userType);
-		mCurKEY.setKeyStatus(keyStatus);
+		//mCurKEY.setUserType(userType);
+		//mCurKEY.setKeyStatus(keyStatus);
 		mCurKEY.setLockId(lockId);
-		mCurKEY.setKeyId(keyId);
+		//TODO
+		//mCurKEY.setKeyId(keyId);
 		mCurKEY.setLockVersion(lockVersion);
 		mCurKEY.setLockName(lockName);
 		mCurKEY.setLockAlias(lockAlias);
@@ -999,21 +1018,23 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		mCurKEY.setAdminPwd(adminPwd);
 		mCurKEY.setLockKey(lockKey);
 		mCurKEY.setNoKeyPwd(noKeyPwd);
-		mCurKEY.setDeletePwd(deletePwd);
+//		mCurKEY.setDeletePwd(deletePwd);
 		mCurKEY.setPwdInfo(pwdInfo);
 		mCurKEY.setTimestamp(timestamp);
 		mCurKEY.setAesKeyStr(aesKeyStr);
-		mCurKEY.setStartDate(startDate);
-		mCurKEY.setEndDate(endDate);
+//		mCurKEY.setStartDate(startDate);
+//		mCurKEY.setEndDate(endDate);
 		mCurKEY.setSpecialValue(specialValue);
 		mCurKEY.setTimezoneRawOffset(timezoneRawOffset);
-		mCurKEY.setKeyRight(keyRight);
+//		mCurKEY.setKeyRight(keyRight);
 //		mCurKEY.setRemoteEnable(remoteEnable);
 		mCurKEY.setModelNum(modelNum);
 		mCurKEY.setHardwareRevision(hardwareRevision);
 		mCurKEY.setFirmwareRevision(firmwareRevision);
-		mCurKEY.setRemarks(group);//锁分组
-		mCurKEY.setAllowRemoteUnlock(isAllowRemoteUnlock);
+//		mCurKEY.setRemarks(group);//锁分组
+//		mCurKEY.setAllowRemoteUnlock(isAllowRemoteUnlock);
+
+		mCurKEY.isAdmin(isAdmin);
 
 		CURRENT_KEY = mCurKEY;
 

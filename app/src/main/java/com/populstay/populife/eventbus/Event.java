@@ -25,5 +25,7 @@ public class Event {
         int GET_HOME_DATA_COMPLETE = 4;
         // 选择家庭组变化
         int CHANGE_HOME = 5;
+        // 锁头本地初始化
+        int LOCK_LOCAL_INITIALIZE_SUCCEED = 6;
     }
 }

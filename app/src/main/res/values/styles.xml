@@ -189,4 +189,24 @@
         <attr name="paddingRightInner" format="dimension" />
     </declare-styleable>
 
+    <style name="check_box">
+        <item name="android:textColor">@color/text_gray_light</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@null</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawablePadding">20dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginLeft">@dimen/common_page_left_right_space</item>
+        <item name="android:layout_marginRight">@dimen/common_page_left_right_space</item>
+    </style>
+
+    <style name="add_device_check_box" parent="check_box">
+        <item name="android:drawableLeft">@drawable/selector_add_device_check_box</item>
+    </style>
+
+    <style name="add_device_check_box_autocheck" parent="check_box">
+        <item name="android:enabled">false</item>
+        <item name="android:drawableLeft">@drawable/selector_add_device_check_box_autocheck</item>
+    </style>
+
 </resources>

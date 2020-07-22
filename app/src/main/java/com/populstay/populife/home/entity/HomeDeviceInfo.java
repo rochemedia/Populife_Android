@@ -11,7 +11,7 @@ public class HomeDeviceInfo {
         // 网关
         String MODEL_GATEWAY = "G2";
         // 横闩锁
-        String MODEL_LOCK_DEADBOLT = "0";
+        String MODEL_LOCK_DEADBOLT = "SN138-PPL-DB_PV53";
         // 密码锁
         String MODEL_LOCK_KEY_BOX = "1";
     }

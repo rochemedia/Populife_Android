@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_background"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -57,72 +56,41 @@
             android:id="@+id/lv_gateway_add"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray_background"
-            android:divider="@color/gray_line"
-            android:dividerHeight="0.5dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"
             android:overScrollMode="never"
+            android:visibility="gone"
             android:scrollbars="none" />
 
         <LinearLayout
             android:id="@+id/ll_gateway_add"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray_background"
+            android:layout_marginRight="@dimen/common_page_left_right_space"
+            android:layout_marginLeft="@dimen/common_page_left_right_space"
             android:orientation="vertical"
             android:visibility="gone">
 
-            <LinearLayout style="@style/list_item_overall">
+            <com.populstay.populife.ui.widget.exedittext.ExEditText
+                app:inputType="password"
+                android:layout_marginTop="@dimen/common_edit_text_margin_top"
+                android:id="@+id/et_gateway_add_wifi_name"
+                app:hint="@string/enter_wifi_name"
+                app:label="@string/wifi_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                    style="@style/list_item_title"
-                    android:text="@string/wifi_name" />
-
-                <EditText
-                    android:id="@+id/et_gateway_add_wifi_name"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:hint="@string/enter_wifi_name"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/text_gray_medium"
-                    android:textColorHint="@color/text_gray_light"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <include layout="@layout/layout_view_line" />
+            <com.populstay.populife.ui.widget.exedittext.ExEditText
+                app:inputType="password"
+                android:layout_marginTop="@dimen/common_edit_text_margin_top"
+                android:id="@+id/et_gateway_add_wifi_pwd"
+                android:layout_width="match_parent"
+                app:hint="@string/enter_wifi_pwd"
+                app:label="@string/wifi_pwd"
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
-                style="@style/list_item_overall"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
-
-                <TextView
-                    style="@style/list_item_title"
-                    android:text="@string/wifi_pwd" />
-
-                <EditText
-                    android:id="@+id/et_gateway_add_wifi_pwd"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:hint="@string/enter_wifi_pwd"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/text_gray_medium"
-                    android:textColorHint="@color/text_gray_light"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
+                android:visibility="gone"
                 style="@style/list_item_overall"
                 android:layout_marginTop="8dp">
 
@@ -155,9 +123,39 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="16dp"
                 android:enabled="false"
-                android:text="@string/ok" />
+                android:text="@string/next" />
 
         </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/ll_found_device_view"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/nearby_gateway_scanning"
+                android:textSize="14sp"
+                android:textColor="@color/common_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <SeekBar
+                android:layout_marginTop="30dp"
+                android:id="@+id/seekbar_scan_device"
+                android:thumb="@null"
+                android:progressDrawable="@drawable/my_seekbar_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
 
     </FrameLayout>
 

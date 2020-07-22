@@ -65,13 +65,23 @@ public class LockAddSelectTypeActivity extends BaseActivity implements View.OnCl
 		mDeviceListView = findViewById(R.id.device_list_recyclerview);
 //		mDeviceListView.setLayoutManager(new GridLayoutManager(this,2));
 		mDeviceListView.setLayoutManager(new LinearLayoutManager(this));
-		mDeviceListAdapter = new DeviceListAdapter(mDeviceList, this, DeviceListAdapter.SHOW_TYPE_CARD);
+		mDeviceListAdapter = new DeviceListAdapter(mDeviceList, this, DeviceListAdapter.SHOW_TYPE_CARD, DeviceListAdapter.USE_FROM_SELECT_DEVICE_TYPE_LIST);
 		mDeviceListView.setAdapter(mDeviceListAdapter);
 		mDeviceListAdapter.setOnItemClickListener(new DeviceListAdapter.OnItemClickListener() {
 			@Override
 			public void onItemClick(View v, int position) {
 				mDeviceListAdapter.selectItem(position);
-
+				HomeDevice device = mDeviceList.get(position);
+				switch (device.getModelNum()){
+					case HomeDeviceInfo.IDeviceModel.MODEL_LOCK_DEADBOLT:
+					case HomeDeviceInfo.IDeviceModel.MODEL_LOCK_KEY_BOX:
+						LockAddGuideActivity.actionStart(LockAddSelectTypeActivity.this, device.getModelNum());
+						//goToNewActivity(LockAddGuideKeyboxOpenActivity.class);
+						break;
+					case HomeDeviceInfo.IDeviceModel.MODEL_GATEWAY:
+						goToNewActivity(GatewayAddGuideActivity.class);
+						break;
+				}
 			}
 		});
 	}
@@ -87,7 +97,7 @@ public class LockAddSelectTypeActivity extends BaseActivity implements View.OnCl
 		switch (view.getId()) {
 			case R.id.ll_lock_type_deadbolt:
 				if (isBleNetEnable()) {
-					LockAddGuideActivity.actionStart(LockAddSelectTypeActivity.this, 0);
+					LockAddGuideActivity.actionStart(LockAddSelectTypeActivity.this, "");
 				}
 				break;
 

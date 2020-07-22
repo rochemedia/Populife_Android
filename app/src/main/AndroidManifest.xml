@@ -144,7 +144,15 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LockNameAddActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+
+        </activity>
         <activity
             android:name=".activity.LockDetailActivity"
             android:screenOrientation="portrait" />
@@ -259,6 +267,12 @@
         <activity
             android:name=".home.HomeCreateActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ActivateDeviceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddDeviceSuccessActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

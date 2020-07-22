@@ -509,5 +509,27 @@
     <string name="device_num_match">%d个设备</string>
     <string name="space_num_match">%d个空间</string>
     <string name="device_name_gateway">Gateway</string>
+    <string name="bt_and_lbs_open_hint">1. 手机蓝牙已打开,  如果是安卓手机,位置服务已开启。</string>
+    <string name="net_open_hint">2. WiFi或移动蜂窝网络已打开。</string>
+    <string name="battery_install_hint">3. 已安装好电池。</string>
+    <string name="keep_open_door_hint">4. 请保持门为打开状态。</string>
+    <string name="confirm_time_hint">5. 以下步骤预计需要30秒钟时间，请确认。</string>
+    <string name="lock_add_deadbolt">添加智能横闩锁</string>
+    <string name="lock_add_key_box">添加智能密码盒</string>
+    <string name="add_device_activate_hint">触摸智能锁的键盘，激活锁，使锁处于可添加状态。</string>
+    <string name="confirm_device_activate_hint">确认已触摸智能锁键盘</string>
+    <string name="nearby_locks_scanning">正在扫描附近的锁，请稍后…</string>
+    <string name="add_gateway_hint">重新连接网关电源线，红蓝灯交替闪烁，\n使网关进入可添加模式。</string>
+    <string name="confirm_gateway_power_hint">电源已连接好</string>
+    <string name="confirm_gateway_reconnect_hint">确认已重新连接</string>
+    <string name="add_gateway_title">添加智能网关</string>
+    <string name="nearby_gateway_scanning">正在扫描附近的网关，请稍后…</string>
+
+    <string name="search_timeout">搜索超时</string>
+    <string name="scan_gateway_fial_hint">未扫描到网关，请重新尝试。</string>
+    <string name="retry_scan">继续扫描</string>
+    <string name="please_input_sevice_name">请输入设备名称</string>
+    <string name="select_home_group">切换空间</string>
+    <string name="add_success">添加成功</string>
 
 </resources>

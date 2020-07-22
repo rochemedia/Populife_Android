@@ -38,6 +38,20 @@
             android:textColorHint="@color/text_gray_light"
             android:textSize="12sp"/>
 
+        <TextView
+            android:id="@+id/tv_dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:padding="8dp"
+            android:textColor="@color/text_gray_dark"
+            android:textColorHint="@color/text_gray_light"
+            android:visibility="gone"
+            android:textSize="12sp"/>
+
         <include layout="@layout/layout_view_line"/>
 
         <LinearLayout

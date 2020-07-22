@@ -15,6 +15,10 @@ public class HomeDevice implements Parcelable {
     public HomeDevice() {
     }
 
+    public HomeDevice(String name) {
+        this.name = name;
+    }
+
     protected HomeDevice(Parcel in) {
         deviceId = in.readString();
         name = in.readString();

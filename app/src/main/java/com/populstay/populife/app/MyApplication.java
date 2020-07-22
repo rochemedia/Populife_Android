@@ -7,14 +7,18 @@ import android.os.Bundle;
 import android.os.Parcelable;
 
 import com.populstay.populife.R;
+import com.populstay.populife.activity.AddDeviceSuccessActivity;
 import com.populstay.populife.activity.LockNameAddActivity;
 import com.populstay.populife.base.BaseApplication;
 import com.populstay.populife.constant.BleConstant;
 import com.populstay.populife.entity.BleSession;
 import com.populstay.populife.entity.Key;
 import com.populstay.populife.enumtype.Operation;
+import com.populstay.populife.eventbus.Event;
+import com.populstay.populife.home.entity.HomeDeviceInfo;
 import com.populstay.populife.ui.loader.PeachLoader;
 import com.populstay.populife.util.date.DateUtil;
+import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.ttlock.bl.sdk.api.TTLockAPI;
 import com.ttlock.bl.sdk.callback.TTLockCallback;
@@ -22,6 +26,8 @@ import com.ttlock.bl.sdk.entity.DeviceInfo;
 import com.ttlock.bl.sdk.entity.Error;
 import com.ttlock.bl.sdk.entity.LockData;
 import com.ttlock.bl.sdk.scanner.ExtendedBluetoothDevice;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.TimeZone;
 
@@ -286,16 +292,26 @@ public class MyApplication extends BaseApplication {
 
 		@Override
 		public void onLockInitialize(ExtendedBluetoothDevice extendedBluetoothDevice, LockData lockData, Error error) {
+
+
+			PeachLogger.d("LOCK_INIT", "extendedBluetoothDevice="+",extendedBluetoothDevice="+extendedBluetoothDevice.toString());
+			PeachLogger.d("LOCK_INIT", "onLockInitialize="+",lockData="+lockData.toJson());
+
 			PeachLoader.stopLoading();
 			if (error == Error.INVALID_VENDOR) {
 				myToast(R.string.lock_not_supported);
 			} else if (error == Error.SUCCESS) {
 				mTTLockAPI.stopBTDeviceScan();
 				String lockDataJson = lockData.toJson();
-				Intent intent = new Intent(getApplication(), LockNameAddActivity.class);
+				/*Intent intent = new Intent(getApplication(), LockNameAddActivity.class);
 				intent.putExtra(LockNameAddActivity.KEY_LOCK_INIT_DATA, lockDataJson);
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(intent);
+				startActivity(intent);*/
+
+				//AddDeviceSuccessActivity.actionStart(getApplication(), HomeDeviceInfo.IDeviceModel.MODEL_LOCK_DEADBOLT);
+				EventBus.getDefault().post(new Event(Event.EventType.LOCK_LOCAL_INITIALIZE_SUCCEED,lockDataJson));
+
+
 			} else {//failure
 				myToast(R.string.note_lock_init_fail);
 			}

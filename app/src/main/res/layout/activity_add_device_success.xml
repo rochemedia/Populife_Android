@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar"/>
+
+    <com.populstay.populife.ui.widget.exedittext.ExEditText
+        android:id="@+id/et_device_name"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/common_edit_text_margin_top"
+        android:layout_height="wrap_content"
+        app:paddingLeftInner="@dimen/common_page_left_right_space"
+        app:paddingRightInner="@dimen/common_page_left_right_space"
+        app:hint="@string/please_input_sevice_name"
+        app:inputType="normal" />
+
+    <TextView
+        android:id="@+id/tv_home_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:drawableRight="@drawable/arrow_dropdown"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:layout_marginBottom="20dp"
+        android:text="家庭名称"
+        android:textColor="@color/common_text_color"
+        android:textSize="20sp" />
+
+    <include layout="@layout/layout_view_line"/>
+
+    <TextView
+        android:id="@+id/tv_finish"
+        style="@style/btn_style_main"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:enabled="false"
+        android:text="@string/complete" />
+
+</LinearLayout>

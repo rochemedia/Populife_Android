@@ -180,6 +180,8 @@ public class Key implements Serializable {
 	 */
 	private Integer dayNum;
 
+	private boolean isAdmin;
+
 	public Key() {
 	}
 
@@ -306,7 +308,11 @@ public class Key implements Serializable {
 	}
 
 	public boolean isAdmin() {
-		return "110301".equals(userType);
+		return  isAdmin;
+		//return "110301".equals(userType);
+	}
+	public void isAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 	public String getUserId() {

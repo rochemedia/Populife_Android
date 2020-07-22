@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/selector_bg_white_gray"
-    android:gravity="center_vertical"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="@drawable/bg_circle_main_color"
-        android:padding="5dp"
-        android:src="@drawable/ic_lock_type_door_small"/>
-
-    <TextView
-        android:id="@+id/tv_item_device_name"
-        android:layout_width="0dp"
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="8dp"
-        android:text="@string/name"
-        android:textColor="@color/text_gray_medium"
-        android:textSize="14sp"/>
+        android:background="@drawable/selector_bg_white_gray"
+        android:paddingLeft="@dimen/common_page_left_right_space"
+        android:paddingRight="@dimen/common_page_left_right_space"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:gravity="center_vertical">
 
-    <ImageView
-        android:id="@+id/iv_item_device_add_mark"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_add"
-        android:tint="@color/colorPrimary"
-        android:visibility="visible"/>
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_circle_main_color"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:src="@drawable/ic_lock_type_door_small"/>
 
-</android.support.v7.widget.LinearLayoutCompat>
+        <TextView
+            android:id="@+id/tv_item_device_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/name"
+            android:textColor="@color/common_text_color"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/iv_item_device_add_mark"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_add"
+            android:tint="@color/colorPrimary"
+            android:visibility="visible"/>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <View
+        android:id="@+id/bottom_line_view"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_line" />
+
+</LinearLayout>

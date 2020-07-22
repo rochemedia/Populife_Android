@@ -12,9 +12,9 @@ import com.populstay.populife.util.dialog.DialogUtil;
 
 public class LockAddGuideKeyboxOpenActivity extends BaseActivity implements View.OnClickListener {
 
-	private ImageView mIvGuide;
-	private TextView mTvQuestion, mTvNext, mTvGuide;
-	private CheckBox mCheckBox;
+	//private ImageView mIvGuide;
+	private TextView mTvQuestion, mTvNext/*, mTvGuide*/;
+	//private CheckBox mCheckBox;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +33,19 @@ public class LockAddGuideKeyboxOpenActivity extends BaseActivity implements View
 				getResources().getDrawable(R.drawable.ic_question_mark), null, null, null);
 
 		mTvNext = findViewById(R.id.tv_lock_add_guide_next);
-		mIvGuide = findViewById(R.id.iv_lock_add_guide_img);
+		/*mIvGuide = findViewById(R.id.iv_lock_add_guide_img);
 		mTvGuide = findViewById(R.id.tv_lock_add_guide_note);
-		mCheckBox = findViewById(R.id.cb_lock_add_guide);
+		mCheckBox = findViewById(R.id.cb_lock_add_guide);*/
 
-		mIvGuide.setImageResource(R.drawable.img_lock_add_guide_keybox_open);
+	/*	mIvGuide.setImageResource(R.drawable.img_lock_add_guide_keybox_open);
 		mTvGuide.setText(R.string.note_lock_add_guide_keybox_open);
-		mCheckBox.setText(R.string.note_confirm_keybox_open);
+		mCheckBox.setText(R.string.note_confirm_keybox_open);*/
 	}
 
 	private void initListener() {
 		mTvQuestion.setOnClickListener(this);
 		mTvNext.setOnClickListener(this);
-		mCheckBox.setOnClickListener(this);
+		//mCheckBox.setOnClickListener(this);
 	}
 
 	@Override
@@ -59,13 +59,13 @@ public class LockAddGuideKeyboxOpenActivity extends BaseActivity implements View
 
 			case R.id.tv_lock_add_guide_next:
 				if (isBleNetEnable()) {
-					LockAddGuideActivity.actionStart(LockAddGuideKeyboxOpenActivity.this, 1);
+					LockAddGuideActivity.actionStart(LockAddGuideKeyboxOpenActivity.this, "");
 				}
 				break;
 
-			case R.id.cb_lock_add_guide:
+			/*case R.id.cb_lock_add_guide:
 				mTvNext.setEnabled(mCheckBox.isChecked());
-				break;
+				break;*/
 
 			default:
 				break;
