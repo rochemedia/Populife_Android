@@ -237,6 +237,9 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 		super.onDestroy();
 		stopScan();
 		unregisterReceiver(mReceiver);
+		if (null != DIALOG){
+			DIALOG.dismiss();
+		}
 	}
 
 	@Override

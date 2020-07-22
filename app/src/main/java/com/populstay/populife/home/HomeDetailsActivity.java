@@ -2,9 +2,16 @@ package com.populstay.populife.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,6 +38,7 @@ public class HomeDetailsActivity extends BaseActivity implements View.OnClickLis
     private Home mHome;
     public static final String KEY_TRANSFER_DATA = "key_transfer_data";
     private TextView mPageTitle;
+    private AlertDialog DIALOG;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,7 +97,41 @@ public class HomeDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void deleteSpace(){
-        deleteGroup();
+        DIALOG = new AlertDialog.Builder(this).create();
+        DIALOG.setCanceledOnTouchOutside(false);
+        DIALOG.show();
+        final Window window = DIALOG.getWindow();
+        if (window != null) {
+            window.setContentView(R.layout.dialog_input);
+            window.setGravity(Gravity.CENTER);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            //设置属性
+            final WindowManager.LayoutParams params = window.getAttributes();
+            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+            params.dimAmount = 0.5f;
+            window.setAttributes(params);
+
+            ((TextView) window.findViewById(R.id.tv_dialog_input_title)).setText(R.string.delete_home_hint);
+            window.findViewById(R.id.et_dialog_input_content).setVisibility(View.GONE);
+            Button leftBtn = window.findViewById(R.id.btn_dialog_input_cancel);
+            leftBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DIALOG.cancel();
+                }
+            });
+            Button rightBtn =  window.findViewById(R.id.btn_dialog_input_ok);
+            rightBtn.setText(R.string.delete);
+            rightBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DIALOG.cancel();
+                    deleteGroup();
+                }
+            });
+        }
+
     }
 
     private void deleteGroup() {
@@ -153,4 +195,11 @@ public class HomeDetailsActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != DIALOG){
+            DIALOG.dismiss();
+        }
+    }
 }

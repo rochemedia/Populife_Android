@@ -532,5 +532,6 @@
     <string name="select_home_group">切换空间</string>
     <string name="add_success">添加成功</string>
     <string name="add_lock_help_hint">触摸锁的键盘，键盘应该亮起来，如果不亮，请检查电池是否安装正确，排线是否接好，如果都没有问题，键盘仍然不亮，请联系我们。</string>
+    <string name="delete_home_hint">删除家庭后，所有已设置过的信息将被清楚，是否确认删除家庭？</string>
 
 </resources>
