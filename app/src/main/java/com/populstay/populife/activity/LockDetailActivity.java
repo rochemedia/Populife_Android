@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.meiqia.core.MQManager;
 import com.meiqia.core.bean.MQMessage;
@@ -38,6 +39,7 @@ public class LockDetailActivity extends BaseActivity {
 	private RelativeLayout mRlOnlineService;
 	private NoScrollViewPager mViewPager;
 	private String mKeyId;//钥匙 id
+	private TextView  mPageTitle;
 
 	/**
 	 * 启动当前 activity
@@ -67,10 +69,11 @@ public class LockDetailActivity extends BaseActivity {
 			@Override
 			public void onSuccess(List<MQMessage> messageList) {
 				PeachLogger.d(messageList);
-				if (messageList != null && !messageList.isEmpty())
+				// todo
+				/*if (messageList != null && !messageList.isEmpty())
 					mIvNewMsg.setVisibility(View.VISIBLE);
 				else
-					mIvNewMsg.setVisibility(View.INVISIBLE);
+					mIvNewMsg.setVisibility(View.INVISIBLE);*/
 			}
 
 			@Override
@@ -86,44 +89,31 @@ public class LockDetailActivity extends BaseActivity {
 
 		mKeyId = getIntent().getStringExtra(KEY_KEY_ID);
 		initView();
-		initListener();
 	}
 
-	private void initView() {
-		mIvAddLock = findViewById(R.id.iv_lock_detail_add);
-		mIvNewMsg = findViewById(R.id.iv_lock_detail_msg_new);
-		mRlOnlineService = findViewById(R.id.rl_lock_detail_online_service);
-
-		mViewPager = findViewById(R.id.nsv_lock_detail);
-		setupViewPager(mViewPager);
-	}
-
-	private void setupViewPager(ViewPager viewPager) {
-		ViewPagerAdapter localViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-		localViewPagerAdapter.addFragment(LockDetailFragment.newInstance(LockDetailFragment.VAL_TAG_ACTIVITY, mKeyId));
-		viewPager.setAdapter(localViewPagerAdapter);
-	}
-
-	private void refreshChildFragment() {
-		ViewPagerAdapter adapter = (ViewPagerAdapter) mViewPager.getAdapter();
-		if (adapter != null) {
-			LockDetailFragment fragment = (LockDetailFragment) adapter.getItem(0);
-			if (fragment != null) {
-				fragment.doRefresh();
-			}
+	public void setTitleName(String titleName){
+		if (null != mPageTitle){
+			mPageTitle.setText(titleName);
 		}
 	}
 
-	private void initListener() {
-		mIvAddLock.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				goToNewActivity(LockAddSelectTypeActivity.class);
-			}
-		});
-		mRlOnlineService.setOnClickListener(new View.OnClickListener() {
+	private void initView() {
+		mPageTitle = findViewById(R.id.page_title);
+		initTitleBarRightBtn();
+		mViewPager = findViewById(R.id.nsv_lock_detail);
+		setupViewPager(mViewPager);
+	}
+	private void initTitleBarRightBtn() {
+		TextView tvSupport = findViewById(R.id.page_action);
+		tvSupport.setVisibility(View.VISIBLE);
+		tvSupport.setText("");
+		tvSupport.setCompoundDrawablesWithIntrinsicBounds(
+				getResources().getDrawable(R.drawable.support_icon), null, null, null);
+
+		tvSupport.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+
 				requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
 						new PermissionListener() {
 							@Override
@@ -145,8 +135,25 @@ public class LockDetailActivity extends BaseActivity {
 								toast(R.string.note_permission_avatar);
 							}
 						});
+
 			}
 		});
+	}
+
+	private void setupViewPager(ViewPager viewPager) {
+		ViewPagerAdapter localViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+		localViewPagerAdapter.addFragment(LockDetailFragment.newInstance(LockDetailFragment.VAL_TAG_ACTIVITY, mKeyId));
+		viewPager.setAdapter(localViewPagerAdapter);
+	}
+
+	private void refreshChildFragment() {
+		ViewPagerAdapter adapter = (ViewPagerAdapter) mViewPager.getAdapter();
+		if (adapter != null) {
+			LockDetailFragment fragment = (LockDetailFragment) adapter.getItem(0);
+			if (fragment != null) {
+				fragment.doRefresh();
+			}
+		}
 	}
 
 	public class ViewPagerAdapter extends FragmentPagerAdapter {

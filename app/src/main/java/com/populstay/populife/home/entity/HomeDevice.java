@@ -11,6 +11,8 @@ public class HomeDevice implements Parcelable {
     private String modelNum;
     // 设备是否被冻结
     private boolean freezed;
+    private String alias;
+    private int type;
 
     public HomeDevice() {
     }
@@ -24,6 +26,8 @@ public class HomeDevice implements Parcelable {
         name = in.readString();
         modelNum = in.readString();
         freezed = in.readByte() != 0;
+        alias = in.readString();
+        type = in.readInt();
     }
 
     public static final Creator<HomeDevice> CREATOR = new Creator<HomeDevice>() {
@@ -70,6 +74,22 @@ public class HomeDevice implements Parcelable {
         this.freezed = freezed;
     }
 
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -81,6 +101,8 @@ public class HomeDevice implements Parcelable {
         parcel.writeString(name);
         parcel.writeString(modelNum);
         parcel.writeByte((byte) (freezed ? 1 : 0));
+        parcel.writeString(alias);
+        parcel.writeInt(type);
     }
 
 

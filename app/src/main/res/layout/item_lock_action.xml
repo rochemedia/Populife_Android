@@ -19,7 +19,7 @@
         android:layout_height="36dp"
         android:gravity="center"
         android:text="@string/lock_action_settings"
-        android:textColor="@color/text_gray_dark"
+        android:textColor="@color/common_text_color"
         android:textSize="12sp"/>
 
 </android.support.v7.widget.LinearLayoutCompat>

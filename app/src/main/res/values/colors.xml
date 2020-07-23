@@ -48,9 +48,15 @@
     <color name="battery_low_red">#e04b44</color>
 
     <array name="arc_colors_locking">
-        <item>#a42f5d</item>
-        <item>#652d57</item>
-        <item>@color/colorPrimary</item>
+        <item>@color/text_color_ffee2737</item>
+        <item>@color/text_color_ffee2737</item>
+        <item>@color/text_color_ffee2737</item>
+    </array>
+
+    <array name="arc_colors_unlocking">
+        <item>@color/text_color_ffb1b3b6</item>
+        <item>@color/text_color_ffb1b3b6</item>
+        <item>@color/text_color_ffb1b3b6</item>
     </array>
 
     <color name="color_4a4a4a">#4a4a4a</color>

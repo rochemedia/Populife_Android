@@ -319,12 +319,11 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 		JSONObject lockInfo = JSON.parseObject(lockDataJson);
 		final WeakHashMap<String, Object> params = new WeakHashMap<>();
 		params.put("userId", PeachPreference.readUserId());
-		String name = lockInfo.getString("lockName");
-		PeachLogger.d("lockName", "lockName="+name);
+		String lockName = lockInfo.getString("lockName");
 		//todo
-		params.put("name", name);
-		//params.put("lockName", name);
-		mLockName = name;
+		params.put("name", lockName);
+		params.put("lockName", lockName);
+		mLockName = lockName;
 		params.put("mac", lockInfo.getString("lockMac"));
 		params.put("key", lockInfo.getString("lockKey"));
 		params.put("flagPos", lockInfo.getInteger("lockFlagPos"));

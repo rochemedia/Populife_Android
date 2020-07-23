@@ -15,6 +15,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:visibility="visible"
                 android:id="@+id/ll_lock_detail_add"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -75,6 +76,7 @@
                         android:layout_marginTop="16dp"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:visibility="gone"
                         android:paddingLeft="32dp"
                         android:paddingRight="32dp"
                         android:textColor="@color/text_main"
@@ -130,8 +132,8 @@
                             android:orientation="vertical">
 
                             <RelativeLayout
-                                android:layout_width="120dp"
-                                android:layout_height="120dp">
+                                android:layout_width="130dp"
+                                android:layout_height="130dp">
 
                                 <com.gcssloop.widget.ArcSeekBar
                                     android:id="@+id/arc_seek_bar_unlock"
@@ -154,16 +156,16 @@
                             </RelativeLayout>
 
                             <RelativeLayout
-                                android:layout_width="120dp"
-                                android:layout_height="120dp"
-                                android:layout_marginTop="24dp">
+                                android:layout_width="130dp"
+                                android:layout_height="130dp"
+                                android:layout_marginTop="60dp">
 
                                 <com.gcssloop.widget.ArcSeekBar
                                     android:id="@+id/arc_seek_bar_lock"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:visibility="gone"
-                                    app:arc_colors="@array/arc_colors_locking"
+                                    app:arc_colors="@array/arc_colors_unlocking"
                                     app:arc_open_angle="300"
                                     app:arc_rotate_angle="120"
                                     app:arc_thumb_color="@color/transparent"
@@ -208,7 +210,7 @@
                         android:id="@+id/iv_lock_detail_battery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="12dp"
+                        android:layout_marginRight="@dimen/common_page_left_right_space"
                         android:src="@drawable/ic_battery_100" />
 
                     <ImageView
@@ -216,7 +218,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:padding="10dp"
+                        android:padding="@dimen/common_page_left_right_space"
                         android:src="@drawable/ic_unlock_gateway" />
 
                 </LinearLayout>

@@ -2,6 +2,7 @@ package com.populstay.populife.fragment;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -1048,6 +1049,10 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		refreshBattery();
 
 		mTvLockName.setText(mCurKEY.getLockAlias());
+		if (mActivity instanceof LockDetailActivity){
+			((LockDetailActivity)mActivity).setTitleName(mCurKEY.getLockAlias());
+		}
+
 
 		// 远程开锁图标（仅限管理员远程开锁）
 		boolean isSupportRemoteUnlock = DigitUtil.isSupportRemoteUnlock(mCurKEY.getSpecialValue());
@@ -1134,9 +1139,9 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		enableLockingColorFiltr(true, false, 0);
 
 		mActions.add(new LockAction(LockAction.LockActionType.EKEY_MANAGE,
-				R.drawable.ic_lock_action_ekey_manage_able, R.string.bluetooth_keys, true));
+				R.drawable.ic_lock_action_ekey_manage_disable, R.string.keys_and_pwd, true));
 		mActions.add(new LockAction(LockAction.LockActionType.PASSCODE_MANAGE,
-				R.drawable.ic_lock_action_password_manage_able, R.string.passcode_management, true));
+				R.drawable.ic_lock_action_password_manage_disable, R.string.lock_operate_log, true));
 		if (DigitUtil.isSupportIC(mCurKEY.getSpecialValue())) {//支持 IC 卡
 			mActions.add(new LockAction(LockAction.LockActionType.IC_CARDS,
 					R.drawable.ic_lock_action_ic_card_able, R.string.lock_action_ic_cards, true));
@@ -1204,9 +1209,9 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				enableLockingColorFiltr(false, true, colorGrayParent);
 
 				mActions.add(new LockAction(LockAction.LockActionType.EKEY_MANAGE,
-						R.drawable.ic_lock_action_ekey_manage_disable, R.string.bluetooth_keys, false));
+						R.drawable.ic_lock_action_ekey_manage_disable, R.string.keys_and_pwd, false));
 				mActions.add(new LockAction(LockAction.LockActionType.PASSCODE_MANAGE,
-						R.drawable.ic_lock_action_password_manage_disable, R.string.passcode_management, false));
+						R.drawable.ic_lock_action_password_manage_disable, R.string.lock_operate_log, false));
 				if (DigitUtil.isSupportIC(mCurKEY.getSpecialValue())) {//支持 IC 卡
 					mActions.add(new LockAction(LockAction.LockActionType.IC_CARDS,
 							R.drawable.ic_lock_action_ic_card_disable, R.string.lock_action_ic_cards, false));
@@ -1224,9 +1229,9 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				enableLockingColorFiltr(true, false, 0);
 
 				mActions.add(new LockAction(LockAction.LockActionType.EKEY_MANAGE,
-						R.drawable.ic_lock_action_ekey_manage_able, R.string.bluetooth_keys, true));
+						R.drawable.ic_lock_action_ekey_manage_able, R.string.keys_and_pwd, true));
 				mActions.add(new LockAction(LockAction.LockActionType.PASSCODE_MANAGE,
-						R.drawable.ic_lock_action_password_manage_able, R.string.passcode_management, true));
+						R.drawable.ic_lock_action_password_manage_able, R.string.lock_operate_log, true));
 				if (DigitUtil.isSupportIC(mCurKEY.getSpecialValue())) {//支持 IC 卡
 					mActions.add(new LockAction(LockAction.LockActionType.IC_CARDS,
 							R.drawable.ic_lock_action_ic_card_able, R.string.lock_action_ic_cards, true));
@@ -1245,9 +1250,9 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				enableLockingColorFiltr(false, true, colorGrayParent);
 
 				mActions.add(new LockAction(LockAction.LockActionType.EKEY_MANAGE,
-						R.drawable.ic_lock_action_ekey_manage_disable, R.string.bluetooth_keys, false));
+						R.drawable.ic_lock_action_ekey_manage_disable, R.string.keys_and_pwd, false));
 				mActions.add(new LockAction(LockAction.LockActionType.PASSCODE_MANAGE,
-						R.drawable.ic_lock_action_password_manage_disable, R.string.passcode_management, false));
+						R.drawable.ic_lock_action_password_manage_disable, R.string.lock_operate_log, false));
 				if (DigitUtil.isSupportIC(mCurKEY.getSpecialValue())) {//支持 IC 卡
 					mActions.add(new LockAction(LockAction.LockActionType.IC_CARDS,
 							R.drawable.ic_lock_action_ic_card_disable, R.string.lock_action_ic_cards, false));
@@ -1271,9 +1276,9 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				enableLockingColorFiltr(false, true, colorGrayParent);
 
 				mActions.add(new LockAction(LockAction.LockActionType.EKEY_MANAGE,
-						R.drawable.ic_lock_action_ekey_manage_disable, R.string.bluetooth_keys, false));
+						R.drawable.ic_lock_action_ekey_manage_disable, R.string.keys_and_pwd, false));
 				mActions.add(new LockAction(LockAction.LockActionType.PASSCODE_MANAGE,
-						R.drawable.ic_lock_action_password_manage_disable, R.string.passcode_management, false));
+						R.drawable.ic_lock_action_password_manage_disable, R.string.lock_operate_log, false));
 				if (DigitUtil.isSupportIC(mCurKEY.getSpecialValue())) {//支持 IC 卡
 					mActions.add(new LockAction(LockAction.LockActionType.IC_CARDS,
 							R.drawable.ic_lock_action_ic_card_disable, R.string.lock_action_ic_cards, false));
