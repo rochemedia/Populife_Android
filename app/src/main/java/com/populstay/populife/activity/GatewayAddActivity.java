@@ -178,6 +178,8 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 
 			@Override
 			public void onInitializeGateway(Error error, DeviceInfo deviceInfo) {
+				PeachLogger.d("onInitializeGateway deviceInfo=" + deviceInfo.toString());
+				PeachLogger.d("onInitializeGateway mSelectedDevice=" + mSelectedDevice.toString());
 				addGateway(mSelectedDevice.getAddress());
 			}
 

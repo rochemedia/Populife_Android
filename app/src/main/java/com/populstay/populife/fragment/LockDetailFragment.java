@@ -1004,13 +1004,12 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 
 		mCurKEY.setUserId(PeachPreference.readUserId());
-
 		//mCurKEY.setUserType(userType);
 		//mCurKEY.setKeyStatus(keyStatus);
 		mCurKEY.setLockId(lockId);
 		//TODO
 		//mCurKEY.setKeyId(keyId);
-		mCurKEY.setLockVersion(lockVersion);
+		mCurKEY.setLockVersion(String.valueOf(protocolVersion));
 		mCurKEY.setLockName(lockName);
 		mCurKEY.setLockAlias(lockAlias);
 		mCurKEY.setLockMac(lockMac);
