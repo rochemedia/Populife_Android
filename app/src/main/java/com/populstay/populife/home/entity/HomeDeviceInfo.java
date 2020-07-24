@@ -9,7 +9,7 @@ public class HomeDeviceInfo {
 
     public interface IDeviceModel {
         // 网关
-        String MODEL_GATEWAY = "G2";
+        String MODEL_GATEWAY = "SN227";
         // 横闩锁
         String MODEL_LOCK_DEADBOLT = "SN138-PPL-DB_PV53";
         // 密码锁

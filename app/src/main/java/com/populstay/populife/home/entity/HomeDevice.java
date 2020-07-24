@@ -3,6 +3,8 @@ package com.populstay.populife.home.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ttlock.gateway.sdk.model.DeviceInfo;
+
 public class HomeDevice implements Parcelable {
 
     private String deviceId;
@@ -13,6 +15,9 @@ public class HomeDevice implements Parcelable {
     private boolean freezed;
     private String alias;
     private int type;
+
+
+
 
     public HomeDevice() {
     }

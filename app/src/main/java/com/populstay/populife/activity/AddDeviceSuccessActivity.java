@@ -158,7 +158,10 @@ public class AddDeviceSuccessActivity extends BaseActivity implements View.OnCli
                 // 锁头
                 if (!HomeDeviceInfo.IDeviceModel.MODEL_GATEWAY.equals(mDeviceType)){
                     modifyLockName();
-                    bindHome();
+                    bindLockHome();
+                }else {
+                    modifyGatewayName();
+                    bindGatewayHome();
                 }
                 break;
         }
@@ -250,14 +253,81 @@ public class AddDeviceSuccessActivity extends BaseActivity implements View.OnCli
     }
 
     /**
-     * 绑定家庭
+     * 绑定锁家庭
      *
      */
-    private void bindHome() {
+    private void bindLockHome() {
         RestClient.builder()
                 .url(Urls.LOCK_BIND_HOME)
                 .loader(this)
                 .params("lockId", mHomeDevice.getDeviceId())
+                .params("homeId", mHome.getId())
+                .success(new ISuccess() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onSuccess(String response) {
+                        JSONObject result = JSON.parseObject(response);
+                        int code = result.getInteger("code");
+                        if (code == 200) {
+                            goToNewActivity(MainActivity.class);
+                        } else {
+                            toast(R.string.note_lock_name_add_fail);
+                        }
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+                        toast(R.string.note_lock_name_add_fail);
+                    }
+                })
+                .build()
+                .post();
+    }
+
+    /**
+     * 修改网关名称
+     *
+     */
+    private void modifyGatewayName() {
+        RestClient.builder()
+                .url(Urls.GATEWAY_MODIFY_NAME)
+                .loader(this)
+                .params("gatewayId", mHomeDevice.getDeviceId())
+                .params("name", mEtDeviceName.getTextStr())
+                .success(new ISuccess() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onSuccess(String response) {
+                        PeachLogger.d("LOCK_NAME_MODIFY", response);
+
+                        JSONObject result = JSON.parseObject(response);
+                        int code = result.getInteger("code");
+                        if (code == 200) {
+                        } else {
+                            toast(R.string.note_lock_name_add_fail);
+                        }
+                    }
+                })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+                        toast(R.string.note_lock_name_add_fail);
+                    }
+                })
+                .build()
+                .post();
+    }
+
+    /**
+     * 绑定网关家庭
+     *
+     */
+    private void bindGatewayHome() {
+        RestClient.builder()
+                .url(Urls.GATEWAY_SET_HOME)
+                .loader(this)
+                .params("gatewayId", Integer.valueOf(mHomeDevice.getDeviceId()))
                 .params("homeId", mHome.getId())
                 .success(new ISuccess() {
                     @SuppressLint("SetTextI18n")

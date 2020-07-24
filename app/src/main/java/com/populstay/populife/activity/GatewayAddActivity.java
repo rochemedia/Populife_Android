@@ -180,7 +180,7 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 			public void onInitializeGateway(Error error, DeviceInfo deviceInfo) {
 				PeachLogger.d("onInitializeGateway deviceInfo=" + deviceInfo.toString());
 				PeachLogger.d("onInitializeGateway mSelectedDevice=" + mSelectedDevice.toString());
-				addGateway(mSelectedDevice.getAddress());
+				checkInitGatewaySuccess(mSelectedDevice.getAddress(),deviceInfo);
 			}
 
 			@Override
@@ -339,11 +339,23 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 	 *
 	 * @param gatewayMac The Mac which you will get when calling the SDK method to add a gateway
 	 */
-	private void addGateway(final String gatewayMac) {
+	private void addGateway(final String gatewayMac,final DeviceInfo deviceInfo,final int gatewayId) {
+
 		RestClient.builder()
 				.url(Urls.GATEWAY_ADD)
+				.params("userId", PeachPreference.readUserId())
 				.params("gatewayMac", gatewayMac)
-				.params("name", mEtGatewayName.getText().toString().trim())
+				.params("gatewayId", gatewayId)
+				//todo 网关版本
+				.params("gatewayVersion", "1")
+				//todo 网络名称
+				.params("networkName", NetworkUtil.getWifiSSid())
+				//硬件版本
+				.params("hardwareRevision", deviceInfo.getHardwareRevision())
+				//固件版本
+				.params("firmwareRevision", deviceInfo.getFirmwareRevision())
+				//初始化时间
+				.params("initDate", System.currentTimeMillis())
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {
@@ -352,7 +364,11 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");
 						if (code == 200) {
-							checkInitGatewaySuccess(gatewayMac);
+							HomeDevice device = new HomeDevice();
+							device.setName(mEtGatewayName.getText().toString().trim());
+							device.setDeviceId(String.valueOf(gatewayId));
+							device.setModelNum(deviceInfo.getModelNum());
+							AddDeviceSuccessActivity.actionStart(GatewayAddActivity.this, HomeDeviceInfo.IDeviceModel.MODEL_GATEWAY, device);
 						} else {
 							toast(R.string.note_gateway_init_fail);
 							refreshBtnState();
@@ -380,8 +396,18 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 	 * 使用SDK添加网关后调用该接口，查询网关是否添加成功
 	 *
 	 * @param gatewayNetMac The Mac which you will get when calling the SDK method to add a gateway
+	 *                      {
+	 *     "success": true,
+	 *     "code": 200,
+	 *     "msg": "",
+	 *     "data": {
+	 *         "errcode": 0,
+	 *         "errmsg": "表示失败或否",
+	 *         "gatewayId": 382323
+	 *     }
+	 * }
 	 */
-	private void checkInitGatewaySuccess(String gatewayNetMac) {
+	private void checkInitGatewaySuccess(String gatewayNetMac, final DeviceInfo deviceInfo) {
 		RestClient.builder()
 				.url(Urls.GATEWAY_INIT_CHECK_SUCCESS)
 				.params("userId", PeachPreference.readUserId())
@@ -394,18 +420,17 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");
 						if (code == 200) {
-							boolean isInitSuccess = result.getBoolean("data");
-							if (isInitSuccess) {
+							JSONObject dataObj = result.getJSONObject("data");
+							int errcode = dataObj.getInteger("errcode");
+							int gatewayId = dataObj.getInteger("gatewayId");
+							if (0 == errcode) {
 								toast(getString(R.string.note_gateway_init_success));
 								refreshBtnState();
 								/*Intent intent = new Intent(GatewayAddActivity.this, GatewayListActivity.class);
 								startActivity(intent);*/
-								HomeDevice device = new HomeDevice();
 								// todo
-								device.setName(mEtGatewayName.getText().toString().trim());
-								device.setDeviceId("test111");
-								device.setModelNum("G2");
-								AddDeviceSuccessActivity.actionStart(GatewayAddActivity.this, HomeDeviceInfo.IDeviceModel.MODEL_GATEWAY, device);
+
+								addGateway(mSelectedDevice.getAddress(),deviceInfo,gatewayId);
 							} else {
 								toast(R.string.note_gateway_init_fail);
 								refreshBtnState();

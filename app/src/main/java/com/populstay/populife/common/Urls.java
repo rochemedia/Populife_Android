@@ -100,6 +100,10 @@ public class Urls {
 	public static final String GATEWAY_LOCK_UNFREEZE = "gateway/unfreeze"; //（post）利用网关远程网关解冻锁
 	public static final String LOCK_SPECIAL_VALUE_MODIFY = "lock/specialValue/set"; //（post）修改锁的特征值
 
+	public static final String GATEWAY_MODIFY_NAME = "gateway/modify-name"; //（post）网关 - 修改网关名称
+	public static final String GATEWAY_SET_HOME = "gateway/set-home"; //（post）网关 - 设置家庭
+
+
 	public static final String IC_CARD_LIST = "icc/get"; //（get）分页获取或按关键词搜索（卡号或备注）锁id下所有的IC卡
 	public static final String IC_CARD_ADD = "icc/add"; //（post）通过蓝牙在锁上添加IC卡后调用该接口
 	public static final String IC_CARD_DELETE = "icc/delete"; //（post）通过卡号删除IC卡
