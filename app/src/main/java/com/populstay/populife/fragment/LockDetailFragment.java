@@ -1009,7 +1009,23 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		mCurKEY.setLockId(lockId);
 		//TODO
 		//mCurKEY.setKeyId(keyId);
-		mCurKEY.setLockVersion(String.valueOf(protocolVersion));
+
+
+
+		// 封装lockVersion信息，蓝牙开锁/闭锁需要
+		//{"lockId":2118210,"protocolType":5,"protocolVersion":3,"scene":2,"groupId":10,"orgId":32,"logoUrl":null,"showAdminKbpwdFlag":null}
+		JSONObject lockVersionObj = new JSONObject();
+		lockVersionObj.put("lockId",lockId);
+		lockVersionObj.put("protocolType",protocolType);
+		lockVersionObj.put("protocolVersion",protocolVersion);
+		lockVersionObj.put("scene",scene);
+		lockVersionObj.put("groupId",groupId);
+		lockVersionObj.put("orgId",orgId);
+		lockVersionObj.put("logoUrl",null);
+		lockVersionObj.put("showAdminKbpwdFlag",null);
+		lockVersion  =  String.valueOf(lockVersionObj);
+
+		mCurKEY.setLockVersion(lockVersion);
 		mCurKEY.setLockName(lockName);
 		mCurKEY.setLockAlias(lockAlias);
 		mCurKEY.setLockMac(lockMac);
