@@ -10,11 +10,11 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.populstay.populife.R;
-import com.populstay.populife.base.BaseActivity;
+import com.populstay.populife.base.BluetoothBaseActivity;
 import com.populstay.populife.home.entity.HomeDeviceInfo;
 import com.populstay.populife.ui.widget.HelpPopupWindow;
 
-public class LockAddGuideActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class LockAddGuideActivity extends BluetoothBaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private static final String KEY_LOCK_TYPE = "KEY_LOCK_TYPE";
     private String lockType;
@@ -142,5 +142,20 @@ public class LockAddGuideActivity extends BaseActivity implements View.OnClickLi
         if (null != mHelpPopupWindow){
             mHelpPopupWindow.dismiss();
         }
+    }
+
+    @Override
+    public void onBluetoothStateChanged(boolean isOpen) {
+
+    }
+
+    @Override
+    public void onLocationStateChanged(boolean isOpen) {
+
+    }
+
+    @Override
+    public void onNetStateChange(boolean isNetEnable) {
+
     }
 }

@@ -46,6 +46,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -72,7 +73,7 @@ public class BaseActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		registerNetStateChangeReceiver();
 		// 将当前 activity 加入到活动收集器中
 		ActivityCollector.addActivity(this);
 		if (!EventBus.getDefault().isRegistered(this)) {
@@ -234,11 +235,13 @@ public class BaseActivity extends AppCompatActivity {
 		super.onDestroy();
 
 		stopLoading();
-		// 当前 activity 销毁时,将其从活动收集器中移除
-		ActivityCollector.removeActivity(this);
 
 		EventBus.getDefault().unregister(this);
 		unregisterReceiver(mReceiver);
+		unregisterNetStateChangeReceiver();
+
+		// 当前 activity 销毁时,将其从活动收集器中移除
+		ActivityCollector.removeActivity(this);
 //		LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
 	}
 
@@ -371,5 +374,47 @@ public class BaseActivity extends AppCompatActivity {
 
 	}
 
+	public void onNetStateChange(boolean isNetEnable){
+
+	}
+
+	public NetStateChangeReceiver mNetStateChangeReceiver;
+
+	private void registerNetStateChangeReceiver(){
+		if(mNetStateChangeReceiver == null){
+			mNetStateChangeReceiver = new NetStateChangeReceiver(this);
+		}
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+		registerReceiver(mNetStateChangeReceiver, intentFilter);
+	}
+
+	private void unregisterNetStateChangeReceiver(){
+		if(mNetStateChangeReceiver != null){
+			unregisterReceiver(mNetStateChangeReceiver);
+			mNetStateChangeReceiver = null;
+		}
+	}
+
+	static class NetStateChangeReceiver extends BroadcastReceiver {
+
+		SoftReference<BaseActivity> softReference;
+		public NetStateChangeReceiver(BaseActivity baseActivity){
+			softReference = new SoftReference(baseActivity);
+		}
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (null == softReference){
+				return;
+			}
+			if (intent.getAction().matches("android.net.conn.CONNECTIVITY_CHANGE"))
+			{
+				boolean  isNetEnable = softReference.get().isNetEnable();
+				PeachLogger.d("BroadcastReceiver-->onNetStateChange-->isNetEnable=" + isNetEnable);
+				softReference.get().onNetStateChange(isNetEnable);
+			}
+		}
+	}
 
 }
