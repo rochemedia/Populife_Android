@@ -64,7 +64,7 @@ public class HomeDetailsActivity extends BaseActivity implements View.OnClickLis
         mTvDeleteSpaceBtn = findViewById(R.id.tv_delete_space_btn);
 
         if (null != mHome){
-            mTvSpaceDeviceNumName.setText(String.format(getResources().getString(R.string.device_num_match),mHome.getLockCount()));
+            mTvSpaceDeviceNumName.setText(String.format(getResources().getString(R.string.device_num_match),mHome.getDeviceCount()));
         }
         setSpaceName();
     }

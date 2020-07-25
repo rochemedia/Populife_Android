@@ -288,7 +288,7 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 							mHomeDevice.setName(mLockName);
 							PeachPreference.setBoolean(PeachPreference.HAVE_NEW_MESSAGE, true);
 							toast(R.string.note_lock_init_success);
-							AddDeviceSuccessActivity.actionStart(FoundDeviceActivity.this, HomeDeviceInfo.IDeviceModel.MODEL_LOCK_DEADBOLT, mHomeDevice);
+							AddDeviceSuccessActivity.actionStart(FoundDeviceActivity.this, HomeDeviceInfo.IDeviceName.NAME_LOCK_DEADBOLT, mHomeDevice);
 						} else {
 							toast(R.string.note_lock_init_fail);
 						}

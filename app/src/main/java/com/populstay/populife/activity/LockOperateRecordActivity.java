@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -45,8 +46,7 @@ public class LockOperateRecordActivity extends BaseActivity implements View.OnCl
 
 	private static final String KEY_LOCK_ID = "key_lock_id";
 
-	private TextView mTvClear, mTvSearch;
-	private ImageView mIvSync;
+	private TextView mTvClear, mTvSearch,mIvSync;
 	private LinearLayout mLlNoData;
 	private ExpandableListView mExpandableListView;
 	private LockOperateRecordAdapter mAdapter;
@@ -91,7 +91,7 @@ public class LockOperateRecordActivity extends BaseActivity implements View.OnCl
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-			case R.id.tv_lock_operate_record_clear:
+			case R.id.page_action_2:
 				DialogUtil.showCommonDialog(LockOperateRecordActivity.this, null,
 						getString(R.string.note_clear_records),
 						getString(R.string.clear), getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -102,7 +102,7 @@ public class LockOperateRecordActivity extends BaseActivity implements View.OnCl
 						}, null);
 				break;
 
-			case R.id.iv_lock_operate_record_sync:
+			case R.id.page_action:
 				DialogUtil.showCommonDialog(LockOperateRecordActivity.this, getString(R.string.sync_operate_records),
 						getString(R.string.note_sync_operate_records), getString(R.string.ok), getString(R.string.cancel),
 						new DialogInterface.OnClickListener() {
@@ -142,13 +142,19 @@ public class LockOperateRecordActivity extends BaseActivity implements View.OnCl
 	}
 
 	private void initView() {
-		mTvClear = findViewById(R.id.tv_lock_operate_record_clear);
-//		mTvClear.setText(R.string.clear);
-//		mTvClear.setVisibility(View.GONE);
+		TextView tvTitle = findViewById(R.id.page_title);
+		tvTitle.setText(R.string.lock_action_records);
+
+
+		mTvClear = findViewById(R.id.page_action_2);
+		mTvClear.setText(R.string.clear);
 		setClearVisible(false);
 
 		mTvSearch = findViewById(R.id.tv_lock_operate_records_search);
-		mIvSync = findViewById(R.id.iv_lock_operate_record_sync);
+		mIvSync = findViewById(R.id.page_action);
+		mIvSync.setText("");
+		mIvSync.setCompoundDrawablesWithIntrinsicBounds(
+				getResources().getDrawable(R.drawable.refresh_icon), null, null, null);
 		mLlNoData = findViewById(R.id.layout_no_data);
 		mExpandableListView = findViewById(R.id.eplv_lock_operate_records);
 		mAdapter = new LockOperateRecordAdapter(LockOperateRecordActivity.this, mGroupList, mChildList);
@@ -186,11 +192,9 @@ public class LockOperateRecordActivity extends BaseActivity implements View.OnCl
 		if (isVisible) {
 			mTvClear.setVisibility(View.VISIBLE);
 			mTvClear.setText(R.string.clear);
-			mTvClear.setPadding(24, 24, 24, 24);
 		} else {
 			mTvClear.setText(null);
 			mTvClear.setVisibility(View.INVISIBLE);
-			mTvClear.setPadding(0, 0, 0, 0);
 		}
 	}
 

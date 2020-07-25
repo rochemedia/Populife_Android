@@ -53,17 +53,17 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
 
         HomeDevice item = mDatas.get(position);
         if (USE_FROM_SELECT_DEVICE_TYPE_LIST == mUseFrom){
-            viewHolder.tvDeviceName.setText(HomeDeviceInfo.getNameByModel(item.getModelNum()));
+            viewHolder.tvDeviceName.setText(HomeDeviceInfo.getTypeNameByName(item.getName()));
         }else {
-            viewHolder.tvDeviceName.setText(item.getName());
+            viewHolder.tvDeviceName.setText(item.getAlias());
         }
         if (mSelectedPosition == position ){
             viewHolder.tvDeviceName.setTextColor(mContext.getResources().getColor(R.color.device_card_text_color_active));
-            viewHolder.ivDeviceIcon.setImageResource(HomeDeviceInfo.getIconActiveByModel(item.getModelNum()));
+            viewHolder.ivDeviceIcon.setImageResource(HomeDeviceInfo.getIconActiveByName(item.getName()));
             viewHolder.itemView.setBackgroundResource(mShowType == SHOW_TYPE_CARD ? R.drawable.device_card_single_bg_selected : R.drawable.device_card_two_bg_selected);
         }else {
             viewHolder.tvDeviceName.setTextColor(mContext.getResources().getColor(R.color.device_card_text_color_inactive));
-            viewHolder.ivDeviceIcon.setImageResource(HomeDeviceInfo.getIconInactiveByModel(item.getModelNum()));
+            viewHolder.ivDeviceIcon.setImageResource(HomeDeviceInfo.getIconInactiveByName(item.getName()));
             viewHolder.itemView.setBackgroundResource(mShowType == SHOW_TYPE_CARD ? R.drawable.device_card_single_bg : R.drawable.device_card_two_bg);
         }
 

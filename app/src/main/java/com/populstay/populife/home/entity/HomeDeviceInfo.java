@@ -7,27 +7,27 @@ import com.populstay.populife.R;
 
 public class HomeDeviceInfo {
 
-    public interface IDeviceModel {
+    public interface IDeviceName {
         // 网关
-        String MODEL_GATEWAY = "SN227";
+        String NAEM_GATEWAY = "G2_5db4ad";//
         // 横闩锁
-        String MODEL_LOCK_DEADBOLT = "SN138-PPL-DB_PV53";
+        String NAME_LOCK_DEADBOLT = "PPL-DB_a67291";
         // 密码锁
-        String MODEL_LOCK_KEY_BOX = "1";
+        String NAME_LOCK_KEY_BOX = "1";
     }
 
 
-    public static @StringRes int getNameByModel(String deviceModel) {
+    public static @StringRes int getTypeNameByName(String deviceName) {
         @StringRes
         int name = -1;
-        switch (deviceModel) {
-            case IDeviceModel.MODEL_GATEWAY:
+        switch (deviceName) {
+            case IDeviceName.NAEM_GATEWAY:
                 name = R.string.device_name_gateway;
                 break;
-            case IDeviceModel.MODEL_LOCK_DEADBOLT:
+            case IDeviceName.NAME_LOCK_DEADBOLT:
                 name = R.string.lock_type_deadbolt;
                 break;
-            case IDeviceModel.MODEL_LOCK_KEY_BOX:
+            case IDeviceName.NAME_LOCK_KEY_BOX:
                 name = R.string.lock_type_keybox;
                 break;
             default:
@@ -37,17 +37,17 @@ public class HomeDeviceInfo {
         return name;
     }
 
-    public static @DrawableRes int getIconActiveByModel(String deviceModel) {
+    public static @DrawableRes int getIconActiveByName(String deviceName) {
         @DrawableRes
         int iconActive = -1;
-        switch (deviceModel) {
-            case IDeviceModel.MODEL_GATEWAY:
+        switch (deviceName) {
+            case IDeviceName.NAEM_GATEWAY:
                 iconActive = R.drawable.gateway_active;
                 break;
-            case IDeviceModel.MODEL_LOCK_DEADBOLT:
+            case IDeviceName.NAME_LOCK_DEADBOLT:
                 iconActive = R.drawable.deadbolt_active;
                 break;
-            case IDeviceModel.MODEL_LOCK_KEY_BOX:
+            case IDeviceName.NAME_LOCK_KEY_BOX:
                 iconActive = R.drawable.keybox_active;
                 break;
             default:
@@ -57,17 +57,17 @@ public class HomeDeviceInfo {
         return iconActive;
     }
 
-    public static @DrawableRes int getIconInactiveByModel(String deviceModel) {
+    public static @DrawableRes int getIconInactiveByName(String deviceName) {
         @DrawableRes
         int iconInactive = -1;
-        switch (deviceModel) {
-            case IDeviceModel.MODEL_GATEWAY:
+        switch (deviceName) {
+            case IDeviceName.NAEM_GATEWAY:
                 iconInactive = R.drawable.gateway_inactive;
                 break;
-            case IDeviceModel.MODEL_LOCK_DEADBOLT:
+            case IDeviceName.NAME_LOCK_DEADBOLT:
                 iconInactive = R.drawable.deadbolt_inactive;
                 break;
-            case IDeviceModel.MODEL_LOCK_KEY_BOX:
+            case IDeviceName.NAME_LOCK_KEY_BOX:
                 iconInactive = R.drawable.keybox_inactive;
                 break;
             default:

@@ -21,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import com.populstay.populife.R;
 import com.populstay.populife.base.BaseActivity;
 import com.populstay.populife.common.Urls;
+import com.populstay.populife.entity.Gateway;
 import com.populstay.populife.home.entity.Home;
 import com.populstay.populife.home.entity.HomeDevice;
 import com.populstay.populife.home.entity.HomeDeviceInfo;
@@ -46,7 +47,7 @@ public class AddDeviceSuccessActivity extends BaseActivity implements View.OnCli
     private ExEditText mEtDeviceName;
 
     private Home mHome;
-    private String mDeviceType = HomeDeviceInfo.IDeviceModel.MODEL_LOCK_DEADBOLT;
+    private String mDeviceType = HomeDeviceInfo.IDeviceName.NAME_LOCK_DEADBOLT;
     private HomeDevice mHomeDevice;
     public static final String KEY_DEVICE_TYPE = "key_device_type";
     public static final String KEY_DEVICE_DATA = "key_device_data";
@@ -156,7 +157,7 @@ public class AddDeviceSuccessActivity extends BaseActivity implements View.OnCli
                 break;
             case R.id.tv_finish:
                 // 锁头
-                if (!HomeDeviceInfo.IDeviceModel.MODEL_GATEWAY.equals(mDeviceType)){
+                if (!HomeDeviceInfo.IDeviceName.NAEM_GATEWAY.equals(mDeviceType)){
                     modifyLockName();
                     bindLockHome();
                 }else {
@@ -336,7 +337,12 @@ public class AddDeviceSuccessActivity extends BaseActivity implements View.OnCli
                         JSONObject result = JSON.parseObject(response);
                         int code = result.getInteger("code");
                         if (code == 200) {
+                            // 返回主页
                             goToNewActivity(MainActivity.class);
+                            // 跳转锁列表
+                            Gateway gateway = new Gateway();
+                            gateway.setGatewayId(Integer.valueOf(mHomeDevice.getDeviceId()));
+                            GatewayBindedLockListActivity.actionStart(AddDeviceSuccessActivity.this, gateway);
                         } else {
                             toast(R.string.note_lock_name_add_fail);
                         }

@@ -48,7 +48,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
         Home item = mDatas.get(position);
         viewHolder.tvHomeName.setText(item.getName());
-        viewHolder.tvHomeCount.setText(String.format(mContext.getResources().getString(R.string.device_num_match),item.getLockCount()));
+        viewHolder.tvHomeCount.setText(String.format(mContext.getResources().getString(R.string.device_num_match),item.getDeviceCount()));
         if (SHOW_TYPE_CARD == mShowType){
             viewHolder.ivHomeSelectedIcon.setVisibility(mSelectedPosition == position ? View.VISIBLE : View.GONE);
         }

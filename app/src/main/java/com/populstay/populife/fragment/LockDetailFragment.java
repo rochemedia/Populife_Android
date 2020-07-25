@@ -2,7 +2,6 @@ package com.populstay.populife.fragment;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,11 +32,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.gcssloop.widget.ArcSeekBar;
 import com.google.gson.reflect.TypeToken;
 import com.populstay.populife.R;
+import com.populstay.populife.activity.GatewayBindedLockListActivity;
 import com.populstay.populife.activity.LockAddSelectTypeActivity;
 import com.populstay.populife.activity.LockDetailActivity;
 import com.populstay.populife.activity.LockManageBluetoothKeyActivity;
 import com.populstay.populife.activity.LockManageIcCardActivity;
-import com.populstay.populife.activity.LockManagePasswordActivity;
 import com.populstay.populife.activity.LockOperateRecordActivity;
 import com.populstay.populife.activity.LockSettingsActivity;
 import com.populstay.populife.adapter.DeviceListAdapter;
@@ -46,11 +44,11 @@ import com.populstay.populife.adapter.LockActionAdapter;
 import com.populstay.populife.app.MyApplication;
 import com.populstay.populife.base.BaseFragment;
 import com.populstay.populife.common.Urls;
+import com.populstay.populife.entity.Gateway;
 import com.populstay.populife.entity.Key;
 import com.populstay.populife.entity.LockAction;
 import com.populstay.populife.enumtype.Operation;
 import com.populstay.populife.eventbus.Event;
-import com.populstay.populife.home.entity.Home;
 import com.populstay.populife.home.entity.HomeDevice;
 import com.populstay.populife.home.entity.HomeDeviceInfo;
 import com.populstay.populife.lock.ILockGetBattery;
@@ -71,8 +69,6 @@ import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
 import com.ttlock.bl.sdk.util.DigitUtil;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -275,10 +271,12 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				mDeviceListAdapter.selectItem(position);
 				HomeDevice homeDevice = mDeviceList.get(position);
 
-				if (!HomeDeviceInfo.IDeviceModel.MODEL_GATEWAY.equals(homeDevice.getModelNum())){
+				if (!HomeDeviceInfo.IDeviceName.NAEM_GATEWAY.equals(homeDevice.getName())){
 					LockDetailActivity.actionStart(getActivity(), homeDevice.getDeviceId());
 				}else {
-					// 网关
+					Gateway gateway = new Gateway();
+					gateway.setGatewayId(Integer.valueOf(homeDevice.getDeviceId()));
+					GatewayBindedLockListActivity.actionStart(mActivity, gateway);
 				}
 			}
 		});

@@ -1,6 +1,5 @@
 package com.populstay.populife.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -49,7 +48,6 @@ import com.ttlock.gateway.sdk.model.ConfigureGatewayInfo;
 import com.ttlock.gateway.sdk.model.DeviceInfo;
 import com.ttlock.gateway.sdk.model.Error;
 import com.ttlock.gateway.sdk.model.WiFi;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -341,18 +339,16 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 		RestClient.builder()
 				.url(Urls.GATEWAY_ADD)
 				.params("userId", PeachPreference.readUserId())
+				.params("name", mSelectedDevice.getName())
 				.params("gatewayMac", gatewayMac)
 				.params("gatewayId", gatewayId)
-				//todo 网关版本
-				.params("gatewayVersion", "1")
-				//todo 网络名称
+				// gatewayVersion对应ModelNum
+				.params("gatewayVersion", deviceInfo.getModelNum())
 				.params("networkName", NetworkUtil.getWifiSSid())
 				//硬件版本
 				.params("hardwareRevision", deviceInfo.getHardwareRevision())
 				//固件版本
 				.params("firmwareRevision", deviceInfo.getFirmwareRevision())
-				//初始化时间
-				.params("initDate", System.currentTimeMillis())
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {
@@ -365,7 +361,7 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 							device.setName(mEtGatewayName.getText().toString().trim());
 							device.setDeviceId(String.valueOf(gatewayId));
 							device.setModelNum(deviceInfo.getModelNum());
-							AddDeviceSuccessActivity.actionStart(GatewayAddActivity.this, HomeDeviceInfo.IDeviceModel.MODEL_GATEWAY, device);
+							AddDeviceSuccessActivity.actionStart(GatewayAddActivity.this, HomeDeviceInfo.IDeviceName.NAEM_GATEWAY, device);
 						} else {
 							toast(R.string.note_gateway_init_fail);
 							refreshBtnState();

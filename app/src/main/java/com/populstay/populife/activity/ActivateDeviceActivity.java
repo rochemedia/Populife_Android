@@ -3,7 +3,6 @@ package com.populstay.populife.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.CheckBox;
@@ -103,10 +102,10 @@ public class ActivateDeviceActivity extends BaseActivity implements View.OnClick
     }
 
     private void initStatus() {
-        if(HomeDeviceInfo.IDeviceModel.MODEL_LOCK_DEADBOLT.equals(lockType)){
+        if(HomeDeviceInfo.IDeviceName.NAME_LOCK_DEADBOLT.equals(lockType)){
             mIvAddDevicePic.setImageResource(R.drawable.add_deadbolt_icon);
             mTvPageTitle.setText(R.string.lock_add_deadbolt);
-        }else if (HomeDeviceInfo.IDeviceModel.MODEL_LOCK_KEY_BOX.equals(lockType)){
+        }else if (HomeDeviceInfo.IDeviceName.NAME_LOCK_KEY_BOX.equals(lockType)){
             mIvAddDevicePic.setImageResource(R.drawable.add_keybox_icon);
             mTvPageTitle.setText(R.string.lock_add_key_box);
         }else {

@@ -12,7 +12,7 @@ public class Home implements Parcelable {
     // 创建时间（毫秒时间戳）
     private long createDate;
     // 家庭（分组）下的锁数量
-    private int lockCount;
+    private int deviceCount;
 
     public Home(){
 
@@ -22,7 +22,7 @@ public class Home implements Parcelable {
         id = in.readString();
         name = in.readString();
         createDate = in.readLong();
-        lockCount = in.readInt();
+        deviceCount = in.readInt();
     }
 
     public static final Creator<Home> CREATOR = new Creator<Home>() {
@@ -61,12 +61,12 @@ public class Home implements Parcelable {
         this.createDate = createDate;
     }
 
-    public int getLockCount() {
-        return lockCount;
+    public int getDeviceCount() {
+        return deviceCount;
     }
 
-    public void setLockCount(int lockCount) {
-        this.lockCount = lockCount;
+    public void setDeviceCount(int deviceCount) {
+        this.deviceCount = deviceCount;
     }
 
     @Override
@@ -79,6 +79,6 @@ public class Home implements Parcelable {
         parcel.writeString(id);
         parcel.writeString(name);
         parcel.writeLong(createDate);
-        parcel.writeInt(lockCount);
+        parcel.writeInt(deviceCount);
     }
 }

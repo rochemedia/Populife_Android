@@ -101,9 +101,9 @@ public class LockAddGuideActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initStatus() {
-        if(HomeDeviceInfo.IDeviceModel.MODEL_LOCK_DEADBOLT.equals(lockType)){
+        if(HomeDeviceInfo.IDeviceName.NAME_LOCK_DEADBOLT.equals(lockType)){
             mTvPageTitle.setText(R.string.lock_add_deadbolt);
-        }else if (HomeDeviceInfo.IDeviceModel.MODEL_LOCK_KEY_BOX.equals(lockType)){
+        }else if (HomeDeviceInfo.IDeviceName.NAME_LOCK_KEY_BOX.equals(lockType)){
             mTvPageTitle.setText(R.string.lock_add_key_box);
         }else {
             mTvPageTitle.setText(R.string.lock_add);

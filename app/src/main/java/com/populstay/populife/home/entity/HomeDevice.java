@@ -8,11 +8,12 @@ import com.ttlock.gateway.sdk.model.DeviceInfo;
 public class HomeDevice implements Parcelable {
 
     private String deviceId;
-    private String name;
-    // G2表示网关，其他的都是锁
     private String modelNum;
     // 设备是否被冻结
     private boolean freezed;
+    // 用于区分设备类型
+    private String name;
+    // 用于展示设备名称
     private String alias;
     private int type;
 

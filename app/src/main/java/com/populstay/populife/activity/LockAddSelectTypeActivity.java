@@ -38,17 +38,17 @@ public class LockAddSelectTypeActivity extends BaseActivity implements View.OnCl
 
 		// 横闩锁
 		HomeDevice device = new HomeDevice();
-		device.setModelNum(HomeDeviceInfo.IDeviceModel.MODEL_LOCK_DEADBOLT);
+		device.setName(HomeDeviceInfo.IDeviceName.NAME_LOCK_DEADBOLT);
 		mDeviceList.add(device);
 
 		// 密码锁
 		device = new HomeDevice();
-		device.setModelNum(HomeDeviceInfo.IDeviceModel.MODEL_LOCK_KEY_BOX);
+		device.setName(HomeDeviceInfo.IDeviceName.NAME_LOCK_KEY_BOX);
 		mDeviceList.add(device);
 
 		// 网关
 		device = new HomeDevice();
-		device.setModelNum(HomeDeviceInfo.IDeviceModel.MODEL_GATEWAY);
+		device.setName(HomeDeviceInfo.IDeviceName.NAEM_GATEWAY);
 		mDeviceList.add(device);
 
 	}
@@ -71,13 +71,13 @@ public class LockAddSelectTypeActivity extends BaseActivity implements View.OnCl
 			public void onItemClick(View v, int position) {
 				mDeviceListAdapter.selectItem(position);
 				HomeDevice device = mDeviceList.get(position);
-				switch (device.getModelNum()){
-					case HomeDeviceInfo.IDeviceModel.MODEL_LOCK_DEADBOLT:
-					case HomeDeviceInfo.IDeviceModel.MODEL_LOCK_KEY_BOX:
-						LockAddGuideActivity.actionStart(LockAddSelectTypeActivity.this, device.getModelNum());
+				switch (device.getName()){
+					case HomeDeviceInfo.IDeviceName.NAME_LOCK_DEADBOLT:
+					case HomeDeviceInfo.IDeviceName.NAME_LOCK_KEY_BOX:
+						LockAddGuideActivity.actionStart(LockAddSelectTypeActivity.this, device.getName());
 						//goToNewActivity(LockAddGuideKeyboxOpenActivity.class);
 						break;
-					case HomeDeviceInfo.IDeviceModel.MODEL_GATEWAY:
+					case HomeDeviceInfo.IDeviceName.NAEM_GATEWAY:
 						goToNewActivity(GatewayAddGuideActivity.class);
 						break;
 				}
