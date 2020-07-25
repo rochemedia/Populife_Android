@@ -11,6 +11,7 @@
 
     <dimen name="help_win_width">280dp</dimen>
     <dimen name="help_win_height">110dp</dimen>
+    <dimen name="help_win_height_92dp">92dp</dimen>
 
 
 </resources>

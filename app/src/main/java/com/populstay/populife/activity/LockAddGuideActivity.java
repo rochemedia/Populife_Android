@@ -3,6 +3,7 @@ package com.populstay.populife.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -87,7 +88,7 @@ public class LockAddGuideActivity extends BaseActivity implements View.OnClickLi
         if (null == mHelpPopupWindow){
             mHelpPopupWindow = new HelpPopupWindow(this);
         }
-        mHelpPopupWindow.show(anchor);
+        mHelpPopupWindow.show(anchor, Gravity.RIGHT);
     }
 
     private void initListener() {

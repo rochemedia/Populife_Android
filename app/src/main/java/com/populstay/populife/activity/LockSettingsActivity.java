@@ -42,6 +42,7 @@ import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.IError;
 import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
+import com.populstay.populife.ui.widget.HelpPopupWindow;
 import com.populstay.populife.util.date.DateUtil;
 import com.populstay.populife.util.device.DeviceUtil;
 import com.populstay.populife.util.dialog.DialogUtil;
@@ -65,7 +66,7 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 
 	private TextView mTvSerialNum, mTvMacId, mTvBattery, mTvValidity, mTvStartTime, mTvEndTime,
 			mTvLockName, mTvLockGroup, mTvAdminPasscode, mTvDelete, mTvRemoteUnlockState;
-	private ImageView mIvSyncBattery, mIvBattery, mIvMacDisplay;
+	private ImageView mIvSyncBattery, mIvBattery, mIvMacDisplay,mIvSetLockTimeHelp;
 	private LinearLayout mLlMacId, mLlValidity, mLlStartEndTime, mLlLockName, mLlLockGroup,
 			mLlAdminPasscode, mLlLockTime, mLlAutoLocking, mLlLockUpgrade, mLlRemoteUnlock, mLlRecords, mLlKeypadVolume;
 	private Switch mSwitch;
@@ -81,6 +82,8 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 	private int mPwdType;//0删除锁时输入密码，1显示 Mac/Id 时输入密码
 	private boolean mIsDeleteCallbackCalled; // 删除锁时，onSuccess/onFail 是否被回调过
 	private int mPwdWrongCount; // 输入账号密码错误次数
+
+	private HelpPopupWindow mHelpPopupWindow;
 
 	/**
 	 * 启动当前 activity
@@ -151,6 +154,7 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 		mSwitch = findViewById(R.id.switch_lock_settings_reminder);
 		mTvDelete = findViewById(R.id.tv_lock_settings_delete);
 		mSpace = findViewById(R.id.space_lock_settings_lock_time);
+		mIvSetLockTimeHelp = findViewById(R.id.iv_lock_settings_lock_time_help);
 
 		initUI();
 //		getLockBattery();
@@ -295,6 +299,19 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 		mTvBattery.setTextColor(txtColor);
 	}
 
+	private void showHelpPopupWindow(View anchor){
+		if (null == mHelpPopupWindow){
+			mHelpPopupWindow = new HelpPopupWindow(this, R.layout.help_popup_window_layout2, R.dimen.help_win_width, R.dimen.help_win_height_92dp);
+		}
+		mHelpPopupWindow.show(anchor, Gravity.LEFT);
+	}
+
+	private void hideHelpPopupWindow(){
+		if (null != mHelpPopupWindow){
+			mHelpPopupWindow.dismiss();
+		}
+	}
+
 	private void initListener() {
 		mLlMacId.setOnClickListener(this);
 		mLlLockName.setOnClickListener(this);
@@ -309,6 +326,7 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 		mLlRecords.setOnClickListener(this);
 		mIvSyncBattery.setOnClickListener(this);
 		mLlKeypadVolume.setOnClickListener(this);
+		mIvSetLockTimeHelp.setOnClickListener(this);
 	}
 
 	@Override
@@ -425,6 +443,10 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 
 			case R.id.ll_lock_settings_keypad_volume:
 				queryKeypadVolume();
+				break;
+				// 校准锁时间帮助按钮
+			case R.id.iv_lock_settings_lock_time_help:
+				showHelpPopupWindow(view);
 				break;
 
 			default:
@@ -928,5 +950,11 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 					break;
 			}
 		}
+	}
+
+	@Override
+	public void onDetachedFromWindow() {
+		super.onDetachedFromWindow();
+		hideHelpPopupWindow();
 	}
 }

@@ -538,5 +538,6 @@
     <string name="adjus_lock_time">校准时间</string>
     <string name="admin_modify_passcode">管理员开机密码</string>
     <string name="set_remote_unlock_hint">这个功能允许你通过网关远程开锁，\n只能通过蓝牙打开或关闭</string>
+    <string name="set_lock_time_help_hint">这个功能可以校准锁的时间，让锁的时间与当前手机的时间同步，保证密码在有效期内可用。</string>
 
 </resources>

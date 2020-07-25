@@ -237,7 +237,20 @@
 
                 <TextView
                     style="@style/list_item_title"
+                    android:layout_height="58dp"
+                    android:gravity="center"
+                    android:clickable="true"
                     android:text="@string/adjus_lock_time" />
+
+                <ImageView
+                    android:id="@+id/iv_lock_settings_lock_time_help"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp"
+                    android:paddingRight="30dp"
+                    android:paddingLeft="6dp"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:src="@drawable/help_icon" />
 
                 <View
                     android:layout_width="0dp"
