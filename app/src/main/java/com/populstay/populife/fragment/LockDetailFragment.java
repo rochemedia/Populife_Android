@@ -39,6 +39,7 @@ import com.populstay.populife.activity.LockDetailActivity;
 import com.populstay.populife.activity.LockManageBluetoothKeyActivity;
 import com.populstay.populife.activity.LockManageIcCardActivity;
 import com.populstay.populife.activity.LockManagePasswordActivity;
+import com.populstay.populife.activity.LockOperateRecordActivity;
 import com.populstay.populife.activity.LockSettingsActivity;
 import com.populstay.populife.adapter.DeviceListAdapter;
 import com.populstay.populife.adapter.LockActionAdapter;
@@ -367,10 +368,14 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				break;
 
 			case PASSCODE_MANAGE:
-				if (isEnable) {
+				//todo 密码管理，需要合并到蓝牙钥匙
+				/*if (isEnable) {
 					LockManagePasswordActivity.actionStart(getActivity(), mCurKEY.getLockId(), mCurKEY.getKeyId(),
 							mCurKEY.getLockName(), mCurKEY.getLockMac());
-				}
+				}*/
+				break;
+			case OPERATE_RECORD:
+				LockOperateRecordActivity.actionStart(mActivity, Integer.valueOf(mKeyId));
 				break;
 
 			case IC_CARDS:
@@ -1155,7 +1160,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 		mActions.add(new LockAction(LockAction.LockActionType.EKEY_MANAGE,
 				R.drawable.ic_lock_action_ekey_manage_disable, R.string.keys_and_pwd, true));
-		mActions.add(new LockAction(LockAction.LockActionType.PASSCODE_MANAGE,
+		mActions.add(new LockAction(LockAction.LockActionType.OPERATE_RECORD,
 				R.drawable.ic_lock_action_password_manage_disable, R.string.lock_operate_log, true));
 		if (DigitUtil.isSupportIC(mCurKEY.getSpecialValue())) {//支持 IC 卡
 			mActions.add(new LockAction(LockAction.LockActionType.IC_CARDS,
@@ -1225,7 +1230,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 				mActions.add(new LockAction(LockAction.LockActionType.EKEY_MANAGE,
 						R.drawable.ic_lock_action_ekey_manage_disable, R.string.keys_and_pwd, false));
-				mActions.add(new LockAction(LockAction.LockActionType.PASSCODE_MANAGE,
+				mActions.add(new LockAction(LockAction.LockActionType.OPERATE_RECORD,
 						R.drawable.ic_lock_action_password_manage_disable, R.string.lock_operate_log, false));
 				if (DigitUtil.isSupportIC(mCurKEY.getSpecialValue())) {//支持 IC 卡
 					mActions.add(new LockAction(LockAction.LockActionType.IC_CARDS,
@@ -1245,7 +1250,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 				mActions.add(new LockAction(LockAction.LockActionType.EKEY_MANAGE,
 						R.drawable.ic_lock_action_ekey_manage_able, R.string.keys_and_pwd, true));
-				mActions.add(new LockAction(LockAction.LockActionType.PASSCODE_MANAGE,
+				mActions.add(new LockAction(LockAction.LockActionType.OPERATE_RECORD,
 						R.drawable.ic_lock_action_password_manage_able, R.string.lock_operate_log, true));
 				if (DigitUtil.isSupportIC(mCurKEY.getSpecialValue())) {//支持 IC 卡
 					mActions.add(new LockAction(LockAction.LockActionType.IC_CARDS,
@@ -1266,7 +1271,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 				mActions.add(new LockAction(LockAction.LockActionType.EKEY_MANAGE,
 						R.drawable.ic_lock_action_ekey_manage_disable, R.string.keys_and_pwd, false));
-				mActions.add(new LockAction(LockAction.LockActionType.PASSCODE_MANAGE,
+				mActions.add(new LockAction(LockAction.LockActionType.OPERATE_RECORD,
 						R.drawable.ic_lock_action_password_manage_disable, R.string.lock_operate_log, false));
 				if (DigitUtil.isSupportIC(mCurKEY.getSpecialValue())) {//支持 IC 卡
 					mActions.add(new LockAction(LockAction.LockActionType.IC_CARDS,
@@ -1292,7 +1297,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 				mActions.add(new LockAction(LockAction.LockActionType.EKEY_MANAGE,
 						R.drawable.ic_lock_action_ekey_manage_disable, R.string.keys_and_pwd, false));
-				mActions.add(new LockAction(LockAction.LockActionType.PASSCODE_MANAGE,
+				mActions.add(new LockAction(LockAction.LockActionType.OPERATE_RECORD,
 						R.drawable.ic_lock_action_password_manage_disable, R.string.lock_operate_log, false));
 				if (DigitUtil.isSupportIC(mCurKEY.getSpecialValue())) {//支持 IC 卡
 					mActions.add(new LockAction(LockAction.LockActionType.IC_CARDS,
