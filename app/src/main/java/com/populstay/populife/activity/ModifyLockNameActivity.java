@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +18,7 @@ import com.populstay.populife.common.Urls;
 import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
+import com.populstay.populife.ui.widget.exedittext.ExEditText;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.string.StringUtil;
 
@@ -23,7 +27,7 @@ public class ModifyLockNameActivity extends BaseActivity {
 	public static final String KEY_LOCK_NAME = "key_lock_name";
 	public static final String KEY_LOCK_ID = "key_lock_id";
 
-	private AppCompatEditText mEtInput;
+	private ExEditText mEtInput;
 	private TextView mTvSave;
 
 	private String mLockName;
@@ -45,13 +49,32 @@ public class ModifyLockNameActivity extends BaseActivity {
 
 	private void initView() {
 		((TextView) findViewById(R.id.page_title)).setText(R.string.modify_lock_name);
-		mTvSave = findViewById(R.id.page_action);
-		mTvSave.setText(R.string.save);
+		findViewById(R.id.page_action).setVisibility(View.GONE);
+
+		mTvSave = findViewById(R.id.tv_save);
 
 		mEtInput = findViewById(R.id.et_modify_lock_name);
 
 		mEtInput.setText(mLockName);
 		mEtInput.setSelection(mLockName.length());
+		setEnableSave();
+
+		mEtInput.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				setEnableSave();
+			}
+		});
 
 
 		mTvSave.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +90,10 @@ public class ModifyLockNameActivity extends BaseActivity {
 				}
 			}
 		});
+	}
+
+	public void setEnableSave() {
+		mTvSave.setEnabled(null != mEtInput && !TextUtils.isEmpty(mEtInput.getTextStr()));
 	}
 
 	/**

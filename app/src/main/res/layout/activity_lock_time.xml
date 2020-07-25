@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_background"
     android:orientation="vertical">
 
     <include layout="@layout/layout_view_titlebar"/>
@@ -13,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="center"
-        android:textColor="@color/text_gray_dark"
+        android:textColor="@color/common_text_color"
         android:textSize="14sp"/>
 
     <TextView

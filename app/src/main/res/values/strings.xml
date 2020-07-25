@@ -535,5 +535,8 @@
     <string name="delete_home_hint">删除家庭后，所有已设置过的信息将被清楚，是否确认删除家庭？</string>
     <string name="keys_and_pwd">密钥管理</string>
     <string name="lock_operate_log">操作日志</string>
+    <string name="adjus_lock_time">校准时间</string>
+    <string name="admin_modify_passcode">管理员开机密码</string>
+    <string name="set_remote_unlock_hint">这个功能允许你通过网关远程开锁，\n只能通过蓝牙打开或关闭</string>
 
 </resources>

@@ -78,7 +78,7 @@ public class Urls {
 	public static final String LOCK_EKEY_AUTHORIZE = "key/authorize"; //（post）授予普通钥匙用户管理锁的权限，如发送钥匙和获取密码等权限(单次钥匙不能授权)
 	public static final String LOCK_EKEY_UN_AUTHORIZE = "key/unauthorize"; //（post）解除授予普通钥匙用户的管理锁的权限
 	public static final String LOCK_EKEY_DELETE = "key/del"; //（post）删除钥匙,适用于普通用户和授权用户。钥匙列表的删除，普通用户/授权用户在设置页面删除锁的操作
-	public static final String LOCK_ADMIN_KEYBOARD_PWD_MODIFY = "setting/modify/admin/password"; //（post）修改锁管理员的键盘密码，必须是管理员本人才可以修改锁管理员的键盘密码
+	public static final String LOCK_ADMIN_KEYBOARD_PWD_MODIFY = "lock/admin-password/modify"; //（post）修改锁管理员的键盘密码，必须是管理员本人才可以修改锁管理员的键盘密码
 	public static final String LOCK_USER_LIST = "lock/user/list"; //（post）锁用户管理列表
 	public static final String LOCK_EKEY_LIST_EXPIRING = "lock/expire/key/list"; //（post）即将到期钥匙列表
 	public static final String LOCK_EKEY_RECORD = "operation/log/get/4/key"; //（get）查询钥匙所有的操作记录，按操作日期（天）分组，默认取最近20条，从操作时间由近至远排列
@@ -112,5 +112,6 @@ public class Urls {
 
 
 	public static final String LOCK_GET_BASEINFO = "lock/baseInfo/get"; //（get）获取锁信息
+	public static final String LOCK_USER_CHECK = "lock/user/check"; //（post）校验用户（是否是该锁管理员及校验密码）
 
 }

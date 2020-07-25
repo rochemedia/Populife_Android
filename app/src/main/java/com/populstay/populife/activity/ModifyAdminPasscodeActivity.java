@@ -3,6 +3,9 @@ package com.populstay.populife.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import com.populstay.populife.lock.ILockSetAdminKeyboardPwd;
 import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
+import com.populstay.populife.ui.widget.exedittext.ExEditText;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
@@ -28,7 +32,7 @@ public class ModifyAdminPasscodeActivity extends BaseActivity {
 
 	public static final String KEY_PASSCODE = "key_content";
 
-	private AppCompatEditText mEtInput;
+	private ExEditText mEtInput;
 	private TextView mTvSave;
 
 	private String mContent;
@@ -48,14 +52,31 @@ public class ModifyAdminPasscodeActivity extends BaseActivity {
 	}
 
 	private void initView() {
-		((TextView) findViewById(R.id.page_title)).setText(R.string.modify_passcode);
-		mTvSave = findViewById(R.id.page_action);
-		mTvSave.setText(R.string.save);
+		((TextView) findViewById(R.id.page_title)).setText(R.string.admin_modify_passcode);
+		findViewById(R.id.page_action).setVisibility(View.GONE);
 
+		mTvSave = findViewById(R.id.tv_save);
 		mEtInput = findViewById(R.id.et_modify_passcode);
-
 		mEtInput.setText(mContent);
 		mEtInput.setSelection(mContent.length());
+		setEnableSave();
+
+		mEtInput.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				setEnableSave();
+			}
+		});
 
 
 		mTvSave.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +105,10 @@ public class ModifyAdminPasscodeActivity extends BaseActivity {
 				}
 			}
 		});
+	}
+
+	public void setEnableSave() {
+		mTvSave.setEnabled(null != mEtInput && !TextUtils.isEmpty(mEtInput.getTextStr()));
 	}
 
 	private void setCallback(final String input) {

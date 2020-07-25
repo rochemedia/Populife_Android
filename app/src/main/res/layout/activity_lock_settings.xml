@@ -2,7 +2,6 @@
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_background"
     android:orientation="vertical">
 
     <include layout="@layout/layout_view_titlebar" />
@@ -18,8 +17,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                style="@style/list_item_overall"
-                android:layout_marginTop="16dp">
+                style="@style/list_item_overall">
 
                 <TextView
                     style="@style/list_item_title"
@@ -90,10 +88,13 @@
 
             </LinearLayout>
 
+            <include layout="@layout/layout_view_line" />
+
             <LinearLayout
                 android:id="@+id/ll_lock_settings_validity_period"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <include layout="@layout/layout_view_line" />
@@ -150,8 +151,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_lock_settings_lock_name"
-                style="@style/list_item_overall"
-                android:layout_marginTop="20dp">
+                style="@style/list_item_overall">
 
                 <TextView
                     style="@style/list_item_title"
@@ -172,6 +172,7 @@
                 android:id="@+id/ll_lock_settings_lock_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <include layout="@layout/layout_view_line" />
@@ -223,18 +224,20 @@
 
             </LinearLayout>
 
+            <include layout="@layout/layout_view_line" />
             <Space
                 android:id="@+id/space_lock_settings_lock_time"
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                android:layout_height="0dp"
+                android:layout_width="match_parent" />
 
             <LinearLayout
                 android:id="@+id/ll_lock_settings_lock_time"
                 style="@style/list_item_overall">
 
+
                 <TextView
                     style="@style/list_item_title"
-                    android:text="@string/lock_time" />
+                    android:text="@string/adjus_lock_time" />
 
                 <View
                     android:layout_width="0dp"

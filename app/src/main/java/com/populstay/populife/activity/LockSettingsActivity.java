@@ -120,7 +120,7 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 	}
 
 	private void initView() {
-		((TextView) findViewById(R.id.page_title)).setText(R.string.lock_settings);
+		((TextView) findViewById(R.id.page_title)).setText(R.string.settings);
 		findViewById(R.id.page_action).setVisibility(View.GONE);
 
 		mTvSerialNum = findViewById(R.id.tv_lock_settings_serial_number);
@@ -621,10 +621,11 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 
 	private void verifyAccountPwd(String pwd) {
 		RestClient.builder()
-				.url(Urls.ACCOUNT_PWD_VERIFY)
+				.url(Urls.LOCK_USER_CHECK)
 				.loader(LockSettingsActivity.this)
 				.params("password", pwd)
 				.params("userId", PeachPreference.readUserId())
+				.params("lockId", mKey.getLockId())
 				.success(new ISuccess() {
 					@SuppressLint("SetTextI18n")
 					@Override
@@ -634,7 +635,7 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");
 						if (code == 200) {
-							boolean isPwdValid = result.getBoolean("data");
+							boolean isPwdValid = result.getBoolean("success");
 							if (isPwdValid) {
 								mPwdWrongCount = 0;
 								if (mPwdType == 0) {
@@ -786,7 +787,8 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");
-						if (code == 200) {
+						boolean isSuccess = result.getBoolean("success");
+						if (code == 200 && isSuccess) {
 							PeachPreference.setBoolean(PeachPreference.HAVE_NEW_MESSAGE, true);
 //							Key key = DbService.getKeyByLockmac(mKey.getLockMac());
 //							if (key != null) {

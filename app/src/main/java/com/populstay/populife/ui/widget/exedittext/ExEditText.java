@@ -25,6 +25,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
     public static final int TYPE_PWD = 1;
     public static final int TYPE_VERIFICTION_CODE = 2;
     public static final int TYPE_ACCOUNT = 3;
+    public static final int TYPE_NUMBER = 4;
     private int inputType = TYPE_NORMAL;
 
     private View rootView;
@@ -128,6 +129,12 @@ public class ExEditText extends FrameLayout implements IExEdit {
             case TYPE_VERIFICTION_CODE:
                 contentEt.setInputType(InputType.TYPE_CLASS_NUMBER);
                 rightTv.setVisibility(VISIBLE);
+                break;
+            case TYPE_NUMBER:
+                contentEt.setInputType(InputType.TYPE_CLASS_NUMBER);
+                rightTv.setVisibility(GONE);
+                isShowRightIcon(false);
+                showCcPicker(false);
                 break;
         }
     }

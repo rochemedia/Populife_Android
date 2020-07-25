@@ -179,6 +179,7 @@
             <flag name="password" value="1" />
             <flag name="verificationCode" value="2" />
             <flag name="account" value="3" />
+            <flag name="number" value="4" />
         </attr>
         <attr name="hint" format="string" />
         <attr name="text" format="string" />

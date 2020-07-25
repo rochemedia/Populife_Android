@@ -355,7 +355,7 @@
     <string name="note_remote_unlock_instruction">功能开启后，你将可以通过网关远程开锁。此功能的开启和关闭只能在锁附近通过手机蓝牙操作。</string>
     <string name="turn_on">开启</string>
     <string name="turn_off">关闭</string>
-    <string name="current_mode">当前状态：</string>
+    <string name="current_mode">当前模式：</string>
     <string name="allow_remote_unlocking">允许远程开锁</string>
     <string name="card_number">卡号：</string>
     <string name="note_delete_account_remove_lock">删除账号前，请先在锁设置中删除锁</string>
