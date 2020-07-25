@@ -5,48 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center_vertical">
-
-        <RelativeLayout
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:onClick="finishCurrentActivity">
-
-            <ImageButton
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerInParent="true"
-                android:background="@null"
-                android:onClick="finishCurrentActivity"
-                android:src="@drawable/ic_back" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/tv_gateway_add_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@string/locks_nearby"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/loading_view_gateway_add"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
-            app:indicatorName="BallClipRotateMultipleIndicator" />
-
-    </RelativeLayout>
+    <include layout="@layout/layout_view_titlebar"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -77,6 +36,7 @@
                 android:id="@+id/et_gateway_add_wifi_name"
                 app:hint="@string/enter_wifi_name"
                 app:label="@string/wifi_name"
+                app:isVisiblePwd="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

@@ -60,7 +60,6 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 	private TextView mTvTitle, mTvOk;
 	private ExEditText mEtWifiName, mEtWifiPwd;
 	private EditText mEtGatewayName;
-	private AVLoadingIndicatorView mLoadingView;
 	private SeekBar mSeekbarScanDevice;
 
 	private ListView mListView;
@@ -97,7 +96,8 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 	}
 
 	private void initView() {
-		mTvTitle = findViewById(R.id.tv_gateway_add_title);
+		findViewById(R.id.page_action).setVisibility(View.GONE);
+		mTvTitle = findViewById(R.id.page_title);
 		mTvTitle.setText(R.string.add_gateway_title);
 
 		mLlConfig = findViewById(R.id.ll_gateway_add);
@@ -110,8 +110,6 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 		mTvOk = findViewById(R.id.tv_gateway_add_ok);
 		mEtWifiPwd = findViewById(R.id.et_gateway_add_wifi_pwd);
 		mEtGatewayName = findViewById(R.id.et_gateway_add_gateway_name);
-		mLoadingView = findViewById(R.id.loading_view_gateway_add);
-
 		mEtWifiName.setText(NetworkUtil.getWifiSSid());
 
 		mLlFoundDeviceView = findViewById(R.id.ll_found_device_view);
@@ -200,7 +198,6 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 		mGatewayAPI.startScanGateway(new ScanCallback() {
 			@Override
 			public void onScanResult(ExtendedBluetoothDevice extendedBluetoothDevice) {
-				mLoadingView.setVisibility(View.GONE);
 				PeachLogger.d(extendedBluetoothDevice);
 				if (mAdapter != null){
 					mAdapter.updateDevice(extendedBluetoothDevice);
