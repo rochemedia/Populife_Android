@@ -539,5 +539,39 @@
     <string name="admin_modify_passcode">管理员开机密码</string>
     <string name="set_remote_unlock_hint">这个功能允许你通过网关远程开锁，\n只能通过蓝牙打开或关闭</string>
     <string name="set_lock_time_help_hint">这个功能可以校准锁的时间，让锁的时间与当前手机的时间同步，保证密码在有效期内可用。</string>
+    <string name="create_key_pwd">创建密钥</string>
+
+
+    <string name="key_pwd_status_not_activated">待激活</string>
+    <string name="key_pwd_status_available">可使用</string>
+    <string name="key_pwd_status_invalid">已失效</string>
+
+    <string name="key_pwd_status_not_activated_desc">所有已发出的，且还没有被认领的密钥</string>
+    <string name="key_pwd_status_available_desc">所有可使用的密钥</string>
+    <string name="key_pwd_status_invalid_desc">所有使用过的和已过期的密钥</string>
+
+    <string name="key_pwd_status_not_activated_empty">这把锁没有待激活的密钥。</string>
+    <string name="key_pwd_status_available_empty">这把锁没有可使用的密钥。</string>
+    <string name="key_pwd_status_invalid_empty">这把锁没有使用过的和已过期的密钥。</string>
+
+    <string name="access_type">访问类型</string>
+    <string name="key_pwd_permanent">永久性密码</string>
+    <string name="key_pwd_period">限时密码</string>
+    <string name="key_pwd_one_time">单次密码</string>
+    <string name="key_pwd_custom">自定义密码</string>
+    <string name="key_pwd_bt_key">蓝牙钥匙 (用手机开锁)</string>
+    <string name="create_bluetooth_key">创建蓝牙钥匙</string>
+    <string name="already_create_bluetooth_key">已生成限时蓝牙钥匙</string>
+    <string name="get_bluetooth_key_hint">请确保蓝牙钥匙在1个小时内能够被认领</string>
+    <string name="skip">跳过</string>
+
+    <string name="create_pwd_permanent">创建永久性密码</string>
+    <string name="create_pwd_period">创建限时密码</string>
+    <string name="create_pwd_one_time">创建单次密码</string>
+    <string name="create_pwd_custom">创建自定义密码</string>
+
+    <string name="name_of_authorizer">授权人姓名</string>
+    <string name="select_key_pwd_type">选择密钥类型</string>
+
 
 </resources>

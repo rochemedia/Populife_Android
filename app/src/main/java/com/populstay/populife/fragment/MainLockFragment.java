@@ -100,13 +100,15 @@ public class MainLockFragment extends BaseVisibilityFragment {
 						int code = result.getInteger("code");
 						if (code == 200) {
 							List<Home> datas = GsonUtil.fromJson(result.getJSONArray("data").toJSONString(),new TypeToken<List<Home>>(){});
-							currentHome = datas.get(0);
-							String currentHomeId = PeachPreference.getLastSelectHomeId();
-							if (TextUtils.isEmpty(currentHomeId)){
-								PeachPreference.setLastSelectHomeId(currentHome.getId());
-								currentHomeId = currentHome.getId();
+							if (!CollectionUtil.isEmpty(datas)){
+								currentHome = datas.get(0);
+								String currentHomeId = PeachPreference.getLastSelectHomeId();
+								if (TextUtils.isEmpty(currentHomeId)){
+									PeachPreference.setLastSelectHomeId(currentHome.getId());
+									currentHomeId = currentHome.getId();
+								}
+								EventBus.getDefault().post(new Event(Event.EventType.GET_HOME_DATA_COMPLETE,currentHomeId));
 							}
-							EventBus.getDefault().post(new Event(Event.EventType.GET_HOME_DATA_COMPLETE,currentHomeId));
 						}
 					}
 				})

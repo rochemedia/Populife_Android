@@ -31,53 +31,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_lock_send_passcode_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
-
-                <LinearLayout style="@style/list_item_overall">
-
-                    <TextView
-                        style="@style/list_item_title"
-                        android:text="@string/start_time" />
-
-                    <TextView
-                        android:id="@+id/tv_lock_send_passcode_start_time"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        android:textColor="@color/text_gray_medium"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
-                <include layout="@layout/layout_view_line" />
-
-                <LinearLayout style="@style/list_item_overall">
-
-                    <TextView
-                        style="@style/list_item_title"
-                        android:text="@string/end_time" />
-
-                    <TextView
-                        android:id="@+id/tv_lock_send_passcode_end_time"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        android:textColor="@color/text_gray_medium"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
                 style="@style/list_item_overall"
-                android:layout_marginTop="16dp"
+                android:orientation="vertical"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
 
@@ -86,20 +41,99 @@
                     android:text="@string/name" />
 
                 <EditText
+                    android:layout_marginTop="14dp"
                     android:id="@+id/et_lock_send_passcode_name"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:hint="@string/name_the_passcode"
+                    android:gravity="left|center_vertical"
+                    android:hint="@string/name_of_authorizer"
                     android:maxLength="20"
-                    android:textColor="@color/text_gray_medium"
+                    android:textColor="@color/common_text_color"
                     android:textColorHint="@color/text_gray_light"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
+
+            <LinearLayout
+                android:id="@+id/ll_lock_send_passcode_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    style="@style/list_item_overall"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/list_item_title"
+                        android:text="@string/start_time" />
+
+                    <TextView
+                        android:layout_marginTop="14dp"
+                        android:id="@+id/tv_lock_send_passcode_start_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|center_vertical"
+                        android:textColor="@color/common_text_color"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <include layout="@layout/layout_view_line" />
+
+                <LinearLayout
+                    style="@style/list_item_overall"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/list_item_title"
+                        android:text="@string/end_time" />
+
+                    <TextView
+                        android:layout_marginTop="14dp"
+                        android:id="@+id/tv_lock_send_passcode_end_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|center_vertical"
+                        android:textColor="@color/common_text_color"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <include layout="@layout/layout_view_line" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_custom_pwd"
+                style="@style/list_item_overall"
+                android:orientation="vertical"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <TextView
+                    style="@style/list_item_title"
+                    android:text="@string/password" />
+
+                <EditText
+                    android:layout_marginTop="14dp"
+                    android:id="@+id/et_lock_send_passcode_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="left"
+                    android:hint="@string/note_password_customize"
+                    android:maxLength="20"
+                    android:textColor="@color/common_text_color"
+                    android:textColorHint="@color/text_gray_light"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
 
             <TextView
                 android:id="@+id/tv_lock_send_passcode_pwd"
@@ -118,7 +152,8 @@
                 android:layout_marginRight="20dp"
                 android:text="@string/note_password_permanent"
                 android:textColor="@color/text_gray_light"
-                android:textSize="12sp" />
+                android:visibility="gone"
+                android:textSize="14sp" />
 
             <Space
                 android:layout_width="match_parent"

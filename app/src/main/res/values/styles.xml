@@ -83,23 +83,53 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="ll_btn_style_main">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/selector_btn_main</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ll_btn_text_style_main">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
     <!-- +++++++++++++++++++++++++++++ 主按钮 +++++++++++++++++++++++++++++ -->
 
     <!-- ++++++++++++++++++++++++++++++ 列表栏 ++++++++++++++++++++++++++++++ -->
     <!-- 列表栏中整个 item 的格式 -->
     <style name="list_item_overall">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">58dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">76dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">24dp</item>
-        <item name="android:paddingRight">24dp</item>
-        <item name="android:background">@drawable/selector_bg_white_gray</item>
+        <item name="android:paddingLeft">@dimen/common_page_left_right_space</item>
+        <item name="android:paddingRight">@dimen/common_page_left_right_space</item>
     </style>
-    <!-- 列表栏左侧：标题文字 -->
+    <!-- 列表栏左侧：标题下面的文本 -->
     <style name="list_item_title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_gray_dark</item>
+        <item name="android:textColor">@color/common_text_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="list_left_item_description">
+        <item name="android:textColor">@color/common_text_color</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:textSize">14sp</item>
     </style>
     <!-- 列表栏右侧：描述性文字 -->
@@ -130,7 +160,7 @@
     <style name="TabLayout" parent="Base.Widget.Design.TabLayout">
         <item name="tabMaxWidth">@dimen/design_tab_max_width</item>
         <item name="tabIndicatorColor">@color/colorPrimary</item>
-        <item name="tabIndicatorHeight">1dp</item>
+        <item name="tabIndicatorHeight">2dp</item>
         <item name="tabPaddingStart">6dp</item>
         <item name="tabPaddingEnd">6dp</item>
         <item name="tabBackground">@color/white</item>
@@ -139,7 +169,7 @@
     </style>
 
     <style name="myTab">
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">@drawable/selector_tab</item>
         <item name="textAllCaps">false</item>
     </style>
@@ -191,7 +221,7 @@
     </declare-styleable>
 
     <style name="check_box">
-        <item name="android:textColor">@color/text_gray_light</item>
+        <item name="android:textColor">@color/common_text_color</item>
         <item name="android:textSize">14sp</item>
         <item name="android:background">@null</item>
         <item name="android:button">@null</item>
@@ -208,6 +238,14 @@
     <style name="add_device_check_box_autocheck" parent="check_box">
         <item name="android:enabled">false</item>
         <item name="android:drawableLeft">@drawable/selector_add_device_check_box_autocheck</item>
+    </style>
+
+    <style name="check_box_right_icon" parent="check_box">
+        <item name="android:drawableRight">@drawable/selector_add_device_check_box</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
     </style>
 
 </resources>

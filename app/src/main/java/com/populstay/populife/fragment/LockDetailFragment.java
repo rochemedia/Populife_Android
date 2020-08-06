@@ -37,6 +37,7 @@ import com.populstay.populife.activity.LockAddSelectTypeActivity;
 import com.populstay.populife.activity.LockDetailActivity;
 import com.populstay.populife.activity.LockManageBluetoothKeyActivity;
 import com.populstay.populife.activity.LockManageIcCardActivity;
+import com.populstay.populife.activity.LockManagePasswordActivity;
 import com.populstay.populife.activity.LockOperateRecordActivity;
 import com.populstay.populife.activity.LockSettingsActivity;
 import com.populstay.populife.adapter.DeviceListAdapter;
@@ -51,6 +52,7 @@ import com.populstay.populife.enumtype.Operation;
 import com.populstay.populife.eventbus.Event;
 import com.populstay.populife.home.entity.HomeDevice;
 import com.populstay.populife.home.entity.HomeDeviceInfo;
+import com.populstay.populife.keypwdmanage.KeyPwdManageActivity;
 import com.populstay.populife.lock.ILockGetBattery;
 import com.populstay.populife.lock.ILockLock;
 import com.populstay.populife.lock.ILockUnlock;
@@ -361,7 +363,8 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		switch (action.getActionType()) {
 			case EKEY_MANAGE:
 				if (isEnable) {
-					LockManageBluetoothKeyActivity.actionStart(getActivity(), mCurKEY.getLockId(), mCurKEY.isAdmin());
+					//LockManageBluetoothKeyActivity.actionStart(getActivity(), mCurKEY.getLockId(), mCurKEY.isAdmin());
+					KeyPwdManageActivity.actionStart(mActivity, mCurKEY);
 				}
 				break;
 
@@ -373,6 +376,10 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				}*/
 				break;
 			case OPERATE_RECORD:
+				/*if (isEnable) {
+					LockManagePasswordActivity.actionStart(getActivity(), mCurKEY.getLockId(), mCurKEY.getKeyId(),
+							mCurKEY.getLockName(), mCurKEY.getLockMac());
+				}*/
 				LockOperateRecordActivity.actionStart(mActivity, Integer.valueOf(mKeyId));
 				break;
 

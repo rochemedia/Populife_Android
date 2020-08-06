@@ -182,7 +182,7 @@ public class LockManagePasswordActivity extends BaseActivity implements View.OnC
 					passwordList.add(passcode.getKeyboardPwd());
 				}
 				LockSendPasscodeActivity.actionStart(LockManagePasswordActivity.this, mLockId,
-						mKeyId, mLockName, mLockMac, passwordList);
+						mKeyId, mLockName, mLockMac, passwordList,"");
 				DIALOG.cancel();
 				break;
 

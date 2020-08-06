@@ -102,7 +102,7 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 	}
 
 	private void initView() {
-		((TextView) findViewById(R.id.page_title)).setText(R.string.send_bluetooth_key);
+		((TextView) findViewById(R.id.page_title)).setText(R.string.create_bluetooth_key);
 		findViewById(R.id.page_action).setVisibility(View.GONE);
 
 		mLlTime = findViewById(R.id.ll_lock_send_ekey_time);
@@ -326,12 +326,12 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 		final Window window = DIALOG.getWindow();
 		if (window != null) {
 			window.setContentView(R.layout.dialog_send_ekey_type);
-			window.setGravity(Gravity.BOTTOM);
-			window.setWindowAnimations(R.style.anim_panel_up_from_bottom);
+			window.setGravity(Gravity.CENTER);
+			//window.setWindowAnimations(R.style.anim_panel_up_from_bottom);
 			window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 			//设置属性
 			final WindowManager.LayoutParams params = window.getAttributes();
-			params.width = WindowManager.LayoutParams.MATCH_PARENT;
+			params.width = WindowManager.LayoutParams.WRAP_CONTENT;
 			params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
 			params.dimAmount = 0.5f;
 			window.setAttributes(params);
@@ -340,6 +340,28 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 			window.findViewById(R.id.btn_dialog_send_ekey_permanent).setOnClickListener(this);
 			window.findViewById(R.id.btn_dialog_send_ekey_one_time).setOnClickListener(this);
 			window.findViewById(R.id.btn_dialog_send_ekey_cancel).setOnClickListener(this);
+		}
+	}
+
+	private void showShareKeyDialog() {
+		DIALOG = new AlertDialog.Builder(this).create();
+		DIALOG.show();
+		final Window window = DIALOG.getWindow();
+		if (window != null) {
+			window.setContentView(R.layout.dialog_share_key);
+			window.setGravity(Gravity.CENTER);
+			window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+			//设置属性
+			final WindowManager.LayoutParams params = window.getAttributes();
+			params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+			params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+			params.dimAmount = 0.5f;
+			window.setAttributes(params);
+
+			/*window.findViewById(R.id.btn_dialog_send_ekey_period).setOnClickListener(this);
+			window.findViewById(R.id.btn_dialog_send_ekey_permanent).setOnClickListener(this);
+			window.findViewById(R.id.btn_dialog_send_ekey_one_time).setOnClickListener(this);
+			window.findViewById(R.id.btn_dialog_send_ekey_cancel).setOnClickListener(this);*/
 		}
 	}
 

@@ -8,17 +8,37 @@
 
     <include layout="@layout/layout_view_titlebar"/>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tl_lock_send_passcode"
-        style="@style/TabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/text_main"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/text_main"
-        app:tabTextColor="@color/gray_medium"/>
+    <LinearLayout
+        android:id="@+id/ll_show_pwd_dialog_btn"
+        style="@style/list_item_overall">
 
-    <android.support.v4.view.ViewPager
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/list_item_title"
+                android:text="@string/access_type" />
+
+            <TextView
+                android:id="@+id/tv_pwd_type_name"
+                style="@style/list_left_item_description"
+                android:text="@string/period" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_dropdown" />
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_view_line" />
+
+    <com.populstay.populife.ui.NoScrollViewPager
         android:id="@+id/vp_lock_send_passcode"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

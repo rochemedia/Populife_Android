@@ -78,10 +78,21 @@ public class ExTextView extends TextView {
         setSelected(false);
     }
 
-    private void setIcon(int iconResId) {
+    public void setIcon(int iconResId) {
+        setIcon(iconResId, 4);
+    }
+
+    public void setIcon(int iconResId, int drawablePadding) {
         Drawable drawable = this.getResources().getDrawable(iconResId);
         drawable.setBounds(0, 0, getLineHeight(), getLineHeight());
-        setCompoundDrawablePadding(4);
+        setCompoundDrawablePadding(drawablePadding);
+        setCompoundDrawables(drawable, null, null, null);
+    }
+
+    public void setRawIcon(int iconResId, int drawablePadding) {
+        Drawable drawable = this.getResources().getDrawable(iconResId);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        setCompoundDrawablePadding(drawablePadding);
         setCompoundDrawables(drawable, null, null, null);
     }
 

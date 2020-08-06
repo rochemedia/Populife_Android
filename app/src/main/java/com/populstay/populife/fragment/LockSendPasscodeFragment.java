@@ -80,9 +80,9 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 	private static final String KEY_LOCK_MAC = "key_lock_mac";
 	private static final String KEY_PASSWORD_LIST = "key_password_list";
 
-	private LinearLayout mLlCyclicMode, mLlTime;
+	private LinearLayout mLlCyclicMode, mLlTime,mLlCustomPwd;
 	private TextView mTvCyclicMode, mTvStartTime, mTvEndTime, mTvPasscode, mTvNote, mTvGenerate;
-	private EditText mEtName;
+	private EditText mEtName,mEtCustomPwd;
 	private TimePickerView mTimePicker;
 	private OptionsPickerView mPickerCyclic;
 
@@ -159,6 +159,7 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 	private void initView(View view) {
 		mLlCyclicMode = view.findViewById(R.id.ll_lock_send_passcode_cyclic_mode);
 		mLlTime = view.findViewById(R.id.ll_lock_send_passcode_time);
+		mLlCustomPwd = view.findViewById(R.id.ll_custom_pwd);
 		mTvCyclicMode = view.findViewById(R.id.tv_lock_send_passcode_cyclic_mode);
 		mTvStartTime = view.findViewById(R.id.tv_lock_send_passcode_start_time);
 		mTvEndTime = view.findViewById(R.id.tv_lock_send_passcode_end_time);
@@ -166,6 +167,7 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 		mTvNote = view.findViewById(R.id.tv_lock_send_passcode_note);
 		mTvGenerate = view.findViewById(R.id.tv_lock_send_passcode_generate);
 		mEtName = view.findViewById(R.id.et_lock_send_passcode_name);
+		mEtCustomPwd = view.findViewById(R.id.et_lock_send_passcode_password);
 
 		initTimePicker();
 		refreshUI();
@@ -308,6 +310,7 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 	}
 
 	private void refreshUI() {
+		mLlCustomPwd.setVisibility(View.GONE);
 		switch (mCurTabType) {
 			case VAL_TAB_TYPE_PERMANENT://永久密码
 				mPasscodeType = 2;
@@ -339,6 +342,7 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 			case VAL_TAB_TYPE_CUSTOMIZE://自定义密码
 				mPasscodeType = 3;
 				mLlCyclicMode.setVisibility(View.GONE);
+				mLlCustomPwd.setVisibility(View.VISIBLE);
 				mTvNote.setText(R.string.note_password_customize);
 				break;
 
@@ -375,7 +379,17 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 			case R.id.tv_lock_send_passcode_generate:
 				if (checkForm()) {
 					if (VAL_TAB_TYPE_CUSTOMIZE.equals(mCurTabType)) {//自定义密码，先和锁通信
-						showInputDialog();
+						//showInputDialog();
+						mInputPwd = mEtCustomPwd.getText().toString();
+						if (!StringUtil.isBlank(mInputPwd) && StringUtil.isNum(mInputPwd)
+								&& mInputPwd.length() >= 6 && mInputPwd.length() <= 9) {
+							if (isBleNetEnable()) {
+								checkPasswordExist(mInputPwd);
+							}
+						} else {
+							toast(R.string.note_passcode_invalid);
+						}
+
 					} else {//直接和后台获取密码
 						generatePasscode();
 					}
@@ -416,7 +430,7 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 		}
 		if (!isExist) {
 			addKeyboardPasscode(mInputPwd);
-			DIALOG.cancel();
+			//DIALOG.cancel();
 		} else {
 			toast(R.string.note_password_exist);
 		}

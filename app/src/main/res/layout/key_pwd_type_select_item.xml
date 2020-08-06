@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_key_pwd_type_permanent"
+    style="@style/list_item_overall">
+
+    <com.populstay.populife.ui.widget.extextview.ExTextView
+        android:id="@+id/tv_item_name"
+        style="@style/list_item_title"
+        android:gravity="center"
+        android:text="@string/lock_name" />
+
+    <TextView
+        android:id="@+id/tv_lock_settings_lock_name"
+        style="@style/list_item_description" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_more_detail" />
+
+</LinearLayout>

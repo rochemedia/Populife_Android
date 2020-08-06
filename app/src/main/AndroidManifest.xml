@@ -275,6 +275,12 @@
         <activity
             android:name=".activity.AddDeviceSuccessActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".keypwdmanage.KeyPwdManageActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".keypwdmanage.KeyPwdTypeSelectActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
