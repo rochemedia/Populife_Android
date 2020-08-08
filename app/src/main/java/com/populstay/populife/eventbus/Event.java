@@ -27,5 +27,9 @@ public class Event {
         int CHANGE_HOME = 5;
         // 锁头本地初始化
         int LOCK_LOCAL_INITIALIZE_SUCCEED = 6;
+        // 用户头像更新
+        int USER_AVATAR_MODIFY = 7;
+        // 用户昵称更新
+        int USER_NIKE_NAME_MODIFY = 8;
     }
 }

@@ -53,7 +53,7 @@
     <string name="bind_email">绑定邮箱</string>
     <string name="bind_phone">绑定手机</string>
     <string name="bind">绑定</string>
-    <string name="current_pwd">当前密码</string>
+    <string name="current_pwd">旧密码</string>
     <string name="new_pwd">新密码</string>
     <string name="confirm_pwd">确认密码</string>
     <string name="note_modify_pwd_success">修改密码成功</string>

@@ -24,7 +24,7 @@ import com.populstay.populife.util.string.StringUtil;
 
 public class SubmitNewFeedbackActivity extends BaseActivity {
 
-	private EditText mEtInput;
+	private EditText mEtInput, mEtFeedbackContactInfo;
 	private TextView mTvWordsNum, mTvSubmit;
 
 	@Override
@@ -42,6 +42,7 @@ public class SubmitNewFeedbackActivity extends BaseActivity {
 		findViewById(R.id.page_action).setVisibility(View.GONE);
 
 		mEtInput = findViewById(R.id.et_feedback_input);
+		mEtFeedbackContactInfo = findViewById(R.id.et_feedback_contact_info);
 		mTvWordsNum = findViewById(R.id.tv_feedback_submit_words_num);
 		mTvWordsNum.setText(getString(R.string.num_zero) + getString(R.string.words_num_limit_200));
 		mTvSubmit = findViewById(R.id.tv_feedback_submit);
@@ -85,6 +86,7 @@ public class SubmitNewFeedbackActivity extends BaseActivity {
 				.loader(this)
 				.params("userId", PeachPreference.readUserId())
 				.params("content", mEtInput.getText().toString())
+				.params("contact", mEtFeedbackContactInfo.getText().toString())
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {

@@ -3,6 +3,9 @@ package com.populstay.populife.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +18,8 @@ import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.IError;
 import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
+import com.populstay.populife.ui.widget.exedittext.ExEditText;
+import com.populstay.populife.util.device.HideIMEUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
@@ -23,7 +28,7 @@ public class ModifyNicknameActivity extends BaseActivity {
 
 	public static final String KEY_USER_NICKNAME = "key_user_nickname";
 
-	private AppCompatEditText mEtNickname;
+	private ExEditText mEtNickname;
 	private TextView mTvSave;
 
 	private String mNickname = "";
@@ -32,7 +37,6 @@ public class ModifyNicknameActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_modify_nickname);
-
 		getIntentData();
 		initView();
 		initListener();
@@ -40,14 +44,15 @@ public class ModifyNicknameActivity extends BaseActivity {
 
 	private void initView() {
 		((TextView) findViewById(R.id.page_title)).setText(R.string.modify_nickname);
-		mTvSave = findViewById(R.id.page_action);
+		findViewById(R.id.page_action).setVisibility(View.GONE);
+		mTvSave = findViewById(R.id.tv_sign_action_btn);
 		mTvSave.setText(R.string.save);
-
 		mEtNickname = findViewById(R.id.et_modify_nickname);
 		if (!StringUtil.isBlank(mNickname)) {
 			mEtNickname.setText(mNickname);
 			mEtNickname.setSelection(mNickname.length());
 		}
+		setEnableSaveBtn();
 	}
 
 	private void getIntentData() {
@@ -69,6 +74,29 @@ public class ModifyNicknameActivity extends BaseActivity {
 					toast(R.string.enter_nickname);
 			}
 		});
+		mEtNickname.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				setEnableSaveBtn();
+			}
+		});
+	}
+
+	private void setEnableSaveBtn(){
+		if (null == mEtNickname){
+			return;
+		}
+		mTvSave.setEnabled(!TextUtils.isEmpty(mEtNickname.getTextStr()));
 	}
 
 	/**

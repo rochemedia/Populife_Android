@@ -149,9 +149,9 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
 									message.setUserId(messageItem.getString("userId"));
 									message.setTitle(messageItem.getString("title"));
 									message.setContent(messageItem.getString("content"));
-									String createTime = DateUtil.getDateToString(
+									/*String createTime = DateUtil.getDateToString(
 											messageItem.getLong("createDate"), "yyyy-MM-dd HH:mm:ss");
-									message.setCreateTime(createTime);
+									message.setCreateTime(createTime);*/
 									message.setHasRead("Y".equals(messageItem.getString("hasRead")));
 
 									mMessageList.add(message);

@@ -22,6 +22,8 @@ public class CommonQuestionActivity extends BaseActivity {
 	private List<String> mGroupNames = new ArrayList<>(); // 组元素数据列表（问题的组名）
 	private Map<String, List<String>> mQuestionNames = new LinkedHashMap<>(); // 子元素数据列表（具体问题标题）
 
+	private TextView mTvFeedbackBtn;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,6 +55,15 @@ public class CommonQuestionActivity extends BaseActivity {
 				return true;
 			}
 		});
+
+		mTvFeedbackBtn = findViewById(R.id.tv_feedback_btn);
+		mTvFeedbackBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				goToNewActivity(FeedbackListActivity.class);
+			}
+		});
+
 	}
 
 	private void initQuestionData() {

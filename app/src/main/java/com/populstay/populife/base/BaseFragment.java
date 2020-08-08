@@ -18,6 +18,7 @@ import com.populstay.populife.eventbus.Event;
 import com.populstay.populife.permission.PermissionListener;
 import com.populstay.populife.util.activity.ActivityCollector;
 import com.populstay.populife.util.bluetooth.BluetoothUtil;
+import com.populstay.populife.util.device.HideIMEUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.net.NetworkUtil;
 import com.populstay.populife.util.toast.ToastUtil;
@@ -67,6 +68,7 @@ public abstract class BaseFragment extends Fragment {
 			parent.removeView(mRootView);
 		}
 		parent = null;
+		HideIMEUtil.wrap(this);
 		return mRootView;
 	}
 

@@ -3,10 +3,10 @@ package com.populstay.populife.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -20,6 +20,7 @@ import com.populstay.populife.net.callback.IError;
 import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.permission.PermissionListener;
+import com.populstay.populife.ui.widget.exedittext.ExEditText;
 import com.populstay.populife.util.locale.LanguageUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
@@ -42,9 +43,8 @@ public class AccountBindActivity extends BaseActivity
 	public static final String KEY_BIND_RESULT = "key_bind_result";
 	public static final String KEY_BIND_TYPE = "key_bind_type";
 
-	private LinearLayout mLlCountry;
 	private CountryCodePicker mCountryCodePicker;
-	private EditText mEtUserName, mEtCode;
+	private ExEditText mEtUserName, mEtCode;
 	private TextView mTvGetCode, mTvActionBtn;
 
 	private BaseCountDownTimer mTimer = null;
@@ -67,33 +67,29 @@ public class AccountBindActivity extends BaseActivity
 	}
 
 	private void initView() {
-		mLlCountry = findViewById(R.id.ll_account_bind_country);
-		mCountryCodePicker = findViewById(R.id.cpp_account_bind);
 		mEtUserName = findViewById(R.id.et_account_bind_user_name);
+		mCountryCodePicker = mEtUserName.findViewById(R.id.cc_picker);
 		mEtCode = findViewById(R.id.et_account_bind_code);
-		mTvGetCode = findViewById(R.id.tv_account_bind_get_code);
+		mTvGetCode = mEtCode.getVerifictionCodeView();
 		mTvActionBtn = findViewById(R.id.tv_account_bind_btn);
 
 		switch (mBindType) {
 			case Constant.ACCOUNT_TYPE_EMAIL:
-				((TextView) findViewById(R.id.page_title)).setText(R.string.bind_email);
+				((TextView) findViewById(R.id.page_title)).setText(R.string.modify_email);
 
-				mLlCountry.setVisibility(View.GONE);
-//				mEtUserName.setCompoundDrawablesWithIntrinsicBounds(
-//						getResources().getDrawable(R.drawable.ic_login_email), null, null, null);
-				mEtUserName.setHint(getString(R.string.enter_email));
-				mEtUserName.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+				mEtUserName.setLabel(getString(R.string.email));
+				mEtUserName.setHint(getString(R.string.email));
+				mEtUserName.setType(ExEditText.TYPE_NORMAL);
 
 				break;
 
 			case Constant.ACCOUNT_TYPE_PHONE:
-				((TextView) findViewById(R.id.page_title)).setText(R.string.bind_phone);
+				((TextView) findViewById(R.id.page_title)).setText(R.string.modify_phone);
 
-				mLlCountry.setVisibility(View.VISIBLE);
-//				mEtUserName.setCompoundDrawablesWithIntrinsicBounds(
-//						getResources().getDrawable(R.drawable.ic_login_phone), null, null, null);
-				mEtUserName.setHint(getString(R.string.enter_phone_num));
-				mEtUserName.setInputType(InputType.TYPE_CLASS_PHONE);
+				mEtUserName.setHint(getString(R.string.phone));
+				mEtUserName.setLabel(getString(R.string.phone));
+				mEtUserName.setType(ExEditText.TYPE_ACCOUNT);
+
 
 				break;
 
@@ -102,6 +98,8 @@ public class AccountBindActivity extends BaseActivity
 		}
 
 		setCountryInfo();
+		setEnableGetCodeBtn();
+		setEnableActionBtn();
 	}
 
 	/**
@@ -126,19 +124,65 @@ public class AccountBindActivity extends BaseActivity
 	}
 
 	private void initListener() {
-		mTvGetCode.setOnClickListener(this);
+		mTvGetCode.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (checkCodeForm()){
+					// 获取验证码
+					getVerificationCode();
+				}
+			}
+		});
 		mTvActionBtn.setOnClickListener(this);
+		mEtUserName.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				setEnableGetCodeBtn();
+				setEnableActionBtn();
+			}
+		});
+		mEtCode.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				setEnableActionBtn();
+			}
+		});
+	}
+
+	private void setEnableGetCodeBtn(){
+		mEtCode.getVerifictionCodeView().setEnabled(!TextUtils.isEmpty(mEtUserName.getTextStr()));
+	}
+
+	private void setEnableActionBtn() {
+		boolean isNotEmptyUserName = !TextUtils.isEmpty(mEtUserName.getTextStr());
+		boolean isNotEmptyCode = !TextUtils.isEmpty(mEtCode.getTextStr());
+		boolean isEnable = isNotEmptyUserName && isNotEmptyCode;
+		mTvActionBtn.setEnabled(isEnable);
 	}
 
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-			case R.id.tv_account_bind_get_code:
-				if (checkCodeForm())
-					// 获取验证码
-					getVerificationCode();
-				break;
-
 			case R.id.tv_account_bind_btn:
 				if (checkForm())
 					bindAccount();

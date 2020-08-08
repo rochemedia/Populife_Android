@@ -18,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -35,6 +36,7 @@ import com.populstay.populife.ui.loader.PeachLoader;
 import com.populstay.populife.util.activity.ActivityCollector;
 import com.populstay.populife.util.bluetooth.BluetoothUtil;
 import com.populstay.populife.util.device.DeviceUtil;
+import com.populstay.populife.util.device.HideIMEUtil;
 import com.populstay.populife.util.dialog.DialogUtil;
 import com.populstay.populife.util.locale.LanguageUtil;
 import com.populstay.populife.util.log.PeachLogger;
@@ -85,6 +87,24 @@ public class BaseActivity extends AppCompatActivity {
 
 		//  设置本地化语言
 		setLocale();
+	}
+
+	@Override
+	public void setContentView(View view) {
+		super.setContentView(view);
+		HideIMEUtil.wrap(this);
+	}
+
+	@Override
+	public void setContentView(int layoutResID) {
+		super.setContentView(layoutResID);
+		HideIMEUtil.wrap(this);
+	}
+
+	@Override
+	public void setContentView(View view, ViewGroup.LayoutParams params) {
+		super.setContentView(view, params);
+		HideIMEUtil.wrap(this);
 	}
 
 	/**

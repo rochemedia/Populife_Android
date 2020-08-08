@@ -26,12 +26,12 @@ public class Urls {
 
 	public static final String USER_LOCK_INFO = "user/login/first/get"; //（get）登录成功后调用，查询用户拥有的锁及附属的相关信息
 	public static final String NICKNAME_MODIFY = "user/nickname/modify"; //（post）修改用户昵称
-	public static final String AVATAR_UPLOAD = "user/avatar/upload"; //（post）上传头像
+	public static final String AVATAR_UPLOAD = "/user/avatar/upload"; //（post）上传头像
 	public static final String USER_INFO = "user/get"; //（get）获取用户信息（头像、昵称、手机号、邮箱地址等）
 	public static final String ACCOUNT_BIND_EMAIL = "user/email/bind"; //（post）绑定邮箱
 	public static final String ACCOUNT_BIND_PHONE = "user/phone/bind"; //（post）绑定手机号码
 	public static final String ACCOUNT_PWD_RESET = "user/retrieve/password"; //（post）（忘记密码后）重置密码
-	public static final String ACCOUNT_PWD_MODIFY = "user/reset/password"; //（post）修改密码
+	public static final String ACCOUNT_PWD_MODIFY = "user/modify/password"; //（post）修改密码
 	public static final String ACCOUNT_PWD_VERIFY = "user/validate/password"; //（post）用于重置密码、清空钥匙、重置钥匙操作时，验证当前用户的登录密码
 	public static final String DELETE_ACCOUNT = "user/delete"; //（post）删除用户
 

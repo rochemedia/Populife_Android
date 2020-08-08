@@ -16,6 +16,7 @@
 
         <LinearLayout
             android:id="@+id/ll_settings_lock_group"
+            android:orientation="horizontal"
             style="@style/list_item_overall">
 
             <ImageView
@@ -30,7 +31,7 @@
 
             <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="1dp"
                 android:layout_weight="1" />
 
             <ImageView
@@ -58,7 +59,7 @@
 
             <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="1dp"
                 android:layout_weight="1" />
 
             <ImageView
@@ -101,7 +102,7 @@
 
             <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="1dp"
                 android:layout_weight="1" />
 
             <ImageView
@@ -137,7 +138,7 @@
 
             <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="1dp"
                 android:layout_weight="1" />
 
             <ImageView
@@ -165,7 +166,7 @@
 
             <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="1dp"
                 android:layout_weight="1" />
 
             <ImageView

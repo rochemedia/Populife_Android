@@ -281,6 +281,12 @@
         <activity
             android:name=".keypwdmanage.KeyPwdTypeSelectActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".me.PersonalCenterActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".me.ServiceSupportActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

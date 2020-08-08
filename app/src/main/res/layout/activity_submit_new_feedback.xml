@@ -8,16 +8,27 @@
 
     <include layout="@layout/layout_view_titlebar"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="@dimen/common_page_left_right_space"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:text="@string/please_describe_the_specific_problem"
+        android:textColor="@color/common_text_color"
+        android:textSize="16sp"/>
+
     <EditText
         android:id="@+id/et_feedback_input"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
         android:background="@drawable/bg_trans_stroke"
         android:gravity="top"
-        android:hint="@string/hint_feedback_input"
+        android:hint="@string/feedback_input_hint"
         android:maxLength="200"
         android:padding="8dp"
         android:textColor="@color/text_gray_dark"
@@ -29,17 +40,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
         android:text="@string/words_num_limit_200"
         android:textColor="@color/text_gray_medium"
+        android:visibility="gone"
         android:textSize="12sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="@dimen/common_page_left_right_space"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:text="@string/contact_info"
+        android:textColor="@color/common_text_color"
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/et_feedback_contact_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:background="@drawable/bg_trans_stroke"
+        android:gravity="left"
+        android:lines="1"
+        android:hint="@string/contact_info_hint"
+        android:maxLength="20"
+        android:padding="8dp"
+        android:textColor="@color/text_gray_dark"
+        android:textColorHint="@color/text_gray_medium"
+        android:textSize="14sp"/>
 
     <TextView
         android:id="@+id/tv_feedback_submit"
         style="@style/btn_style_main"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:layout_marginTop="60dp"
         android:text="@string/submit"/>
 
 </LinearLayout>

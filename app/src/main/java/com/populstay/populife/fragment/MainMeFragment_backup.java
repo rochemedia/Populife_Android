@@ -1,5 +1,6 @@
 package com.populstay.populife.fragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -14,12 +15,15 @@ import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.text.TextUtils;
 import android.util.Base64;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -32,33 +36,40 @@ import com.populstay.populife.R;
 import com.populstay.populife.activity.AccountBindActivity;
 import com.populstay.populife.activity.ChangeLanguageActivity;
 import com.populstay.populife.activity.DeleteAccountActivity;
-import com.populstay.populife.activity.GatewayListActivity;
 import com.populstay.populife.activity.ModifyNicknameActivity;
 import com.populstay.populife.activity.ModifyPwdActivity;
 import com.populstay.populife.activity.SignActivity;
 import com.populstay.populife.base.BaseVisibilityFragment;
 import com.populstay.populife.common.Urls;
 import com.populstay.populife.constant.Constant;
-import com.populstay.populife.eventbus.Event;
-import com.populstay.populife.home.HomeListActivity;
-import com.populstay.populife.me.PersonalCenterActivity;
-import com.populstay.populife.me.ServiceSupportActivity;
 import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.permission.PermissionListener;
 import com.populstay.populife.sign.ISignListener;
 import com.populstay.populife.sign.SignHandler;
+import com.populstay.populife.util.Utils;
 import com.populstay.populife.util.activity.ActivityCollector;
+import com.populstay.populife.util.device.FingerprintUtil;
 import com.populstay.populife.util.dialog.DialogUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -68,7 +79,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by Jerry
  */
 
-public class MainMeFragment extends BaseVisibilityFragment implements View.OnClickListener {
+public class MainMeFragment_backup extends BaseVisibilityFragment implements View.OnClickListener {
 
 	private static final int REQUEST_CODE_PERMISSION = 20;
 	private static final int REQUEST_CODE_CARMERA = 4;
@@ -77,9 +88,12 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 	private static final int REQUEST_CODE_BIND = 2;
 	private PermissionListener mPermissionListener;
 	private CircleImageView mCivAvatar;
-	private TextView mTvNickname, mTvExit, mTvDeleteAccount;
-	private LinearLayout mLlMePersonalCenter, mLlSpaceManagement, mLlMail, mLlChangePwd, mLlTouchIdLogin, mLlChangeLanguage;
+	private ImageView mIvMail;
+	private TextView mTvAccount, mTvNickname, mTvMailTitle, mTvMailContent, mTvExit, mTvDeleteAccount;
+	private LinearLayout mLlNickName, mLlMail, mLlChangePwd, mLlTouchIdLogin, mLlChangeLanguage;
+	private Switch mSwitchTouchIdLogin;
 	private int mAccountType = Constant.ACCOUNT_TYPE_PHONE; // 注册账号的类型（1 手机，2 邮箱）
+	private boolean mIsAccountDeleted;
 	private String mPhone = "";
 	private String mEmail = "";
 	private String mAvatarUrl = "";
@@ -87,10 +101,50 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 	private Uri mUri;
 	private String mPath = Environment.getExternalStorageDirectory() + File.separator + "photo.jpeg";
 
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		menu.add(0, 0, 0, R.string.take_a_photo);
+		menu.add(0, 1, 0, R.string.choose_from_album);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		if (item.getItemId() == 0) {
+			requestRuntimePermissions(new String[]{Manifest.permission.CAMERA}, new PermissionListener() {
+				@Override
+				public void onGranted() {
+					// 调用拍照
+					Utils.takePhoto(MainMeFragment_backup.this, mPath, REQUEST_CODE_CARMERA, mUri);
+				}
+
+				@Override
+				public void onDenied(List<String> deniedPermissions) {
+					toast(R.string.start_camera_fail);
+				}
+			});
+		} else
+		if (item.getItemId() == 1) {
+			requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+					Manifest.permission.READ_EXTERNAL_STORAGE}, new PermissionListener() {
+				@Override
+				public void onGranted() {
+					// 调用相册
+					Utils.choosePhoto(MainMeFragment_backup.this, REQUEST_CODE_PICK);
+				}
+
+				@Override
+				public void onDenied(List<String> deniedPermissions) {
+					toast(R.string.note_permission_avatar);
+				}
+			});
+		}
+		return super.onContextItemSelected(item);
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_main_me, null);
+		View view = inflater.inflate(R.layout.fragment_main_me_backup, null);
 
 		initView(view);
 		initListener();
@@ -126,6 +180,9 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 	private void loadCacheAvatar() {
 		String photoBese64 = PeachPreference.getStr(PeachPreference.ACCOUNT_AVATAR);
 		byte[] decodedString = Base64.decode(photoBese64, Base64.DEFAULT);
+//		Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//		mCivAvatar.setImageBitmap(decodedByte);
+
 		BitmapTypeRequest bitmapTypeRequest = Glide.with(getActivity()).load(decodedString).asBitmap();
 		bitmapTypeRequest.placeholder(R.drawable.ic_user_avatar);
 		bitmapTypeRequest.placeholder(R.drawable.ic_user_avatar);
@@ -153,7 +210,7 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 								int openid = userInfo.getInteger("openid");
 								PeachPreference.putStr(PeachPreference.OPEN_ID, String.valueOf(openid));
 								mAccountType = userInfo.getInteger("accountType");
-								//mIsAccountDeleted = "Y".equals(userInfo.getString("isDeleted"));
+								mIsAccountDeleted = "Y".equals(userInfo.getString("isDeleted"));
 								mPhone = userInfo.getString("phone");
 								mEmail = userInfo.getString("email");
 								String avatar = userInfo.getString("avatar");
@@ -198,69 +255,93 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 				.error(R.drawable.ic_user_avatar)
 				.into(mCivAvatar);
 		mTvNickname.setText(mNickname);
+		switch (mAccountType) {
+			case Constant.ACCOUNT_TYPE_PHONE:
+				if (!StringUtil.isBlank(mPhone)) {
+					mTvAccount.setText(getResources().getString(R.string.account) + " " + mPhone);
+				}
+				mIvMail.setImageResource(R.drawable.ic_login_email);
+				mTvMailTitle.setText(R.string.email);
+				mTvMailContent.setText(mEmail);
+				break;
+
+			case Constant.ACCOUNT_TYPE_EMAIL:
+				if (!StringUtil.isBlank(mEmail)) {
+					mTvAccount.setText(getResources().getString(R.string.account) + " " + mEmail);
+				}
+				mIvMail.setImageResource(R.drawable.ic_login_phone);
+				mTvMailTitle.setText(R.string.phone);
+				mTvMailContent.setText(mPhone);
+				break;
+
+			default:
+				break;
+		}
 	}
 
 	private void initView(View view) {
+		view.findViewById(R.id.page_back).setVisibility(View.GONE);
+		((TextView) view.findViewById(R.id.page_title)).setText(R.string.nav_tab_me);
+		view.findViewById(R.id.page_action).setVisibility(View.GONE);
 
 		mUri = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".provider", new File(mPath));
 
 		mCivAvatar = view.findViewById(R.id.civ_user_avatar);
 		registerForContextMenu(mCivAvatar);
-		mTvNickname = view.findViewById(R.id.tv_me_account);
-		mLlMePersonalCenter = view.findViewById(R.id.ll_me_personal_center);
-		mLlSpaceManagement = view.findViewById(R.id.ll_me_space_management);
-		mLlMail = view.findViewById(R.id.ll_me_gateway);
-		mLlChangePwd = view.findViewById(R.id.ll_me_auditor);
+		mTvAccount = view.findViewById(R.id.tv_me_account);
+		mIvMail = view.findViewById(R.id.iv_me_mail);
+		mTvNickname = view.findViewById(R.id.tv_me_nick_name);
+		mTvMailTitle = view.findViewById(R.id.tv_me_mail_title);
+		mTvMailContent = view.findViewById(R.id.tv_me_mail_content);
+		mLlNickName = view.findViewById(R.id.ll_me_nick_name);
+		mLlMail = view.findViewById(R.id.ll_me_mail);
+		mLlChangePwd = view.findViewById(R.id.ll_me_change_pwd);
 		mTvExit = view.findViewById(R.id.tv_settings_exit);
 		mTvDeleteAccount = view.findViewById(R.id.tv_settings_delete_account);
-		mLlTouchIdLogin = view.findViewById(R.id.ll_me_service_and_support);
-		mLlChangeLanguage = view.findViewById(R.id.ll_me_settings);
+		mLlTouchIdLogin = view.findViewById(R.id.ll_me_touch_id_login);
+		mSwitchTouchIdLogin = view.findViewById(R.id.switch_touch_id_login);
+		mLlChangeLanguage = view.findViewById(R.id.ll_me_change_language);
+
+		mLlTouchIdLogin.setVisibility(FingerprintUtil.isSupportFingerprint(getActivity()) ? View.VISIBLE : View.GONE);
+		mSwitchTouchIdLogin.setChecked(PeachPreference.isTouchIdLogin());
 	}
 
 	private void initListener() {
 		mCivAvatar.setOnClickListener(this);
-		mLlMePersonalCenter.setOnClickListener(this);
-		mLlSpaceManagement.setOnClickListener(this);
+		mLlNickName.setOnClickListener(this);
 		mLlMail.setOnClickListener(this);
 		mLlChangePwd.setOnClickListener(this);
 		mTvExit.setOnClickListener(this);
 		mTvDeleteAccount.setOnClickListener(this);
+		mSwitchTouchIdLogin.setOnClickListener(this);
 		mLlChangeLanguage.setOnClickListener(this);
-		mLlTouchIdLogin.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-
-			// 个人中心
-			case R.id.ll_me_personal_center:
-				goToNewActivity(PersonalCenterActivity.class);
+			case R.id.civ_user_avatar:
+				mCivAvatar.showContextMenu();
 				break;
 
-			// 空间管理
-			case R.id.ll_me_space_management:
-				HomeListActivity.actionStart(getActivity(), HomeListActivity.VAL_ACTION_TYPE_MANAGE_HOME);
+			case R.id.ll_me_nick_name:
+				Intent intentNickname = new Intent(getActivity(), ModifyNicknameActivity.class);
+				intentNickname.putExtra(ModifyNicknameActivity.KEY_USER_NICKNAME, mNickname);
+				startActivityForResult(intentNickname, REQUEST_CODE_NICKNAME);
 				break;
 
-			// 智能网关
-			case R.id.ll_me_gateway:
-				goToNewActivity(GatewayListActivity.class);
+			case R.id.ll_me_mail:
+				Intent intentBind = new Intent(getActivity(), AccountBindActivity.class);
+				if (mAccountType == Constant.ACCOUNT_TYPE_PHONE) {
+					intentBind.putExtra(AccountBindActivity.KEY_BIND_TYPE, Constant.ACCOUNT_TYPE_EMAIL);
+				} else if (mAccountType == Constant.ACCOUNT_TYPE_EMAIL) {
+					intentBind.putExtra(AccountBindActivity.KEY_BIND_TYPE, Constant.ACCOUNT_TYPE_PHONE);
+				}
+				startActivityForResult(intentBind, REQUEST_CODE_BIND);
 				break;
 
-			// 审计追踪
-			case R.id.ll_me_auditor:
+			case R.id.ll_me_change_pwd:
 				goToNewActivity(ModifyPwdActivity.class);
-				break;
-
-			// 服务与支持
-			case R.id.ll_me_service_and_support:
-				goToNewActivity(ServiceSupportActivity.class);
-				break;
-
-			// 设置
-			case R.id.ll_me_settings:
-				goToNewActivity(ChangeLanguageActivity.class);
 				break;
 
 			case R.id.tv_settings_exit:
@@ -291,12 +372,60 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 							}
 						}, null);
 				break;
+
+			case R.id.switch_touch_id_login:
+				PeachPreference.setTouchIdLogin(mSwitchTouchIdLogin.isChecked());
+				break;
+
+			case R.id.ll_me_change_language:
+				goToNewActivity(ChangeLanguageActivity.class);
+				break;
+
 			default:
 				break;
 		}
 	}
 
+	/**
+	 * 上传头像
+	 */
+	private void uploadAvatar() {
+		OkHttpClient client = new OkHttpClient();
 
+		MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+		File tempFile = new File(mPath);
+		if (tempFile != null) {
+			RequestBody body = RequestBody.create(MediaType.parse("image/*"), tempFile);
+			String fileName = tempFile.getName();
+
+			requestBody.addFormDataPart("file", fileName, body);
+			requestBody.addFormDataPart("userId", PeachPreference.readUserId());
+
+			Request request = new Request.Builder()
+					.url(Urls.BASE_URL + Urls.AVATAR_UPLOAD)
+					.post(requestBody.build())
+					.tag(this)
+					.build();
+
+			client.newBuilder()
+					.readTimeout(5000, TimeUnit.MILLISECONDS)
+					.build()
+					.newCall(request)
+					.enqueue(new Callback() {
+						@Override
+						public void onFailure(Call call, IOException e) {
+//							toast("fail");
+						}
+
+						@Override
+						public void onResponse(Call call, Response response) throws IOException {
+							String str = response.body().string();
+							PeachLogger.d("reponse", response);
+							PeachLogger.d("body", str);
+						}
+					});
+		}
+	}
 
 	/**
 	 * 退出登录
@@ -332,8 +461,10 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 				case REQUEST_CODE_BIND:
 					if (mAccountType == Constant.ACCOUNT_TYPE_PHONE) {
 						mEmail = data.getStringExtra(AccountBindActivity.KEY_BIND_RESULT);
+						mTvMailContent.setText(mEmail);
 					} else if (mAccountType == Constant.ACCOUNT_TYPE_EMAIL) {
 						mPhone = data.getStringExtra(AccountBindActivity.KEY_BIND_RESULT);
+						mTvMailContent.setText(mPhone);
 					}
 					cachePersonalInfo();
 					break;
@@ -444,30 +575,6 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 					mPermissionListener.onDenied(deniedPermissions);
 				}
 			}
-		}
-	}
-
-	private void setAvatar(String avatarUrl) {
-		if (!TextUtils.isEmpty(avatarUrl)) {
-			Glide.with(this)
-					.load(avatarUrl)
-					.asBitmap()
-					.diskCacheStrategy(DiskCacheStrategy.ALL)
-					.dontAnimate()
-					.centerCrop()
-					.placeholder(R.drawable.ic_user_avatar)
-					.error(R.drawable.ic_user_avatar)
-					.into(mCivAvatar);
-		}
-	}
-
-	@Override
-	public void onEventSub(Event event) {
-		super.onEventSub(event);
-		if (Event.EventType.USER_AVATAR_MODIFY ==  event.type){
-			setAvatar((String) event.obj);
-		}else if (Event.EventType.USER_NIKE_NAME_MODIFY ==  event.type){
-			mTvNickname.setText((String) event.obj);
 		}
 	}
 }

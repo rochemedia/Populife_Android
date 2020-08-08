@@ -122,7 +122,7 @@ public class LockGroupListActivity extends BaseActivity implements View.OnClickL
 									} else {
 										lockGroup.setName(getResources().getString(R.string.other_lowercase));
 									}
-									lockGroup.setLockCount(groupItem.getInteger("lockCount"));
+									//lockGroup.setLockCount(groupItem.getInteger("lockCount"));
 									mGroupList.add(lockGroup);
 								}
 								mAdapter.notifyDataSetChanged();

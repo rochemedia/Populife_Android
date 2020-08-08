@@ -34,6 +34,7 @@
     <color name="text_color_ffb1b3b6">#FFB1B3B6</color>
     <color name="text_gray_medium">#888888</color>
     <color name="text_gray_dark">#4a4a4a</color>
+    <color name="text_gray_e6e7e8">#E6E7E8</color>
 
     <!-- ++++++++++++++++++++++++ 主按钮颜色属性值 ++++++++++++++++++++++++ -->
     <!-- 正常状态的背景色 -->

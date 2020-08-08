@@ -121,6 +121,25 @@
         <item name="android:textColor">@color/common_text_color</item>
         <item name="android:textSize">16sp</item>
     </style>
+    <!-- 列表栏左侧：标题下面的文本 -->
+    <style name="list_item_title_me">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/common_text_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="list_item_overall_me">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">54dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/common_page_left_right_space</item>
+        <item name="android:paddingRight">@dimen/common_page_left_right_space</item>
+    </style>
     <style name="list_left_item_description">
         <item name="android:textColor">@color/common_text_color</item>
         <item name="android:layout_width">wrap_content</item>

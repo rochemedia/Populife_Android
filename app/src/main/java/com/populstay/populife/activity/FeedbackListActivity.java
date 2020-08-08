@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class FeedbackListActivity extends BaseActivity implements FeedbackListAd
 
 	private static final int REQUEST_CODE_ADD_FEEDBACK = 1;
 
-	private TextView mTvNew;
+	private ImageView mTvNew;
 	private LinearLayout mLlNoData;
 	private ListView mListView;
 	private FeedbackListAdapter mAdapter;
@@ -51,11 +52,9 @@ public class FeedbackListActivity extends BaseActivity implements FeedbackListAd
 	}
 
 	private void initView() {
-		((TextView) findViewById(R.id.page_title)).setText(R.string.feedback);
-		mTvNew = findViewById(R.id.page_action);
-		mTvNew.setText("");
-		mTvNew.setCompoundDrawablesWithIntrinsicBounds(
-				getResources().getDrawable(R.drawable.ic_add), null, null, null);
+		((TextView) findViewById(R.id.page_title)).setText(R.string.service_support_feedback);
+		findViewById(R.id.page_action).setVisibility(View.GONE);
+		mTvNew = findViewById(R.id.tv_new_feedback);
 
 		mLlNoData = findViewById(R.id.layout_no_data);
 		mListView = findViewById(R.id.list_view);

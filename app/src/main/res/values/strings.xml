@@ -573,5 +573,32 @@
     <string name="name_of_authorizer">授权人姓名</string>
     <string name="select_key_pwd_type">选择密钥类型</string>
 
+    <string name="me_list_item_name_space">空间管理</string>
+    <string name="me_list_item_name_gateway">智能网关</string>
+    <string name="me_list_item_name_auditor">审计追踪</string>
+    <string name="me_list_item_name_service">服务与支持</string>
+    <string name="me_list_item_name_settings">设置</string>
 
+    <string name="personal_center_account_head_icon">头像</string>
+    <string name="personal_center_account_phone">账号密码</string>
+    <string name="personal_center">个人中心</string>
+
+    <string name="modify_email">修改邮箱</string>
+    <string name="modify_phone">修改手机号码</string>
+
+
+    <string name="service_support_help">帮助与反馈</string>
+    <string name="service_support_maintain">维修服务</string>
+    <string name="service_support_customer">在线客服</string>
+
+    <string name="service_support_help_hint">寻找答案</string>
+    <string name="service_support_maintain_hint">维修自助申请服务</string>
+    <string name="service_support_customer_hint">10:00 am - 6:00pm GMT +8</string>
+
+
+    <string name="service_support_feedback">我的反馈</string>
+    <string name="please_describe_the_specific_problem">请描述具体问题</string>
+    <string name="contact_info">联系方式，便于我们联系您</string>
+    <string name="contact_info_hint">常用联系方式（可选）</string>
+    <string name="feedback_input_hint">反馈内容</string>
 </resources>
