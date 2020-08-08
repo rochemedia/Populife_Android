@@ -33,6 +33,7 @@ import com.populstay.populife.activity.AccountBindActivity;
 import com.populstay.populife.activity.ChangeLanguageActivity;
 import com.populstay.populife.activity.DeleteAccountActivity;
 import com.populstay.populife.activity.GatewayListActivity;
+import com.populstay.populife.activity.MessageListActivity;
 import com.populstay.populife.activity.ModifyNicknameActivity;
 import com.populstay.populife.activity.ModifyPwdActivity;
 import com.populstay.populife.activity.SignActivity;
@@ -250,7 +251,8 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 
 			// 审计追踪
 			case R.id.ll_me_auditor:
-				goToNewActivity(ModifyPwdActivity.class);
+				PeachPreference.setBoolean(PeachPreference.HAVE_NEW_MESSAGE, false);
+				goToNewActivity(MessageListActivity.class);
 				break;
 
 			// 服务与支持
