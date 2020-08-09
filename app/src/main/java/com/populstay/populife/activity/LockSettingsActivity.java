@@ -162,7 +162,7 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 
 	@SuppressLint("SetTextI18n")
 	private void initUI() {
-		boolean isRemind = PeachPreference.isShowLockingReminder(mKey.getLockMac());
+		boolean isRemind = PeachPreference.isShowLockingReminder(PeachPreference.readUserId());
 		mSwitch.setChecked(isRemind);
 
 		mTvSerialNum.setText(mKey.getLockName());
@@ -415,7 +415,7 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 				break;
 
 			case R.id.switch_lock_settings_reminder:
-				PeachPreference.setShowLockingReminder(mKey.getLockMac(), mSwitch.isChecked());
+				PeachPreference.setShowLockingReminder(PeachPreference.readUserId(), mSwitch.isChecked());
 				break;
 
 			case R.id.ll_lock_settings_remote_unlock:

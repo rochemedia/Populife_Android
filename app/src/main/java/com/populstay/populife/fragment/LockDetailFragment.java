@@ -521,7 +521,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 								deleteOneTimeEkey();
 							}
 
-							boolean isRemind = PeachPreference.isShowLockingReminder(mCurKEY.getLockMac());
+							boolean isRemind = PeachPreference.isShowLockingReminder(PeachPreference.readUserId());
 							if (isRemind) {
 								// 开锁成功提示
 								toast(R.string.unlocked_successfully);
@@ -628,7 +628,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 							addLockOperateLog(2);//添加闭锁记录
 
-							boolean isRemind = PeachPreference.isShowLockingReminder(mCurKEY.getLockMac());
+							boolean isRemind = PeachPreference.isShowLockingReminder(PeachPreference.readUserId());
 							if (isRemind) {
 								// 闭锁成功提示
 								toast(R.string.locked_successfully);

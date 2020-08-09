@@ -152,22 +152,22 @@ public class PeachPreference {
 	/**
 	 * 设置是否显示开闭锁 弹框消息+震动（针对单个锁设置）
 	 *
-	 * @param locMac 锁地址
+	 * @param userId 用戶ID
 	 * @param isShow 是否弹框
 	 */
-	public static void setShowLockingReminder(String locMac, boolean isShow) {
+	public static void setShowLockingReminder(String userId, boolean isShow) {
 		getAppPreference()
 				.edit()
-				.putBoolean(SHOW_LOCKING_REMINDER + locMac, isShow)
+				.putBoolean(SHOW_LOCKING_REMINDER + userId, isShow)
 				.apply();
 	}
 
 	/**
 	 * 是否显示开闭锁 弹框消息+震动（默认播放）
 	 */
-	public static boolean isShowLockingReminder(String locMac) {
+	public static boolean isShowLockingReminder(String userId) {
 		return getAppPreference()
-				.getBoolean(SHOW_LOCKING_REMINDER + locMac, true);
+				.getBoolean(SHOW_LOCKING_REMINDER + userId, true);
 	}
 
 	/**

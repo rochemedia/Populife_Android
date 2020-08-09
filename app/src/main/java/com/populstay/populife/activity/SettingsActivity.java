@@ -14,7 +14,7 @@ import com.populstay.populife.util.storage.PeachPreference;
 public class SettingsActivity extends BaseActivity implements View.OnClickListener {
 
 	private LinearLayout mLlLockUser, mLlSwitchLanguage, mLlAbout, mLlTouchIdLogin;
-	private Switch mSwitchTouchIdLogin;
+	private Switch mSwitchTouchIdLogin, mSwitchReminder;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 		mSwitchTouchIdLogin = findViewById(R.id.switch_touch_id_login);
 		mLlTouchIdLogin.setVisibility(FingerprintUtil.isSupportFingerprint(this) ? View.VISIBLE : View.GONE);
 		mSwitchTouchIdLogin.setChecked(PeachPreference.isTouchIdLogin());
+
+		mSwitchReminder = findViewById(R.id.switch_lock_settings_reminder);
+		mSwitchReminder.setChecked(PeachPreference.isShowLockingReminder(PeachPreference.readUserId()));
 	}
 
 	private void initListener() {
@@ -45,6 +48,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 		mLlSwitchLanguage.setOnClickListener(this);
 		mLlAbout.setOnClickListener(this);
 		mSwitchTouchIdLogin.setOnClickListener(this);
+		mSwitchReminder.setOnClickListener(this);
 	}
 
 	@Override
@@ -55,8 +59,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 				break;
 
 			case R.id.switch_lock_settings_reminder:
-				// TODO
-				//PeachPreference.setShowLockingReminder(mKey.getLockMac(), mSwitch.isChecked());
+				PeachPreference.setShowLockingReminder(PeachPreference.readUserId(), mSwitchReminder.isChecked());
 				break;
 
 			case R.id.ll_settings_switch_language:
