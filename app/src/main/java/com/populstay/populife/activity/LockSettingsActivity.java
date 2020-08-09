@@ -68,8 +68,7 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 			mTvLockName, mTvLockGroup, mTvAdminPasscode, mTvDelete, mTvRemoteUnlockState;
 	private ImageView mIvSyncBattery, mIvBattery, mIvMacDisplay,mIvSetLockTimeHelp;
 	private LinearLayout mLlMacId, mLlValidity, mLlStartEndTime, mLlLockName, mLlLockGroup,
-			mLlAdminPasscode, mLlLockTime, mLlAutoLocking, mLlLockUpgrade, mLlRemoteUnlock, mLlRecords, mLlKeypadVolume;
-	private Switch mSwitch;
+			mLlAdminPasscode, mLlLockTime, mLlAutoLocking, mLlLockUpgrade, mLlRemoteUnlock, mLlKeypadVolume;
 	private Space mSpace;
 	private AlertDialog DIALOG;
 	private EditText mEtDialogInput;
@@ -148,10 +147,8 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 		mLlAutoLocking = findViewById(R.id.ll_lock_settings_auto_locking);
 		mLlLockUpgrade = findViewById(R.id.ll_lock_settings_lock_update);
 		mLlRemoteUnlock = findViewById(R.id.ll_lock_settings_remote_unlock);
-		mLlRecords = findViewById(R.id.ll_lock_settings_records);
 		mTvRemoteUnlockState = findViewById(R.id.tv_lock_settings_remote_unlock_state);
 		mLlKeypadVolume = findViewById(R.id.ll_lock_settings_keypad_volume);
-		mSwitch = findViewById(R.id.switch_lock_settings_reminder);
 		mTvDelete = findViewById(R.id.tv_lock_settings_delete);
 		mSpace = findViewById(R.id.space_lock_settings_lock_time);
 		mIvSetLockTimeHelp = findViewById(R.id.iv_lock_settings_lock_time_help);
@@ -162,9 +159,6 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 
 	@SuppressLint("SetTextI18n")
 	private void initUI() {
-		boolean isRemind = PeachPreference.isShowLockingReminder(PeachPreference.readUserId());
-		mSwitch.setChecked(isRemind);
-
 		mTvSerialNum.setText(mKey.getLockName());
 
 		refreshBattery();
@@ -321,9 +315,7 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 		mLlAutoLocking.setOnClickListener(this);
 		mLlLockUpgrade.setOnClickListener(this);
 		mTvDelete.setOnClickListener(this);
-		mSwitch.setOnClickListener(this);
 		mLlRemoteUnlock.setOnClickListener(this);
-		mLlRecords.setOnClickListener(this);
 		mIvSyncBattery.setOnClickListener(this);
 		mLlKeypadVolume.setOnClickListener(this);
 		mIvSetLockTimeHelp.setOnClickListener(this);
@@ -414,18 +406,10 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 				DIALOG.cancel();
 				break;
 
-			case R.id.switch_lock_settings_reminder:
-				PeachPreference.setShowLockingReminder(PeachPreference.readUserId(), mSwitch.isChecked());
-				break;
-
 			case R.id.ll_lock_settings_remote_unlock:
 				intent.setClass(LockSettingsActivity.this, LockRemoteUnlockConfigActivity.class);
 				intent.putExtra(LockRemoteUnlockConfigActivity.KEY_LOCK_SPECIAL_VALUE, mKey.getSpecialValue());
 				startActivityForResult(intent, REQUEST_CODE_SPECIAL_VALUE);
-				break;
-
-			case R.id.ll_lock_settings_records:
-				LockOperateRecordActivity.actionStart(LockSettingsActivity.this, mKey.getLockId());
 				break;
 
 			case R.id.iv_lock_settings_battery_sync:
