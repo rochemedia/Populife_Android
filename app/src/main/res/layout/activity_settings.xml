@@ -3,23 +3,44 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_background"
     android:orientation="vertical">
 
     <include layout="@layout/layout_view_titlebar"/>
 
-    <LinearLayout
-        android:id="@+id/ll_settings_lock_user"
-        style="@style/list_item_overall"
-        android:layout_marginTop="16dp">
+    <LinearLayout style="@style/list_item_overall"
+        android:id="@+id/ll_touch_id_login"
+        android:minHeight="54dp">
 
         <TextView
             style="@style/list_item_title"
-            android:text="@string/lock_users"/>
+            android:text="@string/vibration_feedback" />
 
         <View
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Switch
+            android:id="@+id/switch_lock_settings_reminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_view_line"/>
+
+    <LinearLayout
+        style="@style/list_item_overall"
+        android:minHeight="54dp"
+        android:id="@+id/ll_settings_switch_language">
+
+        <TextView
+            style="@style/list_item_title"
+            android:text="@string/switch_language"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_weight="1"/>
 
         <ImageView
@@ -32,6 +53,33 @@
     <include layout="@layout/layout_view_line"/>
 
     <LinearLayout
+        android:visibility="gone"
+        android:minHeight="54dp"
+        android:id="@+id/ll_settings_lock_user"
+        style="@style/list_item_overall">
+
+        <TextView
+            style="@style/list_item_title"
+            android:text="@string/lock_users"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_arrow_more_detail"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_view_line"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:minHeight="54dp"
+        android:visibility="gone"
         style="@style/list_item_overall"
         android:id="@+id/ll_settings_lock_group">
 
@@ -42,7 +90,7 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"/>
 
         <ImageView
@@ -52,10 +100,35 @@
 
     </LinearLayout>
 
+    <include layout="@layout/layout_view_line"
+        android:visibility="gone"/>
+
+    <LinearLayout style="@style/list_item_overall"
+        android:minHeight="54dp">
+
+        <TextView
+            style="@style/list_item_title"
+            android:text="@string/touch_id_login"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <Switch
+            android:id="@+id/switch_touch_id_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_view_line"/>
+
+
     <LinearLayout
         style="@style/list_item_overall"
-        android:id="@+id/ll_settings_about"
-        android:layout_marginTop="20dp">
+        android:minHeight="54dp"
+        android:id="@+id/ll_settings_about">
 
         <TextView
             style="@style/list_item_title"
@@ -63,7 +136,7 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"/>
 
         <ImageView
@@ -72,5 +145,7 @@
             android:src="@drawable/ic_arrow_more_detail"/>
 
     </LinearLayout>
+
+    <include layout="@layout/layout_view_line"/>
 
 </LinearLayout>

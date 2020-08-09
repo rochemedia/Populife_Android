@@ -3,14 +3,18 @@ package com.populstay.populife.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.populstay.populife.R;
 import com.populstay.populife.base.BaseActivity;
+import com.populstay.populife.util.device.FingerprintUtil;
+import com.populstay.populife.util.storage.PeachPreference;
 
 public class SettingsActivity extends BaseActivity implements View.OnClickListener {
 
-	private LinearLayout mLlLockUser, mLlLockGroup, mLlAbout;
+	private LinearLayout mLlLockUser, mLlSwitchLanguage, mLlAbout, mLlTouchIdLogin;
+	private Switch mSwitchTouchIdLogin;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,27 +30,38 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 		findViewById(R.id.page_action).setVisibility(View.GONE);
 
 		mLlLockUser = findViewById(R.id.ll_settings_lock_user);
-		mLlLockGroup = findViewById(R.id.ll_settings_lock_group);
+		mLlSwitchLanguage = findViewById(R.id.ll_settings_switch_language);
 		mLlAbout = findViewById(R.id.ll_settings_about);
+
+		mLlTouchIdLogin = findViewById(R.id.ll_touch_id_login);
+
+		mSwitchTouchIdLogin = findViewById(R.id.switch_touch_id_login);
+		mLlTouchIdLogin.setVisibility(FingerprintUtil.isSupportFingerprint(this) ? View.VISIBLE : View.GONE);
+		mSwitchTouchIdLogin.setChecked(PeachPreference.isTouchIdLogin());
 	}
 
 	private void initListener() {
 		mLlLockUser.setOnClickListener(this);
-		mLlLockGroup.setOnClickListener(this);
+		mLlSwitchLanguage.setOnClickListener(this);
 		mLlAbout.setOnClickListener(this);
+		mSwitchTouchIdLogin.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-			case R.id.ll_settings_lock_user:
-				goToNewActivity(LockUserListActivity.class);
+			case R.id.switch_touch_id_login:
+				PeachPreference.setTouchIdLogin(mSwitchTouchIdLogin.isChecked());
 				break;
 
-			case R.id.ll_settings_lock_group:
-				goToNewActivity(LockGroupListActivity.class);
+			case R.id.switch_lock_settings_reminder:
+				// TODO
+				//PeachPreference.setShowLockingReminder(mKey.getLockMac(), mSwitch.isChecked());
 				break;
 
+			case R.id.ll_settings_switch_language:
+				goToNewActivity(ChangeLanguageActivity.class);
+				break;
 			case R.id.ll_settings_about:
 				goToNewActivity(AboutActivity.class);
 				break;

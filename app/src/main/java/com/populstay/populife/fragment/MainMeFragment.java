@@ -36,6 +36,7 @@ import com.populstay.populife.activity.GatewayListActivity;
 import com.populstay.populife.activity.MessageListActivity;
 import com.populstay.populife.activity.ModifyNicknameActivity;
 import com.populstay.populife.activity.ModifyPwdActivity;
+import com.populstay.populife.activity.SettingsActivity;
 import com.populstay.populife.activity.SignActivity;
 import com.populstay.populife.base.BaseVisibilityFragment;
 import com.populstay.populife.common.Urls;
@@ -262,7 +263,7 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 
 			// 设置
 			case R.id.ll_me_settings:
-				goToNewActivity(ChangeLanguageActivity.class);
+				goToNewActivity(SettingsActivity.class);
 				break;
 
 			case R.id.tv_settings_exit:
