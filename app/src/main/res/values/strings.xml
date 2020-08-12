@@ -601,4 +601,37 @@
     <string name="contact_info">联系方式，便于我们联系您</string>
     <string name="contact_info_hint">常用联系方式（可选）</string>
     <string name="feedback_input_hint">反馈内容</string>
+    <string name="user_manual">用户手册</string>
+    <string name="operation_video">操作视频</string>
+    <string name="shopping_mall">商城</string>
+    <string name="news">新闻</string>
+
+    <string name="product_type_popu_care_desc">购买 PopuCare 服务计划，两年安享无忧。
+每部设备均可在有限保修期内享有一年的硬件保修及免费更换服务。PopuCare 服务计划可为你提供自购买该服务计划之日起为期两年的
+维修服务。</string>
+    <string name="product_type_popu_care_name">PopuCare</string>
+    <string name="product_price">购买   I   %.1f USD</string>
+
+
+    <string-array name="video_url">
+        <item>video/video_0.mp4</item>
+        <item>video/video_1.mp4</item>
+        <item>video/video_2.mp4</item>
+        <item>video/video_3.mp4</item>
+    </string-array>
+
+    <string-array name="video_cover">
+        <item>video_thumb/video_thumb_0.png</item>
+        <item>video_thumb/video_thumb_1.png</item>
+        <item>video_thumb/video_thumb_2.png</item>
+        <item>video_thumb/video_thumb_3.png</item>
+    </string-array>
+
+    <string-array name="video_title">
+        <item>Automatic Locking</item>
+        <item>Customize your password and share it</item>
+        <item>Create and share a Bluetooth key</item>
+        <item>Change Admin password</item>
+    </string-array>
+
 </resources>

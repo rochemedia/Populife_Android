@@ -2,208 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/gray_background"
     android:orientation="vertical">
 
     <include layout="@layout/layout_view_titlebar" />
 
-    <LinearLayout
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_lock_send_passcode"
+        style="@style/TabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/white"
-        android:orientation="vertical">
+        app:tabIndicatorColor="@color/text_main"
+        app:tabMode="fixed"
+        app:tabMaxWidth="200dp"
+        app:tabMinWidth="200dp"
+        app:tabPaddingStart="0dp"
+        app:tabPaddingEnd="0dp"
+        android:overScrollMode="never"
+        app:tabSelectedTextColor="@color/text_main"
+        app:tabIndicatorFullWidth="false"
+        app:tabBackground="@drawable/download_tab_bg_selector"
+        app:tabTextColor="@color/gray_medium"/>
 
-        <LinearLayout
-            android:id="@+id/ll_settings_lock_group"
-            android:orientation="horizontal"
-            style="@style/list_item_overall">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_lock_group" />
-
-            <TextView
-                style="@style/list_item_title"
-                android:layout_marginLeft="8dp"
-                android:text="@string/lock_group" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_arrow_more_detail" />
-
-        </LinearLayout>
-
-        <include layout="@layout/layout_view_line_24dp" />
-
-        <LinearLayout
-            android:id="@+id/ll_general_gateway"
-            style="@style/list_item_overall">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_gateway" />
-
-            <TextView
-                style="@style/list_item_title"
-                android:layout_marginLeft="8dp"
-                android:text="@string/gateway" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_arrow_more_detail" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_lock_send_passcode"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/ll_general_notification"
-            style="@style/list_item_overall">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_news" />
-
-            <ImageView
-                android:id="@+id/iv_general_notification_new"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/bg_circle_red"
-                android:visibility="invisible" />
-
-            <TextView
-                style="@style/list_item_title"
-                android:layout_marginLeft="2dp"
-                android:text="@string/notification" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_arrow_more_detail" />
-
-        </LinearLayout>
-
-        <include layout="@layout/layout_view_line_24dp" />
-
-        <LinearLayout
-            android:id="@+id/ll_general_service"
-            style="@style/list_item_overall">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/support_icon" />
-
-            <ImageView
-                android:id="@+id/iv_general_service_new"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/bg_circle_red"
-                android:visibility="invisible" />
-
-            <TextView
-                style="@style/list_item_title"
-                android:layout_marginLeft="2dp"
-                android:text="@string/help_center" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_arrow_more_detail" />
-
-        </LinearLayout>
-
-        <include layout="@layout/layout_view_line_24dp" />
-
-        <LinearLayout
-            android:id="@+id/ll_settings_about"
-            style="@style/list_item_overall">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_about" />
-
-            <TextView
-                style="@style/list_item_title"
-                android:layout_marginLeft="8dp"
-                android:text="@string/about" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_arrow_more_detail" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_general_settings"
-        style="@style/list_item_overall"
-        android:layout_marginTop="20dp"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_settings" />
-
-        <TextView
-            style="@style/list_item_title"
-            android:layout_marginLeft="8dp"
-            android:text="@string/settings" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_arrow_more_detail" />
-
-    </LinearLayout>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </LinearLayout>

@@ -18,6 +18,8 @@ android {
             // 设置支持的 SO 库构架
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'//, 'mips', 'mips64'
         }
+
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -200,4 +202,9 @@ dependencies {
     implementation 'com.meiqia:meiqiasdk:3.5.9'
     // 事件分发
     implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    // 视频播放器
+    implementation project(':TigerVideoPlayer')
+    // 分包
+    implementation 'com.android.support:multidex:1.0.3'
 }

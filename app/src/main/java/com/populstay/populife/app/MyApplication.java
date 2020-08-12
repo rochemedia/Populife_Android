@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.multidex.MultiDex;
 
 import com.populstay.populife.R;
 import com.populstay.populife.activity.AddDeviceSuccessActivity;
@@ -30,6 +31,11 @@ import com.ttlock.bl.sdk.scanner.ExtendedBluetoothDevice;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.TimeZone;
+
+import cn.ittiger.player.Config;
+import cn.ittiger.player.PlayerManager;
+import cn.ittiger.player.factory.ExoPlayerFactory;
+import cn.ittiger.player.factory.MediaPlayerFactory;
 
 /**
  * Created by Jerry
@@ -699,13 +705,24 @@ public class MyApplication extends BaseApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
+		MultiDex.install(this);
 		init();
 	}
 
 	private void init() {
 		initLock();
+		initVideoPlayerConfig();
 	}
+
+	private void initVideoPlayerConfig(){
+		PlayerManager.loadConfig(
+				new Config.Builder(this)
+						.cache(false)
+						.buildPlayerFactory(new MediaPlayerFactory())
+						.build()
+		);
+	}
+
 
 	/**
 	 * Init TTLockAPI Object
