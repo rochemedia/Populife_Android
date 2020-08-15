@@ -14,14 +14,13 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="118dp">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.populstay.populife.ui.widget.extextview.ExTextView
                 android:layout_centerVertical="true"
                 android:id="@+id/tv_name"
                 android:text="1"

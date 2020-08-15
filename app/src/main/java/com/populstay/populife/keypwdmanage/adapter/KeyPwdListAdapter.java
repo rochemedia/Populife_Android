@@ -12,6 +12,9 @@ import com.populstay.populife.R;
 import com.populstay.populife.keypwdmanage.entity.KeyPwd;
 import com.populstay.populife.ui.recycler.HeaderAndFooterAdapter;
 import com.populstay.populife.ui.recycler.ViewHolder;
+import com.populstay.populife.ui.widget.extextview.ExTextView;
+import com.populstay.populife.util.DensityUtils;
+import com.populstay.populife.util.date.DateUtil;
 
 import java.util.List;
 
@@ -19,11 +22,14 @@ import java.util.List;
 public class KeyPwdListAdapter extends HeaderAndFooterAdapter<KeyPwd> {
 
     private Context mContext;
+    private int iconPadding;
+    private ListViewActionBtnClickListener mSendBtnClickListener, mDeleteBtnClickListener, mEditBtnClickListener;
 
     public KeyPwdListAdapter(Context context, List<KeyPwd> list) {
 
         super(list);
         mContext = context;
+        iconPadding = DensityUtils.dp2px(mContext,12);
     }
 
     @Override
@@ -34,35 +40,103 @@ public class KeyPwdListAdapter extends HeaderAndFooterAdapter<KeyPwd> {
     }
 
     @Override
-    public void onBindItemViewHolder(ViewHolder holder, int position, KeyPwd item) {
+    public void onBindItemViewHolder(ViewHolder holder, int position, final KeyPwd item) {
 
-        KeyPwdViewHolder videoViewHolder = (KeyPwdViewHolder) holder;
+        final KeyPwdViewHolder videoViewHolder = (KeyPwdViewHolder) holder;
         videoViewHolder.tvName.setText(item.getSendUser());
+
+        videoViewHolder.tvTime.setVisibility(View.GONE);
+        videoViewHolder.llTimeRange.setVisibility(View.GONE);
+        videoViewHolder.tvPwd.setVisibility(View.GONE);
+        videoViewHolder.llActionBtns.setVisibility(View.GONE);
+
+        videoViewHolder.tvName.setText(item.getAlias());
 
         // 蓝牙
         if (1 == item.getKeyType()){
+            videoViewHolder.tvName.setRawIcon(R.drawable.bt_key_icon, iconPadding);
+
+            videoViewHolder.llTimeRange.setVisibility(View.VISIBLE);
+            videoViewHolder.tvStartTime.setText(DateUtil.getDateToString(item.getStartDate(),DateUtil.DATE_TIME_PATTERN_1));
+            videoViewHolder.tvEndTime.setText(DateUtil.getDateToString(item.getEndDate(),DateUtil.DATE_TIME_PATTERN_1));
 
         }else {
+            videoViewHolder.tvPwd.setVisibility(View.VISIBLE);
+            videoViewHolder.tvPwd.setText(item.getKeyboardPwd());
             // 自定义密码       15
             //One-time			1
             //Permanent		    2
             //Period			3
             if (15 == item.getKeyboardPwdType()){
+                videoViewHolder.tvName.setRawIcon(R.drawable.pwd_custom_icon, iconPadding);
+
+                videoViewHolder.llTimeRange.setVisibility(View.VISIBLE);
+                videoViewHolder.tvStartTime.setText(DateUtil.getDateToString(item.getStartDate(),DateUtil.DATE_TIME_PATTERN_1));
+                videoViewHolder.tvEndTime.setText(DateUtil.getDateToString(item.getEndDate(),DateUtil.DATE_TIME_PATTERN_1));
 
             }else if (1 == item.getKeyboardPwdType()){
+                videoViewHolder.tvName.setRawIcon(R.drawable.pwd_one_time_icon, iconPadding);
+                videoViewHolder.tvTime.setVisibility(View.VISIBLE);
+                videoViewHolder.tvTime.setText(DateUtil.getDateToString(item.getCreateDate(),DateUtil.DATE_TIME_PATTERN_1));
 
             }else if (2 == item.getKeyboardPwdType()){
+                videoViewHolder.tvName.setRawIcon(R.drawable.pwd_permanent_icon, iconPadding);
+                videoViewHolder.tvTime.setVisibility(View.VISIBLE);
+                videoViewHolder.tvTime.setText(DateUtil.getDateToString(item.getCreateDate(),DateUtil.DATE_TIME_PATTERN_1));
 
             }else if (3 == item.getKeyboardPwdType()){
+                videoViewHolder.tvName.setRawIcon(R.drawable.pwd_period_icon, iconPadding);
 
+                videoViewHolder.llTimeRange.setVisibility(View.VISIBLE);
+                videoViewHolder.tvStartTime.setText(DateUtil.getDateToString(item.getStartDate(),DateUtil.DATE_TIME_PATTERN_1));
+                videoViewHolder.tvEndTime.setText(DateUtil.getDateToString(item.getEndDate(),DateUtil.DATE_TIME_PATTERN_1));
             }
-
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (View.VISIBLE != videoViewHolder.llActionBtns.getVisibility()){
+                    videoViewHolder.llActionBtns.setVisibility(View.VISIBLE);
+                }else {
+                    videoViewHolder.llActionBtns.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        videoViewHolder.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mDeleteBtnClickListener){
+                    mDeleteBtnClickListener.onClick(v, item);
+                }
+            }
+        });
+
+        videoViewHolder.ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mSendBtnClickListener){
+                    mSendBtnClickListener.onClick(v, item);
+                }
+            }
+        });
+
+        videoViewHolder.ivEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mEditBtnClickListener){
+                    mEditBtnClickListener.onClick(v, item);
+                }
+            }
+        });
+
 
     }
 
     class KeyPwdViewHolder extends ViewHolder {
-        TextView tvName, tvTime;
+        ExTextView tvName;
+        TextView tvTime;
         LinearLayout llTimeRange;
         TextView tvStartTime, tvEndTime;
         TextView tvPwd;
@@ -82,5 +156,21 @@ public class KeyPwdListAdapter extends HeaderAndFooterAdapter<KeyPwd> {
             ivShare = itemView.findViewById(R.id.iv_share);
             ivEdit = itemView.findViewById(R.id.iv_edit);
         }
+    }
+
+    public interface ListViewActionBtnClickListener {
+        void onClick(View view, KeyPwd item);
+    }
+
+    public void setmSendBtnClickListener(ListViewActionBtnClickListener mSendBtnClickListener) {
+        this.mSendBtnClickListener = mSendBtnClickListener;
+    }
+
+    public void setmDeleteBtnClickListener(ListViewActionBtnClickListener mDeleteBtnClickListener) {
+        this.mDeleteBtnClickListener = mDeleteBtnClickListener;
+    }
+
+    public void setmEditBtnClickListener(ListViewActionBtnClickListener mEditBtnClickListener) {
+        this.mEditBtnClickListener = mEditBtnClickListener;
     }
 }

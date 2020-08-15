@@ -30,6 +30,7 @@ import com.populstay.populife.common.Urls;
 import com.populstay.populife.entity.Key;
 import com.populstay.populife.entity.Passcode;
 import com.populstay.populife.enumtype.Operation;
+import com.populstay.populife.keypwdmanage.entity.KeyPwd;
 import com.populstay.populife.lock.ILockDeletePasscode;
 import com.populstay.populife.lock.ILockModifyPasscode;
 import com.populstay.populife.net.RestClient;
@@ -66,7 +67,7 @@ public class PasscodeDetailActivity extends BaseActivity implements View.OnClick
 	private EditText mEtDialogInput;
 
 	private Key mKey = MyApplication.CURRENT_KEY;
-	private Passcode mPasscode;
+	private KeyPwd mPasscode;
 	private int mModifyPasscodeType; // 修改密码的类型（0 修改密码，1 修改密码名称）
 
 	/**
@@ -76,6 +77,11 @@ public class PasscodeDetailActivity extends BaseActivity implements View.OnClick
 	 * @param passcode 键盘密码
 	 */
 	public static void actionStart(Context context, Passcode passcode) {
+		Intent intent = new Intent(context, PasscodeDetailActivity.class);
+		intent.putExtra(KEY_PASSCODE, passcode);
+		context.startActivity(intent);
+	}
+	public static void actionStart(Context context, KeyPwd passcode) {
 		Intent intent = new Intent(context, PasscodeDetailActivity.class);
 		intent.putExtra(KEY_PASSCODE, passcode);
 		context.startActivity(intent);
@@ -298,7 +304,7 @@ public class PasscodeDetailActivity extends BaseActivity implements View.OnClick
 			case R.id.ll_passcode_detail_valid_period://修改有效期
 				Intent intentNickname = new Intent(this, PasscodePeriodModifyActivity.class);
 				intentNickname.putExtra(PasscodePeriodModifyActivity.KEY_PASSCODE_PWD, mPasscode.getKeyboardPwd());
-				intentNickname.putExtra(PasscodePeriodModifyActivity.KEY_PASSCODE_ID, mPasscode.getKeyboardPwdId());
+				intentNickname.putExtra(PasscodePeriodModifyActivity.KEY_PASSCODE_ID, mPasscode.getId());
 				intentNickname.putExtra(PasscodePeriodModifyActivity.KEY_PASSCODE_TYPE, mPasscode.getKeyboardPwdType());
 				intentNickname.putExtra(PasscodePeriodModifyActivity.KEY_PASSCODE_START_TIME, mPasscode.getStartDate());
 				intentNickname.putExtra(PasscodePeriodModifyActivity.KEY_PASSCODE_END_TIME, mPasscode.getEndDate());
@@ -311,14 +317,14 @@ public class PasscodeDetailActivity extends BaseActivity implements View.OnClick
 
 			case R.id.tv_passcode_detail_delete:
 				DialogUtil.showCommonDialog(PasscodeDetailActivity.this, null,
-						getString(R.string.note_confirm_delete), getString(R.string.delete),
-						getString(R.string.cancel), new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialogInterface, int i) {
-								//和锁通信，删除密码
-								deletePasscode();
-							}
-						}, null);
+					getString(R.string.note_confirm_delete), getString(R.string.delete),
+					getString(R.string.cancel), new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialogInterface, int i) {
+							//和锁通信，删除密码
+							deletePasscode();
+						}
+					}, null);
 				break;
 
 			case R.id.btn_dialog_input_cancel:
@@ -460,7 +466,7 @@ public class PasscodeDetailActivity extends BaseActivity implements View.OnClick
 				.loader(this)
 				.params("userId", PeachPreference.readUserId())
 				.params("lockId", mKey.getLockId())
-				.params("keyboardPwdId", mPasscode.getKeyboardPwdId())
+				.params("keyboardPwdId", mPasscode.getId())
 				.params("changeType", 1)
 				.params("newKeyboardPwd", newPwd)
 				.params("timeZone", DateUtil.getTimeZone())
@@ -492,7 +498,7 @@ public class PasscodeDetailActivity extends BaseActivity implements View.OnClick
 				.url(Urls.LOCK_PASSCODE_ALIAS_MODIFY)
 				.loader(this)
 				.params("alias", passcodeAlias)
-				.params("keyboardPwdId", mPasscode.getKeyboardPwdId())
+				.params("keyboardPwdId", mPasscode.getId())
 				.params("userId", PeachPreference.readUserId())
 				.success(new ISuccess() {
 					@Override
@@ -576,7 +582,7 @@ public class PasscodeDetailActivity extends BaseActivity implements View.OnClick
 				.loader(PasscodeDetailActivity.this)
 				.params("lockId", mKey.getLockId())
 				.params("userId", PeachPreference.readUserId())
-				.params("keyboardPwdId", mPasscode.getKeyboardPwdId())
+				.params("keyboardPwdId", mPasscode.getId())
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {

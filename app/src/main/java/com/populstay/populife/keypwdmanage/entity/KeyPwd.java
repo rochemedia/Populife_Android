@@ -182,6 +182,10 @@ public class KeyPwd implements Parcelable {
         return keyType;
     }
 
+    public boolean isBTKey(){
+        return 1 == keyType;
+    }
+
     public void setKeyType(int keyType) {
         this.keyType = keyType;
     }

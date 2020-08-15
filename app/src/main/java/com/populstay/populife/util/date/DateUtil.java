@@ -9,6 +9,10 @@ import java.util.TimeZone;
  * Created by Jerry
  */
 public class DateUtil {
+
+	public static final String DATE_TIME_PATTERN_1  = "yyyy-MM-dd HH:mm:ss";
+
+
 	/**
 	 * 获取当前时间
 	 *
