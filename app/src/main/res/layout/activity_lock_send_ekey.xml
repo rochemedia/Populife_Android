@@ -18,6 +18,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:visibility="gone"
                 style="@style/list_item_overall">
 
               <LinearLayout
@@ -44,12 +45,13 @@
 
             </LinearLayout>
 
-            <include layout="@layout/layout_view_line" />
+            <include layout="@layout/layout_view_line" android:visibility="gone"/>
 
             <LinearLayout
                 android:orientation="vertical"
                 style="@style/list_item_overall"
                 android:focusable="true"
+                android:visibility="gone"
                 android:focusableInTouchMode="true">
 
                 <TextView
@@ -95,7 +97,7 @@
 
             </LinearLayout>
 
-            <include layout="@layout/layout_view_line" />
+            <include layout="@layout/layout_view_line" android:visibility="gone"/>
 
             <LinearLayout style="@style/list_item_overall" android:orientation="vertical">
 
@@ -105,11 +107,11 @@
 
                 <EditText
                     android:id="@+id/et_lock_send_ekey_name"
-                    android:layout_marginTop="14dp"
-                    android:layout_width="wrap_content"
+                    android:paddingTop="14dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:gravity="right|center_vertical"
+                    android:gravity="left|center_vertical"
                     android:hint="@string/name_the_key"
                     android:maxLength="20"
                     android:textColor="@color/text_gray_medium"
@@ -126,16 +128,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout style="@style/list_item_overall" android:orientation="vertical" android:gravity="center_vertical">
+                <LinearLayout style="@style/list_item_overall"
+                    android:id="@+id/ll_start_time"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
 
                     <TextView
                         style="@style/list_item_title"
                         android:text="@string/start_time" />
 
                     <TextView
-                        android:layout_marginTop="14dp"
+                        android:paddingTop="14dp"
                         android:id="@+id/tv_lock_send_ekey_start_time"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left|center_vertical"
                         android:textColor="@color/common_text_color"
@@ -145,7 +150,9 @@
 
                 <include layout="@layout/layout_view_line" />
 
-                <LinearLayout style="@style/list_item_overall" android:orientation="vertical">
+                <LinearLayout style="@style/list_item_overall"
+                    android:id="@+id/ll_end_time"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/list_item_title"
@@ -153,8 +160,8 @@
 
                     <TextView
                         android:id="@+id/tv_lock_send_ekey_end_time"
-                        android:layout_marginTop="14dp"
-                        android:layout_width="wrap_content"
+                        android:paddingTop="14dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left|center_vertical"
                         android:textColor="@color/common_text_color"

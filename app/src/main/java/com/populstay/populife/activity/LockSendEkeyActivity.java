@@ -195,6 +195,8 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 				.setSubmitText(getResources().getString(R.string.ok))
 				.setCancelText(getResources().getString(R.string.cancel))
 				.setDate(selectedDate)
+				.setCancelColor(0Xff212322)
+				.setSubmitColor(0xff212322)
 				.setRangDate(selectedDate, null)
 				.build();
 	}
@@ -206,7 +208,25 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 		mTvEndTime.setOnClickListener(this);
 		mTvSend.setOnClickListener(this);
 
-		mEtReceiver.addTextChangedListener(new TextWatcher() {
+		/*mEtReceiver.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable editable) {
+				*//*mTvSend.setEnabled(!StringUtil.isBlank(editable.toString().trim()));
+				mCountryCodePicker.setVisibility(editable.length() == 0 ||
+						StringUtil.isNum(editable.toString()) ? View.VISIBLE : View.GONE);*//*
+			}
+		});*/
+		mEtKeyName.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -220,8 +240,6 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 			@Override
 			public void afterTextChanged(Editable editable) {
 				mTvSend.setEnabled(!StringUtil.isBlank(editable.toString().trim()));
-				mCountryCodePicker.setVisibility(editable.length() == 0 ||
-						StringUtil.isNum(editable.toString()) ? View.VISIBLE : View.GONE);
 			}
 		});
 	}
@@ -310,7 +328,7 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 		final String receiver = mEtReceiver.getText().toString().trim();
 
 		boolean isPass = true;
-		if (mKeyType != 1) {//非限时钥匙
+		/*if (mKeyType != 1) {//非限时钥匙
 			if (!StringUtil.isNum(receiver) && !StringUtil.isEmail(receiver)) {
 				isPass = false;
 				toast(R.string.note_receiver_format);
@@ -323,6 +341,10 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 				isPass = false;
 				toast(R.string.note_time_start_greater_than_end);
 			}
+		}*/
+		if (!mStartTime.before(mEndTime)) {
+			isPass = false;
+			toast(R.string.note_time_start_greater_than_end);
 		}
 		return isPass;
 	}
