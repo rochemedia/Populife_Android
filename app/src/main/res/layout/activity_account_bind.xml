@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar" />
+
+    <com.populstay.populife.ui.widget.exedittext.ExEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_account_bind_user_name"
+        style="@style/et_style_input_width_match"
+        android:layout_marginTop="@dimen/common_edit_text_margin_top"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:hint="@string/enter_email"
+        app:inputType="account"
+        app:label="@string/email"
+        app:hint="@string/email"
+        android:inputType="phone" />
+
+    <com.populstay.populife.ui.widget.exedittext.ExEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:layout_marginTop="@dimen/common_edit_text_margin_top"
+        android:id="@+id/et_account_bind_code"
+        app:label="@string/verification_code"
+        app:hint="@string/verification_code"
+        app:inputType="verificationCode" />
+
+
+    <TextView
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+            android:id="@+id/tv_account_bind_btn"
+            style="@style/btn_style_main"
+            android:layout_marginTop="@dimen/sign_action_btn_margin_top"
+            android:text="@string/bind" />
+
+
+</LinearLayout>

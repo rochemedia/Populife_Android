@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ExpandableListView
+            android:id="@+id/eplv_eky_passcode_records"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:childDivider="@color/gray_line"
+            android:divider="@color/gray_line"
+            android:dividerHeight="0.5dp"
+            android:listSelector="@color/transparent"
+            android:overScrollMode="never"
+            android:paddingLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+            android:scrollbars="none"/>
+
+        <include layout="@layout/layout_no_data"/>
+
+    </FrameLayout>
+
+</LinearLayout>

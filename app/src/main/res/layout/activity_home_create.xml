@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar" />
+
+    <com.populstay.populife.ui.widget.exedittext.ExEditText
+        app:hint="@string/create_space_name_hint"
+        app:inputType="normal"
+        app:maxLength="20"
+        android:id="@+id/et_space_name"
+        android:layout_marginTop="@dimen/common_edit_text_margin_top"
+        android:layout_width="match_parent"
+        app:paddingLeftInner="@dimen/common_page_left_right_space"
+        app:paddingRightInner="@dimen/common_page_left_right_space"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_create_space_btn"
+        style="@style/btn_style_main"
+        android:layout_margin="@dimen/common_page_left_right_space"
+        android:background="@drawable/selector_btn_main"
+        android:enabled="false"
+        android:text="@string/create" />
+
+</LinearLayout>

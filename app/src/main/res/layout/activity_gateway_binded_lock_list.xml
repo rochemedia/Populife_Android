@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingLeft="16dp"
+                android:paddingTop="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="4dp"
+                android:text="@string/locks_connected_to_gateway"
+                android:textColor="@color/text_gray_dark"
+                android:textSize="14sp"/>
+
+            <include layout="@layout/layout_view_line"/>
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:id="@+id/lv_gateway_binded_lock_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@color/gray_line"
+                    android:dividerHeight="0.5dp"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"/>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <include layout="@layout/layout_no_data"/>
+
+    </FrameLayout>
+
+</android.support.v7.widget.LinearLayoutCompat>

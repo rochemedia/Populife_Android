@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar" />
+
+    <CheckBox
+        android:id="@+id/cb_bt_and_lbs_open"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        style="@style/add_device_check_box_autocheck"
+        android:text="@string/bt_and_lbs_open_hint" />
+
+    <CheckBox
+        android:id="@+id/cb_net_open"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/net_open_hint"
+        style="@style/add_device_check_box_autocheck" />
+
+    <CheckBox
+        android:id="@+id/ck_battery_install"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/battery_install_hint"
+        style="@style/add_device_check_box" />
+
+    <CheckBox
+        android:id="@+id/cb_keep_open_door"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/keep_open_door_hint"
+        style="@style/add_device_check_box" />
+
+    <CheckBox
+        android:id="@+id/cb_confirm_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/confirm_time_hint"
+        style="@style/add_device_check_box"/>
+
+    <TextView
+        android:id="@+id/tv_lock_add_guide_next"
+        style="@style/btn_style_main"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:enabled="false"
+        android:text="@string/next" />
+
+</LinearLayout>

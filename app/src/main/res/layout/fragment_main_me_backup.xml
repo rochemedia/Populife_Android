@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="20dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="20dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_user_avatar"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_user_avatar"
+                    app:civ_border_color="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tv_me_account"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_gray_dark"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_arrow_more_detail"
+                    android:tint="@color/text_gray_light"/>
+
+            </android.support.v7.widget.LinearLayoutCompat>
+
+            <LinearLayout
+                android:id="@+id/ll_me_nick_name"
+                style="@style/list_item_overall">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_user"/>
+
+                <TextView
+                    style="@style/list_item_title"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/nick_name"/>
+
+                <TextView
+                    android:id="@+id/tv_me_nick_name"
+                    style="@style/list_item_description"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_arrow_more_detail"
+                    android:tint="@color/text_gray_light"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line_24dp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_me_mail"
+                style="@style/list_item_overall">
+
+                <ImageView
+                    android:id="@+id/iv_me_mail"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_login_email"/>
+
+                <TextView
+                    android:id="@+id/tv_me_mail_title"
+                    style="@style/list_item_title"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/email"/>
+
+                <TextView
+                    android:id="@+id/tv_me_mail_content"
+                    style="@style/list_item_description"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_arrow_more_detail"
+                    android:tint="@color/text_gray_light"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line_24dp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_me_change_pwd"
+                style="@style/list_item_overall">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_login_pwd"/>
+
+                <TextView
+                    style="@style/list_item_title"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/modify_pwd"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_arrow_more_detail"
+                    android:tint="@color/text_gray_light"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line_24dp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_me_touch_id_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout style="@style/list_item_overall">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_touch_id"/>
+
+                    <TextView
+                        style="@style/list_item_title"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/touch_id_login"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                    <Switch
+                        android:id="@+id/switch_touch_id_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/layout_view_line_24dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_me_change_language"
+                style="@style/list_item_overall">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_language"/>
+
+                <TextView
+                    style="@style/list_item_title"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/switch_language"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_arrow_more_detail"
+                    android:tint="@color/text_gray_light"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line_24dp"/>
+
+            <TextView
+                android:id="@+id/tv_settings_exit"
+                style="@style/btn_style_main"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/sign_out"/>
+
+            <TextView
+                android:id="@+id/tv_settings_delete_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:padding="4dp"
+                android:text="@string/delete_account"
+                android:textColor="@color/text_gray_light"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.v7.widget.LinearLayoutCompat>

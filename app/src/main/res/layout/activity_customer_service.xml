@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_view_titlebar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_service_manual_app"
+            style="@style/list_item_overall">
+
+            <TextView
+                style="@style/list_item_title"
+                android:text="@string/user_manual_app" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_more_detail" />
+
+        </LinearLayout>
+
+        <include layout="@layout/layout_view_line_24dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_service_manual_deadbolt"
+            style="@style/list_item_overall">
+
+            <TextView
+                style="@style/list_item_title"
+                android:text="@string/user_manual_deadbolt" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_more_detail" />
+
+        </LinearLayout>
+
+        <include layout="@layout/layout_view_line_24dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_service_manual_keybox"
+            style="@style/list_item_overall">
+
+            <TextView
+                style="@style/list_item_title"
+                android:text="@string/user_manual_keybox" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_more_detail" />
+
+        </LinearLayout>
+
+        <include layout="@layout/layout_view_line_24dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_service_manual_gateway"
+            style="@style/list_item_overall">
+
+            <TextView
+                style="@style/list_item_title"
+                android:text="@string/user_manual_gateway" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_more_detail" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_service_questions"
+            style="@style/list_item_overall">
+
+            <TextView
+                style="@style/list_item_title"
+                android:text="@string/common_questions" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_more_detail" />
+
+        </LinearLayout>
+
+        <include layout="@layout/layout_view_line_24dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_service_feedback"
+            style="@style/list_item_overall"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/list_item_title"
+                android:text="@string/customer_feedback" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_more_detail" />
+
+        </LinearLayout>
+
+        <!--        <include layout="@layout/layout_view_line_24dp" />-->
+
+        <LinearLayout
+            android:id="@+id/ll_service_online_communication"
+            style="@style/list_item_overall">
+
+            <TextView
+                style="@style/list_item_title"
+                android:text="@string/online_communication" />
+
+            <ImageView
+                android:id="@+id/iv_service_online_new"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_circle_red"
+                android:visibility="invisible" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_more_detail" />
+
+        </LinearLayout>
+
+        <include layout="@layout/layout_view_line_24dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_service_send_email"
+            style="@style/list_item_overall">
+
+            <TextView
+                style="@style/list_item_title"
+                android:text="@string/send_email" />
+
+            <TextView
+                style="@style/list_item_description"
+                android:text="@string/customer_service_email" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
