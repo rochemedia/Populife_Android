@@ -31,5 +31,9 @@ public class Event {
         int USER_AVATAR_MODIFY = 7;
         // 用户昵称更新
         int USER_NIKE_NAME_MODIFY = 8;
+        // 创建蓝牙钥匙成功
+        int CREATE_BT_KEY_SUCCESS = 9;
+        // 创建键盘密码成功
+        int CREATE_PWD_SUCCESS = 10;
     }
 }

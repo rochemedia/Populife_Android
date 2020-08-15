@@ -561,6 +561,7 @@
     <string name="key_pwd_custom">自定义密码</string>
     <string name="key_pwd_bt_key">蓝牙钥匙 (用手机开锁)</string>
     <string name="create_bluetooth_key">创建蓝牙钥匙</string>
+    <string name="create_key">创建钥匙</string>
     <string name="already_create_bluetooth_key">已生成限时蓝牙钥匙</string>
     <string name="get_bluetooth_key_hint">请确保蓝牙钥匙在1个小时内能够被认领</string>
     <string name="skip">跳过</string>

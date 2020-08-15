@@ -32,6 +32,8 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.populstay.populife.R;
 import com.populstay.populife.base.BaseActivity;
 import com.populstay.populife.common.Urls;
+import com.populstay.populife.eventbus.Event;
+import com.populstay.populife.keypwdmanage.entity.CreateBluetoothActionInfo;
 import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
@@ -43,6 +45,8 @@ import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -71,6 +75,8 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 	private Date mStartTime;
 	private Date mEndTime;
 
+	private CreateBluetoothActionInfo mCreateBluetoothActionInfo;
+
 	/**
 	 * 启动当前 activity
 	 *
@@ -98,7 +104,8 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 	private void getIntentData() {
 		Intent data = getIntent();
 		mLockId = data.getIntExtra(KEY_LOCK_ID, 0);
-		mIsAdmin = data.getBooleanExtra(KEY_IS_ADMIN, false);
+		// 没有授权管理员
+		//mIsAdmin = data.getBooleanExtra(KEY_IS_ADMIN, false);
 	}
 
 	private void initView() {
@@ -358,10 +365,26 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 			params.dimAmount = 0.5f;
 			window.setAttributes(params);
 
-			/*window.findViewById(R.id.btn_dialog_send_ekey_period).setOnClickListener(this);
-			window.findViewById(R.id.btn_dialog_send_ekey_permanent).setOnClickListener(this);
-			window.findViewById(R.id.btn_dialog_send_ekey_one_time).setOnClickListener(this);
-			window.findViewById(R.id.btn_dialog_send_ekey_cancel).setOnClickListener(this);*/
+			window.findViewById(R.id.tv_share_btn).setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (null != mCreateBluetoothActionInfo){
+						mCreateBluetoothActionInfo.setShare(true);
+					}
+					EventBus.getDefault().post(new Event(Event.EventType.CREATE_BT_KEY_SUCCESS, mCreateBluetoothActionInfo));
+					finish();
+				}
+			});
+			window.findViewById(R.id.tv_skip_btn).setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (null != mCreateBluetoothActionInfo){
+						mCreateBluetoothActionInfo.setShare(false);
+					}
+					EventBus.getDefault().post(new Event(Event.EventType.CREATE_BT_KEY_SUCCESS, mCreateBluetoothActionInfo));
+					finish();
+				}
+			});
 		}
 	}
 
@@ -370,21 +393,23 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 	 */
 	private void sendEkey() {
 		RestClient.builder()
-				.url(Urls.LOCK_EKEY_SEND)
+				.url(Urls.LOCK_EKEY_V2_SEND)
 				.loader(LockSendEkeyActivity.this)
 				.params(getParams())
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {
-						PeachLogger.d("LOCK_EKEY_SEND", response);
 
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");
 						switch (code) {
 							case 200:
 								toast(R.string.send_ekey_success);
-								LockManageBluetoothKeyActivity.actionStart(LockSendEkeyActivity.this, mLockId, mIsAdmin);
-								finish();
+								String  data = result.getString("data");
+								mCreateBluetoothActionInfo = new CreateBluetoothActionInfo();
+								mCreateBluetoothActionInfo.setShareUrl(data);
+								showShareKeyDialog();
+								//LockManageBluetoothKeyActivity.actionStart(LockSendEkeyActivity.this, mLockId, mIsAdmin);
 								break;
 
 							case 920:
@@ -428,7 +453,7 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 
 		params.put("userId", PeachPreference.readUserId());
 		String receiver = mEtReceiver.getText().toString();
-		params.put("recUser", StringUtil.isNum(receiver) ? mCountryCodePicker.getSelectedCountryCodeWithPlus() + receiver : receiver);
+		//params.put("recUser", StringUtil.isNum(receiver) ? mCountryCodePicker.getSelectedCountryCodeWithPlus() + receiver : receiver);
 		params.put("lockId", mLockId);
 		params.put("type", mKeyType);
 		params.put("keyAlias", mEtKeyName.getText().toString());

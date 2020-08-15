@@ -34,6 +34,7 @@ import com.populstay.populife.base.BaseFragment;
 import com.populstay.populife.common.Urls;
 import com.populstay.populife.entity.Key;
 import com.populstay.populife.enumtype.Operation;
+import com.populstay.populife.eventbus.Event;
 import com.populstay.populife.lock.ILockAddPasscode;
 import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.IFailure;
@@ -44,6 +45,8 @@ import com.populstay.populife.util.device.KeyboardUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -545,6 +548,7 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 					@Override
 					public void onSuccess(String response) {
 						PeachLogger.d("LOCK_PASSCODE_ADD", response);
+						EventBus.getDefault().post(new Event(Event.EventType.CREATE_PWD_SUCCESS));
 
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");

@@ -60,7 +60,8 @@ public class Urls {
 	public static final String LOCK_OPERATE_RECORDS_GET = "operation/log/get"; //（get）查询锁所有的操作记录，按操作日期（天）分组，默认取最近20条，从操作时间由近至远排列
 	public static final String LOCK_OPERATE_RECORDS_DELETE = "operation/log/remove"; //（post）根据操作记录id删除一条操作记录
 	public static final String LOCK_OPERATE_RECORDS_CLEAR = "operation/log/remove-all"; //（post）根据锁id删除锁下所有的操作记录
-	public static final String LOCK_EKEY_SEND = "key/send"; //（get）管理员或被授权用户可以用向其他用户发送钥匙，向同一个用户发送多个钥匙时，只有最后一个钥匙有效
+	public static final String LOCK_EKEY_SEND = "key/send"; //（get）管理员或被授权用户可以用向其他用户发送钥匙，向同一个用户发送多个钥匙时，只有最后一个钥匙有效（废弃）
+	public static final String LOCK_EKEY_V2_SEND = "key/v2/send"; //（get）管理员或被授权用户可以用向其他用户发送钥匙，向同一个用户发送多个钥匙时，只有最后一个钥匙有效
 	public static final String LOCK_PASSCODE_GENERATE = "keyboardPwd/get"; //（post）获取键盘密码，是指生成键盘密码
 	public static final String LOCK_PASSCODE_DELETE = "keyboardPwd/delete"; //（post）删除单个键盘密码
 	public static final String LOCK_PASSCODE_MODIFY = "keyboardPwd/change"; //（post）修改键盘密码, 只能修改三代锁， 密码版本为4的密码，支持修改密码和修改密码期限

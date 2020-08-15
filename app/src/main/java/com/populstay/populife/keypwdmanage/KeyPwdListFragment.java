@@ -22,7 +22,9 @@ import com.populstay.populife.base.BaseFragment;
 import com.populstay.populife.common.Urls;
 import com.populstay.populife.entity.Key;
 import com.populstay.populife.enumtype.Operation;
+import com.populstay.populife.eventbus.Event;
 import com.populstay.populife.keypwdmanage.adapter.KeyPwdListAdapter;
+import com.populstay.populife.keypwdmanage.entity.CreateBluetoothActionInfo;
 import com.populstay.populife.keypwdmanage.entity.KeyPwd;
 import com.populstay.populife.lock.ILockDeletePasscode;
 import com.populstay.populife.net.RestClient;
@@ -673,5 +675,62 @@ public class KeyPwdListFragment extends BaseFragment {
         return content;
     }
 
+    @Override
+    public void onEventSub(Event event) {
+        super.onEventSub(event);
+        if (Event.EventType.CREATE_BT_KEY_SUCCESS == event.type){
+            refreshData();
+            CreateBluetoothActionInfo createBluetoothActionInfo = (CreateBluetoothActionInfo) event.obj;
+            if (null != createBluetoothActionInfo && createBluetoothActionInfo.isShare()){
+                showShareBTKey(createBluetoothActionInfo.getShareUrl());
+            }
+        }else if (Event.EventType.CREATE_PWD_SUCCESS == event.type){
+             refreshData();
+        }
+    }
 
+    public void showShareBTKey(final String data) {
+        OnekeyShare oks = new OnekeyShare();
+
+        // 自定义分享平台
+        oks.setCustomerLogo(BitmapFactory.decodeResource(getResources(), R.drawable.ic_share_zalo),
+                "Zalo", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            Intent vIt = new Intent(Intent.ACTION_SEND);
+//							vIt.setPackage("com.facebook.orca");
+                            vIt.setType("text/plain");
+                            vIt.putExtra(Intent.EXTRA_TEXT, data);
+                            startActivity(vIt);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        oks.setCallback(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+
+            }
+        });
+
+        // title标题，微信、QQ和QQ空间等平台使用
+        oks.setTitle(getString(R.string.app_name));
+        oks.setText(data);
+        oks.show(mActivity);
+    }
 }

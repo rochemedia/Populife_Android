@@ -166,6 +166,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_lock_send_ekey_auth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -237,7 +238,7 @@
                 style="@style/btn_style_main"
                 android:layout_margin="16dp"
                 android:enabled="false"
-                android:text="@string/send" />
+                android:text="@string/create_key" />
 
             <Space
                 android:layout_width="match_parent"
