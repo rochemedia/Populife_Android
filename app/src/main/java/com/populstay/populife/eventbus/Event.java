@@ -35,5 +35,7 @@ public class Event {
         int CREATE_BT_KEY_SUCCESS = 9;
         // 创建键盘密码成功
         int CREATE_PWD_SUCCESS = 10;
+        // 密码状态同步成功
+        int SYN_PWD_INFO_SUCCESS = 11;
     }
 }

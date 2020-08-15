@@ -686,6 +686,8 @@ public class KeyPwdListFragment extends BaseFragment {
             }
         }else if (Event.EventType.CREATE_PWD_SUCCESS == event.type){
              refreshData();
+        }else if (Event.EventType.SYN_PWD_INFO_SUCCESS == event.type){
+            refreshData();
         }
     }
 

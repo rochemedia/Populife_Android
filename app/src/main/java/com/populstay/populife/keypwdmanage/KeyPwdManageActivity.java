@@ -1,6 +1,7 @@
 package com.populstay.populife.keypwdmanage;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -20,21 +21,31 @@ import com.populstay.populife.activity.LockManageBluetoothKeyActivity;
 import com.populstay.populife.activity.LockManagePasswordActivity;
 import com.populstay.populife.activity.LockSendEkeyActivity;
 import com.populstay.populife.activity.LockSendPasscodeActivity;
+import com.populstay.populife.app.MyApplication;
 import com.populstay.populife.base.BaseActivity;
 import com.populstay.populife.base.BasePagerAdapter;
 import com.populstay.populife.common.Urls;
 import com.populstay.populife.entity.Key;
 import com.populstay.populife.entity.Passcode;
+import com.populstay.populife.enumtype.Operation;
+import com.populstay.populife.eventbus.Event;
+import com.populstay.populife.lock.ILockGetOperateLog;
 import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.IError;
 import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
+import com.populstay.populife.util.date.DateUtil;
+import com.populstay.populife.util.dialog.DialogUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.populstay.populife.app.MyApplication.mTTLockAPI;
 
 public class KeyPwdManageActivity extends BaseActivity implements View.OnClickListener {
 
@@ -73,7 +84,17 @@ public class KeyPwdManageActivity extends BaseActivity implements View.OnClickLi
         tvRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DialogUtil.showCommonDialog(KeyPwdManageActivity.this,
+                        getString(R.string.sync_password_status), getString(R.string.note_sync_password_status),
+                        getString(R.string.ok), getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (isBleNetEnable())
+                                    // 读取锁密码操作记录
+                                    readLockOperateLog();
+                            }
+                        }, null);
             }
         });
     }
@@ -150,85 +171,70 @@ public class KeyPwdManageActivity extends BaseActivity implements View.OnClickLi
     }
 
     /**
-     * 获取锁键盘密码列表数据
+     * 读取锁操作记录
      */
-    private void requestPasscodeList() {
-        //todo 数据分页
+    private void readLockOperateLog() {
+        showLoading();
+        setReadOperateLogCallback();
+
+        if (mTTLockAPI.isConnected(mKey.getLockMac())) {
+            mTTLockAPI.getOperateLog(null, mKey.getLockVersion(),
+                    mKey.getAesKeyStr(), DateUtil.getTimeZoneOffset());
+        } else {
+            mTTLockAPI.connect(mKey.getLockMac());
+        }
+    }
+
+    private void setReadOperateLogCallback() {
+        MyApplication.bleSession.setOperation(Operation.GET_OPERATE_LOG);
+
+        MyApplication.bleSession.setILockGetOperateLog(new ILockGetOperateLog() {
+            @Override
+            public void onSuccess(final String operateLog) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        stopLoading();
+                        PeachLogger.d(operateLog);
+                        uploadLockOperateLog(operateLog);
+                    }
+                });
+            }
+
+            @Override
+            public void onFail() {
+                stopLoading();
+                toastFail();
+            }
+        });
+    }
+
+    /**
+     * 上传锁密码操作记录
+     */
+    private void uploadLockOperateLog(String operateLog) {
         RestClient.builder()
-                .url(Urls.LOCK_PASSCODE_LIST)
-//				.loader(LockManagePasswordActivity.this)
+                .url(Urls.LOCK_OPERATE_LOG_KEYBOARD_ADD)
+                .loader(this)
                 .params("userId", PeachPreference.readUserId())
                 .params("lockId", mKey.getLockId())
-                .params("pageNo", 1)
-                .params("pageSize", 100)
+                .params("records", operateLog)
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                       /* if (mRefreshLayout != null) {
-                            mRefreshLayout.setRefreshing(false);
-                        }*/
-
-                        PeachLogger.d("LOCK_PASSCODE_LIST", response);
-
-                        JSONObject result = JSON.parseObject(response);
-                        int code = result.getInteger("code");
-                        if (code == 200) {
-                            JSONArray dataArray = result.getJSONArray("data");
-                            mPasscodeList.clear();
-                            if (dataArray != null && !dataArray.isEmpty()) {
-                                int size = dataArray.size();
-                                for (int i = 0; i < size; i++) {
-                                    JSONObject dataObj = dataArray.getJSONObject(i);
-                                    Passcode passcode = new Passcode();
-
-                                    passcode.setKeyboardPwdId(dataObj.getInteger("keyboardPwdId"));
-                                    passcode.setKeyboardPwd(dataObj.getString("keyboardPwd"));
-                                    String alias = dataObj.getString("alias");
-                                    passcode.setAlias(StringUtil.isBlank(alias) ? "" : alias);
-                                    passcode.setSendUser(dataObj.getString("sendUser"));
-                                    passcode.setKeyboardPwdType(dataObj.getInteger("keyboardPwdType"));
-                                    Long start = dataObj.getLong("startDate");
-                                    if (start != null) {
-                                        passcode.setStartDate(start);
-                                    } else {
-                                        passcode.setStartDate(0);
-                                    }
-                                    Long end = dataObj.getLong("endDate");
-                                    if (end != null) {
-                                        passcode.setEndDate(end);
-                                    } else {
-                                        passcode.setEndDate(0);
-                                    }
-                                    Long create = dataObj.getLong("createDate");
-                                    if (create != null) {
-                                        passcode.setCreateDate(create);
-                                    } else {
-                                        passcode.setCreateDate(0);
-                                    }
-                                    passcode.setStatus(dataObj.getInteger("status"));
-
-                                    mPasscodeList.add(passcode);
-                                }
-                                mAdapter.notifyDataSetChanged();
-                            } else {
-                            }
-                        }
+                        EventBus.getDefault().post(new Event(Event.EventType.SYN_PWD_INFO_SUCCESS));
                     }
                 })
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-                        /*if (mRefreshLayout != null) {
-                            mRefreshLayout.setRefreshing(false);
-                        }*/
+                        toastFail();
                     }
                 })
                 .error(new IError() {
                     @Override
                     public void onError(int code, String msg) {
-                       /* if (mRefreshLayout != null) {
-                            mRefreshLayout.setRefreshing(false);
-                        }*/
+                        toastFail();
                     }
                 })
                 .build()

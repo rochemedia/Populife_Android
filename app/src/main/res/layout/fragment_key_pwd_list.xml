@@ -21,10 +21,10 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="30dp">
+            android:layout_height="match_parent">
 
             <TextView
+                android:paddingTop="30dp"
                 android:id="@+id/tv_empty_hint"
                 android:gravity="center"
                 android:layout_width="match_parent"

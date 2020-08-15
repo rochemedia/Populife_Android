@@ -866,6 +866,7 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");
 						if (code == 200) {
+							EventBus.getDefault().post(new Event(Event.EventType.CREATE_PWD_SUCCESS));
 							JSONObject passcodeInfo = result.getJSONObject("data");
 							mTvPasscode.setText(passcodeInfo.getString("keyboardPwd"));
 						} else {
