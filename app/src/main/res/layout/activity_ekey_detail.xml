@@ -19,8 +19,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_ekey_detail_name"
-                style="@style/list_item_overall"
-                android:layout_marginTop="16dp">
+                style="@style/list_item_overall_minheight54dp">
 
                 <TextView
                     style="@style/list_item_title"
@@ -44,7 +43,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_ekey_detail_valid_period"
-                style="@style/list_item_overall">
+                style="@style/list_item_overall_minheight54dp">
 
                 <TextView
                     style="@style/list_item_title"
@@ -109,14 +108,14 @@
                     android:src="@drawable/ic_arrow_more_detail"/>
 
             </LinearLayout>
+            <include layout="@layout/layout_view_line"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
-                <LinearLayout style="@style/list_item_overall">
+                <LinearLayout style="@style/list_item_overall_minheight54dp">
 
                     <TextView
                         style="@style/list_item_title"
@@ -136,7 +135,7 @@
                 <include layout="@layout/layout_view_line"/>
 
                 <LinearLayout
-                    style="@style/list_item_overall">
+                    style="@style/list_item_overall_minheight54dp">
 
                     <TextView
                         style="@style/list_item_title"
@@ -156,7 +155,7 @@
                 <include layout="@layout/layout_view_line"/>
 
                 <LinearLayout
-                    style="@style/list_item_overall">
+                    style="@style/list_item_overall_minheight54dp">
 
                     <TextView
                         style="@style/list_item_title"
@@ -172,13 +171,13 @@
                         android:textSize="12sp"/>
 
                 </LinearLayout>
+                <include layout="@layout/layout_view_line"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_ekey_detail_records"
-                style="@style/list_item_overall"
-                android:layout_marginTop="20dp">
+                style="@style/list_item_overall_minheight54dp">
 
                 <TextView
                     style="@style/list_item_title"

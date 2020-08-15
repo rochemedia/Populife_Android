@@ -19,8 +19,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_passcode_detail_passcode"
-                style="@style/list_item_overall"
-                android:layout_marginTop="16dp">
+                style="@style/list_item_overall_minheight54dp">
 
                 <TextView
                     style="@style/list_item_title"
@@ -44,7 +43,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_passcode_detail_name"
-                style="@style/list_item_overall">
+                style="@style/list_item_overall_minheight54dp">
 
                 <TextView
                     style="@style/list_item_title"
@@ -67,7 +66,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_passcode_detail_valid_period"
-                style="@style/list_item_overall">
+                style="@style/list_item_overall_minheight54dp">
 
                 <TextView
                     style="@style/list_item_title"
@@ -132,15 +131,15 @@
                     android:visibility="gone"/>
 
             </LinearLayout>
+            <include layout="@layout/layout_view_line"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    style="@style/list_item_overall">
+                    style="@style/list_item_overall_minheight54dp">
 
                     <TextView
                         style="@style/list_item_title"
@@ -160,7 +159,7 @@
                 <include layout="@layout/layout_view_line"/>
 
                 <LinearLayout
-                    style="@style/list_item_overall">
+                    style="@style/list_item_overall_minheight54dp">
 
                     <TextView
                         style="@style/list_item_title"
@@ -178,11 +177,11 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <include layout="@layout/layout_view_line"/>
 
             <LinearLayout
                 android:id="@+id/ll_passcode_detail_records"
-                style="@style/list_item_overall"
-                android:layout_marginTop="20dp">
+                style="@style/list_item_overall_minheight54dp">
 
                 <TextView
                     style="@style/list_item_title"

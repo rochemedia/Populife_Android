@@ -105,6 +105,7 @@ public class PasscodeDetailActivity extends BaseActivity implements View.OnClick
 		((TextView) findViewById(R.id.page_title)).setText(R.string.password_detail);
 		mTvSend = findViewById(R.id.page_action);
 		mTvSend.setText(R.string.share);
+		mTvSend.setVisibility(View.GONE);
 
 		mTvPasscode = findViewById(R.id.tv_passcode_detail_passcode);
 		mTvName = findViewById(R.id.tv_passcode_detail_name);

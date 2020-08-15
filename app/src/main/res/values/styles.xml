@@ -114,6 +114,9 @@
         <item name="android:paddingLeft">@dimen/common_page_left_right_space</item>
         <item name="android:paddingRight">@dimen/common_page_left_right_space</item>
     </style>
+    <style name="list_item_overall_minheight54dp" parent="list_item_overall">
+        <item name="android:minHeight">54dp</item>
+    </style>
     <!-- 列表栏左侧：标题下面的文本 -->
     <style name="list_item_title">
         <item name="android:layout_width">wrap_content</item>
