@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -24,6 +25,11 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.meiqia.core.MQManager;
+import com.meiqia.core.bean.MQMessage;
+import com.meiqia.core.callback.OnGetMessageListCallback;
+import com.meiqia.meiqiasdk.imageloader.MQImage;
+import com.meiqia.meiqiasdk.util.MQIntentBuilder;
 import com.populstay.populife.R;
 import com.populstay.populife.adapter.FoundDeviceAdapter;
 import com.populstay.populife.app.MyApplication;
@@ -41,12 +47,14 @@ import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.permission.PermissionListener;
 import com.populstay.populife.ui.CustomProgress;
+import com.populstay.populife.ui.MQGlideImageLoader;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
 import com.ttlock.bl.sdk.scanner.ExtendedBluetoothDevice;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.WeakHashMap;
 
@@ -56,6 +64,7 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 
 	private List<ExtendedBluetoothDevice> mLockList = new ArrayList<>();
 	private ListView mListView;
+	private ImageView mIvNewMsg;
 	private LinearLayout mLlFoundDeviceView;
 	private SeekBar mSeekbarScanDevice;
 	private FoundDeviceAdapter mAdapter;
@@ -175,15 +184,57 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 	}
 
 	private void initTitleBarRightBtn() {
-		TextView tvSupport = findViewById(R.id.page_action);
-		tvSupport.setText("");
-		tvSupport.setCompoundDrawablesWithIntrinsicBounds(
-				getResources().getDrawable(R.drawable.support_icon), null, null, null);
+		findViewById(R.id.page_action).setVisibility(View.GONE);
 
+		mIvNewMsg = findViewById(R.id.iv_main_lock_msg_new);
+		View tvSupport = findViewById(R.id.rl_main_lock_online_service);
+		tvSupport.setVisibility(View.VISIBLE);
 		tvSupport.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
+				requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+						new PermissionListener() {
+							@Override
+							public void onGranted() {
+								HashMap<String, String> clientInfo = new HashMap<>();
+								clientInfo.put("userId", PeachPreference.readUserId());
+								clientInfo.put("phoneNum", PeachPreference.getStr(PeachPreference.ACCOUNT_PHONE));
+								clientInfo.put("email", PeachPreference.getStr(PeachPreference.ACCOUNT_EMAIL));
+								MQImage.setImageLoader(new MQGlideImageLoader());
+								startActivity(new MQIntentBuilder(FoundDeviceActivity.this).
+										setCustomizedId(PeachPreference.readUserId())
+										.setClientInfo(clientInfo)
+										.updateClientInfo(clientInfo)
+										.build());
+							}
+
+							@Override
+							public void onDenied(List<String> deniedPermissions) {
+								toast(R.string.note_permission_avatar);
+							}
+						});
+
+			}
+		});
+	}
+
+	/**
+	 * 获取美洽未读消息
+	 */
+	private void getMeiQiaUnreadMsg() {
+		MQManager.getInstance(this).getUnreadMessages(new OnGetMessageListCallback() {
+			@Override
+			public void onSuccess(List<MQMessage> messageList) {
+				PeachLogger.d(messageList);
+				if (messageList != null && !messageList.isEmpty())
+					mIvNewMsg.setVisibility(View.VISIBLE);
+				else
+					mIvNewMsg.setVisibility(View.INVISIBLE);
+			}
+
+			@Override
+			public void onFailure(int code, String message) {
 			}
 		});
 	}
@@ -211,6 +262,7 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 	@RequiresPermission(Manifest.permission.BLUETOOTH)
 	public void onResume() {
 		super.onResume();
+		getMeiQiaUnreadMsg();
 	}
 
 	@Override

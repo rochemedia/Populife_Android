@@ -6,14 +6,24 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.meiqia.core.MQManager;
+import com.meiqia.core.bean.MQMessage;
+import com.meiqia.core.callback.OnGetMessageListCallback;
+import com.meiqia.meiqiasdk.imageloader.MQImage;
+import com.meiqia.meiqiasdk.util.MQIntentBuilder;
 import com.populstay.populife.R;
 import com.populstay.populife.base.BaseActivity;
 import com.populstay.populife.permission.PermissionListener;
+import com.populstay.populife.ui.MQGlideImageLoader;
+import com.populstay.populife.util.log.PeachLogger;
+import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.timer.BaseCountDownTimer;
 import com.populstay.populife.util.timer.ITimerListener;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class GatewayAddGuideActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
@@ -23,6 +33,7 @@ public class GatewayAddGuideActivity extends BaseActivity implements View.OnClic
 	private CheckBox mCbConfirmActivateDevice;
 	private CheckBox mCbConfirmGatewayReconnect;
 	public static final int COUNT_DOWN_MILLIS = 50;
+	private ImageView mIvNewMsg;
 
 
 	@Override
@@ -75,17 +86,64 @@ public class GatewayAddGuideActivity extends BaseActivity implements View.OnClic
 			}
 		});*/
 
-		TextView tvSupport = findViewById(R.id.page_action);
-		tvSupport.setText("");
-		tvSupport.setCompoundDrawablesWithIntrinsicBounds(
-				getResources().getDrawable(R.drawable.support_icon), null, null, null);
-
+		findViewById(R.id.page_action).setVisibility(View.GONE);
+		mIvNewMsg = findViewById(R.id.iv_main_lock_msg_new);
+		View tvSupport = findViewById(R.id.rl_main_lock_online_service);
+		tvSupport.setVisibility(View.VISIBLE);
 		tvSupport.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
+				requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+						new PermissionListener() {
+							@Override
+							public void onGranted() {
+								HashMap<String, String> clientInfo = new HashMap<>();
+								clientInfo.put("userId", PeachPreference.readUserId());
+								clientInfo.put("phoneNum", PeachPreference.getStr(PeachPreference.ACCOUNT_PHONE));
+								clientInfo.put("email", PeachPreference.getStr(PeachPreference.ACCOUNT_EMAIL));
+								MQImage.setImageLoader(new MQGlideImageLoader());
+								startActivity(new MQIntentBuilder(GatewayAddGuideActivity.this).
+										setCustomizedId(PeachPreference.readUserId())
+										.setClientInfo(clientInfo)
+										.updateClientInfo(clientInfo)
+										.build());
+							}
+
+							@Override
+							public void onDenied(List<String> deniedPermissions) {
+								toast(R.string.note_permission_avatar);
+							}
+						});
+
 			}
 		});
+	}
+
+	/**
+	 * 获取美洽未读消息
+	 */
+	private void getMeiQiaUnreadMsg() {
+		MQManager.getInstance(this).getUnreadMessages(new OnGetMessageListCallback() {
+			@Override
+			public void onSuccess(List<MQMessage> messageList) {
+				PeachLogger.d(messageList);
+				if (messageList != null && !messageList.isEmpty())
+					mIvNewMsg.setVisibility(View.VISIBLE);
+				else
+					mIvNewMsg.setVisibility(View.INVISIBLE);
+			}
+
+			@Override
+			public void onFailure(int code, String message) {
+			}
+		});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		getMeiQiaUnreadMsg();
 	}
 
 	private void setListener() {

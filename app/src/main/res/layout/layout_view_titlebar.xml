@@ -76,8 +76,33 @@
         android:textColor="@color/sign_page_action_text"
         android:textSize="14sp"
         android:layout_height="wrap_content"
-        android:text="@string/page_action"
-        android:layout_alignParentRight="true" />
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_toLeftOf="@+id/rl_main_lock_online_service"
+        android:text="@string/page_action" />
+
+    <RelativeLayout
+        android:id="@+id/rl_main_lock_online_service"
+        android:layout_alignParentRight="true"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:paddingRight="20dp"
+        android:visibility="gone"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/support_icon" />
+
+        <ImageView
+            android:id="@+id/iv_main_lock_msg_new"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_circle_red"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
 
     <include
         layout="@layout/layout_view_line"

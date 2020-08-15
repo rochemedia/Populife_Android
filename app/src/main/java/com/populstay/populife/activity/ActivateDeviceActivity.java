@@ -1,5 +1,6 @@
 package com.populstay.populife.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +11,23 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.meiqia.core.MQManager;
+import com.meiqia.core.bean.MQMessage;
+import com.meiqia.core.callback.OnGetMessageListCallback;
+import com.meiqia.meiqiasdk.imageloader.MQImage;
+import com.meiqia.meiqiasdk.util.MQIntentBuilder;
 import com.populstay.populife.R;
 import com.populstay.populife.base.BaseActivity;
 import com.populstay.populife.home.entity.HomeDeviceInfo;
+import com.populstay.populife.permission.PermissionListener;
+import com.populstay.populife.ui.MQGlideImageLoader;
+import com.populstay.populife.util.log.PeachLogger;
+import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.timer.BaseCountDownTimer;
 import com.populstay.populife.util.timer.ITimerListener;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 确认设备已经亮起来了
@@ -23,7 +36,7 @@ public class ActivateDeviceActivity extends BaseActivity implements View.OnClick
 
     private static final String KEY_LOCK_TYPE = "KEY_LOCK_TYPE";
     private String lockType;
-    private ImageView mIvAddDevicePic;
+    private ImageView mIvAddDevicePic,mIvNewMsg;
     private TextView mTvPageTitle,mTvShowCountDownTime,mTvNext;
     private BaseCountDownTimer mCountDownTimer;
     private CheckBox mCbConfirmActivateDevice;
@@ -82,18 +95,60 @@ public class ActivateDeviceActivity extends BaseActivity implements View.OnClick
             }
         });
 
-        TextView tvSupport = findViewById(R.id.page_action_2);
-        tvSupport.setVisibility(View.VISIBLE);
-        tvSupport.setText("");
-        tvSupport.setCompoundDrawablesWithIntrinsicBounds(
-                getResources().getDrawable(R.drawable.support_icon), null, null, null);
-
-        tvSupport.setOnClickListener(new View.OnClickListener() {
+        mIvNewMsg = findViewById(R.id.iv_main_lock_msg_new);
+        findViewById(R.id.rl_main_lock_online_service).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                requestRuntimePermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        new PermissionListener() {
+                            @Override
+                            public void onGranted() {
+                                HashMap<String, String> clientInfo = new HashMap<>();
+                                clientInfo.put("userId", PeachPreference.readUserId());
+                                clientInfo.put("phoneNum", PeachPreference.getStr(PeachPreference.ACCOUNT_PHONE));
+                                clientInfo.put("email", PeachPreference.getStr(PeachPreference.ACCOUNT_EMAIL));
+                                MQImage.setImageLoader(new MQGlideImageLoader());
+                                startActivity(new MQIntentBuilder(ActivateDeviceActivity.this).
+                                        setCustomizedId(PeachPreference.readUserId())
+                                        .setClientInfo(clientInfo)
+                                        .updateClientInfo(clientInfo)
+                                        .build());
+                            }
+
+                            @Override
+                            public void onDenied(List<String> deniedPermissions) {
+                                toast(R.string.note_permission_avatar);
+                            }
+                        });
+
             }
         });
+    }
+    /**
+     * 获取美洽未读消息
+     */
+    private void getMeiQiaUnreadMsg() {
+        MQManager.getInstance(this).getUnreadMessages(new OnGetMessageListCallback() {
+            @Override
+            public void onSuccess(List<MQMessage> messageList) {
+                PeachLogger.d(messageList);
+                if (messageList != null && !messageList.isEmpty())
+                    mIvNewMsg.setVisibility(View.VISIBLE);
+                else
+                    mIvNewMsg.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onFailure(int code, String message) {
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getMeiQiaUnreadMsg();
     }
 
     private void setListener() {

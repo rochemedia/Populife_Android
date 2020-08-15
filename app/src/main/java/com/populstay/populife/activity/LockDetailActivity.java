@@ -69,11 +69,10 @@ public class LockDetailActivity extends BaseActivity {
 			@Override
 			public void onSuccess(List<MQMessage> messageList) {
 				PeachLogger.d(messageList);
-				// todo
-				/*if (messageList != null && !messageList.isEmpty())
+				if (messageList != null && !messageList.isEmpty())
 					mIvNewMsg.setVisibility(View.VISIBLE);
 				else
-					mIvNewMsg.setVisibility(View.INVISIBLE);*/
+					mIvNewMsg.setVisibility(View.INVISIBLE);
 			}
 
 			@Override
@@ -104,12 +103,11 @@ public class LockDetailActivity extends BaseActivity {
 		setupViewPager(mViewPager);
 	}
 	private void initTitleBarRightBtn() {
-		TextView tvSupport = findViewById(R.id.page_action);
-		tvSupport.setVisibility(View.VISIBLE);
-		tvSupport.setText("");
-		tvSupport.setCompoundDrawablesWithIntrinsicBounds(
-				getResources().getDrawable(R.drawable.support_icon), null, null, null);
+		findViewById(R.id.page_action).setVisibility(View.GONE);
 
+		mIvNewMsg = findViewById(R.id.iv_main_lock_msg_new);
+		View tvSupport = findViewById(R.id.rl_main_lock_online_service);
+		tvSupport.setVisibility(View.VISIBLE);
 		tvSupport.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
