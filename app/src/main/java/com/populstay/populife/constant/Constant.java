@@ -16,4 +16,7 @@ public class Constant {
 
 	// false 正式环境，true测试环境
 	public static final boolean DEBUG = true;
+
+	// 蓝牙钥匙分享链接跳转配置参数名称
+	public static final String SHARE_KEY_PARAM_PRE_ID = "preId";
 }

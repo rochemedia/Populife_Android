@@ -59,18 +59,14 @@ public class MainActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-
-		Uri uridata = this.getIntent().getData();
-		//String id=uridata.getQueryParameter("param");
-
-		showAppUserManual();
+		//showAppUserManual();
 		initView();
 		initListener();
 		init();
 
-		if (!PeachPreference.getBoolean(PeachPreference.AGREE_USER_TERMS_PRIVACY_POLICY)) {
+		/*if (!PeachPreference.getBoolean(PeachPreference.AGREE_USER_TERMS_PRIVACY_POLICY)) {
 			showPrivacyPolicy();
-		}
+		}*/
 	}
 
 	private void showPrivacyPolicy() {

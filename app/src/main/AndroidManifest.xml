@@ -63,16 +63,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.SignActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.MainActivity"
-            android:launchMode="singleTask"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait">
 
+            <!--蓝牙钥匙分享链接跳转配置-->
             <intent-filter>
 
                 <action android:name="android.intent.action.VIEW" />
@@ -89,6 +81,14 @@
 
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.SignActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.LockAddSelectTypeActivity"
             android:screenOrientation="portrait" />

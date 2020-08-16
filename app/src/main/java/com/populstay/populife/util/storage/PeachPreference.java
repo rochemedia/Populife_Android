@@ -27,6 +27,7 @@ public class PeachPreference {
 	private static final String PLAY_LOCKING_SOUND = "play_locking_sound";
 	private static final String TOUCH_ID_LOGIN = "touch_id_login"; //指纹验证登录
 	private static final String LAST_SELECT_HOME_ID = "last_select_home_id"; //最近一次使用的家庭组
+	private static final String SHARE_KEY_PRE_ID = "share_key_pre_id"; //密钥分享ID
 	/**
 	 * 提示:
 	 * <p>
@@ -241,6 +242,17 @@ public class PeachPreference {
 	public static String getLastSelectHomeId() {
 		return getAppPreference()
 				.getString(LAST_SELECT_HOME_ID + readUserId(),"");
+	}
+
+	public static String getShareKeyPreId(){
+		return getAppPreference()
+				.getString(SHARE_KEY_PRE_ID,"");
+	}
+	public static void setShareKeyPreId(String sharePreId){
+		getAppPreference()
+				.edit()
+				.putString(SHARE_KEY_PRE_ID, sharePreId)
+				.apply();
 	}
 
 }

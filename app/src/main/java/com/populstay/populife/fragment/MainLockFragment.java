@@ -1,6 +1,7 @@
 package com.populstay.populife.fragment;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -42,6 +43,7 @@ import com.populstay.populife.ui.MQGlideImageLoader;
 import com.populstay.populife.ui.NoScrollViewPager;
 import com.populstay.populife.util.CollectionUtil;
 import com.populstay.populife.util.GsonUtil;
+import com.populstay.populife.util.dialog.DialogUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
@@ -76,11 +78,79 @@ public class MainLockFragment extends BaseVisibilityFragment {
 
 		initView(view);
 		initListener();
-		requestLockGroup();
+		final String sharePreId = PeachPreference.getShareKeyPreId();
+		if (TextUtils.isEmpty(sharePreId)){
+			requestLockGroup();
+		}else {
+
+			DialogUtil.showCommonDialog(mActivity, null,
+					getString(R.string.receive_share_key),
+					getString(R.string.ok), getString(R.string.cancel), new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialogInterface, int i) {
+							receiveKey(sharePreId);
+							PeachPreference.setShareKeyPreId("");
+						}
+					}, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							PeachPreference.setShareKeyPreId("");
+							requestLockGroup();
+						}
+					});
+
+		}
 		return view;
 	}
 
+	private void receiveKey(String preId) {
+		RestClient.builder()
+				.url(Urls.KEY_RECEIVE)
+				.loader(getActivity())
+				.params("userId", PeachPreference.readUserId())
+				.params("preId", preId)
+				.success(new ISuccess() {
+					@Override
+					public void onSuccess(String response) {
+						/*if (mRefreshLayout != null) {
+							mRefreshLayout.setRefreshing(false);
+						}*/
 
+
+						JSONObject result = JSON.parseObject(response);
+						int code = result.getInteger("code");
+						if (code == 200) {
+							fromShareHomeId = result.getString("data");
+						   requestLockGroup();
+
+						}
+					}
+				})
+				.failure(new IFailure() {
+					@Override
+					public void onFailure() {
+						requestLockGroup();
+						/*if (mRefreshLayout != null) {
+							mRefreshLayout.setRefreshing(false);
+						}*/
+					}
+				})
+				.error(new IError() {
+					@Override
+					public void onError(int code, String msg) {
+						requestLockGroup();
+						/*if (mRefreshLayout != null) {
+							mRefreshLayout.setRefreshing(false);
+						}*/
+					}
+				})
+				.build()
+				.get();
+	}
+
+
+
+	private String fromShareHomeId;
 	private Home currentHome;
 	private void requestLockGroup() {
 		RestClient.builder()
@@ -102,7 +172,10 @@ public class MainLockFragment extends BaseVisibilityFragment {
 							List<Home> datas = GsonUtil.fromJson(result.getJSONArray("data").toJSONString(),new TypeToken<List<Home>>(){});
 							if (!CollectionUtil.isEmpty(datas)){
 								currentHome = datas.get(0);
-								String currentHomeId = PeachPreference.getLastSelectHomeId();
+								String currentHomeId = fromShareHomeId;
+								if (TextUtils.isEmpty(currentHomeId)){
+									currentHomeId = PeachPreference.getLastSelectHomeId();
+								}
 								if (TextUtils.isEmpty(currentHomeId)){
 									PeachPreference.setLastSelectHomeId(currentHome.getId());
 									currentHomeId = currentHome.getId();

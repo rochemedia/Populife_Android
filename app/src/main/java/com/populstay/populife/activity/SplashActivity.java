@@ -4,15 +4,18 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.fingerprint.FingerprintManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +28,7 @@ import com.populstay.populife.R;
 import com.populstay.populife.app.AccountManager;
 import com.populstay.populife.app.IUserChecker;
 import com.populstay.populife.base.BaseActivity;
+import com.populstay.populife.constant.Constant;
 import com.populstay.populife.util.device.FingerprintUtil;
 import com.populstay.populife.util.storage.PeachPreference;
 
@@ -57,7 +61,27 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 		setContentView(R.layout.activity_splash);
 		mIvImgSplash1 = findViewById(R.id.iv_img_splash_1);
 		mIvImgSplash2 = findViewById(R.id.iv_img_splash_2);
+		getShareConfig();
 		playSplashAnim();
+	}
+
+	private void getShareConfig(){
+		String sharePreId = getIntent().getStringExtra(Constant.SHARE_KEY_PARAM_PRE_ID);
+		if (TextUtils.isEmpty(sharePreId)) {
+			// 通过h5网页调起app
+			Intent intent = getIntent();
+			String action = intent.getAction();
+			if (Intent.ACTION_VIEW.equals(action)) {
+				Uri uri = intent.getData();
+				if (uri != null) {
+					// 通过URL获取value
+					sharePreId = uri.getQueryParameter(Constant.SHARE_KEY_PARAM_PRE_ID);
+					PeachPreference.setShareKeyPreId(sharePreId);
+				}
+			}
+		}else {
+			PeachPreference.setShareKeyPreId("");
+		}
 	}
 
 	private void playSplashAnim() {

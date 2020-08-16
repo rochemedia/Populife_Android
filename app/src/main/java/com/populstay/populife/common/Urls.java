@@ -44,6 +44,7 @@ public class Urls {
 	public static final String USER_FEEDBACK_ADD = "feedback/add"; //（post）用户对app应用提出的意见或建议
 	public static final String USER_FEEDBACK_ITEM_DELETE = "feedback/delete"; //（post）删除单条意见反馈
 
+	public static final String KEY_RECEIVE = "key/receive"; //（get）钥匙 - 接收钥匙
 	public static final String LOCK_GROUP_LIST = "home/get"; //（get）获取家庭（分组）信息和分组下锁的数量
 	public static final String LOCK_GROUP_ADD = "home/add"; //（post）添加家庭（分组），方便对锁分类管理
 	public static final String LOCK_GROUP_MODIFY = "home/modify"; //（post）修改家庭（分组）信息

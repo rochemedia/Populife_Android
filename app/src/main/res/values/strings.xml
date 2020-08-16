@@ -614,6 +614,7 @@
     <string name="product_price">购买   I   %.1f USD</string>
     <string name="load_more_txt">正在加载，请稍后...</string>
     <string name="no_more_data">没有更多数据</string>
+    <string name="receive_share_key">是否接受钥匙?</string>
 
 
     <string-array name="video_url">
