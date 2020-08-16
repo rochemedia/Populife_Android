@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.populstay.populife.R;
@@ -36,6 +37,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
     private TextView rightTv;
     private View bottomLineView;
     private TextView editStatusHintTv;
+    private LinearLayout llCcPicker;
     private CountryCodePicker cCPicker;
     private View cCPickerLine;
 
@@ -65,6 +67,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
         rightTv = rootView.findViewById(R.id.right_tv);
         bottomLineView = rootView.findViewById(R.id.bottom_line_view);
         editStatusHintTv = rootView.findViewById(R.id.edit_status_hint_tv);
+        llCcPicker  = rootView.findViewById(R.id.ll_cc_picker);
         cCPicker = rootView.findViewById(R.id.cc_picker);
         cCPickerLine = rootView.findViewById(R.id.cc_picker_line);
         addView(rootView);
@@ -192,6 +195,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
     }
 
     private void  showCcPicker(boolean isShow){
+        llCcPicker.setVisibility(isShow ? VISIBLE : GONE);
         cCPicker.setVisibility(isShow ? VISIBLE : GONE);
         cCPickerLine.setVisibility(isShow ? VISIBLE : GONE);
     }

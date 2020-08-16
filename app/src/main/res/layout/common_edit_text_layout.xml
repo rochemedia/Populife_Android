@@ -30,25 +30,33 @@
                 android:textSize="16sp"
                 android:visibility="gone" />
 
-            <com.rilixtech.widget.countrycodepicker.CountryCodePicker
-                android:id="@+id/cc_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:visibility="visible"
-                app:ccp_showFlag="false"
-                app:ccp_showFullName="false"
-                app:ccp_textColor="#FF212322"
-                app:ccp_textSize="14sp" />
+            <LinearLayout
+                android:id="@+id/ll_cc_picker"
+                android:orientation="horizontal"
+                android:layout_width="82dp"
+                android:layout_marginRight="20.5dp"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/cc_picker_line"
-                android:layout_width="0.5dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="#FF212322"
-                android:visibility="visible" />
+                <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+                    android:id="@+id/cc_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    app:ccp_showFlag="false"
+                    app:ccp_showFullName="false"
+                    app:ccp_textColor="#FF212322"
+                    app:ccp_textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/cc_picker_line"
+                    android:layout_width="0.5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="#FF212322"
+                    android:visibility="visible" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
