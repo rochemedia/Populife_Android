@@ -121,9 +121,17 @@ public class MainLockFragment extends BaseVisibilityFragment {
 						int code = result.getInteger("code");
 						if (code == 200) {
 							fromShareHomeId = result.getString("data");
-						   requestLockGroup();
 
 						}
+						// 不能领取自己分享的钥匙
+						else if (code == 952){
+							toast(R.string.cannot_receive_oneself_shared_keys);
+						}
+						//钥匙已经被领取
+						else if (code == 951){
+							toast(R.string.the_key_has_been_receive);
+						}
+						requestLockGroup();
 					}
 				})
 				.failure(new IFailure() {
@@ -145,7 +153,7 @@ public class MainLockFragment extends BaseVisibilityFragment {
 					}
 				})
 				.build()
-				.get();
+				.post();
 	}
 
 
@@ -172,10 +180,16 @@ public class MainLockFragment extends BaseVisibilityFragment {
 							List<Home> datas = GsonUtil.fromJson(result.getJSONArray("data").toJSONString(),new TypeToken<List<Home>>(){});
 							if (!CollectionUtil.isEmpty(datas)){
 								currentHome = datas.get(0);
-								String currentHomeId = fromShareHomeId;
-								if (TextUtils.isEmpty(currentHomeId)){
-									currentHomeId = PeachPreference.getLastSelectHomeId();
+								for (Home home : datas){
+									if (home.getId().equals(fromShareHomeId)){
+										PeachPreference.setLastSelectHomeId("");
+										currentHome = home;
+										break;
+									}
 								}
+
+								String currentHomeId = PeachPreference.getLastSelectHomeId();
+
 								if (TextUtils.isEmpty(currentHomeId)){
 									PeachPreference.setLastSelectHomeId(currentHome.getId());
 									currentHomeId = currentHome.getId();

@@ -32,6 +32,12 @@ public class Key implements Serializable {
 	private String keyStatus;
 
 	/**
+	 * 锁状态（0删除，1正常）
+	 */
+	private int status;
+
+
+	/**
 	 * lock id
 	 */
 	private int lockId;
@@ -535,4 +541,11 @@ public class Key implements Serializable {
 		this.keyType = keyType;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 }

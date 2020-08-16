@@ -1035,6 +1035,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		lockVersionObj.put("showAdminKbpwdFlag",null);
 		lockVersion  =  String.valueOf(lockVersionObj);
 
+		mCurKEY.setStatus(status);
 		mCurKEY.setLockVersion(lockVersion);
 		mCurKEY.setLockName(lockName);
 		mCurKEY.setLockAlias(lockAlias);
@@ -1110,7 +1111,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				//授权用户，显示全部按钮
 				initAuthUserUI(mCurKEY.getKeyStatus());
 			} else {//普通用户，只显示 设置 按钮
-				initCommonUserUI(mCurKEY.getKeyStatus());
+				initCommonUserUI(mCurKEY.getStatus());
 			}
 		}
 
@@ -1326,7 +1327,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	 *                  110410：已重置
 	 *                  110500：过期
 	 */
-	private void initCommonUserUI(String keyStatus) {
+	private void initCommonUserUI(int keyStatus) {
 		mActions.add(new LockAction(LockAction.LockActionType.SETTINGS,
 				R.drawable.ic_lock_action_setting_able, R.string.lock_action_settings, true));
 
@@ -1334,7 +1335,19 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		int colorGray = res.getColor(R.color.text_gray_light);
 		int colorGrayParent = res.getColor(R.color.gray_lock_disable);
 
-		switch (keyStatus) {
+		// 锁状态（0删除，1正常）
+		if (keyStatus == 1){
+			mTvLockStatus.setVisibility(View.INVISIBLE);
+
+			setUnlockLock();
+
+			enableLockingColorFiltr(true, false, 0);
+		}
+		else {
+			setLockInfoVisible(SHOW_DEVICE_ADD);
+		}
+
+		/*switch (keyStatus) {
 			case "110400": // 还未到生效时间
 				mTvLockStatus.setVisibility(View.VISIBLE);
 				mTvLockStatus.setTextColor(colorGray);
@@ -1385,7 +1398,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 			default:
 				break;
-		}
+		}*/
 	}
 
 	@Override

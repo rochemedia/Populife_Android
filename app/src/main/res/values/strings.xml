@@ -616,6 +616,9 @@
     <string name="no_more_data">没有更多数据</string>
     <string name="receive_share_key">是否接受钥匙?</string>
 
+    <string name="cannot_receive_oneself_shared_keys">不能领取自己分享的钥匙</string>
+    <string name="the_key_has_been_receive">钥匙已经被领取</string>
+
 
     <string-array name="video_url">
         <item>video/video_0.mp4</item>
