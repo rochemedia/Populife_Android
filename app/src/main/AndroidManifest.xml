@@ -71,7 +71,24 @@
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <!--share://com.populstay.populife/key?preId=1-->
+                <data
+                    android:host="com.populstay.populife"
+                    android:scheme="share"
+                    android:path="/key" />
+
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.LockAddSelectTypeActivity"
             android:screenOrientation="portrait" />
