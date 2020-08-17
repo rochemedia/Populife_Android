@@ -305,6 +305,15 @@
         <activity
             android:name=".me.ServiceSupportActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".maintservice.MaintServiceActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".maintservice.MaintenanceRequestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".maintservice.MaintAfterSaleProcessActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

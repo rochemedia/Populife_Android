@@ -1,7 +1,6 @@
 package com.populstay.populife.find.adapter;
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,18 +13,11 @@ import com.bumptech.glide.Glide;
 import com.populstay.populife.R;
 import com.populstay.populife.find.entity.VideoBean;
 import com.populstay.populife.find.entity.VideoData;
-import com.populstay.populife.util.device.DisplayManager;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import cn.ittiger.player.VideoPlayerView;
 
-/**
- * @author: ylhu
- * @time: 17-9-18
- */
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
     private Context mContext;

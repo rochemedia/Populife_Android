@@ -31,6 +31,7 @@
     <color name="text_gray_light">@color/text_color_ffb1b3b6</color>
     <color name="common_text_color">#212322</color>
     <color name="text_color_ffee2737">#FFEE2737</color>
+    <color name="text_color_ff0f1110">#FF0F1110</color>
     <color name="text_color_ffb1b3b6">#FFB1B3B6</color>
     <color name="text_gray_medium">#888888</color>
     <color name="text_gray_dark">#4a4a4a</color>

@@ -14,6 +14,7 @@ import com.populstay.populife.R;
 import com.populstay.populife.activity.CommonQuestionActivity;
 import com.populstay.populife.activity.CustomerServiceActivity;
 import com.populstay.populife.base.BaseActivity;
+import com.populstay.populife.maintservice.MaintServiceActivity;
 import com.populstay.populife.permission.PermissionListener;
 import com.populstay.populife.ui.MQGlideImageLoader;
 import com.populstay.populife.util.storage.PeachPreference;
@@ -61,7 +62,7 @@ public class ServiceSupportActivity extends BaseActivity implements View.OnClick
                 goToNewActivity(CommonQuestionActivity.class);
                 break;
             case R.id.ll_service_support_maintain:
-
+                goToNewActivity(MaintServiceActivity.class);
                 break;
             case R.id.ll_service_support_send_email:
                 sendEmail();

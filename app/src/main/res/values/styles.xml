@@ -270,4 +270,13 @@
         <item name="android:layout_marginRight">20dp</item>
     </style>
 
+    <style name="maintenance_request_item_label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textColor">@color/common_text_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
 </resources>

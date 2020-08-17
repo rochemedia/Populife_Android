@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="40dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:textSize="16sp"
+        android:textColor="@color/common_text_color"
+        android:id="@+id/select_write_maint_logistics_info"
+        android:text="@string/select_write_maint_logistics_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="@string/hint_mailing_address"
+        android:layout_width="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/dimens_dp_10"
+        android:textColor="@color/text_color_ffb1b3b6"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:text="@string/label_country"
+        style="@style/maintenance_request_item_label" />
+    <com.populstay.populife.ui.widget.exedittext.ExEditText
+        android:layout_marginTop="@dimen/common_edit_text_margin_top"
+        app:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="@string/please_email"
+        style="@style/maintenance_request_item_label" />
+    <com.populstay.populife.ui.widget.exedittext.ExEditText
+        android:layout_marginTop="@dimen/common_edit_text_margin_top"
+        app:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="@string/hint_email"
+        android:layout_width="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/dimens_dp_10"
+        android:textColor="@color/text_color_ffb1b3b6"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:text="@string/label_area_code"
+        style="@style/maintenance_request_item_label" />
+    <com.populstay.populife.ui.widget.exedittext.ExEditText
+        android:layout_marginTop="@dimen/common_edit_text_margin_top"
+        app:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:text="@string/label_phone"
+        style="@style/maintenance_request_item_label" />
+
+    <com.populstay.populife.ui.widget.exedittext.ExEditText
+        android:layout_marginTop="@dimen/common_edit_text_margin_top"
+        app:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="@string/label_province"
+        style="@style/maintenance_request_item_label" />
+
+    <com.populstay.populife.ui.widget.exedittext.ExEditText
+        android:layout_marginTop="@dimen/common_edit_text_margin_top"
+        app:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="@string/label_city"
+        style="@style/maintenance_request_item_label" />
+
+    <com.populstay.populife.ui.widget.exedittext.ExEditText
+        android:layout_marginTop="@dimen/common_edit_text_margin_top"
+        app:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="@string/label_addr_detail"
+        style="@style/maintenance_request_item_label" />
+    <com.populstay.populife.ui.widget.exedittext.ExEditText
+        android:layout_marginTop="@dimen/common_edit_text_margin_top"
+        app:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="@string/label_postal_code"
+        style="@style/maintenance_request_item_label" />
+    <com.populstay.populife.ui.widget.exedittext.ExEditText
+        android:layout_marginTop="@dimen/common_edit_text_margin_top"
+        app:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+</LinearLayout>

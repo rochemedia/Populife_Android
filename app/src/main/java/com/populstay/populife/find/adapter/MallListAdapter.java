@@ -12,8 +12,6 @@ import android.widget.TextView;
 import com.populstay.populife.R;
 import com.populstay.populife.find.entity.Product;
 import com.populstay.populife.find.entity.ProductInfo;
-import com.populstay.populife.find.entity.UserManual;
-import com.populstay.populife.find.entity.UserManualInfo;
 import com.populstay.populife.util.CollectionUtil;
 
 import java.util.List;

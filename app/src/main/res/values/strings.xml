@@ -620,6 +620,59 @@
     <string name="the_key_has_been_receive">钥匙已经被领取</string>
 
 
+    <string name="maintenance_request">维修申请</string>
+    <string name="welcome_to_maintenance_request">欢迎使用维修自助申请服务</string>
+    <string name="maintenance_progress_enquiry">维修进度查询</string>
+    <string name="check_warranty_status">查看保修状态</string>
+    <string name="buy_popucare_service">购买 PopuCare 服务计划</string>
+
+
+
+    <string name="maint_after_sale_process_1">售后服务流程</string>
+    <string name="maint_after_sale_process_2">售后流程</string>
+
+    <string name="maint_after_sale_process_3">发起售后</string>
+    <string name="maint_after_sale_process_4">填写《售后维修申请》；</string>
+    <string name="maint_after_sale_process_5">客服确认</string>
+    <string name="maint_after_sale_process_6">售后客服收到《售后维修申请》后会在两个工作日内联系您；</string>
+    <string name="maint_after_sale_process_7">退换修</string>
+    <string name="maint_after_sale_process_8">确认进行售后服务后，请于7日内将商品邮寄至售后服务中心；</string>
+    <string name="maint_after_sale_process_9">重要提示</string>
+    <string name="maint_after_sale_process_10">请提供有效的购买凭证；</string>
+    <string name="maint_after_sale_process_11">请勿使用平邮和货到付款的方式寄出商品；</string>
+    <string name="maint_after_sale_process_12">联系售后</string>
+    <string name="maint_after_sale_process_13">售后电话：400-669-1015</string>
+    <string name="maint_after_sale_process_14">服务时间：7am - 10pm（节假日休息）</string>
+
+    <string name="populife_maintenance_request">Populife 维修申请</string>
+    <string name="after_sales_service_process_guide_hint">了解售后服务流程</string>
+    <string name="select_country_guide_hint">请选择您所在的国家/地区</string>
+    <string name="select_country_area">选择国家/地区</string>
+    <string name="select_write_maint_product_info">请填写维修产品信息</string>
+    <string name="select_write_maint_logistics_info">请填写物流信息</string>
+
+    <string name="label_select_product">请选择产品*</string>
+    <string name="label_product_equipment_number">产品设备号*</string>
+    <string name="label_problem_description">问题描述*</string>
+    <string name="label_buy_info">购买信息</string>
+    <string name="hint_buy_info">（完善您的购买信息，可加快处理速度）</string>
+    <string name="hint_doc_pattern">支持数据格式为PDF, JPG 或 PNG。</string>
+    <string name="hint_mailing_address">产品完成维修后将默认按照以下地址寄回，请您注意所填写信息的准确性</string>
+    <string name="label_country">国家/地区*</string>
+    <string name="please_name">姓名*</string>
+    <string name="please_email">联系邮箱*</string>
+    <string name="hint_email">请您务必填写正确的邮箱，产品维修须知、寄送信息以及后续维修进度都会通过此邮箱与您联系</string>
+    <string name="label_area_code">区号*</string>
+    <string name="label_phone">联系电话*</string>
+    <string name="label_province">省份*</string>
+    <string name="label_city">城市*</string>
+    <string name="label_addr_detail">地址*</string>
+    <string name="label_postal_code">邮政编码*</string>
+    <string name="hint_find_the_device_number">（如何查找设备号）</string>
+
+
+
+
     <string-array name="video_url">
         <item>video/video_0.mp4</item>
         <item>video/video_1.mp4</item>
