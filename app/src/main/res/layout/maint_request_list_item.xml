@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/common_page_left_right_space"
+    android:layout_marginTop="@dimen/common_page_left_right_space"
+    android:layout_marginRight="@dimen/common_page_left_right_space"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/dimens_dp_10"
+    app:cardElevation="@dimen/dimens_dp_6"
+    app:contentPadding="@dimen/dimens_dp_20">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/maintenance" />
+
+        <RelativeLayout
+            android:layout_marginLeft="@dimen/dimens_dp_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvApplyNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/tvPurchasedDate"
+                android:gravity="left"
+                android:text="2020-08-06 15:25:05"
+                android:textColor="@color/common_text_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_marginTop="4dp"
+                android:id="@+id/tvPurchasedDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                android:text="2020-08-06 15:25:05"
+                android:textColor="@color/common_text_color"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_marginTop="@dimen/dimens_dp_10"
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvApplyNo"
+                android:layout_alignLeft="@+id/tvApplyNo"
+                android:gravity="center"
+                android:text="2020-08-06 15:25:05"
+                android:textColor="@color/common_text_color"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
+

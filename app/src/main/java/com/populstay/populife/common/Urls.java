@@ -120,6 +120,6 @@ public class Urls {
 
 
 	public static final String REPAIR_APPLY_SUBMIT = "/repair-apply/submit"; //（post）维修服务 - 提交维修申请
-
+	public static final String REPAIR_APPLY_GET = "repair-apply/get"; //（get）维修服务 - 获取用户的维修申请列表
 
 }

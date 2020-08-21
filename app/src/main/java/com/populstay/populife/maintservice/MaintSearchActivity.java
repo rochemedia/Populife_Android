@@ -2,6 +2,9 @@ package com.populstay.populife.maintservice;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,6 +26,7 @@ public class MaintSearchActivity extends BaseActivity {
 
     private TextView mPageTitle, mTvSearchName, mTvBrowseDeviceNo;
     private ExEditText mEditSearchName;
+    private TextView mTvNextBtn;
 
 
 
@@ -62,5 +66,29 @@ public class MaintSearchActivity extends BaseActivity {
         }
 
         mEditSearchName = findViewById(R.id.edit_content);
+        mEditSearchName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mTvNextBtn.setEnabled(!TextUtils.isEmpty(mEditSearchName.getTextStr()));
+            }
+        });
+
+        mTvNextBtn = findViewById(R.id.tv_finish);
+        mTvNextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToNewActivity(MaintRequestListActivity.class);
+            }
+        });
     }
 }

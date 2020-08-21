@@ -314,6 +314,12 @@
         <activity
             android:name=".maintservice.MaintAfterSaleProcessActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".maintservice.MaintRequestListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".maintservice.MaintSearchActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -45,6 +45,7 @@
         android:layout_marginLeft="@dimen/common_page_left_right_space"
         android:layout_marginRight="@dimen/common_page_left_right_space"
         style="@style/btn_style_main"
+        android:enabled="false"
         android:layout_marginTop="60dp"
         android:background="@drawable/selector_btn_main"
         android:text="@string/next" />

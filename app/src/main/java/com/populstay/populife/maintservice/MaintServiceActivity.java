@@ -1,5 +1,6 @@
 package com.populstay.populife.maintservice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -69,6 +70,9 @@ public class MaintServiceActivity extends BaseActivity implements View.OnClickLi
                 goToNewActivity(MaintenanceRequestActivity.class);
                 break;
             case R.id.ll_maintenance_progress_enquiry:
+                Intent intent = new Intent(this,MaintSearchActivity.class);
+                intent.putExtra(MaintSearchActivity.FROM_TYPE_TAG,MaintSearchActivity.FROM_TYPE_MAINTENANCE_PROGRESS);
+                startActivity(intent);
                 break;
             case R.id.ll_check_warranty_status:
                 break;
