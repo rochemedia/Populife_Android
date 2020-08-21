@@ -50,7 +50,9 @@
 
     <com.populstay.populife.ui.widget.exedittext.ExEditText
         android:layout_marginTop="@dimen/common_edit_text_margin_top"
-        app:inputType="number"
+         app:inputType="normal"
+        android:id="@+id/et_product_equipment_number"
+        app:hint="@string/hint_product_equipment_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -59,11 +61,28 @@
         android:text="@string/label_problem_description"
         style="@style/maintenance_request_item_label" />
 
-    <com.populstay.populife.ui.widget.exedittext.ExEditText
-        android:layout_marginTop="@dimen/common_edit_text_margin_top"
-        app:inputType="number"
+
+    <EditText
+        android:id="@+id/et_problem_description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="140dp"
+        android:layout_marginTop="10dp"
+        android:textColorHint="#FFCCCDCD"
+        android:background="@drawable/bg_trans_stroke_bottom"
+        android:gravity="top"
+        android:hint="@string/hint_problem_description"
+        android:maxLength="200"
+        android:textColor="@color/text_gray_dark"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/tv_feedback_submit_words_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/words_num_limit_200"
+        android:textColor="@color/text_gray_medium"
+        android:textSize="12sp"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -84,6 +103,28 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_select_date_btn"
+        style="@style/btn_style_main"
+        android:textColor="@color/common_text_color"
+        android:layout_marginTop="@dimen/sign_action_btn_margin_top"
+        android:gravity="left|center_vertical"
+        android:padding="10dp"
+        android:drawableRight="@drawable/select_date_icon"
+        android:background="@drawable/selector_bg_stroke"
+        android:text="@string/select_buy_date" />
+
+    <TextView
+        android:id="@+id/tv_select_certificate_btn"
+        style="@style/btn_style_main"
+        android:textColor="@color/common_text_color"
+        android:gravity="left|center_vertical"
+        android:padding="10dp"
+        android:drawableRight="@drawable/select_upload_icon"
+        android:layout_marginTop="@dimen/sign_action_btn_margin_top"
+        android:background="@drawable/selector_bg_stroke"
+        android:text="@string/select_buy_certificate" />
 
     <TextView
         android:text="@string/hint_doc_pattern"

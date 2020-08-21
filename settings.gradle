@@ -1,1 +1,1 @@
-include ':app',':TigerVideoPlayer'
+include ':app',':TigerVideoPlayer','countrycodepicker'

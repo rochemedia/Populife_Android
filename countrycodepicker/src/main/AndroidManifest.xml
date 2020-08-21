@@ -1,0 +1,11 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.rilixtech.widget.countrycodepicker">
+
+    <application>
+
+        <activity
+            android:name="com.rilixtech.widget.countrycodepicker.ex.CountryCodeActivity"
+            android:theme="@style/AppTheme" />
+    </application>
+
+</manifest>

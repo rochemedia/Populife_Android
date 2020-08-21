@@ -11,6 +11,7 @@ import java.util.TimeZone;
 public class DateUtil {
 
 	public static final String DATE_TIME_PATTERN_1  = "yyyy-MM-dd HH:mm:ss";
+	public static final String DATE_TIME_PATTERN_2  = "yyyy-MM-dd";
 
 
 	/**

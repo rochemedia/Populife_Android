@@ -182,7 +182,7 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
                         @Override
                         public void onFailure(Call call, IOException e) {
                             PeachLogger.d("Http", e.getMessage());
-                            toast("头像上传失败");
+                            toast(R.string.avatar_upload_failed);
                         }
 
                         @Override
@@ -201,12 +201,12 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
                                     });
                                     EventBus.getDefault().post(new Event(Event.EventType.USER_AVATAR_MODIFY,avatar));
                                 }else {
-                                    toast("头像上传失败");
+                                    toast(R.string.avatar_upload_failed);
                                 }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                toast("头像上传失败");
+                                toast(R.string.avatar_upload_failed);
                             }
 
                         }

@@ -7,6 +7,7 @@
     <include layout="@layout/layout_view_titlebar"/>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/content_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -43,8 +44,9 @@
             <TextView
                 android:id="@+id/tv_select_country_btn"
                 style="@style/btn_style_main"
+                android:textColor="@color/common_text_color"
                 android:layout_marginTop="@dimen/sign_action_btn_margin_top"
-                android:background="@drawable/selector_btn_main"
+                android:background="@drawable/selector_bg_stroke"
                 android:text="@string/select_country_area" />
 
 
@@ -55,11 +57,17 @@
             <TextView
                 android:id="@+id/tv_maintenance_request_btn"
                 style="@style/btn_style_main"
+                android:enabled="false"
                 android:layout_marginTop="@dimen/sign_action_btn_margin_top"
                 android:background="@drawable/selector_btn_main"
                 android:text="@string/submit" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <include
+        android:visibility="gone"
+        android:id="@+id/maintenance_request_success_layout"
+        layout="@layout/maintenance_request_success_layout" />
 
 </LinearLayout>

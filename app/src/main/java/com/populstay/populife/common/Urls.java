@@ -117,4 +117,9 @@ public class Urls {
 	public static final String LOCK_GET_BASEINFO = "lock/baseInfo/get"; //（get）获取锁信息
 	public static final String LOCK_USER_CHECK = "lock/user/check"; //（post）校验用户（是否是该锁管理员及校验密码）
 
+
+
+	public static final String REPAIR_APPLY_SUBMIT = "/repair-apply/submit"; //（post）维修服务 - 提交维修申请
+
+
 }

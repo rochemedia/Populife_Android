@@ -653,7 +653,9 @@
 
     <string name="label_select_product">请选择产品*</string>
     <string name="label_product_equipment_number">产品设备号*</string>
+    <string name="label_please_input_equipment_number">输入您的设备号*</string>
     <string name="label_problem_description">问题描述*</string>
+    <string name="hint_problem_description">请输入问题描述</string>
     <string name="label_buy_info">购买信息</string>
     <string name="hint_buy_info">（完善您的购买信息，可加快处理速度）</string>
     <string name="hint_doc_pattern">支持数据格式为PDF, JPG 或 PNG。</string>
@@ -669,6 +671,23 @@
     <string name="label_addr_detail">地址*</string>
     <string name="label_postal_code">邮政编码*</string>
     <string name="hint_find_the_device_number">（如何查找设备号）</string>
+    <string name="hint_maintenance_request_success">提交成功，我们将会在两个工作日内审核\n并联系您，敬请留意通知。</string>
+    <string name="submit_success">提交成功</string>
+    <string name="submit_fail">提交失败</string>
+    <string name="calendar">日历</string>
+    <string name="select_buy_date">选择购买日期</string>
+    <string name="select_buy_certificate">上传购买凭证</string>
+    <string name="select_buy_certificate_tag">(已选择)</string>
+    <string name="hint_product_equipment_number">输入产品设备号</string>
+
+    <string name="hint_please_name">请输入姓名</string>
+    <string name="hint_please_email">请输入联系邮箱</string>
+    <string name="hint_label_phone">请输入联系电话</string>
+    <string name="hint_label_province">请输入省份</string>
+    <string name="hint_label_city">请输入城市</string>
+    <string name="hint_label_addr_detail">请输入地址</string>
+    <string name="hint_label_postal_code">请输入邮政编码</string>
+    <string name="avatar_upload_failed">头像上传失败</string>
 
 
 

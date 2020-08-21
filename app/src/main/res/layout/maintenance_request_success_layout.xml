@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:visibility="visible"
+        android:id="@+id/ll_lock_detail_add"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="3" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/maintenance_request_success" />
+
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/hint_maintenance_request_success"
+            android:textColor="@color/common_text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_maintenance_request_finish_btn"
+            android:layout_marginTop="30dp"
+            android:layout_width="186dp"
+            android:layout_height="50dp"
+            android:text="@string/complete"
+            style="@style/btn_style_main" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="3" />
+
+    </LinearLayout>

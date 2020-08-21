@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="defaultTextColor">@android:color/black</color>
+  <color name="defaultBackgroundColor">@android:color/transparent</color>
+
+  <color name="colorPrimaryDark">#FFFFFFFF</color>
+  <color name="colorPrimary">#cccccc</color>
+  <color name="colorAccent">#FF212322</color>
+  <color name="colorWindowBackground">#FFFFFFFF</color>
+  <color name="colorTitleBarBg">#FFFFFFFF</color>
+  <color name="color_ff212322">#FF212322</color>
+</resources>
