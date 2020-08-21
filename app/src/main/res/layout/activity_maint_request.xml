@@ -6,23 +6,30 @@
 
     <include layout="@layout/layout_view_titlebar" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refresh_layout"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.populstay.populife.ui.recycler.CommonRecyclerView
-            android:background="@android:color/transparent"
-            android:id="@+id/mRecyclerView"
-            android:layout_marginLeft="@dimen/common_page_left_right_space"
-            android:layout_marginRight="@dimen/common_page_left_right_space"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </com.populstay.populife.ui.recycler.CommonRecyclerView>
+            <com.populstay.populife.ui.recycler.CommonRecyclerView
+                android:layout_marginTop="@dimen/common_page_left_right_space"
+                android:background="@android:color/transparent"
+                android:id="@+id/mRecyclerView"
+                android:layout_marginLeft="@dimen/common_page_left_right_space"
+                android:layout_marginRight="@dimen/common_page_left_right_space"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            </com.populstay.populife.ui.recycler.CommonRecyclerView>
 
-    <include layout="@layout/layout_no_data"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <include layout="@layout/layout_no_data"/>
+
+    </FrameLayout>
 
 </LinearLayout>

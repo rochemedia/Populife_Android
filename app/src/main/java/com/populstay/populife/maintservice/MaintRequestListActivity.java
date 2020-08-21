@@ -60,7 +60,7 @@ public class MaintRequestListActivity extends BaseActivity {
         });
 
         mRecyclerView = findViewById(R.id.mRecyclerView);
-        mRecyclerView.addItemDecoration(new SpacesItemDecoration(getResources().getDimensionPixelSize(R.dimen.dimens_dp_10)));
+        //mRecyclerView.addItemDecoration(new SpacesItemDecoration(getResources().getDimensionPixelSize(R.dimen.dimens_dp_10)));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mLlNoData = findViewById(R.id.layout_no_data);
     }
