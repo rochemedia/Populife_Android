@@ -715,6 +715,9 @@ public class MaintenanceRequestActivity extends BaseActivity implements View.OnC
             params.dimAmount = 0.5f;
             window.setAttributes(params);
 
+            TextView title = window.findViewById(R.id.tv_title);
+            title.setText(R.string.select_file);
+
             TextView takePhotoBtn = window.findViewById(R.id.btn_dialog_send_ekey_permanent);
             takePhotoBtn.setText(R.string.take_a_photo);
             takePhotoBtn.setOnClickListener(new View.OnClickListener() {
