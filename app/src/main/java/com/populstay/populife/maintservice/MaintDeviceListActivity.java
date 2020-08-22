@@ -1,5 +1,6 @@
 package com.populstay.populife.maintservice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,8 +15,8 @@ import com.google.gson.reflect.TypeToken;
 import com.populstay.populife.R;
 import com.populstay.populife.base.BaseActivity;
 import com.populstay.populife.common.Urls;
-import com.populstay.populife.maintservice.adapter.MaintRequestListAdapter;
-import com.populstay.populife.maintservice.entity.MaintRequest;
+import com.populstay.populife.maintservice.adapter.MaintDeviceListAdapter;
+import com.populstay.populife.maintservice.entity.MaintDevice;
 import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.IError;
 import com.populstay.populife.net.callback.IFailure;
@@ -27,25 +28,25 @@ import com.populstay.populife.util.storage.PeachPreference;
 
 import java.util.List;
 
-public class MaintRequestListActivity extends BaseActivity {
+public class MaintDeviceListActivity extends BaseActivity {
 
     private CommonRecyclerView mRecyclerView;
     private SwipeRefreshLayout mRefreshLayout;
 
-    private MaintRequestListAdapter mMaintRequestListAdapter;
+    private MaintDeviceListAdapter mMaintDeviceListAdapter;
     private LinearLayout mLlNoData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maint_request);
+        setContentView(R.layout.activity_maint_device_list);
         initTitleBar();
         initView();
         requestMaintRequestList();
     }
 
     private void initTitleBar() {
-        ((TextView) findViewById(R.id.page_title)).setText(R.string.maintenance_progress_enquiry);
+        ((TextView) findViewById(R.id.page_title)).setText(R.string.select_device);
         findViewById(R.id.page_action).setVisibility(View.GONE);
     }
 
@@ -83,30 +84,33 @@ public class MaintRequestListActivity extends BaseActivity {
 
 
 
-    private void setData(List<MaintRequest> data) {
-        if (mMaintRequestListAdapter == null) {
-            mMaintRequestListAdapter = new MaintRequestListAdapter(this, data);
-            mRecyclerView.setAdapter(mMaintRequestListAdapter);
+    private void setData(List<MaintDevice> data) {
+        if (mMaintDeviceListAdapter == null) {
+            mMaintDeviceListAdapter = new MaintDeviceListAdapter(this, data);
+            mRecyclerView.setAdapter(mMaintDeviceListAdapter);
 
             mRecyclerView.setOnItemClickListener(new CommonRecyclerView.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position, View itemView) {
 
+                    MaintDevice selectMaintDevice = mMaintDeviceListAdapter.getItem(position);
+
+                    Intent intent = new Intent(MaintDeviceListActivity.this, MaintServicePopuCarePayActivity.class);
+                    intent.putExtra(MaintServicePopuCarePayActivity.SELECT_MAINT_DEVICE_TAG, selectMaintDevice);
+                    startActivity(intent);
                 }
             });
 
         } else {
-            mMaintRequestListAdapter.reset(data);
+            mMaintDeviceListAdapter.reset(data);
         }
     }
 
     private void requestMaintRequestList() {
         RestClient.builder()
-                .url(Urls.REPAIR_APPLY_GET)
+                .url(Urls.PAYPAL_REPAIR_SERVICE_DEVICE_LIST)
                 .loader(this)
                 .params("userId", PeachPreference.readUserId())
-                .params("start", "0")
-                .params("limit", "1000000")
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
@@ -117,7 +121,7 @@ public class MaintRequestListActivity extends BaseActivity {
                         JSONObject result = JSON.parseObject(response);
                         if (result.getBoolean("success")) {
 
-                            List<MaintRequest> data = GsonUtil.fromJson(result.getJSONArray("data").toJSONString(),new TypeToken<List<MaintRequest>>() {});
+                            List<MaintDevice> data = GsonUtil.fromJson(result.getJSONArray("data").toJSONString(),new TypeToken<List<MaintDevice>>() {});
 
                             if (!CollectionUtil.isEmpty(data)){
                                 showContentView();

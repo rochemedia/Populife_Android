@@ -320,6 +320,12 @@
         <activity
             android:name=".maintservice.MaintSearchActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".maintservice.MaintDeviceListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".maintservice.MaintServicePopuCarePayActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

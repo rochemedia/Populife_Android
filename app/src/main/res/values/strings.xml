@@ -690,8 +690,20 @@
     <string name="avatar_upload_failed">头像上传失败</string>
 
     <string name="select_file">选择文件</string>
+    <string name="price">$%.1f</string>
+    <string name="bought">已购买</string>
+    <string name="not_to_buy">尚未购买</string>
+    <string name="select_device">选择设备</string>
+    <string name="payment_type">支付方式</string>
+    <string name="payment_confirm">确认支付</string>
+    <string name="failed_to_obtain_advance_order_information">获取预支订单信息失败</string>
+    <string name="order_submission_failed">订单提交失败</string>
+    <string name="failure_to_pay">支付失败</string>
+    <string name="payment_successfuly">Payment successful</string>
+    <string name="successfully_purchased_popucare_service_plan">Successfully purchased PopuCare service plan</string>
 
-
+  <!--  <string name="payment_successfuly">支付成功</string>
+    <string name="successfully_purchased_popucare_service_plan">成功购买PopuCare服务计划</string>-->
 
 
     <string-array name="video_url">

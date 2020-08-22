@@ -77,6 +77,7 @@ public class MaintServiceActivity extends BaseActivity implements View.OnClickLi
             case R.id.ll_check_warranty_status:
                 break;
             case R.id.ll_buy_popucare_service:
+                goToNewActivity(MaintDeviceListActivity.class);
                 break;
         }
 

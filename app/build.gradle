@@ -209,4 +209,9 @@ dependencies {
     //implementation 'com.github.joielechong:countrycodepicker:2.4.1'
     // 分包
     implementation 'com.android.support:multidex:1.0.3'
+    // paypal支付
+    implementation('com.paypal.sdk:paypal-android-sdk:2.16.0') {
+        //禁止通过信用卡直接支付，如果不禁止可以直接去掉这一句
+        exclude group: 'io.card'
+    }
 }

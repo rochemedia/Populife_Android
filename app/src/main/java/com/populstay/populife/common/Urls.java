@@ -121,5 +121,13 @@ public class Urls {
 
 	public static final String REPAIR_APPLY_SUBMIT = "/repair-apply/submit"; //（post）维修服务 - 提交维修申请
 	public static final String REPAIR_APPLY_GET = "repair-apply/get"; //（get）维修服务 - 获取用户的维修申请列表
+	public static final String PAYPAL_REPAIR_SERVICE_DEVICE_LIST = "paypal/repair-service/device/list"; //（get）支付 - 获取设备列表
+	public static final String PAYPAL_REPAIR_SERVICE_PAY_ORDER = "paypal/repair-service/pay/order"; //（get）支付 - 创建预支付订单（维修服务费）该接口会返回支付需要的参数，在支付前调用
+	public static final String PAYPAL_SUCCESS_REPAIR_SERVICE_PAY_ORDER = "paypal/success/repair-service/pay/order"; //（post）支付 - 支付成功后，回调的接口（维修服务费）
+	public static final String PAYPAL_REPAIR_PAY_ORDER = "paypal/repair/pay/order"; //（get）支付 - 创建预支付订单（维修费） 该接口会返回支付需要的参数，在支付前调用
+	public static final String PAYPAL_SUCCESS_REPAIR_PAY_ORDER = "paypal/success/repair/pay/order"; //（post）支付 - 支付成功后，回调的接口（维修费）
+
+
+
 
 }
