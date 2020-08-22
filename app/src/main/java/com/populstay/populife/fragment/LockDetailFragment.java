@@ -275,6 +275,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				}else {
 					Gateway gateway = new Gateway();
 					gateway.setGatewayId(Integer.valueOf(homeDevice.getDeviceId()));
+					gateway.setName(homeDevice.getAlias());
 					GatewayBindedLockListActivity.actionStart(mActivity, gateway);
 				}
 			}

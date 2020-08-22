@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     android:orientation="vertical">
 
     <include layout="@layout/layout_view_titlebar"/>
@@ -24,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/lock_time"
-                android:textColor="@color/white"
+                android:textColor="@color/common_text_color"
                 android:textSize="14sp"/>
 
             <TextView
@@ -32,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/white"
+                android:textColor="@color/common_text_color"
                 android:textSize="24sp"/>
 
             <TextView
@@ -40,6 +39,7 @@
                 style="@style/btn_style_main"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
+                android:textColor="@color/common_text_color"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/bg_trans_stroke_white"
                 android:text="@string/read_lock_time"/>
@@ -50,6 +50,7 @@
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
                 android:layout_marginTop="16dp"
+                android:textColor="@color/common_text_color"
                 android:background="@drawable/bg_trans_stroke_white"
                 android:text="@string/calibrate_lock_time"/>
 
@@ -59,6 +60,7 @@
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
                 android:layout_marginTop="16dp"
+                android:textColor="@color/common_text_color"
                 android:background="@drawable/bg_trans_stroke_white"
                 android:text="@string/unlock_remotely"/>
 
@@ -67,6 +69,7 @@
                 style="@style/btn_style_main"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
+                android:textColor="@color/common_text_color"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_trans_stroke_white"
                 android:text="@string/freeze_lock"
@@ -78,6 +81,7 @@
                 android:layout_marginBottom="40dp"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
+                android:textColor="@color/common_text_color"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_trans_stroke_white"
                 android:text="@string/unfreeze_lock"

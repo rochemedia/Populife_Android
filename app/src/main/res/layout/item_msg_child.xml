@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.LinearLayoutCompat
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="@dimen/dimens_dp_20"
+        android:paddingRight="@dimen/dimens_dp_20"
+        android:paddingTop="8dp">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_circle_main_color"
+            android:padding="5dp"
+            android:src="@drawable/ic_notification"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp">
+
+            <TextView
+                android:id="@+id/tv_lock_record_child_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/app_name"
+                android:textColor="@color/text_gray_dark"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_lock_record_child_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_lock_record_child_name"
+                android:layout_marginTop="8dp"
+                android:text="@string/app_name"
+                android:textColor="@color/text_gray_medium"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_lock_record_child_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tv_lock_record_child_date"
+                android:layout_below="@id/tv_lock_record_child_name"
+                android:layout_toRightOf="@id/tv_lock_record_child_date"
+                android:text="@string/app_name"
+                android:textColor="@color/text_gray_medium"
+                android:textSize="12sp"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <include layout="@layout/layout_view_line"/>
+
+</android.support.v7.widget.LinearLayoutCompat>

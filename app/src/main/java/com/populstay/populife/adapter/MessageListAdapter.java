@@ -1,71 +1,136 @@
 package com.populstay.populife.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.populstay.populife.R;
 import com.populstay.populife.entity.ContentInfo;
 
 import java.util.List;
+import java.util.Map;
 
-/**
- * Created by Jerry
- */
 
-public class MessageListAdapter extends BaseAdapter {
+
+public class MessageListAdapter extends BaseExpandableListAdapter {
+
 	private Context mContext;
-	private LayoutInflater mLayoutInflater;
-	private List<ContentInfo> mMessageList;
+	private List<String> mGroupNames;
+	private Map<String, List<ContentInfo>> mRecords;
 
-	public MessageListAdapter(Context context, List<ContentInfo> messageList) {
-		mContext = context;
-		mLayoutInflater = LayoutInflater.from(context);
-		mMessageList = messageList;
+	/**
+	 * 构造函数
+	 *
+	 * @param context    上下文
+	 * @param groupNames 组元素列表
+	 * @param records    子元素列表
+	 */
+	public MessageListAdapter(Context context, List<String> groupNames,
+							  Map<String, List<ContentInfo>> records) {
+		this.mContext = context;
+		this.mGroupNames = groupNames;
+		this.mRecords = records;
 	}
 
-	// 获取数量
-	public int getCount() {
-		return mMessageList.size();
+	@Override
+	public int getGroupCount() {
+		return mGroupNames.size();
 	}
 
-	// 获取当前选项
-	public Object getItem(int position) {
-		return mMessageList.get(position);
+	@Override
+	public int getChildrenCount(int groupPosition) {
+		String groupName = mGroupNames.get(groupPosition);
+		return mRecords.get(groupName).size();
 	}
 
-	// 获取当前选项的 id
-	public long getItemId(int position) {
-		return position;
+	@Override
+	public Object getGroup(int groupPosition) {
+		return mGroupNames.get(groupPosition);
 	}
 
-	// 获取 View
-	public View getView(final int position, View convertView, ViewGroup parent) {
-		ViewHolder holder = null;
+	@Override
+	public Object getChild(int groupPosition, int childPosition) {
+		List<ContentInfo> itemNames = mRecords.get(mGroupNames.get(groupPosition));
+		return itemNames.get(childPosition);
+	}
+
+	@Override
+	public long getGroupId(int groupPosition) {
+		return groupPosition;
+	}
+
+	@Override
+	public long getChildId(int groupPosition, int childPosition) {
+		return childPosition;
+	}
+
+	@Override
+	public boolean hasStableIds() {
+		return false;
+	}
+
+	@Override
+	public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+
+		final GroupViewHolder gholder;
 		if (convertView == null) {
-			convertView = mLayoutInflater.inflate(R.layout.item_message_list, null);
-			holder = new ViewHolder();
-
-			holder.title = convertView.findViewById(R.id.tv_item_message_title);
-			holder.date = convertView.findViewById(R.id.tv_item_message_date);
-			holder.content = convertView.findViewById(R.id.tv_item_message_content);
-
-			convertView.setTag(holder);
+			convertView = View.inflate(mContext, R.layout.item_lock_operate_record_group, null);
+			gholder = new GroupViewHolder();
+			gholder.groupName = convertView.findViewById(R.id.tv_lock_record_group_name);
+			convertView.setTag(gholder);
 		} else {
-			holder = (ViewHolder) convertView.getTag();
+			gholder = (GroupViewHolder) convertView.getTag();
 		}
-		ContentInfo message = mMessageList.get(position);
-		holder.title.setText(message.getTitle());
-		holder.date.setText(message.getCreateTime());
-		holder.content.setText(message.getContent());
+		String groupName = (String) getGroup(groupPosition);
+		gholder.groupName.setText(groupName);
 
 		return convertView;
 	}
 
-	class ViewHolder {
-		TextView title, date, content;
+	@Override
+	public View getChildView(final int groupPosition, final int childPosition,
+							 final boolean isLastChild, View convertView, final ViewGroup parent) {
+
+		final ChildViewHolder cholder;
+		if (convertView == null) {
+			convertView = View.inflate(mContext, R.layout.item_msg_child, null);
+			cholder = new ChildViewHolder();
+			cholder.name = convertView.findViewById(R.id.tv_lock_record_child_name);
+			cholder.date = convertView.findViewById(R.id.tv_lock_record_child_date);
+			cholder.content = convertView.findViewById(R.id.tv_lock_record_child_content);
+
+			convertView.setTag(cholder);
+		} else {
+			cholder = (ChildViewHolder) convertView.getTag();
+		}
+		ContentInfo record = (ContentInfo) getChild(groupPosition, childPosition);
+		cholder.name.setText(record.getTitle());
+		cholder.date.setText(record.getCreateTime());
+		cholder.content.setText(record.getContent());
+
+
+		return convertView;
+	}
+
+	@Override
+	public boolean isChildSelectable(int groupPosition, int childPosition) {
+		return true;
+	}
+
+	/**
+	 * 组元素绑定器
+	 */
+	static class GroupViewHolder {
+		TextView groupName;
+	}
+
+	/**
+	 * 子元素绑定器
+	 */
+	static class ChildViewHolder {
+		TextView name, date, content;
 	}
 }
+

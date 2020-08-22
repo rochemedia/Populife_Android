@@ -55,6 +55,7 @@ public class FeedbackListActivity extends BaseActivity implements FeedbackListAd
 		((TextView) findViewById(R.id.page_title)).setText(R.string.service_support_feedback);
 		findViewById(R.id.page_action).setVisibility(View.GONE);
 		mTvNew = findViewById(R.id.tv_new_feedback);
+		mTvNew.setVisibility(View.VISIBLE);
 
 		mLlNoData = findViewById(R.id.layout_no_data);
 		mListView = findViewById(R.id.list_view);

@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -21,28 +21,32 @@ import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.IError;
 import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
-import com.populstay.populife.util.date.DateUtil;
 import com.populstay.populife.util.dialog.DialogUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MessageListActivity extends BaseActivity implements View.OnClickListener,
-		AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+		AdapterView.OnItemClickListener,ExpandableListView.OnChildClickListener{
 
 	private LinearLayout mLlNoData;
 	private TextView mTvClear;
 	private SwipeRefreshLayout mRefreshLayout;
-	private ListView mListView;
+
+
 	private MessageListAdapter mAdapter;
-	private List<ContentInfo> mMessageList = new ArrayList<>();
+	private ExpandableListView mExpandableListView;
+	private List<String> mGroupList = new ArrayList<>(); // 组元素数据列表（日期）
+	private Map<String, List<ContentInfo>> mChildList = new LinkedHashMap<>(); // 子元素数据列表（操作记录）
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_listview_refresh);
+		setContentView(R.layout.layout_listview_msg);
 
 		initView();
 		initListener();
@@ -50,15 +54,21 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
 	}
 
 	private void initView() {
-		((TextView) findViewById(R.id.page_title)).setText(R.string.notification);
+		((TextView) findViewById(R.id.page_title)).setText(R.string.me_list_item_name_auditor);
 		mTvClear = findViewById(R.id.page_action);
 		mTvClear.setText(R.string.clear);
 		mTvClear.setVisibility(View.GONE);
 
 		mLlNoData = findViewById(R.id.layout_no_data);
-		mListView = findViewById(R.id.list_view);
-		mAdapter = new MessageListAdapter(MessageListActivity.this, mMessageList);
-		mListView.setAdapter(mAdapter);
+		mExpandableListView = findViewById(R.id.list_view);
+		mAdapter = new MessageListAdapter(this, mGroupList, mChildList);
+		mExpandableListView.setAdapter(mAdapter);
+		mExpandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+			@Override
+			public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+				return false;
+			}
+		});
 
 		mRefreshLayout = findViewById(R.id.refresh_layout);
 		mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -78,8 +88,20 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
 
 	private void initListener() {
 		mTvClear.setOnClickListener(this);
-		mListView.setOnItemClickListener(this);
-		mListView.setOnItemLongClickListener(this);
+		mExpandableListView.setOnChildClickListener(this);
+	}
+
+	@Override
+	public boolean onChildClick(ExpandableListView parent, View v, final int groupPosition, final int childPosition, long id) {
+		DialogUtil.showCommonDialog(this, null,
+				getString(R.string.note_delete_record),
+				getString(R.string.delete), getString(R.string.cancel), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i) {
+						deleteMessage(groupPosition, childPosition);
+					}
+				}, null);
+		return true;
 	}
 
 	@Override
@@ -99,30 +121,17 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
 //		MessageDetailActivity.actionStart(MessageListActivity.this, mMessageList.get(i).getId());
 	}
 
-	@Override
-	public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int index, long l) {
-		DialogUtil.showCommonDialog(MessageListActivity.this, null,
-				getString(R.string.note_delete_notification),
-				getString(R.string.delete), getString(R.string.cancel), new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialogInterface, int i) {
-						deleteMessage(index);
-					}
-				}, null);
-		return true;
-	}
 
 	/**
 	 * 获取用户消息列表数据
 	 */
 	private void requestMessageList() {
-		//todo 数据分页
 		RestClient.builder()
 				.url(Urls.USER_MESSAGE_LIST)
 				.loader(this)
 				.params("userId", PeachPreference.readUserId())
 				.params("start", 0)
-				.params("limit", 100)
+				.params("limit", 1000)
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {
@@ -130,31 +139,54 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
 							mRefreshLayout.setRefreshing(false);
 						}
 
-						PeachLogger.d("USER_MESSAGE_LIST", response);
+						PeachLogger.d("LOCK_OPERATE_RECORDS_GET", response);
 
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");
 						if (code == 200) {
-							JSONArray messageList = result.getJSONArray("data");
-							mMessageList.clear();
-							if (messageList != null && !messageList.isEmpty()) {
+							JSONArray dataArray = result.getJSONArray("data");
+							mGroupList.clear();
+							mChildList.clear();
+
+							if (dataArray != null && !dataArray.isEmpty()) {
 								mLlNoData.setVisibility(View.GONE);
 								mTvClear.setVisibility(View.VISIBLE);
-								int size = messageList.size();
-								for (int i = 0; i < size; i++) {
-									JSONObject messageItem = messageList.getJSONObject(i);
-									ContentInfo message = new ContentInfo();
+								int groupSize = dataArray.size();
+								for (int i = 0; i < groupSize; i++) {
+									JSONObject recordData = dataArray.getJSONObject(i);
+									//循环并得到key列表
+									for (String key : recordData.keySet()) {
+										// 获得 key
+										// TODO: 2019-07-04 移到下边的 if 判断里，防止 records 为空
+										mGroupList.add(key);
+										// 获得 key 对应的 value
+										JSONArray records = recordData.getJSONArray(key);
+										List<ContentInfo> recordList = new ArrayList<>();
+										if (records != null && !records.isEmpty()) {
+											int childSize = records.size();
 
-									message.setId(messageItem.getString("id"));
-									message.setUserId(messageItem.getString("userId"));
-									message.setTitle(messageItem.getString("title"));
-									message.setContent(messageItem.getString("content"));
-									/*String createTime = DateUtil.getDateToString(
-											messageItem.getLong("createDate"), "yyyy-MM-dd HH:mm:ss");
-									message.setCreateTime(createTime);*/
-									message.setHasRead("Y".equals(messageItem.getString("hasRead")));
 
-									mMessageList.add(message);
+											for (int j = 0; j < childSize; j++) {
+												JSONObject messageItem = records.getJSONObject(j);
+												ContentInfo message = new ContentInfo();
+
+												message.setId(messageItem.getString("id"));
+												message.setUserId(messageItem.getString("userId"));
+												message.setTitle(messageItem.getString("title"));
+												message.setContent(messageItem.getString("content"));
+												/*String createTime = DateUtil.getDateToString(
+														messageItem.getLong("createDate"), "yyyy-MM-dd HH:mm:ss");
+												message.setCreateTime(createTime);*/
+												message.setHasRead("Y".equals(messageItem.getString("hasRead")));
+												recordList.add(message);
+											}
+											mChildList.put(key, recordList);
+										}
+
+									}
+								}
+								for (int k = 0; k < mGroupList.size(); k++) {
+									mExpandableListView.expandGroup(k);
 								}
 								mAdapter.notifyDataSetChanged();
 							} else {
@@ -184,6 +216,7 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
 				.get();
 	}
 
+
 	/**
 	 * 清空用户所有消息
 	 */
@@ -201,7 +234,8 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
 						int code = result.getInteger("code");
 						if (code == 200) {
 							toast(R.string.note_clear_notifications_success);
-							mMessageList.clear();
+							mGroupList.clear();
+							mChildList.clear();
 							mAdapter.notifyDataSetChanged();
 							mTvClear.setVisibility(View.GONE);
 							mLlNoData.setVisibility(View.VISIBLE);
@@ -228,26 +262,32 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
 
 	/**
 	 * 删除单条消息
-	 *
-	 * @param index 消息列表中，消息的 index
+	 * @param groupPosition
+	 * @param childPosition
 	 */
-	private void deleteMessage(final int index) {
-		String messageId = mMessageList.get(index).getId();
+	private void deleteMessage(final int groupPosition, final int childPosition) {
+		final String key = mGroupList.get(groupPosition);
+		List<ContentInfo> recordList = mChildList.get(key);
+		ContentInfo record = recordList.get(childPosition);
+		String recordId = record.getId();
 		RestClient.builder()
 				.url(Urls.USER_MESSAGE_ITEM_DELETE)
-				.loader(MessageListActivity.this)
-				.params("id", messageId)
+				.loader(this)
+				.params("id", recordId)
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {
-						PeachLogger.d("USER_MESSAGE_ITEM_DELETE", response);
+						PeachLogger.d("LOCK_OPERATE_RECORDS_DELETE", response);
 
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");
 						if (code == 200) {
-							mMessageList.remove(index);
+							mChildList.get(key).remove(childPosition);
+							if (mChildList.get(key).isEmpty()) {
+								mGroupList.remove(groupPosition);
+							}
 							mAdapter.notifyDataSetChanged();
-							if (mMessageList.isEmpty()) {
+							if (mGroupList.isEmpty()) {
 								mLlNoData.setVisibility(View.VISIBLE);
 							}
 						} else {
@@ -264,4 +304,5 @@ public class MessageListActivity extends BaseActivity implements View.OnClickLis
 				.build()
 				.post();
 	}
+
 }
