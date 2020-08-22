@@ -35,9 +35,7 @@ import com.populstay.populife.R;
 import com.populstay.populife.activity.GatewayBindedLockListActivity;
 import com.populstay.populife.activity.LockAddSelectTypeActivity;
 import com.populstay.populife.activity.LockDetailActivity;
-import com.populstay.populife.activity.LockManageBluetoothKeyActivity;
 import com.populstay.populife.activity.LockManageIcCardActivity;
-import com.populstay.populife.activity.LockManagePasswordActivity;
 import com.populstay.populife.activity.LockOperateRecordActivity;
 import com.populstay.populife.activity.LockSettingsActivity;
 import com.populstay.populife.adapter.DeviceListAdapter;
@@ -64,7 +62,6 @@ import com.populstay.populife.push.EventPushService;
 import com.populstay.populife.ui.MyGridView;
 import com.populstay.populife.util.CollectionUtil;
 import com.populstay.populife.util.GsonUtil;
-import com.populstay.populife.util.date.DateUtil;
 import com.populstay.populife.util.device.DeviceUtil;
 import com.populstay.populife.util.dialog.DialogUtil;
 import com.populstay.populife.util.log.PeachLogger;
@@ -101,7 +98,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	private TextView mIvAddLock;
 	private FrameLayout mFlLockInfo, mFlDeviceList;
 	private RelativeLayout mRlUnlocking;
-	private LinearLayout mLlLockAdd, mLlUnlockLock;
+	private LinearLayout mLlLockAdd, mLlUnlockLock, mLlOutOfDate;
 	private int mOpenid;
 	private String mTag;
 	private String mKeyId;
@@ -321,6 +318,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		mFlLockInfo = view.findViewById(R.id.fl_lock_detail);
 		mFlDeviceList = view.findViewById(R.id.fl_device_list);
 		mLlLockAdd = view.findViewById(R.id.ll_lock_detail_add);
+		mLlOutOfDate = view.findViewById(R.id.ll_out_of_date);
 		mRlUnlocking = view.findViewById(R.id.rl_lock_detail_unlocking);
 		mLlUnlockLock = view.findViewById(R.id.ll_lock_detail_unlock_lock);
 
@@ -940,11 +938,13 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	public static final int SHOW_DEVICE_ADD = 0;
 	public static final int SHOW_LOCK_INFO = 1;
 	public static final int SHOW_DEVICE_LIST = 2;
+	public static final int SHOW_OUT_OF_DATE = 3;
 
 	private void setLockInfoVisible(int showType) {
 		mLlLockAdd.setVisibility(View.GONE);
 		mFlLockInfo.setVisibility(View.GONE);
 		mFlDeviceList.setVisibility(View.GONE);
+		mLlOutOfDate.setVisibility(View.GONE);
 		switch (showType) {
 			case SHOW_DEVICE_ADD:
 				mLlLockAdd.setVisibility(View.VISIBLE);
@@ -954,6 +954,9 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				break;
 			case SHOW_DEVICE_LIST:
 				mFlDeviceList.setVisibility(View.VISIBLE);
+				break;
+			case SHOW_OUT_OF_DATE:
+				mLlOutOfDate.setVisibility(View.VISIBLE);
 				break;
 		}
 	}
@@ -1004,6 +1007,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		// TODO
 		String keyId = lockInfo.getString("keyId");//管理员钥匙id
 		int status = lockInfo.getInteger("status");//锁状态（0删除，1正常）
+		String keyStatus = lockInfo.getString("keyStatus");//钥匙的状态（110401：正常使用，110402：待接收，110405：已冻结，110408：已删除，110410：已重置,110500:已过期）
 		int protocolType = lockInfo.getInteger("protocolType");//协议类型
 		int protocolVersion = lockInfo.getInteger("protocolVersion");//锁版本信息
 		int scene = lockInfo.getInteger("scene");//场景
@@ -1036,6 +1040,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		lockVersion  =  String.valueOf(lockVersionObj);
 
 		mCurKEY.setStatus(status);
+		mCurKEY.setKeyStatus(keyStatus);
 		mCurKEY.setLockVersion(lockVersion);
 		mCurKEY.setLockName(lockName);
 		mCurKEY.setLockAlias(lockAlias);
@@ -1103,7 +1108,9 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 			//管理员，显示全部按钮
 			initAdminUI();
 		} else {
-			// 判断钥匙未到生效时间
+			// 只有普通用户
+			initCommonUserUI(mCurKEY.getKeyStatus());
+			/*// 判断钥匙未到生效时间
 			if (mCurKEY.getStartDate() > DateUtil.getCurTimeMillis()) {
 				mCurKEY.setKeyStatus("110400"); // 还未到生效时间，设置钥匙状态
 			}
@@ -1111,8 +1118,8 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				//授权用户，显示全部按钮
 				initAuthUserUI(mCurKEY.getKeyStatus());
 			} else {//普通用户，只显示 设置 按钮
-				initCommonUserUI(mCurKEY.getStatus());
-			}
+				initCommonUserUI(mCurKEY.getKeyStatus());
+			}*/
 		}
 
 		if (mActions.size() == 4) {
@@ -1168,6 +1175,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				R.drawable.ic_lock_action_ekey_manage_disable, R.string.keys_and_pwd, true));
 		mActions.add(new LockAction(LockAction.LockActionType.OPERATE_RECORD,
 				R.drawable.ic_lock_action_password_manage_disable, R.string.lock_operate_log, true));
+
 		if (DigitUtil.isSupportIC(mCurKEY.getSpecialValue())) {//支持 IC 卡
 			mActions.add(new LockAction(LockAction.LockActionType.IC_CARDS,
 					R.drawable.ic_lock_action_ic_card_able, R.string.lock_action_ic_cards, true));
@@ -1327,21 +1335,22 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 	 *                  110410：已重置
 	 *                  110500：过期
 	 */
-	private void initCommonUserUI(int keyStatus) {
+	private void initCommonUserUI(String keyStatus) {
 		mActions.add(new LockAction(LockAction.LockActionType.SETTINGS,
 				R.drawable.ic_lock_action_setting_able, R.string.lock_action_settings, true));
+
+		mActions.add(new LockAction(LockAction.LockActionType.OPERATE_RECORD,
+				R.drawable.ic_lock_action_password_manage_disable, R.string.lock_operate_log, true));
 
 		Resources res = getResources();
 		int colorGray = res.getColor(R.color.text_gray_light);
 		int colorGrayParent = res.getColor(R.color.gray_lock_disable);
-
-		// 锁状态（0删除，1正常）
-		if (keyStatus == 1){
+		if ("110401".equals(keyStatus)){
 			mTvLockStatus.setVisibility(View.INVISIBLE);
-
 			setUnlockLock();
-
 			enableLockingColorFiltr(true, false, 0);
+		} else if ("110500".equals(keyStatus)){
+			setLockInfoVisible(SHOW_OUT_OF_DATE);
 		}
 		else {
 			setLockInfoVisible(SHOW_DEVICE_ADD);

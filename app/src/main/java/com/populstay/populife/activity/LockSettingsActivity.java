@@ -220,6 +220,19 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 				mLlLockUpgrade.setVisibility(View.GONE);
 				mSpace.setVisibility(View.GONE);
 
+				mLlMacId.setVisibility(View.GONE);
+				mLlValidity.setVisibility(View.GONE);
+				mLlLockGroup.setVisibility(View.GONE);
+				mLlStartEndTime.setVisibility(View.GONE);
+				mLlAdminPasscode.setVisibility(View.GONE);
+				mLlLockTime.setVisibility(View.GONE);
+				mLlAutoLocking.setVisibility(View.GONE);
+				mLlLockUpgrade.setVisibility(View.GONE);
+				mLlRemoteUnlock.setVisibility(View.GONE);
+				mLlKeypadVolume.setVisibility(View.GONE);
+				mTvDelete.setVisibility(View.GONE);
+
+
 				switch (mKeyType) {//钥匙类型（1限时，2永久，3单次，4循环）
 					case 1:
 						mLlValidity.setVisibility(View.GONE);

@@ -15,6 +15,37 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_out_of_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="3" />
+
+                <TextView
+                    android:layout_marginTop="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hint_out_of_date"
+                    android:textColor="@color/common_text_color"
+                    android:textSize="14sp" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="3" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
                 android:visibility="visible"
                 android:id="@+id/ll_lock_detail_add"
                 android:layout_width="match_parent"

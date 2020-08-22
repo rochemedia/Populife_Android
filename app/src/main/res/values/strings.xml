@@ -494,6 +494,7 @@
     <string name="terms_of_use">服务条款</string>
     <string name="note_phone_or_email_invalid">手机号或邮箱账号错误</string>
     <string name="not_device_hint">还没有设备</string>
+    <string name="hint_out_of_date">钥匙已经过期</string>
     <string name="add_device">添加智能设备</string>
     <string name="my_space">我的空间</string>
     <string name="switch_space">切换空间</string>
@@ -705,6 +706,57 @@
   <!--  <string name="payment_successfuly">支付成功</string>
     <string name="successfully_purchased_popucare_service_plan">成功购买PopuCare服务计划</string>-->
 
+    <string name="check_the_maintenance_order">Check the maintenance order</string>
+    <string name="repair_no">Repair No:%s</string>
+    <string name="maintenance_status">Maintenance status</string>
+
+    <!--<string name="check_the_maintenance_order">查看维修工单</string>
+    <string name="maintenance_status">维修状态</string>
+    <string name="repair_no">维修单号:%s</string>-->
+
+
+    <string name="maintenance_status_1">服务中心已收到产品</string>
+    <string name="maintenance_status_2">服务正在进行中</string>
+    <string name="maintenance_status_3">等待退回维修好的产品</string>
+
+    <string name="maintenance_detials">维修详情</string>
+
+
+    <!--<string name="maintenance_detials">您需要维修的产品待支付。</string>
+
+
+    <string name="maintenance_detials">维修进度工单</string>
+    <string name="maintenance_detials">当前状态</string>
+    <string name="maintenance_detials">保修期</string>
+    <string name="maintenance_detials">有效</string>
+    <string name="maintenance_detials">失效</string>
+    <string name="maintenance_detials">普通工单</string>
+    <string name="maintenance_detials">创建日期</string>
+    <string name="maintenance_detials">待维修产品</string>
+    <string name="maintenance_detials">维修原因</string>
+    <string name="maintenance_detials">检测结果</string>
+    <string name="maintenance_detials">键盘失效，人为损坏</string>
+    <string name="maintenance_detials">检测附件</string>
+    <string name="maintenance_detials">点击下载附件</string>
+    <string name="maintenance_detials">付费维修物料</string>
+    <string name="maintenance_detials">维修消耗物料清单</string>
+    <string name="maintenance_detials">数量</string>
+    <string name="maintenance_detials">维修消耗物料清单</string>
+    <string name="maintenance_detials">数量</string>
+    <string name="maintenance_detials">单价</string>
+    <string name="maintenance_detials">总金额</string>
+    <string name="maintenance_detials">数量</string>
+    <string name="maintenance_detials">总计</string>
+    <string name="maintenance_detials">折扣</string>
+    <string name="maintenance_detials">折扣金额</string>
+    <string name="maintenance_detials">应付总价</string>
+
+    <string name="maintenance_detials">PDF报价表</string>
+    <string name="maintenance_detials">寄回单号</string>
+    <string name="maintenance_detials">应付总价</string>
+    <string name="maintenance_detials">应付总价</string>
+    <string name="maintenance_detials">待邮寄</string>
+    <string name="maintenance_detials">支付方式</string>-->
 
     <string-array name="video_url">
         <item>video/video_0.mp4</item>

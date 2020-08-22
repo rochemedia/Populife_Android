@@ -326,6 +326,12 @@
         <activity
             android:name=".maintservice.MaintServicePopuCarePayActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".maintservice.MaintWorkOrderActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".maintservice.MaintServiceDetailsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
