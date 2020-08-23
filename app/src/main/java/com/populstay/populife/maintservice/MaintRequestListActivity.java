@@ -1,5 +1,6 @@
 package com.populstay.populife.maintservice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -91,7 +92,10 @@ public class MaintRequestListActivity extends BaseActivity {
             mRecyclerView.setOnItemClickListener(new CommonRecyclerView.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position, View itemView) {
-
+                    MaintRequest maintRequest = mMaintRequestListAdapter.getItem(position);
+                    Intent intent = new Intent(MaintRequestListActivity.this, MaintServiceDetailsActivity.class);
+                    intent.putExtra(MaintServiceDetailsActivity.MAINT_REQUEST_DATA_TAG,maintRequest);
+                    startActivity(intent);
                 }
             });
 

@@ -279,4 +279,32 @@
         <item name="android:layout_marginTop">20dp</item>
     </style>
 
+
+    <style name="work_order_item_ll">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/common_page_left_right_space</item>
+        <item name="android:layout_marginLeft">@dimen/common_page_left_right_space</item>
+        <item name="android:minHeight">80dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="work_order_label">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:textColor">@color/common_text_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="work_order_content_text">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:textColor">@color/common_text_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

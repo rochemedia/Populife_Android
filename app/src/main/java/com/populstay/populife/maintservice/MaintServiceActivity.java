@@ -75,6 +75,9 @@ public class MaintServiceActivity extends BaseActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.ll_check_warranty_status:
+                intent = new Intent(this,MaintSearchActivity.class);
+                intent.putExtra(MaintSearchActivity.FROM_TYPE_TAG,MaintSearchActivity.FROM_TYPE_CHECK_WARRANTY_STATUS);
+                startActivity(intent);
                 break;
             case R.id.ll_buy_popucare_service:
                 goToNewActivity(MaintDeviceListActivity.class);

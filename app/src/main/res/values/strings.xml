@@ -681,41 +681,38 @@
     <string name="maintenance_detials">Maintenance details</string>
 
 
-    <!--<string name="maintenance_detials">您需要维修的产品待支付。</string>
-
-
-    <string name="maintenance_detials">维修进度工单</string>
-    <string name="maintenance_detials">当前状态</string>
-    <string name="maintenance_detials">保修期</string>
-    <string name="maintenance_detials">有效</string>
-    <string name="maintenance_detials">失效</string>
-    <string name="maintenance_detials">普通工单</string>
-    <string name="maintenance_detials">创建日期</string>
-    <string name="maintenance_detials">待维修产品</string>
-    <string name="maintenance_detials">维修原因</string>
-    <string name="maintenance_detials">检测结果</string>
-    <string name="maintenance_detials">键盘失效，人为损坏</string>
-    <string name="maintenance_detials">检测附件</string>
-    <string name="maintenance_detials">点击下载附件</string>
-    <string name="maintenance_detials">付费维修物料</string>
-    <string name="maintenance_detials">维修消耗物料清单</string>
-    <string name="maintenance_detials">数量</string>
-    <string name="maintenance_detials">维修消耗物料清单</string>
-    <string name="maintenance_detials">数量</string>
-    <string name="maintenance_detials">单价</string>
-    <string name="maintenance_detials">总金额</string>
-    <string name="maintenance_detials">数量</string>
-    <string name="maintenance_detials">总计</string>
-    <string name="maintenance_detials">折扣</string>
-    <string name="maintenance_detials">折扣金额</string>
-    <string name="maintenance_detials">应付总价</string>
-
-    <string name="maintenance_detials">PDF报价表</string>
-    <string name="maintenance_detials">寄回单号</string>
-    <string name="maintenance_detials">应付总价</string>
-    <string name="maintenance_detials">应付总价</string>
-    <string name="maintenance_detials">待邮寄</string>
-    <string name="maintenance_detials">支付方式</string>-->
+    <string name="maintenance_detials_1">您需要维修的产品待支付。</string>
+    <string name="maintenance_detials_2">维修进度工单</string>
+    <string name="maintenance_detials_3">当前状态</string>
+    <string name="maintenance_detials_4">保修期</string>
+    <string name="maintenance_detials_5">有效</string>
+    <string name="maintenance_detials_6">失效</string>
+    <string name="maintenance_detials_7">普通工单</string>
+    <string name="maintenance_detials_8">创建日期</string>
+    <string name="maintenance_detials_9">待维修产品</string>
+    <string name="maintenance_detials_10">维修原因</string>
+    <string name="maintenance_detials_11">检测结果</string>
+    <string name="maintenance_detials_12">键盘失效，人为损坏</string>
+    <string name="maintenance_detials_13">检测附件</string>
+    <string name="maintenance_detials_14">点击下载附件</string>
+    <string name="maintenance_detials_15">付费维修物料</string>
+    <string name="maintenance_detials_16">维修消耗物料清单</string>
+    <string name="maintenance_detials_17">数量</string>
+    <string name="maintenance_detials_18">维修消耗物料清单</string>
+    <string name="maintenance_detials_19">数量</string>
+    <string name="maintenance_detials_20">单价</string>
+    <string name="maintenance_detials_21">总金额</string>
+    <string name="maintenance_detials_22">数量</string>
+    <string name="maintenance_detials_23">总计</string>
+    <string name="maintenance_detials_24">折扣</string>
+    <string name="maintenance_detials_25">折扣金额</string>
+    <string name="maintenance_detials_26">应付总价</string>
+    <string name="maintenance_detials_27">PDF报价表</string>
+    <string name="maintenance_detials_28">寄回单号</string>
+    <string name="maintenance_detials_29">应付总价</string>
+    <string name="maintenance_detials_30">应付总价</string>
+    <string name="maintenance_detials_31">待邮寄</string>
+    <string name="maintenance_detials_32">支付方式</string>
 
     <string-array name="video_url">
         <item>video/video_0.mp4</item>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,23 +12,206 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                style="@style/work_order_item_ll">
+
+                <TextView style="@style/work_order_label"
+                    android:text="@string/maintenance_detials_3"/>
+
+                <TextView style="@style/work_order_content_text"
+                    android:textColor="@color/text_color_ffee2737"
+                    android:text="@string/maintenance_detials_1"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
+
+            <LinearLayout
+                style="@style/work_order_item_ll">
+
+                <TextView style="@style/work_order_label"
+                    android:text="@string/maintenance_detials_4"/>
+
+                <TextView style="@style/work_order_content_text"
+                    android:text="@string/maintenance_detials_5"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
+
+            <LinearLayout
+                style="@style/work_order_item_ll">
+
+                <TextView style="@style/work_order_label"
+                    android:text="@string/maintenance_detials_7"/>
+
+                <TextView style="@style/work_order_content_text"
+                    android:text="1234567890"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
+
+            <LinearLayout
+                style="@style/work_order_item_ll">
+
+                <TextView style="@style/work_order_label"
+                    android:text="@string/maintenance_detials_8"/>
+
+                <TextView style="@style/work_order_content_text"
+                    android:text="2020-07-01"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
+
+            <LinearLayout
+                style="@style/work_order_item_ll">
+
+                <TextView style="@style/work_order_label"
+                    android:text="@string/maintenance_detials_9"/>
+
+                <TextView style="@style/work_order_content_text"
+                    android:text="智能横闩锁"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
+
+            <LinearLayout
+                style="@style/work_order_item_ll">
+
+                <TextView style="@style/work_order_label"
+                    android:text="@string/maintenance_detials_10"/>
+
+                <TextView style="@style/work_order_content_text"
+                    android:text="完全坏了"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
+
+            <LinearLayout
+                style="@style/work_order_item_ll">
+
+                <TextView style="@style/work_order_label"
+                    android:text="@string/maintenance_detials_11"/>
+
+                <TextView style="@style/work_order_content_text"
+                    android:text="键盘失效，人为损坏"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
+
+            <LinearLayout
+                style="@style/work_order_item_ll">
+
+                <TextView style="@style/work_order_label"
+                    android:text="@string/maintenance_detials_13"/>
+
+                <TextView
+                    android:id="@+id/tv_select_date_btn"
+                    style="@style/btn_style_main"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:textColor="@color/common_text_color"
+                    android:gravity="left|center_vertical"
+                    android:padding="10dp"
+                    android:drawableRight="@drawable/down_load_icon"
+                    android:background="@drawable/selector_bg_stroke"
+                    android:text="@string/maintenance_detials_14" />
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
+
+            <LinearLayout
+                style="@style/work_order_item_ll">
+
+                <TextView style="@style/work_order_label"
+                    android:text="@string/maintenance_detials_15"/>
+
+                <TextView style="@style/work_order_content_text" />
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
+
+            <LinearLayout
+                style="@style/work_order_item_ll">
+
+                <TextView style="@style/work_order_label"
+                    android:text="@string/maintenance_detials_16"/>
+
+                <TextView style="@style/work_order_content_text" />
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
+
+            <LinearLayout
+                style="@style/work_order_item_ll">
+
+                <TextView style="@style/work_order_label"
+                    android:text="@string/maintenance_detials_27"/>
+
+                <TextView
+                    style="@style/btn_style_main"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:textColor="@color/common_text_color"
+                    android:gravity="left|center_vertical"
+                    android:padding="10dp"
+                    android:drawableRight="@drawable/down_load_icon"
+                    android:background="@drawable/selector_bg_stroke"
+                    android:text="点击下载PDF报价表" />
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line" />
+
+
+            <include layout="@layout/layout_view_line"/>
+
+            <LinearLayout
+                android:layout_margin="@dimen/common_page_left_right_space"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                <TextView
+                    android:text="@string/payment_type"
+                    android:layout_width="@dimen/dimens_dp_10"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:textColor="@color/common_text_color"
+                    android:layout_height="wrap_content"/>
 
-            </TextView>
+                <ImageView
+                    android:src="@drawable/pay_pal_logo"
+                    android:layout_width="220dp"
+                    android:layout_height="40dp"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line"/>
+
+            <TextView
+                android:id="@+id/tv_payment_confirm_btn"
+                style="@style/btn_style_main"
+                android:layout_marginLeft="@dimen/common_page_left_right_space"
+                android:layout_marginRight="@dimen/common_page_left_right_space"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/selector_btn_main"
+                android:layout_marginBottom="@dimen/common_page_left_right_space"
+                android:text="@string/payment_confirm" />
+
 
         </LinearLayout>
-
-
-
 
     </android.support.v4.widget.NestedScrollView>
 
