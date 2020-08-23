@@ -91,20 +91,25 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 		AnimatorSet subSet3 = new AnimatorSet();
 		AnimatorSet subSet4 = new AnimatorSet();
 
-		subSet1.play(ObjectAnimator.ofFloat(mIvImgSplash1,"translationY",300).setDuration(300))
-				.after(ObjectAnimator.ofFloat(mIvImgSplash1, "alpha", 0f, 1f).setDuration(100));
+		// time 280
+		subSet1.play(ObjectAnimator.ofFloat(mIvImgSplash1,"translationY",300).setDuration(200))
+				.after(ObjectAnimator.ofFloat(mIvImgSplash1, "alpha", 0f, 1f).setDuration(80));
 
-		subSet2.play(ObjectAnimator.ofFloat(mIvImgSplash2,"translationY",-300).setDuration(300))
-				.after(ObjectAnimator.ofFloat(mIvImgSplash2, "alpha", 0f, 1f).setDuration(100));
+		// time 280
+		subSet2.play(ObjectAnimator.ofFloat(mIvImgSplash2,"translationY",-300).setDuration(200))
+				.after(ObjectAnimator.ofFloat(mIvImgSplash2, "alpha", 0f, 1f).setDuration(80));
 
-		subSet3.play(ObjectAnimator.ofFloat(mIvImgSplash1, "scaleY", 1.5f).setDuration(300))
-				.with(ObjectAnimator.ofFloat(mIvImgSplash1, "scaleX", 1.5f).setDuration(300))
-				.with(ObjectAnimator.ofFloat(mIvImgSplash2, "scaleY", 1.5f).setDuration(300))
-				.with(ObjectAnimator.ofFloat(mIvImgSplash2, "scaleX", 1.5f).setDuration(300));
+		// time 200
+		subSet3.play(ObjectAnimator.ofFloat(mIvImgSplash1, "scaleY", 1.5f).setDuration(200))
+				.with(ObjectAnimator.ofFloat(mIvImgSplash1, "scaleX", 1.5f).setDuration(200))
+				.with(ObjectAnimator.ofFloat(mIvImgSplash2, "scaleY", 1.5f).setDuration(200))
+				.with(ObjectAnimator.ofFloat(mIvImgSplash2, "scaleX", 1.5f).setDuration(200));
 
-		subSet4.play(ObjectAnimator.ofFloat(mIvImgSplash1, "alpha", 1f, 0f).setDuration(100))
-				.with(ObjectAnimator.ofFloat(mIvImgSplash2, "alpha", 1f, 0f).setDuration(100));
+		// time 80
+		subSet4.play(ObjectAnimator.ofFloat(mIvImgSplash1, "alpha", 1f, 0f).setDuration(80))
+				.with(ObjectAnimator.ofFloat(mIvImgSplash2, "alpha", 1f, 0f).setDuration(80));
 
+		// total time 840
 		//1.按先后顺序执行动画
 		set.playSequentially(subSet1,subSet2,subSet3,subSet4);
 		set.start();
