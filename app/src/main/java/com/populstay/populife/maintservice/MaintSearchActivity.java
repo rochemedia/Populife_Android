@@ -87,7 +87,11 @@ public class MaintSearchActivity extends BaseActivity {
         mTvNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToNewActivity(MaintRequestListActivity.class);
+                if (FROM_TYPE_MAINTENANCE_PROGRESS.equals(fromType)){
+                    goToNewActivity(MaintRequestListActivity.class);
+                }else {
+                    goToNewActivity(MaintWarrantyStatusActivity.class);
+                }
             }
         });
     }

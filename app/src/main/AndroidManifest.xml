@@ -332,6 +332,9 @@
         <activity
             android:name=".maintservice.MaintServiceDetailsActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".maintservice.MaintWarrantyStatusActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
