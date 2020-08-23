@@ -91,12 +91,12 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 		AnimatorSet subSet3 = new AnimatorSet();
 		AnimatorSet subSet4 = new AnimatorSet();
 
-		// time 280
-		subSet1.play(ObjectAnimator.ofFloat(mIvImgSplash1,"translationY",300).setDuration(200))
+		// time 260
+		subSet1.play(ObjectAnimator.ofFloat(mIvImgSplash1,"translationY",300).setDuration(180))
 				.after(ObjectAnimator.ofFloat(mIvImgSplash1, "alpha", 0f, 1f).setDuration(80));
 
-		// time 280
-		subSet2.play(ObjectAnimator.ofFloat(mIvImgSplash2,"translationY",-300).setDuration(200))
+		// time 260
+		subSet2.play(ObjectAnimator.ofFloat(mIvImgSplash2,"translationY",-300).setDuration(180))
 				.after(ObjectAnimator.ofFloat(mIvImgSplash2, "alpha", 0f, 1f).setDuration(80));
 
 		// time 200
@@ -109,7 +109,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 		subSet4.play(ObjectAnimator.ofFloat(mIvImgSplash1, "alpha", 1f, 0f).setDuration(80))
 				.with(ObjectAnimator.ofFloat(mIvImgSplash2, "alpha", 1f, 0f).setDuration(80));
 
-		// total time 840
+		// total time 800
 		//1.按先后顺序执行动画
 		set.playSequentially(subSet1,subSet2,subSet3,subSet4);
 		set.start();
