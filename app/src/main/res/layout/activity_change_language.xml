@@ -92,6 +92,7 @@
     <include layout="@layout/layout_view_line_24dp" />
 
     <android.support.v7.widget.LinearLayoutCompat
+        android:visibility="gone"
         android:id="@+id/ll_change_language_french"
         style="@style/list_item_overall">
 
