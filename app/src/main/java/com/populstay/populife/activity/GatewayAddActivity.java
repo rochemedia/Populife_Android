@@ -228,6 +228,9 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 	}
 
 	private void showNoResultDialog() {
+		if (isFinishing()){
+			return;
+		}
 		DIALOG = new AlertDialog.Builder(this).create();
 		DIALOG.setCanceledOnTouchOutside(false);
 		DIALOG.show();

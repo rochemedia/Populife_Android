@@ -195,6 +195,8 @@ public class MainLockFragment extends BaseVisibilityFragment {
 									currentHomeId = currentHome.getId();
 								}
 								EventBus.getDefault().post(new Event(Event.EventType.GET_HOME_DATA_COMPLETE,currentHomeId));
+							}else {
+								HomeListActivity.actionStart(getActivity(), HomeListActivity.VAL_ACTION_TYPE_SWITCH_HOME);
 							}
 						}
 					}

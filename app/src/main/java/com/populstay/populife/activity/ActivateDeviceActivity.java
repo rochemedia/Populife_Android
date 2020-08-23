@@ -84,6 +84,7 @@ public class ActivateDeviceActivity extends BaseActivity implements View.OnClick
     private void initTitleBarRightBtn() {
         TextView tvQuestion = findViewById(R.id.page_action);
         tvQuestion.setText("");
+        tvQuestion.setVisibility(View.GONE);
         tvQuestion.setCompoundDrawablesWithIntrinsicBounds(
                 getResources().getDrawable(R.drawable.help_icon), null, null, null);
 

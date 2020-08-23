@@ -121,15 +121,17 @@ public class LockNameAddActivity extends BaseActivity implements View.OnClickLis
 	private void initializeLock(final String lockDataJson) {
 		final WeakHashMap<String, Object> requestParams = parseLockData(lockDataJson);
 		PeachLogger.d("LOCK_INIT", requestParams.toString());
-		final CustomProgress customProgress = CustomProgress.show(this,
-				getString(R.string.note_lock_init_ing), false, null);
+		/*final CustomProgress customProgress = CustomProgress.show(this,
+				getString(R.string.note_lock_init_ing), false, null);*/
+		showLoading();
 		RestClient.builder()
 				.url(Urls.LOCK_INIT)
 				.params(requestParams)
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {
-						customProgress.cancel();
+						//customProgress.cancel();
+						stopLoading();
 						PeachLogger.d("LOCK_INIT", response);
 
 						JSONObject result = JSON.parseObject(response);
@@ -150,7 +152,8 @@ public class LockNameAddActivity extends BaseActivity implements View.OnClickLis
 				.failure(new IFailure() {
 					@Override
 					public void onFailure() {
-						customProgress.cancel();
+						//customProgress.cancel();
+						stopLoading();
 						toast(R.string.note_lock_init_fail);
 						mIvUpload.setVisibility(View.VISIBLE);
 					}
@@ -158,7 +161,8 @@ public class LockNameAddActivity extends BaseActivity implements View.OnClickLis
 				.error(new IError() {
 					@Override
 					public void onError(int code, String msg) {
-						customProgress.cancel();
+						//customProgress.cancel();
+						stopLoading();
 						toast(R.string.note_lock_init_fail);
 						mIvUpload.setVisibility(View.VISIBLE);
 					}
