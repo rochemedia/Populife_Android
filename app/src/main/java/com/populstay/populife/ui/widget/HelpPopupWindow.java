@@ -23,7 +23,7 @@ public class HelpPopupWindow {
 
 
     public HelpPopupWindow(Context context) {
-        this(context,R.layout.help_popup_window_layout,R.dimen.help_win_width,R.dimen.help_win_height);
+        this(context,R.layout.help_popup_window_layout3,R.dimen.help_win_width,R.dimen.help_win_height);
     }
 
     public HelpPopupWindow(Context context, @LayoutRes int contentLayoutRes, @DimenRes int widthRes, @DimenRes int heightRes) {

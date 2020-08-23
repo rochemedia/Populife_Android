@@ -157,8 +157,9 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 		mTvOk.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				mCustomProgress = CustomProgress.show(GatewayAddActivity.this,
-						getString(R.string.configuring_gateway), false, null);
+				/*mCustomProgress = CustomProgress.show(GatewayAddActivity.this,
+						getString(R.string.configuring_gateway), false, null);*/
+				showLoading();
 				mTvOk.setEnabled(false);
 				getUserKeyId();
 			}
@@ -452,7 +453,8 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 	}
 
 	private void refreshBtnState() {
-		mCustomProgress.cancel();
+		//mCustomProgress.cancel();
+		stopLoading();
 		mTvOk.setEnabled(true);
 		mTvOk.setText(R.string.ok);
 	}
