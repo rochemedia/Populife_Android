@@ -80,7 +80,7 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
 
     private LinearLayout mLlMeUserAvatar, mLlMeNickName, mLlMePhone, mLlMeEmail, mLlMePwd;
     private CircleImageView mCircleImageView;
-    private TextView mTvNickName;
+    private TextView mTvNickName, mPhone, mEmail;
 
 
     private PermissionListener mPermissionListener;
@@ -101,14 +101,14 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
                     break;
 
                 case REQUEST_CODE_BIND:
-                    /*if (mAccountType == Constant.ACCOUNT_TYPE_PHONE) {
-                        mEmail = data.getStringExtra(AccountBindActivity.KEY_BIND_RESULT);
-                        mTvMailContent.setText(mEmail);
-                    } else if (mAccountType == Constant.ACCOUNT_TYPE_EMAIL) {
-                        mPhone = data.getStringExtra(AccountBindActivity.KEY_BIND_RESULT);
-                        mTvMailContent.setText(mPhone);
+                    int bindType = data.getIntExtra(AccountBindActivity.KEY_BIND_TYPE, 0);
+                    String bindVal = data.getStringExtra(AccountBindActivity.KEY_BIND_RESULT);
+                    if (bindType == Constant.ACCOUNT_TYPE_EMAIL) {
+                        mEmail.setText(bindVal);
+                    } else if (bindType == Constant.ACCOUNT_TYPE_PHONE) {
+                        mPhone.setText(bindVal);
                     }
-                    cachePersonalInfo();*/
+                    //cachePersonalInfo();
                     break;
 
                 case REQUEST_CODE_CARMERA:
@@ -366,6 +366,8 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
         mCircleImageView = findViewById(R.id.civ_user_avatar);
         mUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", new File(mPath));
         mTvNickName = findViewById(R.id.tv_nick_name);
+        mPhone = findViewById(R.id.tv_phone);
+        mEmail = findViewById(R.id.tv_email);
     }
 
     private void setListener() {
@@ -470,6 +472,8 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
         }
         setAvatar(userInfo.getAvatar());
         mTvNickName.setText(userInfo.getNickname());
+        mPhone.setText(userInfo.getPhone());
+        mEmail.setText(userInfo.getEmail());
     }
 
     private void setAvatar(String avatarUrl) {

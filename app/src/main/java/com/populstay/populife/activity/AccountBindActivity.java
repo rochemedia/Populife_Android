@@ -289,6 +289,7 @@ public class AccountBindActivity extends BaseActivity
 							case 200:
 								Intent intent = new Intent();
 								intent.putExtra(KEY_BIND_RESULT, bindResult);
+								intent.putExtra(KEY_BIND_TYPE, mBindType);
 								setResult(RESULT_OK, intent);
 								finish();
 								break;

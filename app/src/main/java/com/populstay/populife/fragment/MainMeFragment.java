@@ -45,11 +45,13 @@ import com.populstay.populife.eventbus.Event;
 import com.populstay.populife.home.HomeListActivity;
 import com.populstay.populife.me.PersonalCenterActivity;
 import com.populstay.populife.me.ServiceSupportActivity;
+import com.populstay.populife.me.entity.UserInfo;
 import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.permission.PermissionListener;
 import com.populstay.populife.sign.ISignListener;
 import com.populstay.populife.sign.SignHandler;
+import com.populstay.populife.util.GsonUtil;
 import com.populstay.populife.util.activity.ActivityCollector;
 import com.populstay.populife.util.dialog.DialogUtil;
 import com.populstay.populife.util.log.PeachLogger;
@@ -88,6 +90,7 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 	private String mNickname = "";
 	private Uri mUri;
 	private String mPath = Environment.getExternalStorageDirectory() + File.separator + "photo.jpeg";
+	private UserInfo mUserInfo;
 
 
 	@Override
@@ -151,18 +154,18 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 						if (result != null) {
 							int code = result.getInteger("code");
 							if (code == 200) {
-								JSONObject userInfo = result.getJSONObject("data");
-								int openid = userInfo.getInteger("openid");
+								UserInfo userInfo = GsonUtil.fromJson(result.getString("data"), UserInfo.class);
+								mUserInfo = userInfo;
+								int openid = userInfo.getOpenid();
 								PeachPreference.putStr(PeachPreference.OPEN_ID, String.valueOf(openid));
-								mAccountType = userInfo.getInteger("accountType");
-								//mIsAccountDeleted = "Y".equals(userInfo.getString("isDeleted"));
-								mPhone = userInfo.getString("phone");
-								mEmail = userInfo.getString("email");
-								String avatar = userInfo.getString("avatar");
+								mAccountType = userInfo.getAccountType();
+								mPhone = userInfo.getPhone();
+								mEmail = userInfo.getEmail();
+								String avatar = userInfo.getAvatar();
 								if (!StringUtil.isBlank(avatar)) {
 									mAvatarUrl = avatar;
 								}
-								mNickname = userInfo.getString("nickname");
+								mNickname = userInfo.getNickname();
 
 								refreshUserInfoUI();
 								cachePersonalInfo();
