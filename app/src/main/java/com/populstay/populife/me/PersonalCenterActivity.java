@@ -471,9 +471,26 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
             return;
         }
         setAvatar(userInfo.getAvatar());
-        mTvNickName.setText(userInfo.getNickname());
-        mPhone.setText(userInfo.getPhone());
-        mEmail.setText(userInfo.getEmail());
+        String phone = userInfo.getPhone();
+        String email = userInfo.getEmail();
+        String nickname = userInfo.getNickname();
+
+        mPhone.setText(phone);
+        mEmail.setText(email);
+        if (!TextUtils.isEmpty(nickname)){
+            mTvNickName.setText(nickname);
+        }else {
+            // 默认显示名：populife_手机号/邮箱
+            String defaultShowName = "populife_";
+            if (!TextUtils.isEmpty(phone)) {
+                defaultShowName += phone;
+            }else {
+                if (!TextUtils.isEmpty(email)){
+                    defaultShowName += email;
+                }
+            }
+            mTvNickName.setText(defaultShowName);
+        }
     }
 
     private void setAvatar(String avatarUrl) {

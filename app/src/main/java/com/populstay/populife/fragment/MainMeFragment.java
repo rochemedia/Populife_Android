@@ -202,7 +202,21 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 				.placeholder(R.drawable.ic_user_avatar)
 				.error(R.drawable.ic_user_avatar)
 				.into(mCivAvatar);
-		mTvNickname.setText(mNickname);
+
+		if (!TextUtils.isEmpty(mNickname)){
+			mTvNickname.setText(mNickname);
+		}else {
+			// 默认显示名：populife_手机号/邮箱
+			String defaultShowName = "populife_";
+			if (!TextUtils.isEmpty(mPhone)) {
+				defaultShowName += mPhone;
+			}else {
+				if (!TextUtils.isEmpty(mEmail)){
+					defaultShowName += mEmail;
+				}
+			}
+			mTvNickname.setText(defaultShowName);
+		}
 	}
 
 	private void initView(View view) {
