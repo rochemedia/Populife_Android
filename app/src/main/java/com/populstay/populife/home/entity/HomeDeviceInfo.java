@@ -47,7 +47,7 @@ public class HomeDeviceInfo {
         return name;
     }
 
-    public static @DrawableRes int getIconActiveByName(String deviceName) {
+    public static @DrawableRes int getIconByName(String deviceName) {
         @DrawableRes
         int iconActive = -1;
 
@@ -56,11 +56,11 @@ public class HomeDeviceInfo {
         }
 
         if (deviceName.contains(IDeviceName.NAEM_GATEWAY)){
-            iconActive = R.drawable.gateway_active;
+            iconActive = R.drawable.device_card_single_icon_gateway_selector;
         }else if (deviceName.contains(IDeviceName.NAME_LOCK_DEADBOLT)){
-            iconActive = R.drawable.deadbolt_active;
+            iconActive = R.drawable.device_card_single_icon_deadbolt_selector;
         }else if (deviceName.contains(IDeviceName.NAME_LOCK_KEY_BOX)){
-            iconActive = R.drawable.keybox_active;
+            iconActive = R.drawable.device_card_single_icon_key_box_selector;
         }else {
             // 不存在的类型
         }
@@ -76,11 +76,11 @@ public class HomeDeviceInfo {
         }
 
         if (deviceName.contains(IDeviceName.NAEM_GATEWAY)){
-            iconInactive = R.drawable.gateway_inactive;
+            iconInactive = R.drawable.device_card_single_icon_gateway_selector;
         }else if (deviceName.contains(IDeviceName.NAME_LOCK_DEADBOLT)){
-            iconInactive = R.drawable.deadbolt_inactive;
+            iconInactive = R.drawable.device_card_single_icon_deadbolt_selector;
         }else if (deviceName.contains(IDeviceName.NAME_LOCK_KEY_BOX)){
-            iconInactive = R.drawable.keybox_inactive;
+            iconInactive = R.drawable.device_card_single_icon_key_box_selector;
         }else {
             // 不存在的类型
         }

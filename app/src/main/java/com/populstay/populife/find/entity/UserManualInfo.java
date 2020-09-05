@@ -39,21 +39,21 @@ public class UserManualInfo {
         return name;
     }
 
-    public static @DrawableRes int getIconActiveByType(String type) {
+    public static @DrawableRes int getIconByType(String type) {
         @DrawableRes
         int iconActive = -1;
         switch (type) {
             case IUserManualType.USER_MANUAL_TYPE_GATEWAY:
-                iconActive = R.drawable.gateway_active;
+                iconActive = R.drawable.device_card_single_icon_gateway_selector;
                 break;
             case IUserManualType.USER_MANUAL_LOCK_TYPE_DEADBOLT:
-                iconActive = R.drawable.deadbolt_active;
+                iconActive = R.drawable.device_card_single_icon_deadbolt_selector;
                 break;
             case IUserManualType.USER_MANUAL_LOCK_TYPE_KEY_BOX:
-                iconActive = R.drawable.keybox_active;
+                iconActive = R.drawable.device_card_single_icon_key_box_selector;
                 break;
             case IUserManualType.USER_MANUAL_TYPE_APP:
-                iconActive = R.drawable.app_active;
+                iconActive = R.drawable.device_card_single_icon_user_manual_selector;
                 break;
         }
         return iconActive;

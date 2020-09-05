@@ -20,7 +20,7 @@ public class UserManualListAdapter extends RecyclerView.Adapter<UserManualListAd
 
     private List<UserManual> mDatas;
     private Context mContext;
-    private int mSelectedPosition;
+    private int mSelectedPosition = -1;
     private UserManualListAdapter.OnItemClickListener mOnItemClickListener;
 
     public UserManualListAdapter(List<UserManual> mDatas, Context mContext) {
@@ -45,16 +45,7 @@ public class UserManualListAdapter extends RecyclerView.Adapter<UserManualListAd
 
         UserManual item = mDatas.get(position);
         viewHolder.tvDeviceName.setText(UserManualInfo.getNameByType(item.getType()));
-
-        if (mSelectedPosition == position ){
-            viewHolder.tvDeviceName.setTextColor(mContext.getResources().getColor(R.color.device_card_text_color_active));
-            viewHolder.ivDeviceIcon.setImageResource(UserManualInfo.getIconActiveByType(item.getType()));
-            viewHolder.itemView.setBackgroundResource(R.drawable.device_card_single_bg_selected );
-        }else {
-            viewHolder.tvDeviceName.setTextColor(mContext.getResources().getColor(R.color.device_card_text_color_inactive));
-            viewHolder.ivDeviceIcon.setImageResource(UserManualInfo.getIconInactiveByType(item.getType()));
-            viewHolder.itemView.setBackgroundResource(R.drawable.device_card_single_bg);
-        }
+        viewHolder.ivDeviceIcon.setImageResource(UserManualInfo.getIconByType(item.getType()));
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:background="@drawable/device_card_two_bg"
+    android:background="@drawable/device_card_two_bg_selector"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -24,9 +24,9 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:ellipsize="end"
+        android:textColor="@drawable/device_card_text_color_selector"
         android:maxLines="1"
         android:text="@string/lock_type_deadbolt"
-        android:textColor="@color/device_card_text_color_inactive"
         android:textSize="20sp" />
 
 

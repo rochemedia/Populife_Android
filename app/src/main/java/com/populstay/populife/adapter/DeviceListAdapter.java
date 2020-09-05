@@ -23,7 +23,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
     private int mShowType = SHOW_TYPE_CARD;
     public static final int SHOW_TYPE_CARD = 0;
     public static final int SHOW_TYPE_TWO_CARD = 1;
-    private int mSelectedPosition;
+    private int mSelectedPosition = -1;
     private DeviceListAdapter.OnItemClickListener mOnItemClickListener;
     private int mUseFrom = USE_FROM_DEVICE_LIST;
     public static final int USE_FROM_SELECT_DEVICE_TYPE_LIST = 0;
@@ -57,16 +57,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
         }else {
             viewHolder.tvDeviceName.setText(item.getAlias());
         }
-        if (mSelectedPosition == position ){
-            viewHolder.tvDeviceName.setTextColor(mContext.getResources().getColor(R.color.device_card_text_color_active));
-            viewHolder.ivDeviceIcon.setImageResource(HomeDeviceInfo.getIconActiveByName(item.getName()));
-            viewHolder.itemView.setBackgroundResource(mShowType == SHOW_TYPE_CARD ? R.drawable.device_card_single_bg_selected : R.drawable.device_card_two_bg_selected);
-        }else {
-            viewHolder.tvDeviceName.setTextColor(mContext.getResources().getColor(R.color.device_card_text_color_inactive));
-            viewHolder.ivDeviceIcon.setImageResource(HomeDeviceInfo.getIconInactiveByName(item.getName()));
-            viewHolder.itemView.setBackgroundResource(mShowType == SHOW_TYPE_CARD ? R.drawable.device_card_single_bg : R.drawable.device_card_two_bg);
-        }
-
+        viewHolder.ivDeviceIcon.setImageResource(HomeDeviceInfo.getIconByName(item.getName()));
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
