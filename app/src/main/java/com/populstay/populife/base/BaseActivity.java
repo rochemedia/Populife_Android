@@ -93,6 +93,16 @@ public class BaseActivity extends AppCompatActivity {
 		setLocale();
 	}
 
+
+
+	@Override
+	public void onAttachedToWindow() {
+		super.onAttachedToWindow();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			getWindow().setNavigationBarColor(getResources().getColor(R.color.white));
+		}
+	}
+
 	@Override
 	public void setContentView(View view) {
 		super.setContentView(view);
