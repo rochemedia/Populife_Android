@@ -35,6 +35,8 @@ import com.populstay.populife.util.storage.PeachPreference;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.ittiger.player.PlayerManager;
+
 public class MainActivity extends BaseActivity {
 
 	private static final int TAB_LOCK = 0, TAB_GENERAL = 1, TAB_ME = 2;
@@ -205,6 +207,9 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public void onBackPressed() {
+		if (PlayerManager.getInstance().onBackPressed()){
+			return;
+		}
 		exit();
 	}
 
