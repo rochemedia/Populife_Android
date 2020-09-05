@@ -342,6 +342,7 @@ public class AddDeviceSuccessActivity extends BaseActivity implements View.OnCli
                             // 跳转锁列表
                             Gateway gateway = new Gateway();
                             gateway.setGatewayId(Integer.valueOf(mHomeDevice.getDeviceId()));
+                            gateway.setName(mEtDeviceName.getTextStr());
                             GatewayBindedLockListActivity.actionStart(AddDeviceSuccessActivity.this, gateway);
                         } else {
                             toast(R.string.note_lock_name_add_fail);

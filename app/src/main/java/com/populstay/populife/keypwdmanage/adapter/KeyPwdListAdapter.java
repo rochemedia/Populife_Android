@@ -57,8 +57,8 @@ public class KeyPwdListAdapter extends HeaderAndFooterAdapter<KeyPwd> {
             videoViewHolder.tvName.setRawIcon(R.drawable.bt_key_icon, iconPadding);
 
             videoViewHolder.llTimeRange.setVisibility(View.VISIBLE);
-            videoViewHolder.tvStartTime.setText(DateUtil.getDateToString(item.getStartDate(),DateUtil.DATE_TIME_PATTERN_1));
-            videoViewHolder.tvEndTime.setText(DateUtil.getDateToString(item.getEndDate(),DateUtil.DATE_TIME_PATTERN_1));
+            videoViewHolder.tvStartTime.setText(DateUtil.getDateToStringConvert(item.getStartDate(),DateUtil.DATE_TIME_PATTERN_1));
+            videoViewHolder.tvEndTime.setText(DateUtil.getDateToStringConvert(item.getEndDate(),DateUtil.DATE_TIME_PATTERN_1));
 
         }else {
             videoViewHolder.tvPwd.setVisibility(View.VISIBLE);
