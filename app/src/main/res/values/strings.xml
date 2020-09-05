@@ -3,7 +3,7 @@
     <string name="app_name">Populife</string>
     <string name="note_network_error">Network connection failed, please confirm to enable WiFi or cellular network</string>
     <string name="customer_service_email" translatable="false">support@populife.co</string>
-    <string name="nav_tab_lock">Lock</string>
+    <string name="nav_tab_lock">Smart</string>
     <string name="nav_tab_general">Discover</string>
     <string name="nav_tab_me">Me</string>
     <string name="phone">Phone</string>
