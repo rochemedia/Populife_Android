@@ -698,20 +698,13 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 						switch (code) {
 							case 200:
 								JSONObject accountInfo = result.getJSONObject("data");
-								//处理异地登录
-								if ("test@populife.co".equals(userName) || "+8613201812820".equals(userName)) { // 测试账号，不检测异地登录，直接登录进入主页
+								if (accountInfo.containsKey("phone") || accountInfo.containsKey("email")) {// 新设备登录，跳转到验证码验证页面
+									PeachPreference.putStr(PeachPreference.ACCOUNT, userName);
+									LoginVerifyActivity.actionStart(SignActivity.this, mSignType, countryCode, userName, response, loginPwd);
+								} else {//没有异地登录（依旧在同一设备登录）
 									PeachPreference.putStr(PeachPreference.ACCOUNT_PWD, loginPwd);
 									PeachPreference.putStr(PeachPreference.ACCOUNT, userName);
 									SignHandler.onSignIn(response, mISignListener);
-								} else {
-									if (accountInfo.containsKey("phone") || accountInfo.containsKey("email")) {// 新设备登录，跳转到验证码验证页面
-										PeachPreference.putStr(PeachPreference.ACCOUNT, userName);
-										LoginVerifyActivity.actionStart(SignActivity.this, mSignType, countryCode, userName, response, loginPwd);
-									} else {//没有异地登录（依旧在同一设备登录）
-										PeachPreference.putStr(PeachPreference.ACCOUNT_PWD, loginPwd);
-										PeachPreference.putStr(PeachPreference.ACCOUNT, userName);
-										SignHandler.onSignIn(response, mISignListener);
-									}
 								}
 								break;
 

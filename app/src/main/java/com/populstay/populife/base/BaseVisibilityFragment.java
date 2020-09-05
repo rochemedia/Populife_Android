@@ -7,6 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.View.OnAttachStateChangeListener;
 
+import com.populstay.populife.eventbus.Event;
+
+import org.greenrobot.eventbus.EventBus;
+
 /**
  * Created by Jerry
  */
@@ -148,6 +152,10 @@ public class BaseVisibilityFragment extends BaseFragment implements OnAttachStat
 		info("==> onFragmentVisibilityChanged = " + visible);
 		if (mListener != null) {
 			mListener.onFragmentVisibilityChanged(visible);
+		}
+
+		if (visible){
+			EventBus.getDefault().post(new Event(Event.EventType.FRAGMENT_RESUME_CHECK_REMOTE_LOGIN));
 		}
 	}
 

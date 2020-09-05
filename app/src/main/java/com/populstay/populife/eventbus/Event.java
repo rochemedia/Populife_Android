@@ -37,5 +37,7 @@ public class Event {
         int CREATE_PWD_SUCCESS = 10;
         // 密码状态同步成功
         int SYN_PWD_INFO_SUCCESS = 11;
+        // 检查异地登录
+        int FRAGMENT_RESUME_CHECK_REMOTE_LOGIN = 12;
     }
 }

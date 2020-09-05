@@ -198,6 +198,7 @@ public class LoginVerifyActivity extends BaseActivity implements View.OnClickLis
 								//验证成功，执行登录成功后的逻辑
 								PeachPreference.putStr(PeachPreference.ACCOUNT_PWD, mLoginPwd);
 								SignHandler.onSignIn(mLoginResponse, mISignListener);
+								PeachPreference.updateLastCheckRemoteLoginTime();
 								//新设备登录，推送异地登录
 								signInNewDevicePush();
 							} else {

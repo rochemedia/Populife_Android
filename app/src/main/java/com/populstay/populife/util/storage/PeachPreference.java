@@ -30,6 +30,8 @@ public class PeachPreference {
 	private static final String LAST_SELECT_HOME_ID = "last_select_home_id"; //最近一次使用的家庭组
 	private static final String LAST_SELECT_HOME_NAME = "last_select_home_name"; //最近一次使用的家庭组
 	private static final String SHARE_KEY_PRE_ID = "share_key_pre_id"; //密钥分享ID
+	private static final String LAST_CHECK_REMOTE_LOGIN_TIME = "last_check_remote_login_time"; //记录最近一次认证登录的时间
+
 	/**
 	 * 提示:
 	 * <p>
@@ -118,6 +120,18 @@ public class PeachPreference {
 		getAppPreference()
 				.edit()
 				.putString(USER_LOCK_INFO, userLockInfo)
+				.apply();
+	}
+
+	public static long getLastCheckRemoteLoginTime() {
+		return getAppPreference()
+				.getLong(LAST_CHECK_REMOTE_LOGIN_TIME, System.currentTimeMillis());
+	}
+
+	public static void updateLastCheckRemoteLoginTime() {
+		getAppPreference()
+				.edit()
+				.putLong(LAST_CHECK_REMOTE_LOGIN_TIME, System.currentTimeMillis())
 				.apply();
 	}
 

@@ -23,10 +23,13 @@ import android.view.ViewGroup;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.populstay.populife.R;
+import com.populstay.populife.activity.LoginVerifyActivity;
 import com.populstay.populife.activity.SignActivity;
+import com.populstay.populife.activity.SplashActivity;
 import com.populstay.populife.common.Urls;
 import com.populstay.populife.eventbus.Event;
 import com.populstay.populife.net.RestClient;
+import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.permission.PermissionListener;
 import com.populstay.populife.push.EventPushService;
@@ -71,6 +74,7 @@ public class BaseActivity extends AppCompatActivity {
 	};
 	private PermissionListener mPermissionListener = null;
 //	private MessageReceiver mMessageReceiver;
+	private boolean mRemoteLoginChecking;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -322,24 +326,45 @@ public class BaseActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		// 2g0ac0wly9o 为测试账号 id，test@populife.co
-		// 21zv26jqlug 为测试账号 id，+8613201812820
-		if (!"2g0ac0wly9o".equals(PeachPreference.readUserId()) && !"21zv26jqlug".equals(PeachPreference.readUserId())) {
-			queryLatestDeviceId();
+		queryLatestDeviceId();
+	}
+
+
+	private boolean isNeedCheckRemoteLogin(){
+		if (this instanceof SignActivity || this instanceof LoginVerifyActivity || this instanceof SplashActivity){
+			return false;
 		}
+
+		long currentTime = System.currentTimeMillis();
+		long lastCheckRemoteLoginTime = PeachPreference.getLastCheckRemoteLoginTime();
+		if (currentTime - lastCheckRemoteLoginTime < 1000 * 30){
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
 	 * 查询最新的设备id, 判断是否已经在异地登录
 	 */
 	protected void queryLatestDeviceId() {
+		if (!isNeedCheckRemoteLogin()){
+			return;
+		}
+
+		// 检查中
+		if (mRemoteLoginChecking){
+			return;
+		}
+		mRemoteLoginChecking = true;
+
 		RestClient.builder()
 				.url(Urls.QUERY_LATEST_DEVICE_ID)
 				.params("userId", PeachPreference.readUserId())
 				.success(new ISuccess() {
 					@Override
-					public void onSuccess(String response) {
-//						PeachLogger.d("QUERY_LATEST_DEVICE_ID", response);
+							public void onSuccess(String response) {
+						mRemoteLoginChecking = false;
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");
 						if (code == 200) {
@@ -350,9 +375,12 @@ public class BaseActivity extends AppCompatActivity {
 							}
 						}
 					}
-				})
-				.build()
-				.get();
+				}).failure(new IFailure() {
+			@Override
+			public void onFailure() {
+				mRemoteLoginChecking = false;
+			}
+		}).build().get();
 	}
 
 	private void showNewDeviceLoginDialog() {
@@ -391,7 +419,10 @@ public class BaseActivity extends AppCompatActivity {
 	}
 
 	public void onEventSub(Event event){
-
+		// 检查异地登录
+		if (Event.EventType.FRAGMENT_RESUME_CHECK_REMOTE_LOGIN == event.type){
+			queryLatestDeviceId();
+		}
 	}
 
 	public void onNetStateChange(boolean isNetEnable){
