@@ -16,6 +16,7 @@ import com.meiqia.meiqiasdk.imageloader.MQImage;
 import com.meiqia.meiqiasdk.util.MQIntentBuilder;
 import com.populstay.populife.R;
 import com.populstay.populife.base.BaseActivity;
+import com.populstay.populife.base.BluetoothBaseActivity;
 import com.populstay.populife.permission.PermissionListener;
 import com.populstay.populife.ui.MQGlideImageLoader;
 import com.populstay.populife.util.log.PeachLogger;
@@ -26,7 +27,7 @@ import com.populstay.populife.util.timer.ITimerListener;
 import java.util.HashMap;
 import java.util.List;
 
-public class GatewayAddGuideActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class GatewayAddGuideActivity extends BluetoothBaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
 	private TextView mTvPageTitle, mTvShowCountDownTime, mTvNext;
 	private BaseCountDownTimer mCountDownTimer;
@@ -193,15 +194,22 @@ public class GatewayAddGuideActivity extends BaseActivity implements View.OnClic
 	}
 
 	public void startRefreshCountDownTimerUI(){
-		mTvNext.setEnabled(true);
 		setCountDownTimeText(COUNT_DOWN_MILLIS);
 		mCbConfirmActivateDevice.setChecked(true);
 		mCbConfirmGatewayReconnect.setChecked(true);
+		setNextBtnEnable();
 	}
 
 	public void resetRefreshCountDownTimerUI(){
-		mTvNext.setEnabled(false);
 		setCountDownTimeText(0);
+		setNextBtnEnable();
+	}
+
+	private void setNextBtnEnable(){
+		boolean enable = false;
+		enable = mCbConfirmActivateDevice.isChecked() && mCbConfirmGatewayReconnect.isChecked();
+		enable = enable && isBleEnableNotHint() && isLbsEnableNotHint();
+		mTvNext.setEnabled(enable);
 	}
 
 	public void setCountDownTimeText(int time){
@@ -218,6 +226,16 @@ public class GatewayAddGuideActivity extends BaseActivity implements View.OnClic
 			mCountDownTimer.cancel();
 			mCountDownTimer = null;
 		}
+	}
+
+	@Override
+	public void onBluetoothStateChanged(boolean isOpen) {
+		setNextBtnEnable();
+	}
+
+	@Override
+	public void onLocationStateChanged(boolean isOpen) {
+		setNextBtnEnable();
 	}
 
 }
