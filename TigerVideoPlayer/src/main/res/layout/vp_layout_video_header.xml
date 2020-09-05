@@ -11,15 +11,17 @@
         android:layout_marginStart="@dimen/vp_video_header_view_padding"
         android:layout_marginLeft="@dimen/vp_video_header_view_padding"
         android:paddingLeft="@dimen/vp_video_header_view_padding"
+        android:paddingTop="@dimen/vp_video_header_view_padding"
         android:paddingStart="@dimen/vp_video_header_view_padding"
         android:paddingEnd="@dimen/vp_video_header_view_padding"
         android:paddingRight="@dimen/vp_video_header_view_padding"
-        android:background="@drawable/vp_fullscreen_back"/>
+        android:src="@drawable/vp_fullscreen_back"/>
     <TextView
         android:id="@+id/vp_video_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:paddingTop="@dimen/vp_video_header_view_padding"
         android:layout_marginStart="@dimen/vp_video_header_view_padding"
         android:layout_marginLeft="@dimen/vp_video_header_view_padding"
         android:paddingRight="@dimen/vp_video_header_view_padding"
