@@ -375,8 +375,8 @@
     <string name="note_email_has_been_used">该邮箱已被使用</string>
     <string name="note_account_bind_fail">绑定失败</string>
     <string name="note_login_new_device">账号在异地登录，请重新登录</string>
-    <string name="lock_type_deadbolt">横闩锁</string>
-    <string name="lock_type_keybox">密码盒</string>
+    <string name="lock_type_deadbolt">智能横闩锁</string>
+    <string name="lock_type_keybox">智能密码盒</string>
     <string name="lock_type_mortise">插芯锁</string>
     <string name="go_to_login">去登录</string>
     <string name="note_login_fingerprint_verification">将手指置于指纹传感器上，以完成指纹验证登录。</string>
@@ -465,7 +465,7 @@
 
 
 
-    <string name="device_name_gateway">网关</string>
+    <string name="device_name_gateway">智能网关</string>
     <string name="sign_in_by_verify_code">验证码登录</string>
     <string name="confirm_password">确认密码</string>
     <string name="next_step">继续</string>

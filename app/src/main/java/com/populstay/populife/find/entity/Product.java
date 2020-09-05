@@ -10,6 +10,7 @@ public class Product implements Parcelable {
     private float price;
     private int desc;
     private int photoDesId;
+    private String detailUrl;
 
     public Product(String name, String type) {
         this.name = name;
@@ -22,6 +23,7 @@ public class Product implements Parcelable {
         price = in.readFloat();
         desc = in.readInt();
         photoDesId = in.readInt();
+        detailUrl = in.readString();
     }
 
     @Override
@@ -31,6 +33,7 @@ public class Product implements Parcelable {
         dest.writeFloat(price);
         dest.writeInt(desc);
         dest.writeInt(photoDesId);
+        dest.writeString(detailUrl);
     }
 
     @Override
@@ -88,5 +91,13 @@ public class Product implements Parcelable {
 
     public void setPhotoDesId(int photoDesId) {
         this.photoDesId = photoDesId;
+    }
+
+    public String getDetailUrl() {
+        return detailUrl;
+    }
+
+    public void setDetailUrl(String detailUrl) {
+        this.detailUrl = detailUrl;
     }
 }

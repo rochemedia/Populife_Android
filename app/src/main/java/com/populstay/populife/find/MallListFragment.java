@@ -42,9 +42,11 @@ public class MallListFragment extends FindFragment{
             @Override
             public void onItemClick(View v, int position) {
                 mDeviceListAdapter.selectItem(position);
+                Product  selectProduct = mDeviceList.get(position);
+
                 Intent intent= new Intent();
                 intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse("https://www.populife.co/");
+                Uri content_url = Uri.parse(selectProduct.getDetailUrl());
                 intent.setData(content_url);
                 startActivity(intent);
             }
@@ -55,18 +57,22 @@ public class MallListFragment extends FindFragment{
 
         // 密码锁
         Product device = new Product(getString(R.string.lock_type_keybox), ProductInfo.IProductInfoType.PRODUCT_LOCK_TYPE_KEY_BOX);
+        device.setDetailUrl("https://www.populife.co/#/keybox");
         mDeviceList.add(device);
 
         // 横闩锁
         device = new Product(getString(R.string.lock_type_deadbolt), ProductInfo.IProductInfoType.PRODUCT_LOCK_TYPE_DEADBOLT);
+        device.setDetailUrl("https://www.populife.co/#/deadbolt");
         mDeviceList.add(device);
 
-        // 密码锁
+        // 网关
         device = new Product(getString(R.string.device_name_gateway),ProductInfo.IProductInfoType.PRODUCT_TYPE_GATEWAY);
+        device.setDetailUrl("https://www.populife.co/#/gateway");
         mDeviceList.add(device);
 
         // PopuCare
         device = new Product(getString(R.string.product_type_popu_care_name),ProductInfo.IProductInfoType.PRODUCT_TYPE_POPU_CARE);
+        device.setDetailUrl("https://www.populife.co");
         mDeviceList.add(device);
     }
 }
