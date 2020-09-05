@@ -666,4 +666,9 @@
 
     <string name="so_space">%s的空间</string>
 
+    <string name="video_title_1">自动上锁</string>
+    <string name="video_title_2">共享自定义密码</string>
+    <string name="video_title_3">创建和共享蓝牙密钥</string>
+    <string name="video_title_4">修改管理者密码</string>
+
 </resources>

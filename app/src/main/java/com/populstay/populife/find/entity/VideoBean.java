@@ -3,9 +3,9 @@ package com.populstay.populife.find.entity;
 public class VideoBean {
     private String mVideoUrl;
     private String mVideoThumbUrl;
-    private String mVideoTitle;
+    private int mVideoTitle;
 
-    public VideoBean(String videoUrl, String videoThumbUrl, String videoTitle) {
+    public VideoBean(String videoUrl, String videoThumbUrl, int videoTitle) {
 
         mVideoUrl = videoUrl;
         mVideoThumbUrl = videoThumbUrl;
@@ -22,7 +22,7 @@ public class VideoBean {
         return mVideoThumbUrl;
     }
 
-    public String getVideoTitle() {
+    public int getVideoTitle() {
 
         return mVideoTitle;
     }

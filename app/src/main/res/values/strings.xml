@@ -737,11 +737,9 @@
         <item>video_thumb/video_thumb_3.png</item>
     </string-array>
 
-    <string-array name="video_title">
-        <item>Automatic Locking</item>
-        <item>Customize your password and share it</item>
-        <item>Create and share a Bluetooth key</item>
-        <item>Change Admin password</item>
-    </string-array>
+    <string name="video_title_1">Automatic Locking</string>
+    <string name="video_title_2">Customize your password and share it</string>
+    <string name="video_title_3">Create and share a Bluetooth key</string>
+    <string name="video_title_4">Change Admin password</string>
 
 </resources>

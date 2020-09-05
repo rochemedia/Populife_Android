@@ -43,7 +43,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     public void onBindViewHolder(VideoViewHolder holder, int position) {
 
         VideoBean video = mVideoList.get(position);
-        holder.mPlayerView.bind(video.getVideoUrl(), video.getVideoTitle());
+        holder.mPlayerView.bind(video.getVideoUrl(), mContext.getString(video.getVideoTitle()));
         holder.tvVideoDesc.setText(video.getVideoTitle());
         holder.mPlayerView.getThumbImageView().setScaleType(ImageView.ScaleType.FIT_XY);
         Glide.with(mContext).load(Uri.parse("file:///android_asset/" + video.getVideoThumbUrl())).into(holder.mPlayerView.getThumbImageView());

@@ -12,7 +12,7 @@ public class VideoData {
     static {
         String[] videoUrls = MyApplication.getApplication().getResources().getStringArray(R.array.video_url);
         String[] videoCovers = MyApplication.getApplication().getResources().getStringArray(R.array.video_cover);
-        String[] videoTitles = MyApplication.getApplication().getResources().getStringArray(R.array.video_title);
+        int[] videoTitles = {R.string.video_title_1, R.string.video_title_2, R.string.video_title_3, R.string.video_title_4};
         sVideoList = new ArrayList<>();
         for(int i = 0; i < videoUrls.length; i++) {
             sVideoList.add(new VideoBean(videoUrls[i], videoCovers[i], videoTitles[i]));
