@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.LocaleList;
@@ -75,6 +76,7 @@ public class BaseActivity extends AppCompatActivity {
 	private PermissionListener mPermissionListener = null;
 //	private MessageReceiver mMessageReceiver;
 	private boolean mRemoteLoginChecking;
+	private LocationManager mLocationManager;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -216,6 +218,25 @@ public class BaseActivity extends AppCompatActivity {
 		return isEnable;
 	}
 
+	public boolean isBleEnableNotHint() {
+		boolean isEnable = true;
+
+		if (!BluetoothUtil.isBleEnable()) {
+			isEnable = false;
+		}
+		return isEnable;
+	}
+
+	/**
+	 * 定位服务是否可用
+	 */
+	public boolean isLbsEnableNotHint() {
+		if (null == mLocationManager){
+			mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		}
+		return mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+	}
+
 	/**
 	 * 检测网络是否开启，未开启则弹出提示消息
 	 */
@@ -225,6 +246,16 @@ public class BaseActivity extends AppCompatActivity {
 		if (!NetworkUtil.isNetConnected()) {
 			isEnable = false;
 			toast(R.string.note_network_error);
+		}
+
+		return isEnable;
+	}
+
+	public boolean isNetEnableNotHint() {
+		boolean isEnable = true;
+
+		if (!NetworkUtil.isNetConnected()) {
+			isEnable = false;
 		}
 
 		return isEnable;

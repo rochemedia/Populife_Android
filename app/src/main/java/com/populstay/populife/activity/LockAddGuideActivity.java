@@ -169,17 +169,15 @@ public class LockAddGuideActivity extends BluetoothBaseActivity implements View.
             mTvPageTitle.setText(R.string.lock_add);
         }
 
-        mCbBtAndLbsOpen.setChecked(isBleEnable());
-        mCbNetOpen.setChecked(isNetEnable());
+        mCbBtAndLbsOpen.setChecked(isBleEnableNotHint());
+        mCbNetOpen.setChecked(isNetEnableNotHint());
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_lock_add_guide_next:
-                if (isBleNetEnable()) {
-                    ActivateDeviceActivity.actionStart(this,lockType);
-                }
+                ActivateDeviceActivity.actionStart(this,lockType);
                 break;
             default:
                 break;
@@ -188,12 +186,20 @@ public class LockAddGuideActivity extends BluetoothBaseActivity implements View.
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-    	boolean nextEnable = mCbBtAndLbsOpen.isChecked()
-				&& mCbNetOpen.isChecked()
-				&& mCkBatteryInstall.isChecked()
-				&& mCbKeepOpenDoor.isChecked()
-				&& mCbConfirmTime.isChecked();
-		mTvNext.setEnabled(nextEnable);
+        setNextBtnEnable();
+    }
+
+    private void setNextBtnEnable(){
+        boolean nextEnable = mCbBtAndLbsOpen.isChecked()
+                && mCbNetOpen.isChecked()
+                && mCkBatteryInstall.isChecked()
+                && mCbKeepOpenDoor.isChecked()
+                && mCbConfirmTime.isChecked();
+        mTvNext.setEnabled(nextEnable);
+    }
+
+    private void setCbBtAndLbsOpenCheckStatus(){
+        mCbBtAndLbsOpen.setChecked(isBleEnableNotHint() && isLbsEnableNotHint());
     }
 
     @Override
@@ -206,16 +212,16 @@ public class LockAddGuideActivity extends BluetoothBaseActivity implements View.
 
     @Override
     public void onBluetoothStateChanged(boolean isOpen) {
-
+        setCbBtAndLbsOpenCheckStatus();
     }
 
     @Override
     public void onLocationStateChanged(boolean isOpen) {
-
+        setCbBtAndLbsOpenCheckStatus();
     }
 
     @Override
     public void onNetStateChange(boolean isNetEnable) {
-
+        mCbNetOpen.setChecked(isNetEnable);
     }
 }
