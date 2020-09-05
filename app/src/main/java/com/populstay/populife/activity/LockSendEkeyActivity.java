@@ -426,7 +426,6 @@ public class LockSendEkeyActivity extends BaseActivity implements View.OnClickLi
 						int code = result.getInteger("code");
 						switch (code) {
 							case 200:
-								toast(R.string.send_ekey_success);
 								String  data = result.getString("data");
 								mCreateBluetoothActionInfo = new CreateBluetoothActionInfo();
 								mCreateBluetoothActionInfo.setShareUrl(data);
