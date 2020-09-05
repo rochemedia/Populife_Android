@@ -21,6 +21,7 @@ import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.sign.ISignListener;
 import com.populstay.populife.sign.SignHandler;
+import com.populstay.populife.ui.widget.exedittext.ExEditText;
 import com.populstay.populife.util.activity.ActivityCollector;
 import com.populstay.populife.util.device.DeviceUtil;
 import com.populstay.populife.util.log.PeachLogger;
@@ -41,7 +42,7 @@ public class LoginVerifyActivity extends BaseActivity implements View.OnClickLis
 	private static final String KEY_LOGIN_RESPONSE = "key_login_response";
 	private static final String KEY_LOGIN_PWD = "key_login_pwd";
 
-	private EditText mEtCode;
+	private ExEditText mEtCode;
 	private TextView mTvGetCode, mTvNote, mTvVerify;
 
 	private BaseCountDownTimer mTimer = null;
@@ -94,7 +95,8 @@ public class LoginVerifyActivity extends BaseActivity implements View.OnClickLis
 		findViewById(R.id.page_action).setVisibility(View.GONE);
 
 		mEtCode = findViewById(R.id.et_login_verify_code);
-		mTvGetCode = findViewById(R.id.tv_login_verify_get_code);
+		mTvGetCode = mEtCode.getVerifictionCodeView();
+		mTvGetCode.setEnabled(true);
 		mTvNote = findViewById(R.id.tv_login_verify_note);
 		mTvVerify = findViewById(R.id.tv_login_verify);
 
@@ -119,18 +121,19 @@ public class LoginVerifyActivity extends BaseActivity implements View.OnClickLis
 				mTvVerify.setEnabled(!StringUtil.isBlank(editable.toString().trim()));
 			}
 		});
-		mTvGetCode.setOnClickListener(this);
+		mTvGetCode.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// 获取验证码
+				getVerificationCode();
+			}
+		});
 		mTvVerify.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-			case R.id.tv_login_verify_get_code:
-				// 获取验证码
-				getVerificationCode();
-				break;
-
 			case R.id.tv_login_verify:
 				validateVerificationCode();
 				break;

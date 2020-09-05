@@ -132,6 +132,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
             case TYPE_VERIFICTION_CODE:
                 contentEt.setInputType(InputType.TYPE_CLASS_NUMBER);
                 rightTv.setVisibility(VISIBLE);
+                showCcPicker(false);
                 break;
             case TYPE_NUMBER:
                 contentEt.setInputType(InputType.TYPE_CLASS_NUMBER);
