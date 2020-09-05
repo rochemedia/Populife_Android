@@ -26,6 +26,8 @@
             <TextView
                 android:layout_marginTop="40dp"
                 android:layout_width="wrap_content"
+                android:layout_marginRight="@dimen/common_page_left_right_space"
+                android:layout_marginLeft="@dimen/common_page_left_right_space"
                 android:layout_height="wrap_content"
                 android:text="@string/add_device_activate_hint"
                 android:textColor="@color/common_text_color"
@@ -36,6 +38,8 @@
                 android:id="@+id/cb_confirm_activate_device"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/common_page_left_right_space"
+                android:layout_marginLeft="@dimen/common_page_left_right_space"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/confirm_device_activate_hint"
                 android:drawablePadding="6dp"

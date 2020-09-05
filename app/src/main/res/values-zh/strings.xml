@@ -573,9 +573,7 @@
     <string name="operation_video">操作视频</string>
     <string name="shopping_mall">商城</string>
     <string name="news">新闻</string>
-    <string name="product_type_popu_care_desc">购买 PopuCare 服务计划，两年安享无忧。
-每部设备均可在有限保修期内享有一年的硬件保修及免费更换服务。PopuCare 服务计划可为你提供自购买该服务计划之日起为期两年的
-维修服务。</string>
+    <string name="product_type_popu_care_desc">购买 PopuCare 服务计划，两年安享无忧。每部设备均可在有限保修期内享有一年的硬件保修及免费更换服务。PopuCare 服务计划可为你提供自购买该服务计划之日起为期两年的维修服务。</string>
     <string name="product_type_popu_care_name">PopuCare</string>
     <string name="product_price">购买   I   %.1f USD</string>
     <string name="load_more_txt">正在加载，请稍后...</string>
@@ -664,8 +662,9 @@
     <string name="maintenance_status_3">等待退回维修好的产品</string>
     <string name="maintenance_detials">维修详情</string>
 
-    <string name="so_space">%s的空间</string>
 
+
+    <string name="so_space">%s的空间</string>
     <string name="video_title_1">自动上锁</string>
     <string name="video_title_2">共享自定义密码</string>
     <string name="video_title_3">创建和共享蓝牙密钥</string>

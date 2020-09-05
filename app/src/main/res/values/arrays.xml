@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="video_url">
+        <item>video/video_0.mp4</item>
+        <item>video/video_1.mp4</item>
+        <item>video/video_2.mp4</item>
+        <item>video/video_3.mp4</item>
+    </string-array>
+
+    <string-array name="video_cover">
+        <item>video_thumb/video_thumb_0.png</item>
+        <item>video_thumb/video_thumb_1.png</item>
+        <item>video_thumb/video_thumb_2.png</item>
+        <item>video_thumb/video_thumb_3.png</item>
+    </string-array>
+</resources>

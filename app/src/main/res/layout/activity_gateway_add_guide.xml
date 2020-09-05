@@ -25,6 +25,8 @@
                 android:src="@drawable/add_gateway_icon" />
 
             <TextView
+                android:layout_marginRight="@dimen/common_page_left_right_space"
+                android:layout_marginLeft="@dimen/common_page_left_right_space"
                 android:layout_marginTop="40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,6 +38,8 @@
             <LinearLayout
                 android:layout_gravity="center_horizontal"
                 android:orientation="vertical"
+                android:layout_marginRight="@dimen/common_page_left_right_space"
+                android:layout_marginLeft="@dimen/common_page_left_right_space"
                 android:gravity="left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">

@@ -483,7 +483,7 @@
     <string name="unit_minute">m</string>
     <string name="unit_second">s</string>
 
-    <string name="device_name_gateway">gateway</string>
+    <string name="device_name_gateway">Gateway</string>
     <string name="sign_in_by_verify_code">Verification code login</string>
     <string name="confirm_password">Confirm password</string>
     <string name="next_step">continue</string>
@@ -508,8 +508,8 @@
     <string name="new_create_space">New space</string>
     <string name="rename_space">Name modification</string>
     <string name="confirm">determine</string>
-    <string name="device_num_match">%D devices</string>
-    <string name="space_num_match">%D spaces</string>
+    <string name="device_num_match">%d devices</string>
+    <string name="space_num_match">%d spaces</string>
     <string name="bt_and_lbs_open_hint">1. Bluetooth has been turned on. If it is an Android phone, location service has been turned on.</string>
     <string name="net_open_hint">2. WiFi or mobile cellular network is on.</string>
     <string name="battery_install_hint">3. The battery has been installed.</string>
@@ -530,9 +530,9 @@
     <string name="retry_scan">Continue scanning</string>
     <string name="please_input_sevice_name">Please enter device name</string>
     <string name="select_home_group">Switch space</string>
-    <string name="add_success">Successfully added</string>
+    <string name="add_success">Added successfully</string>
     <string name="add_lock_help_hint">Touch the lock keyboard, the keyboard should be on, if not, please check whether the battery is installed correctly, whether the cable is connected properly, if there is no problem, the keyboard is still not on, please contact us.</string>
-    <string name="delete_home_hint">After deleting the family, all the information that has been set will be clear. Are you sure to delete the family?</string>
+    <string name="delete_home_hint">After deleting the family, all the information that has been set will be cleared. Are you sure to delete the family?</string>
     <string name="keys_and_pwd">key management </string>
     <string name="lock_operate_log">Operation log</string>
     <string name="adjus_lock_time">Calibration time</string>
@@ -567,7 +567,7 @@
     <string name="name_of_authorizer">Name of authorized person</string>
     <string name="select_key_pwd_type">Select key type</string>
     <string name="me_list_item_name_space">Space management</string>
-    <string name="me_list_item_name_gateway">Intelligent Gateway </string>
+    <string name="me_list_item_name_gateway">Gateway</string>
     <string name="me_list_item_name_auditor">Audit trail</string>
     <string name="me_list_item_name_service">Service and support</string>
     <string name="me_list_item_name_settings">Settings</string>
@@ -591,48 +591,48 @@
     <string name="operation_video">Operation video</string>
     <string name="shopping_mall">Shopping Mall</string>
     <string name="news">Journalism</string>
-    <string name="product_type_popu_care_desc">Buy the popucare service plan and enjoy it for two years.</string>
-    <string name="product_type_popu_care_name">Each device can enjoy one year hardware warranty and free replacement service within the limited warranty period. The popucare service plan provides you with a</string>
-    <string name="product_price">Maintenance service.</string>
-    <string name="load_more_txt">PopuCare</string>
-    <string name="no_more_data">Buy I%. 1F USD</string>
-    <string name="receive_share_key">Loading, please wait</string>
-    <string name="cannot_receive_oneself_shared_keys">There is no more data</string>
-    <string name="the_key_has_been_receive">Do you accept the key?</string>
-    <string name="maintenance_request">Can\'t get your own shared key</string>
-    <string name="welcome_to_maintenance_request">The key has been collected</string>
-    <string name="maintenance_progress_enquiry">Maintenance request</string>
-    <string name="check_warranty_status">Welcome to self service application service</string>
-    <string name="buy_popucare_service">Maintenance progress query</string>
-    <string name="maint_after_sale_process_1">View warranty status</string>
-    <string name="maint_after_sale_process_2">Buy popucare service plan</string>
-    <string name="maint_after_sale_process_3">After sales service process</string>
-    <string name="maint_after_sale_process_4">After sales process</string>
-    <string name="maint_after_sale_process_5">Launch after sales</string>
-    <string name="maint_after_sale_process_6">Fill in after sales maintenance application;</string>
-    <string name="maint_after_sale_process_7">Customer service confirmation</string>
-    <string name="maint_after_sale_process_8">After sales customer service will contact you within two working days after receiving the "after sales maintenance application";</string>
-    <string name="maint_after_sale_process_9">Return for repair</string>
-    <string name="maint_after_sale_process_10">After confirming the after-sales service, please mail the goods to the after-sales service center within 7 days;</string>
-    <string name="maint_after_sale_process_11">Important tips</string>
-    <string name="maint_after_sale_process_12">Please provide valid purchase certificate;</string>
-    <string name="maint_after_sale_process_13">Please do not send goods by surface mail or cod;</string>
-    <string name="maint_after_sale_process_14">Contact after sales</string>
-    <string name="populife_maintenance_request">After sales call: 400-669-1015</string>
-    <string name="after_sales_service_process_guide_hint">Service time: 7am - 10pm (holiday break)</string>
-    <string name="select_country_guide_hint">Populife service request</string>
-    <string name="select_country_area">Understand after sales service process</string>
-    <string name="select_write_maint_product_info">Please select your country / Region</string>
-    <string name="select_write_maint_logistics_info">Select country / Region</string>
-    <string name="label_select_product">Please fill in the repair product information</string>
-    <string name="label_product_equipment_number">Please fill in the logistics information</string>
-    <string name="label_please_input_equipment_number">Please select product*</string>
-    <string name="label_problem_description">Product equipment number*</string>
-    <string name="hint_problem_description">Enter your device number*</string>
-    <string name="label_buy_info">Problem description*</string>
-    <string name="hint_buy_info">Please enter the problem description</string>
-    <string name="hint_doc_pattern">Purchase information</string>
-    <string name="hint_mailing_address">(improve your purchase information to speed up processing)</string>
+    <string name="product_type_popu_care_desc">Buy the popucare service plan and enjoy it for two years. Each device can enjoy one year hardware warranty and free replacement service within the limited warranty period. The popucare service plan provides you with a two-year maintenance service from the date of purchase of the service plan.</string>
+    <string name="product_type_popu_care_name">PopuCare</string>
+    <string name="product_price">Buy   I   %.1f USD</string>
+    <string name="load_more_txt">Loading, please wait</string>
+    <string name="no_more_data">There is no more data</string>
+    <string name="receive_share_key">Do you accept the key?</string>
+    <string name="cannot_receive_oneself_shared_keys">Can\'t get your own shared key</string>
+    <string name="the_key_has_been_receive">The key has been collected</string>
+    <string name="maintenance_request">Maintenance request</string>
+    <string name="welcome_to_maintenance_request">Welcome to self service application service</string>
+    <string name="maintenance_progress_enquiry">Maintenance progress query</string>
+    <string name="check_warranty_status">View warranty status</string>
+    <string name="buy_popucare_service">Buy popucare service plan</string>
+    <string name="maint_after_sale_process_1">After sales service process</string>
+    <string name="maint_after_sale_process_2">After sales process</string>
+    <string name="maint_after_sale_process_3">Launch after sales</string>
+    <string name="maint_after_sale_process_4">Fill in after sales maintenance application;</string>
+    <string name="maint_after_sale_process_5">Customer service confirmation</string>
+    <string name="maint_after_sale_process_6">After sales customer service will contact you within two working days after receiving the 《after sales maintenance application》;</string>
+    <string name="maint_after_sale_process_7">Return for repair</string>
+    <string name="maint_after_sale_process_8">After confirming the after-sales service, please mail the goods to the after-sales service center within 7 days;</string>
+    <string name="maint_after_sale_process_9">Important tips</string>
+    <string name="maint_after_sale_process_10">Please provide valid purchase certificate;</string>
+    <string name="maint_after_sale_process_11">Please do not send goods by surface mail or cod;</string>
+    <string name="maint_after_sale_process_12">Contact after sales</string>
+    <string name="maint_after_sale_process_13">After sales call: 400-669-1015</string>
+    <string name="maint_after_sale_process_14">Service time: 7am - 10pm (holiday break)</string>
+    <string name="populife_maintenance_request">Populife service request</string>
+    <string name="after_sales_service_process_guide_hint">Understand after sales service process</string>
+    <string name="select_country_guide_hint">Please select your country / Region</string>
+    <string name="select_country_area">Select country / Region</string>
+    <string name="select_write_maint_product_info">Please fill in the repair product information</string>
+    <string name="select_write_maint_logistics_info">Please fill in the logistics information</string>
+    <string name="label_select_product">Please select product*</string>
+    <string name="label_product_equipment_number">Product equipment number*</string>
+    <string name="label_please_input_equipment_number">Enter your device number*</string>
+    <string name="label_problem_description">Problem description*</string>
+    <string name="hint_problem_description">Please enter the problem description</string>
+    <string name="label_buy_info">Purchase information</string>
+    <string name="hint_buy_info">(improve your purchase information to speed up processing)</string>
+    <string name="hint_doc_pattern">The data format is PDF, JPG or PNG.</string>
+    <string name="hint_mailing_address">After the product is repaired, it will be sent back to the following address by default. Please pay attention to the accuracy of the information</string>
     <string name="label_country">Country / Region*</string>
     <string name="please_name">Name*</string>
     <string name="please_email">Contact email*</string>
@@ -674,7 +674,7 @@
     <string name="successfully_purchased_popucare_service_plan">Successful purchase of popucare service plan</string>
     <string name="check_the_maintenance_order">View repair order</string>
     <string name="maintenance_status">Maintenance status</string>
-    <string name="repair_no">Repair order No.:% s</string>
+    <string name="repair_no">Repair order No.:%s</string>
     <string name="maintenance_status_1">The service center has received the product</string>
     <string name="maintenance_status_2">The service is in progress</string>
     <string name="maintenance_status_3">Waiting for the returned products to be repaired</string>
@@ -713,30 +713,9 @@
     <string name="maintenance_detials_30">应付总价</string>
     <string name="maintenance_detials_31">待邮寄</string>
     <string name="maintenance_detials_32">支付方式</string>
-
-
-
     <string name="guarantee_1">保修服务和支持期限</string>
 
     <string name="so_space">%s\'s Space</string>
-
-
-
-
-    <string-array name="video_url">
-        <item>video/video_0.mp4</item>
-        <item>video/video_1.mp4</item>
-        <item>video/video_2.mp4</item>
-        <item>video/video_3.mp4</item>
-    </string-array>
-
-    <string-array name="video_cover">
-        <item>video_thumb/video_thumb_0.png</item>
-        <item>video_thumb/video_thumb_1.png</item>
-        <item>video_thumb/video_thumb_2.png</item>
-        <item>video_thumb/video_thumb_3.png</item>
-    </string-array>
-
     <string name="video_title_1">Automatic Locking</string>
     <string name="video_title_2">Customize your password and share it</string>
     <string name="video_title_3">Create and share a Bluetooth key</string>
