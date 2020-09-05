@@ -48,6 +48,7 @@ import com.populstay.populife.entity.Key;
 import com.populstay.populife.entity.LockAction;
 import com.populstay.populife.enumtype.Operation;
 import com.populstay.populife.eventbus.Event;
+import com.populstay.populife.home.entity.Home;
 import com.populstay.populife.home.entity.HomeDevice;
 import com.populstay.populife.home.entity.HomeDeviceInfo;
 import com.populstay.populife.keypwdmanage.KeyPwdManageActivity;
@@ -1425,7 +1426,10 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		switch (event.type){
 			case Event.EventType.GET_HOME_DATA_COMPLETE:
 			case Event.EventType.CHANGE_HOME:
-				mHomeId = (String) event.obj;
+				Home home = (Home) event.obj;
+				if (null != home){
+					mHomeId = home.getId();
+				}
 				requestDeviceData();
 				break;
 		}

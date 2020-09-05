@@ -97,7 +97,8 @@ public class HomeListActivity extends BaseActivity implements View.OnClickListen
                     mHomeListAdapter.selectItem(position);
                     Home home = mHomeDatas.get(position);
                     PeachPreference.setLastSelectHomeId(home.getId());
-                    EventBus.getDefault().post(new Event(Event.EventType.CHANGE_HOME, home.getId()));
+                    PeachPreference.setLastSelectHomeName(home.getName());
+                    EventBus.getDefault().post(new Event(Event.EventType.CHANGE_HOME, home));
                     finish();
                 } else {
                     HomeDetailsActivity.actionStart(HomeListActivity.this, mHomeDatas.get(position));

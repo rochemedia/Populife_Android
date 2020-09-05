@@ -664,4 +664,6 @@
     <string name="maintenance_status_3">等待退回维修好的产品</string>
     <string name="maintenance_detials">维修详情</string>
 
+    <string name="so_space">%s的空间</string>
+
 </resources>

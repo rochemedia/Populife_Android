@@ -14,6 +14,7 @@ public class PeachPreference {
 	public static final String AGREE_USER_TERMS_PRIVACY_POLICY = "AGREE_USER_TERMS_PRIVACY_POLICY"; // 同意用户协议和隐私政策
 	public static final String SHOW_APP_USER_MAUAL = "show_app_user_maual"; // 显示 APP 操作手册
 	public static final String ACCOUNT_PWD = "account_pwd";
+	public static final String ACCOUNT = "account";
 	public static final String ACCOUNT_AVATAR = "account_avatar";
 	public static final String ACCOUNT_PHONE = "account_phone";
 	public static final String ACCOUNT_EMAIL = "account_email";
@@ -27,6 +28,7 @@ public class PeachPreference {
 	private static final String PLAY_LOCKING_SOUND = "play_locking_sound";
 	private static final String TOUCH_ID_LOGIN = "touch_id_login"; //指纹验证登录
 	private static final String LAST_SELECT_HOME_ID = "last_select_home_id"; //最近一次使用的家庭组
+	private static final String LAST_SELECT_HOME_NAME = "last_select_home_name"; //最近一次使用的家庭组
 	private static final String SHARE_KEY_PRE_ID = "share_key_pre_id"; //密钥分享ID
 	/**
 	 * 提示:
@@ -243,6 +245,18 @@ public class PeachPreference {
 		return getAppPreference()
 				.getString(LAST_SELECT_HOME_ID + readUserId(),"");
 	}
+	public static void setLastSelectHomeName(String homeName) {
+		getAppPreference()
+				.edit()
+				.putString(LAST_SELECT_HOME_NAME + readUserId(), homeName)
+				.apply();
+	}
+
+	public static String getLastSelectHomeName() {
+		return getAppPreference()
+				.getString(LAST_SELECT_HOME_NAME + readUserId(),"");
+	}
+
 
 	public static String getShareKeyPreId(){
 		return getAppPreference()

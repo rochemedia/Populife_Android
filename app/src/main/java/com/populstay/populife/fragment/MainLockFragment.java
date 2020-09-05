@@ -183,6 +183,7 @@ public class MainLockFragment extends BaseVisibilityFragment {
 								for (Home home : datas){
 									if (home.getId().equals(fromShareHomeId)){
 										PeachPreference.setLastSelectHomeId("");
+										PeachPreference.setLastSelectHomeName("");
 										currentHome = home;
 										break;
 									}
@@ -192,9 +193,9 @@ public class MainLockFragment extends BaseVisibilityFragment {
 
 								if (TextUtils.isEmpty(currentHomeId)){
 									PeachPreference.setLastSelectHomeId(currentHome.getId());
-									currentHomeId = currentHome.getId();
+									PeachPreference.setLastSelectHomeName(currentHome.getName());
 								}
-								EventBus.getDefault().post(new Event(Event.EventType.GET_HOME_DATA_COMPLETE,currentHomeId));
+								EventBus.getDefault().post(new Event(Event.EventType.GET_HOME_DATA_COMPLETE,currentHome));
 							}else {
 								HomeListActivity.actionStart(getActivity(), HomeListActivity.VAL_ACTION_TYPE_SWITCH_HOME);
 							}
@@ -387,5 +388,27 @@ public class MainLockFragment extends BaseVisibilityFragment {
 				return null;
 			return mListFragment.get(paramInt);
 		}
+	}
+
+	@Override
+	public void onEventSub(Event event) {
+		super.onEventSub(event);
+		switch (event.type){
+			case Event.EventType.GET_HOME_DATA_COMPLETE:
+			case Event.EventType.CHANGE_HOME:
+				String userAccount = PeachPreference.getStr(PeachPreference.ACCOUNT);
+				String lastSelectHomeName = PeachPreference.getLastSelectHomeName();
+				if (TextUtils.isEmpty(lastSelectHomeName)){
+					if (TextUtils.isEmpty(userAccount)){
+						mTvSwitchHome.setText(R.string.my_space);
+					}else {
+						mTvSwitchHome.setText(String.format(getString(R.string.so_space), userAccount));
+					}
+				}else {
+					mTvSwitchHome.setText(lastSelectHomeName);
+				}
+				break;
+		}
+
 	}
 }
