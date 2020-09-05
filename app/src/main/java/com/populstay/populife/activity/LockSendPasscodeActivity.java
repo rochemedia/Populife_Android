@@ -84,8 +84,6 @@ public class LockSendPasscodeActivity extends BaseActivity {
 		initView();
 		initListener();
 		initTab();
-
-		showTips();
 	}
 
 	private void initCurrentAccessTypeIndex(String keyPwdType){
@@ -98,19 +96,6 @@ public class LockSendPasscodeActivity extends BaseActivity {
 				mCurrentAccessTypeIndex = i;
 				break;
 			}
-		}
-	}
-
-	private void showTips() {
-		if (!PeachPreference.getBoolean(PeachPreference.NOTE_CREATE_CUSTOMIZE_PASSWORD)) {
-			DialogUtil.showCommonDialog(this, getString(R.string.note),
-					getString(R.string.note_create_customize_password), getString(R.string.ok),
-					null, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							PeachPreference.setBoolean(PeachPreference.NOTE_CREATE_CUSTOMIZE_PASSWORD, true);
-						}
-					}, null);
 		}
 	}
 
