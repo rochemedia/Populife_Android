@@ -37,6 +37,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
 
 		mSwitchTouchIdLogin = findViewById(R.id.switch_touch_id_login);
 		mLlTouchIdLogin.setVisibility(FingerprintUtil.isSupportFingerprint(this) ? View.VISIBLE : View.GONE);
+		findViewById(R.id.ll_touch_id_login_line).setVisibility(FingerprintUtil.isSupportFingerprint(this) ? View.VISIBLE : View.GONE);
 		mSwitchTouchIdLogin.setChecked(PeachPreference.isTouchIdLogin());
 
 		mSwitchReminder = findViewById(R.id.switch_lock_settings_reminder);
