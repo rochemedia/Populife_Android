@@ -15,9 +15,9 @@
 
         <ImageView
             android:id="@+id/iv_device_icon"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/deadbolt_inactive"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/deadbolt_clear_bg"/>
 
         <LinearLayout
             android:layout_width="match_parent"
