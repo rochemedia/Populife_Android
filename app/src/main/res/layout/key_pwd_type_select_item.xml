@@ -6,12 +6,10 @@
     <com.populstay.populife.ui.widget.extextview.ExTextView
         android:id="@+id/tv_item_name"
         style="@style/list_item_title"
-        android:gravity="center"
-        android:text="@string/lock_name" />
-
-    <TextView
-        android:id="@+id/tv_lock_settings_lock_name"
-        style="@style/list_item_description" />
+        android:gravity="left|center_vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <ImageView
         android:layout_width="wrap_content"
