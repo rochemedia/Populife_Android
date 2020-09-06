@@ -31,7 +31,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
+        android:gravity="left|top"
         android:layout_height="wrap_content">
         <TextView
             android:text="@string/label_product_equipment_number"
@@ -87,7 +87,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
+        android:gravity="left|top"
         android:layout_height="wrap_content">
         <TextView
             android:text="@string/label_buy_info"

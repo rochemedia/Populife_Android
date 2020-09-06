@@ -122,7 +122,7 @@
         <TextView
             style="@style/list_item_title"
             android:layout_marginRight="10dp"
-            android:text="@string/personal_center_account_phone"/>
+            android:text="@string/modify_passcode"/>
 
         <TextView
             style="@style/list_item_title_me"
