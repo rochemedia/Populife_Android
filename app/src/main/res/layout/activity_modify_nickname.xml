@@ -10,7 +10,6 @@
 
 
     <com.populstay.populife.ui.widget.exedittext.ExEditText
-        android:layout_marginTop="@dimen/common_page_left_right_space"
         android:layout_marginLeft="@dimen/common_page_left_right_space"
         android:layout_marginRight="@dimen/common_page_left_right_space"
         android:id="@+id/et_modify_nickname"

@@ -32,7 +32,6 @@
 
             <com.populstay.populife.ui.widget.exedittext.ExEditText
                 app:inputType="password"
-                android:layout_marginTop="@dimen/common_edit_text_margin_top"
                 android:id="@+id/et_gateway_add_wifi_name"
                 app:hint="@string/enter_wifi_name"
                 app:label="@string/wifi_name"
@@ -42,7 +41,6 @@
 
             <com.populstay.populife.ui.widget.exedittext.ExEditText
                 app:inputType="password"
-                android:layout_marginTop="@dimen/common_edit_text_margin_top"
                 android:id="@+id/et_gateway_add_wifi_pwd"
                 android:layout_width="match_parent"
                 app:hint="@string/enter_wifi_pwd"

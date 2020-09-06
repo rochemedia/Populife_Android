@@ -10,7 +10,6 @@
     <com.populstay.populife.ui.widget.exedittext.ExEditText
         android:id="@+id/et_device_name"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/common_edit_text_margin_top"
         android:layout_height="wrap_content"
         app:paddingLeftInner="@dimen/common_page_left_right_space"
         app:paddingRightInner="@dimen/common_page_left_right_space"

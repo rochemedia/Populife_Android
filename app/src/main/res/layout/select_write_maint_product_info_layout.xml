@@ -49,7 +49,6 @@
     </LinearLayout>
 
     <com.populstay.populife.ui.widget.exedittext.ExEditText
-        android:layout_marginTop="@dimen/common_edit_text_margin_top"
          app:inputType="normal"
         android:id="@+id/et_product_equipment_number"
         app:hint="@string/hint_product_equipment_number"

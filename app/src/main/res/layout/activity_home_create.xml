@@ -12,7 +12,6 @@
         app:inputType="normal"
         app:maxLength="20"
         android:id="@+id/et_space_name"
-        android:layout_marginTop="@dimen/common_edit_text_margin_top"
         android:layout_width="match_parent"
         app:paddingLeftInner="@dimen/common_page_left_right_space"
         app:paddingRightInner="@dimen/common_page_left_right_space"

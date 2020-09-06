@@ -63,6 +63,8 @@
         <com.populstay.populife.ui.widget.exedittext.ClearEditText
             android:id="@+id/content_et"
             style="@style/et_style_input_width_match"
+            android:paddingTop="@dimen/dimens_dp_20"
+            android:paddingBottom="@dimen/dimens_dp_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -108,7 +110,6 @@
 
 
     <View
-        android:layout_marginTop="20dp"
         android:id="@+id/bottom_line_view"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"

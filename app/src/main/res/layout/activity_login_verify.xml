@@ -19,7 +19,6 @@
             android:id="@+id/et_login_verify_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimens_dp_20"
             app:hint="@string/enter_verifiction_code"
             app:inputType="verificationCode"
             app:maxLength="6" />

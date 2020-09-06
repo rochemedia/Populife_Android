@@ -65,7 +65,6 @@
             android:id="@+id/et_sign_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_edit_text_margin_top"
             app:hint="@string/user_name_edit_hint"
             app:inputType="account" />
 
@@ -75,7 +74,6 @@
             app:inputType="password"
             app:maxLength="20"
             android:id="@+id/et_sign_pwd"
-            android:layout_marginTop="@dimen/common_edit_text_margin_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -85,7 +83,6 @@
             app:inputType="password"
             app:maxLength="20"
             android:id="@+id/et_confirm_pwd"
-            android:layout_marginTop="@dimen/common_edit_text_margin_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -93,7 +90,6 @@
             android:id="@+id/et_sign_verification_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_edit_text_margin_top"
             app:hint="@string/verification_code"
             app:inputType="verificationCode"
             app:label="@string/verification_code"
