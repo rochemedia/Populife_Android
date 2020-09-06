@@ -230,7 +230,6 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 				mLlLockUpgrade.setVisibility(View.GONE);
 				mLlRemoteUnlock.setVisibility(View.GONE);
 				mLlKeypadVolume.setVisibility(View.GONE);
-				mTvDelete.setVisibility(View.GONE);
 
 
 				switch (mKeyType) {//钥匙类型（1限时，2永久，3单次，4循环）
@@ -575,7 +574,7 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 		RestClient.builder()
 				.url(Urls.LOCK_EKEY_DELETE)
 				.loader(LockSettingsActivity.this)
-				.params("keyId", mKey.getKeyId())
+				.params("keyId", mKey.isAdmin() ?  mKey.getKeyId() : mKey.getUserKeyId())
 				.params("userId", PeachPreference.readUserId())
 				.params("delType", delType)
 				.success(new ISuccess() {

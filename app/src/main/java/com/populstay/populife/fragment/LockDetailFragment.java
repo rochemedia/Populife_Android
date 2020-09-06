@@ -1006,8 +1006,8 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 
 		long initDate = lockInfo.getLong("initDate");//初始化时间
-		// TODO
-		String keyId = lockInfo.getString("keyId");//管理员钥匙id
+		int keyId = lockInfo.getInteger("keyId");//管理员钥匙id
+		int userKeyId = lockInfo.getInteger("userKeyId");//用户钥匙id，普通用户用于删除钥匙
 		int status = lockInfo.getInteger("status");//锁状态（0删除，1正常）
 		String keyStatus = lockInfo.getString("keyStatus");//钥匙的状态（110401：正常使用，110402：待接收，110405：已冻结，110408：已删除，110410：已重置,110500:已过期）
 		int protocolType = lockInfo.getInteger("protocolType");//协议类型
@@ -1023,8 +1023,8 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		//mCurKEY.setUserType(userType);
 		//mCurKEY.setKeyStatus(keyStatus);
 		mCurKEY.setLockId(lockId);
-		//TODO
-		//mCurKEY.setKeyId(keyId);
+		mCurKEY.setKeyId(keyId);
+		mCurKEY.setUserKeyId(userKeyId);
 
 
 

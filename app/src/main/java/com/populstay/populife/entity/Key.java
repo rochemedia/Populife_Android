@@ -47,6 +47,8 @@ public class Key implements Serializable {
 	 */
 	private int keyId;
 
+	private int userKeyId;
+
 //    /**
 //     * judge whether it is an administrator
 //     */
@@ -231,6 +233,14 @@ public class Key implements Serializable {
 		this.isAllowRemoteUnlock = isAllowRemoteUnlock;
 		this.keyType = keyType;
 		this.dayNum = dayNum;
+	}
+
+	public int getUserKeyId() {
+		return userKeyId;
+	}
+
+	public void setUserKeyId(int userKeyId) {
+		this.userKeyId = userKeyId;
 	}
 
 	public Long getId() {
