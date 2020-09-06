@@ -47,6 +47,7 @@ public class HomeDeviceInfo {
             name = R.string.lock_type_keybox;
         }else {
             // 不存在的类型
+            name = R.string.device_name_gateway;
         }
         return name;
     }
@@ -67,6 +68,7 @@ public class HomeDeviceInfo {
             iconActive = R.drawable.device_card_single_icon_key_box_selector;
         }else {
             // 不存在的类型
+            iconActive = R.drawable.device_card_single_icon_gateway_selector;
         }
         return iconActive;
     }
@@ -87,6 +89,7 @@ public class HomeDeviceInfo {
             iconInactive = R.drawable.device_card_single_icon_key_box_selector;
         }else {
             // 不存在的类型
+            iconInactive = R.drawable.device_card_single_icon_gateway_selector;
         }
         return iconInactive;
     }
@@ -106,6 +109,7 @@ public class HomeDeviceInfo {
             modelNum = IModelNum.NAME_LOCK_KEY_BOX;
         }else {
             // 不存在的类型
+            modelNum = IModelNum.NAEM_GATEWAY;
         }
         return modelNum;
     }
@@ -126,6 +130,7 @@ public class HomeDeviceInfo {
             productPicture = R.drawable.product_keybox;
         }else {
             // 不存在的类型
+            productPicture = R.drawable.product_gateway;
         }
         return productPicture;
     }
