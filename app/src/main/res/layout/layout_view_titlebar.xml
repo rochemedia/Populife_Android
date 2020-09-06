@@ -48,8 +48,6 @@
         android:ellipsize="end"
         android:layout_toRightOf="@+id/page_back"
         android:layout_toLeftOf="@+id/page_action"
-        android:layout_marginRight="@dimen/common_page_left_right_space"
-        android:layout_alignWithParentIfMissing="true"
         android:maxLines="1"
         android:text="@string/page_title"
         android:textColor="@color/sign_page_title_text"
