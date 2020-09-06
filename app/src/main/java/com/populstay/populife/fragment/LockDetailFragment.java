@@ -271,7 +271,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 				mDeviceListAdapter.selectItem(position);
 				HomeDevice homeDevice = mDeviceList.get(position);
 
-				if (!homeDevice.getName().contains(HomeDeviceInfo.IDeviceName.NAEM_GATEWAY)){
+				if (!homeDevice.getName().startsWith(HomeDeviceInfo.IDeviceName.NAEM_GATEWAY)){
 					LockDetailActivity.actionStart(getActivity(), homeDevice.getDeviceId());
 				}else {
 					Gateway gateway = new Gateway();

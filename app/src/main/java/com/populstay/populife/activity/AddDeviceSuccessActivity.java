@@ -157,7 +157,7 @@ public class AddDeviceSuccessActivity extends BaseActivity implements View.OnCli
                 break;
             case R.id.tv_finish:
                 // 锁头
-                if (!mDeviceType.contains(HomeDeviceInfo.IDeviceName.NAEM_GATEWAY)){
+                if (!mDeviceType.startsWith(HomeDeviceInfo.IDeviceName.NAEM_GATEWAY)){
                     modifyLockName();
                     bindLockHome();
                 }else {

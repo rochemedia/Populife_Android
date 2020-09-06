@@ -85,9 +85,9 @@ public class LockAddSelectTypeActivity extends BaseActivity implements View.OnCl
 				mDeviceListAdapter.selectItem(position);
 				HomeDevice device = mDeviceList.get(position);
 
-				if (device.getName().contains(HomeDeviceInfo.IDeviceName.NAEM_GATEWAY)){
+				if (device.getName().startsWith(HomeDeviceInfo.IDeviceName.NAEM_GATEWAY)){
 					goToNewActivity(GatewayAddGuideActivity.class);
-				}else if (device.getName().contains(HomeDeviceInfo.IDeviceName.NAME_LOCK_DEADBOLT) || device.getName().contains(HomeDeviceInfo.IDeviceName.NAME_LOCK_KEY_BOX)){
+				}else if (device.getName().startsWith(HomeDeviceInfo.IDeviceName.NAME_LOCK_DEADBOLT) || device.getName().startsWith(HomeDeviceInfo.IDeviceName.NAME_LOCK_KEY_BOX) || device.getName().startsWith(HomeDeviceInfo.IDeviceName.NAME_LOCK_KEY_BOX_2)){
 					LockAddGuideActivity.actionStart(LockAddSelectTypeActivity.this, device.getName());
 					//goToNewActivity(LockAddGuideKeyboxOpenActivity.class);
 				}

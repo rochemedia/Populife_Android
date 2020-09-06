@@ -197,6 +197,11 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 		mGatewayAPI.startScanGateway(new ScanCallback() {
 			@Override
 			public void onScanResult(ExtendedBluetoothDevice extendedBluetoothDevice) {
+				String name =  extendedBluetoothDevice.getName();
+				//网关(G2开头的，在添加设备时，转为Gateway)
+				if (name.contains("G2")){
+					extendedBluetoothDevice.setName(name.replace("G2", HomeDeviceInfo.IDeviceName.NAEM_GATEWAY));
+				}
 				PeachLogger.d(extendedBluetoothDevice);
 				if (mAdapter != null){
 					mAdapter.updateDevice(extendedBluetoothDevice);

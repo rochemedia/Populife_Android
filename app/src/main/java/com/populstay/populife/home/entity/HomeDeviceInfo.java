@@ -8,13 +8,17 @@ import com.populstay.populife.R;
 
 public class HomeDeviceInfo {
 
+    // 这个不要随便动，需要跟IOS端统一的，用来区分设备类型
     public interface IDeviceName {
-        // 网关
-        String NAEM_GATEWAY = "G2_5db4ad";//
-        // 横闩锁
-        String NAME_LOCK_DEADBOLT = "PPL-DB_a67291";
-        // 密码锁
-        String NAME_LOCK_KEY_BOX = "KB";
+        // 网关(G2开头的，在添加设备时，转为Gateway)
+        String NAEM_GATEWAY = "Gateway";
+
+        // PPL-DB开头为横闩锁
+        String NAME_LOCK_DEADBOLT = "PPL-DB";
+
+        // PPL-KB或KEYBOX开头为密码锁
+        String NAME_LOCK_KEY_BOX = "PPL-KB";
+        String NAME_LOCK_KEY_BOX_2 = "KEYBOX";
     }
 
     public interface IModelNum {
@@ -35,11 +39,11 @@ public class HomeDeviceInfo {
             return name;
         }
 
-        if (deviceName.contains(IDeviceName.NAEM_GATEWAY)){
+        if (deviceName.startsWith(IDeviceName.NAEM_GATEWAY)){
             name = R.string.device_name_gateway;
-        }else if (deviceName.contains(IDeviceName.NAME_LOCK_DEADBOLT)){
+        }else if (deviceName.startsWith(IDeviceName.NAME_LOCK_DEADBOLT)){
             name = R.string.lock_type_deadbolt;
-        }else if (deviceName.contains(IDeviceName.NAME_LOCK_KEY_BOX)){
+        }else if (deviceName.startsWith(IDeviceName.NAME_LOCK_KEY_BOX) || deviceName.startsWith(IDeviceName.NAME_LOCK_KEY_BOX_2)){
             name = R.string.lock_type_keybox;
         }else {
             // 不存在的类型
@@ -55,11 +59,11 @@ public class HomeDeviceInfo {
             return iconActive;
         }
 
-        if (deviceName.contains(IDeviceName.NAEM_GATEWAY)){
+        if (deviceName.startsWith(IDeviceName.NAEM_GATEWAY)){
             iconActive = R.drawable.device_card_single_icon_gateway_selector;
-        }else if (deviceName.contains(IDeviceName.NAME_LOCK_DEADBOLT)){
+        }else if (deviceName.startsWith(IDeviceName.NAME_LOCK_DEADBOLT)){
             iconActive = R.drawable.device_card_single_icon_deadbolt_selector;
-        }else if (deviceName.contains(IDeviceName.NAME_LOCK_KEY_BOX)){
+        }else if (deviceName.startsWith(IDeviceName.NAME_LOCK_KEY_BOX) || deviceName.startsWith(IDeviceName.NAME_LOCK_KEY_BOX_2)){
             iconActive = R.drawable.device_card_single_icon_key_box_selector;
         }else {
             // 不存在的类型
@@ -75,11 +79,11 @@ public class HomeDeviceInfo {
             return iconInactive;
         }
 
-        if (deviceName.contains(IDeviceName.NAEM_GATEWAY)){
+        if (deviceName.startsWith(IDeviceName.NAEM_GATEWAY)){
             iconInactive = R.drawable.device_card_single_icon_gateway_selector;
-        }else if (deviceName.contains(IDeviceName.NAME_LOCK_DEADBOLT)){
+        }else if (deviceName.startsWith(IDeviceName.NAME_LOCK_DEADBOLT)){
             iconInactive = R.drawable.device_card_single_icon_deadbolt_selector;
-        }else if (deviceName.contains(IDeviceName.NAME_LOCK_KEY_BOX)){
+        }else if (deviceName.startsWith(IDeviceName.NAME_LOCK_KEY_BOX) || deviceName.startsWith(IDeviceName.NAME_LOCK_KEY_BOX_2)){
             iconInactive = R.drawable.device_card_single_icon_key_box_selector;
         }else {
             // 不存在的类型
@@ -94,11 +98,11 @@ public class HomeDeviceInfo {
             return modelNum;
         }
 
-        if (deviceName.contains(IDeviceName.NAEM_GATEWAY)){
+        if (deviceName.startsWith(IDeviceName.NAEM_GATEWAY)){
             modelNum = IModelNum.NAEM_GATEWAY;
-        }else if (deviceName.contains(IDeviceName.NAME_LOCK_DEADBOLT)){
+        }else if (deviceName.startsWith(IDeviceName.NAME_LOCK_DEADBOLT)){
             modelNum = IModelNum.NAME_LOCK_DEADBOLT;
-        }else if (deviceName.contains(IDeviceName.NAME_LOCK_KEY_BOX)){
+        }else if (deviceName.startsWith(IDeviceName.NAME_LOCK_KEY_BOX) || deviceName.startsWith(IDeviceName.NAME_LOCK_KEY_BOX_2)){
             modelNum = IModelNum.NAME_LOCK_KEY_BOX;
         }else {
             // 不存在的类型
@@ -114,11 +118,11 @@ public class HomeDeviceInfo {
             return productPicture;
         }
 
-        if (deviceName.contains(IDeviceName.NAEM_GATEWAY)){
+        if (deviceName.startsWith(IDeviceName.NAEM_GATEWAY)){
             productPicture = R.drawable.product_gateway;
-        }else if (deviceName.contains(IDeviceName.NAME_LOCK_DEADBOLT)){
+        }else if (deviceName.startsWith(IDeviceName.NAME_LOCK_DEADBOLT)){
             productPicture = R.drawable.product_deadbolt;
-        }else if (deviceName.contains(IDeviceName.NAME_LOCK_KEY_BOX)){
+        }else if (deviceName.startsWith(IDeviceName.NAME_LOCK_KEY_BOX) || deviceName.startsWith(IDeviceName.NAME_LOCK_KEY_BOX_2)){
             productPicture = R.drawable.product_keybox;
         }else {
             // 不存在的类型

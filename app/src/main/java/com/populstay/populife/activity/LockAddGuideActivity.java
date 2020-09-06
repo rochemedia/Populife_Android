@@ -161,9 +161,9 @@ public class LockAddGuideActivity extends BluetoothBaseActivity implements View.
     }
 
     private void initStatus() {
-        if(HomeDeviceInfo.IDeviceName.NAME_LOCK_DEADBOLT.equals(lockType)){
+        if(lockType.startsWith(HomeDeviceInfo.IDeviceName.NAME_LOCK_DEADBOLT)){
             mTvPageTitle.setText(R.string.lock_add_deadbolt);
-        }else if (HomeDeviceInfo.IDeviceName.NAME_LOCK_KEY_BOX.equals(lockType)){
+        }else if (lockType.startsWith(HomeDeviceInfo.IDeviceName.NAME_LOCK_KEY_BOX) || lockType.startsWith(HomeDeviceInfo.IDeviceName.NAME_LOCK_KEY_BOX_2)){
             mTvPageTitle.setText(R.string.lock_add_key_box);
         }else {
             mTvPageTitle.setText(R.string.lock_add);
