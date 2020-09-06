@@ -3,14 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/layout_view_titlebar" />
+        <include
+            layout="@layout/layout_view_titlebar"
+            android:id="@+id/titleBar"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_page_title_bar_height" />
 
         <LinearLayout
+            android:layout_below="@+id/titleBar"
+            android:id="@+id/ll_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -38,6 +45,7 @@
         </LinearLayout>
 
         <View
+            android:layout_below="@+id/ll_count"
             android:id="@+id/second_line_view"
             android:visibility="gone"
             android:background="@color/gray_line"
@@ -45,12 +53,17 @@
             android:layout_height="0.5dp"/>
 
         <android.support.v7.widget.RecyclerView
+            android:layout_below="@+id/second_line_view"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_above="@+id/ll_bottom_btn"
             android:id="@+id/homeRecyclerView"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="0dp" />
 
         <LinearLayout
+            android:id="@+id/ll_bottom_btn"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="10dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -80,6 +93,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

@@ -479,7 +479,7 @@
     <string name="rename_space">名前を変更</string>
     <string name="confirm">を選択します</string>
     <string name="device_num_match">%dデバイス</string>
-    <string name="space_num_match">$d空間</string>
+    <string name="space_num_match">%d空間</string>
     <string name="bt_and_lbs_open_hint">1.携帯のBluetoothはすでに開いています。Androidの携帯電話なら、位置サービスはもう始まりました。</string>
     <string name="net_open_hint">2.WiFiまたはモバイルセルラーネットワークが開かれました。</string>
     <string name="battery_install_hint">3.電池を取り付けました。</string>
