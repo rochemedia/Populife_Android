@@ -130,16 +130,35 @@
 
         </RelativeLayout>
 
-        <com.populstay.populife.ui.widget.extextview.ExTextView
+        <RelativeLayout
+            android:id="@+id/rl_user_terms"
             android:layout_marginTop="@dimen/common_edit_text_margin_top"
-            android:padding="4dp"
-            android:id="@+id/tv_sign_user_terms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/note_sign_up_agree_user_terms"
-            android:textColor="#FF212322"
-            android:textSize="12sp" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:id="@+id/cb_sign_user_terms"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:text="@null"
+                style="@style/user_terms_confirm_check_box" />
+
+            <com.populstay.populife.ui.widget.extextview.ExTextView
+                android:layout_toRightOf="@+id/cb_sign_user_terms"
+                android:id="@+id/tv_sign_user_terms"
+                android:lineHeight="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/note_sign_up_agree_user_terms"
+                android:textColor="#FF212322"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_sign_action_btn"

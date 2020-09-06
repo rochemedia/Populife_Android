@@ -460,7 +460,7 @@
     <string name="note_confirm_pwd_not_format">二回の入力パスワードが一致しません。</string>
     <string name="user_name_edit_hint">携帯番号/メールアドレス</string>
     <string name="verification_code">認証コード</string>
-    <string name="note_sign_up_agree_user_terms">私はすでに読んで同意しました。「サービス協議とプライバシーポリシー」</string>
+    <string name="note_sign_up_agree_user_terms">私はすでに読んで同意しました。[サービス協議とプライバシーポリシー]</string>
     <string name="get_verify_code_btn_text">認証コードを取得</string>
     <string name="terms_of_use">サービス条項</string>
     <string name="note_phone_or_email_invalid">携帯番号またはメールアドレスが間違っています。</string>

@@ -9,6 +9,8 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -60,9 +62,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 	public static final String KEY_SIGN_TYPE = "key_sign_type";
 	public static final int RESET_PWD_REQUEST_CODE = 0;
 
-	private RelativeLayout mRlBack;
+	private RelativeLayout mRlBack,mRlUserTerms;
 	private TextView mTvPageTitle, mTvPageAction, mTvActionBtn, mTvForgetPwd, mTvSwitchSignType,mTvSwitchLanguage;
 	private ExTextView mTvUserTerms;
+	private CheckBox mCbUserTerms;
 	private CountryCodePicker mCountryCodePicker;
 	private ExEditText mEtUserName, mEtPwd, mEtConfirmPwd, mEtCode;
 
@@ -102,6 +105,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
 	private void initView() {
 		mRlBack = findViewById(R.id.page_back);
+		mRlUserTerms = findViewById(R.id.rl_user_terms);
 		mTvPageTitle = findViewById(R.id.page_title);
 		mTvPageAction = findViewById(R.id.page_action);
 		mTvActionBtn = findViewById(R.id.tv_sign_action_btn);
@@ -109,6 +113,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 		mTvSwitchSignType = findViewById(R.id.tv_switch_sign_type);
 		mTvSwitchLanguage = findViewById(R.id.tv_switch_language);
 		mTvUserTerms = findViewById(R.id.tv_sign_user_terms);
+		mCbUserTerms = findViewById(R.id.cb_sign_user_terms);
 		mEtUserName = findViewById(R.id.et_sign_user_name);
 		mCountryCodePicker = mEtUserName.findViewById(R.id.cc_picker);
 		mEtPwd = findViewById(R.id.et_sign_pwd);
@@ -162,7 +167,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 				mTvActionBtn.setText(R.string.sign_in);
 				mEtCode.setVisibility(View.GONE);
 				mEtPwd.setVisibility(View.VISIBLE);
-				mTvUserTerms.setVisibility(View.GONE);
+				mRlUserTerms.setVisibility(View.GONE);
 				mTvSwitchSignType.setVisibility(View.VISIBLE);
 				mTvForgetPwd.setVisibility(View.VISIBLE);
 				mTvSwitchSignType.setText(getResources().getString(R.string.sign_in_by_verify_code));
@@ -174,7 +179,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 				mTvActionBtn.setText(R.string.sign_in);
 				mEtCode.setVisibility(View.VISIBLE);
 				mEtPwd.setVisibility(View.GONE);
-				mTvUserTerms.setVisibility(View.GONE);
+				mRlUserTerms.setVisibility(View.GONE);
 				mTvSwitchSignType.setText(getResources().getString(R.string.sign_in));
 				break;
 
@@ -194,14 +199,14 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 				mEtConfirmPwd.setVisibility(View.GONE);
 				mTvPageTitle.setText(R.string.reset_pwd);
 				mTvActionBtn.setText(R.string.next_step);
-				mTvUserTerms.setVisibility(View.GONE);
+				mRlUserTerms.setVisibility(View.GONE);
 				break;
 			case VAL_ACCOUNT_RESET_PWD:
 				mEtPwd.setVisibility(View.VISIBLE);
 				mEtConfirmPwd.setVisibility(View.VISIBLE);
 				mTvPageTitle.setText(R.string.reset_pwd);
 				mTvActionBtn.setText(R.string.reset_pwd);
-				mTvUserTerms.setVisibility(View.GONE);
+				mRlUserTerms.setVisibility(View.GONE);
 				mEtCode.setVisibility(View.GONE);
 				mEtUserName.setVisibility(View.GONE);
 				break;
@@ -294,14 +299,21 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 			}
 		});
 
-		mTvUserTerms.setOnClickListener(new View.OnClickListener() {
+		mCbUserTerms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
-			public void onClick(View v) {
-				mTvUserTerms.setSelected(!mTvUserTerms.isSelected());
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				setEnableActionBtn();
 			}
 		});
-		mTvUserTerms.setText(getResources().getString(R.string.note_sign_up_agree_user_terms), 7, -1, new View.OnClickListener() {
+
+		mTvUserTerms.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mCbUserTerms.setChecked(!mCbUserTerms.isChecked());
+			}
+		});
+		String agreeUserTerms = getResources().getString(R.string.note_sign_up_agree_user_terms);
+		mTvUserTerms.setText(agreeUserTerms, agreeUserTerms.indexOf("["), agreeUserTerms.lastIndexOf("]") + 1, new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				goToNewActivity(PrivacyPolicyActivity.class);
@@ -340,7 +352,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 		boolean isNotEmptyPwd = !TextUtils.isEmpty(mEtPwd.getTextStr());
 		boolean isNotEmptyConfirmPwd = !TextUtils.isEmpty(mEtConfirmPwd.getTextStr());
 		boolean isNotEmptyCode = !TextUtils.isEmpty(mEtCode.getTextStr());
-		boolean isSelectedUserTerms = mTvUserTerms.isSelected();
+		boolean isSelectedUserTerms = mCbUserTerms.isChecked();
 
 		boolean isEnable = false;
 

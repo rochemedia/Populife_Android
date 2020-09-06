@@ -23,6 +23,7 @@ import com.populstay.populife.R;
 public class ExTextView extends TextView {
 
     private boolean isSelected;
+    private int defaultDrawablePadding = 4;
 
     public ExTextView(Context context) {
         super(context);
@@ -75,11 +76,11 @@ public class ExTextView extends TextView {
 
         setText(spannableBuilder);
         setMovementMethod(LinkMovementMethod.getInstance());
-        setSelected(false);
+        //setSelected(false);
     }
 
     public void setIcon(int iconResId) {
-        setIcon(iconResId, 4);
+        setIcon(iconResId, defaultDrawablePadding);
     }
 
     public void setIcon(int iconResId, int drawablePadding) {
@@ -97,8 +98,12 @@ public class ExTextView extends TextView {
     }
 
     public void setSelected(boolean isSelected) {
+        setSelected(isSelected,defaultDrawablePadding);
+    }
+
+    public void setSelected(boolean isSelected, int drawablePadding) {
         this.isSelected = isSelected;
-        setIcon(isSelected ? R.drawable.ic_select : R.drawable.ic_unselect);
+        setIcon(isSelected ? R.drawable.ic_select : R.drawable.ic_unselect,drawablePadding);
     }
 
     public boolean isSelected() {

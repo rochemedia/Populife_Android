@@ -8,7 +8,7 @@
     <dimen name="dimens_dp_20">20dp</dimen>
     <dimen name="common_dialog_left_right_space">50dp</dimen>
     <dimen name="common_edit_text_margin_top">20dp</dimen>
-    <dimen name="sign_action_btn_margin_top">20dp</dimen>
+    <dimen name="sign_action_btn_margin_top">30dp</dimen>
     <dimen name="sign_page_title_text">24sp</dimen>
     <dimen name="sign_page_action_text">16sp</dimen>
     <dimen name="common_page_title_text">18sp</dimen>

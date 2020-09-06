@@ -262,6 +262,10 @@
         <item name="android:drawableLeft">@drawable/selector_add_device_check_box_autocheck</item>
     </style>
 
+    <style name="user_terms_confirm_check_box" parent="check_box">
+        <item name="android:background">@drawable/selector_user_terms_confirm_check_box</item>
+    </style>
+
     <style name="check_box_right_icon" parent="check_box">
         <item name="android:drawableRight">@drawable/selector_add_device_check_box</item>
         <item name="android:layout_marginTop">10dp</item>
