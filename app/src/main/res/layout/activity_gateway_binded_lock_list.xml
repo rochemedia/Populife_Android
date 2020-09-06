@@ -20,13 +20,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="4dp"
+                android:background="@color/bg_color_ffe6e7e8"
+                android:paddingLeft="@dimen/common_page_left_right_space"
+                android:paddingTop="5dp"
+                android:paddingRight="@dimen/common_page_left_right_space"
+                android:paddingBottom="5dp"
                 android:text="@string/locks_connected_to_gateway"
-                android:textColor="@color/text_gray_dark"
+                android:textColor="@color/common_text_color"
                 android:textSize="14sp"/>
 
             <include layout="@layout/layout_view_line"/>

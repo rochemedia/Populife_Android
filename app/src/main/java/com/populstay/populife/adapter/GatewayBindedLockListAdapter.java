@@ -2,14 +2,17 @@ package com.populstay.populife.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.populstay.populife.R;
 import com.populstay.populife.entity.GatewayBindedLock;
+import com.populstay.populife.home.entity.HomeDeviceInfo;
 
 import java.util.List;
 
@@ -52,6 +55,7 @@ public class GatewayBindedLockListAdapter extends BaseAdapter {
 
 			holder.name = convertView.findViewById(R.id.tv_item_gateway_binded_lock_name);
 			holder.signal = convertView.findViewById(R.id.tv_item_gateway_binded_lock_signal);
+			holder.ivDeviceIcon = convertView.findViewById(R.id.iv_device_icon);
 
 			convertView.setTag(holder);
 		} else {
@@ -60,6 +64,16 @@ public class GatewayBindedLockListAdapter extends BaseAdapter {
 		Resources res = mContext.getResources();
 		GatewayBindedLock lock = mLockList.get(position);
 		holder.name.setText(lock.getAlias());
+
+		String lockName = lock.getLockName();
+		if (!TextUtils.isEmpty(lockName)){
+			if (lockName.startsWith(HomeDeviceInfo.IDeviceName.NAME_LOCK_DEADBOLT)){
+				holder.ivDeviceIcon.setImageResource(R.drawable.deadbolt_inactive);
+			}else if (lockName.startsWith(HomeDeviceInfo.IDeviceName.NAME_LOCK_KEY_BOX) || lockName.startsWith(HomeDeviceInfo.IDeviceName.NAME_LOCK_KEY_BOX_2)){
+				holder.ivDeviceIcon.setImageResource(R.drawable.keybox_inactive);
+			}
+		}
+
 		int signal = lock.getSignal();
 		if (signal >= -75) {//信号强
 			holder.signal.setText(R.string.signal_strong);
@@ -79,5 +93,6 @@ public class GatewayBindedLockListAdapter extends BaseAdapter {
 
 	class ViewHolder {
 		TextView name, signal;
+		ImageView ivDeviceIcon;
 	}
 }

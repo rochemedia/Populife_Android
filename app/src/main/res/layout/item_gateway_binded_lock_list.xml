@@ -7,21 +7,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:gravity="center_vertical"
-        android:padding="8dp">
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginBottom="@dimen/dimens_dp_10"
+        android:layout_marginTop="@dimen/dimens_dp_10">
 
         <ImageView
+            android:id="@+id/iv_device_icon"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:background="@drawable/bg_circle_main_color"
-            android:padding="5dp"
-            android:src="@drawable/ic_lock_type_door_small"/>
+            android:src="@drawable/deadbolt_inactive"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="15dp"
             android:orientation="vertical">
 
             <TextView
@@ -31,18 +32,18 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/name"
-                android:textColor="@color/text_gray_dark"
-                android:textSize="14sp"/>
+                android:textColor="@color/common_text_color"
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/tv_item_gateway_binded_lock_signal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="6dp"
                 android:drawableLeft="@drawable/ic_gateway_lock_signal_strong"
-                android:drawablePadding="4dp"
+                android:drawablePadding="6dp"
                 android:text="@string/signal_strong"
-                android:textColor="@color/text_gray_medium"
+                android:textColor="@color/text_color_ffb1b3b6"
                 android:textSize="12sp"/>
 
         </LinearLayout>
