@@ -540,7 +540,7 @@
     <string name="set_remote_unlock_hint">This feature allows you to unlock the lock remotely through the gateway, which can only be turned on or off via Bluetooth</string>
     <string name="set_lock_time_help_hint">This function can calibrate the lock time, synchronize the lock time with the current mobile phone time, and ensure that the password is available within the validity period.</string>
     <string name="create_key_pwd">Create key</string>
-    <string name="key_pwd_status_not_activated">To be activated</string>
+    <string name="key_pwd_status_not_activated">To activated</string>
     <string name="key_pwd_status_available">Available</string>
     <string name="key_pwd_status_invalid">Invalid</string>
     <string name="key_pwd_status_not_activated_desc">All issued and unclaimed keys</string>
