@@ -14,10 +14,13 @@
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/common_page_left_right_space"
+            android:layout_marginLeft="@dimen/common_page_left_right_space"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_gateway_binded_lock_time_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -26,43 +29,149 @@
                 android:textColor="@color/common_text_color"
                 android:textSize="14sp"/>
 
-            <TextView
-                android:id="@+id/tv_gateway_binded_lock_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/common_text_color"
-                android:textSize="24sp"/>
 
-            <TextView
-                android:id="@+id/tv_gateway_binded_lock_time_read"
-                style="@style/btn_style_main"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:textColor="@color/common_text_color"
+            <RelativeLayout
+                android:id="@+id/rl_gateway_binded_lock_time_read"
+                android:padding="@dimen/common_page_left_right_space"
                 android:layout_marginTop="40dp"
-                android:background="@drawable/bg_trans_stroke_white"
-                android:text="@string/read_lock_time"/>
+                android:layout_marginBottom="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/device_card_single_bg">
+
+
+                <ImageView
+                    android:src="@drawable/clock_icon"
+                    android:id="@+id/iv_clock_icon"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/iv_clock_icon"
+                    android:id="@+id/tv_lock_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lock_time"
+                    android:textColor="@color/common_text_color"
+                    android:layout_marginLeft="14dp"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_gateway_binded_lock_time"
+                    android:layout_below="@+id/tv_lock_time"
+                    android:layout_toRightOf="@+id/iv_clock_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="14dp"
+                    android:textColor="@color/common_text_color"
+                    android:textSize="20sp"/>
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_gateway_binded_lock_time_calibrate"
                 style="@style/btn_style_main"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/common_text_color"
-                android:background="@drawable/bg_trans_stroke_white"
+                android:background="@drawable/selector_btn_main"
+                android:layout_marginBottom="40dp"
                 android:text="@string/calibrate_lock_time"/>
 
-            <TextView
-                android:id="@+id/tv_gateway_binded_lock_remote_unlock"
-                style="@style/btn_style_main"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/common_text_color"
-                android:background="@drawable/bg_trans_stroke_white"
-                android:text="@string/unlock_remotely"/>
+            <include layout="@layout/layout_view_line"/>
+
+
+            <LinearLayout
+                android:id="@+id/ll_lock_and_unlock"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:id="@+id/fl_gateway_binded_lock_remote_unlock"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_btn_main"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="50dp"
+                        android:drawableLeft="@drawable/remote_open_lock_icon"
+                        android:drawablePadding="16dp"
+                        android:gravity="center_vertical"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:text="@string/unlock_remotely"/>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_marginLeft="@dimen/dimens_dp_20"
+                    android:id="@+id/fl_gateway_binded_lock_remote_lock"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_btn_gray"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="50dp"
+                        android:drawableLeft="@drawable/remote_close_lock_icon"
+                        android:drawablePadding="16dp"
+                        android:gravity="center_vertical"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:text="@string/lock_remotely"/>
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+            <include layout="@layout/layout_view_line"
+                android:id="@+id/ll_lock_and_unlock_line"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/query_lock_status"
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_toLeftOf="@+id/tv_lock_status"
+                    android:gravity="left"
+                    android:textColor="@color/common_text_color"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingLeft="16dp"
+                    android:id="@+id/tv_lock_status"
+                    android:drawableRight="@drawable/refresh_icon"
+                    android:drawablePadding="12dp"
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/unknown"
+                    android:textColor="@color/common_text_color"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+
+            <include layout="@layout/layout_view_line"/>
 
             <TextView
                 android:id="@+id/tv_gateway_binded_lock_freeze"

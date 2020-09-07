@@ -720,5 +720,8 @@
     <string name="video_title_2">Customize your password and share it</string>
     <string name="video_title_3">Create and share a Bluetooth key</string>
     <string name="video_title_4">Change Admin password</string>
+    <string name="lock_remotely">Lock remotely</string>
+    <string name="query_lock_status">Query lock status</string>
+    <string name="unknown">unknown</string>
 
 </resources>

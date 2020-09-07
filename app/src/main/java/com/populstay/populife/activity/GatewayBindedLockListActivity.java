@@ -67,7 +67,7 @@ public class GatewayBindedLockListActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 				GatewayBindedLock lock = mLockList.get(i);
 				GatewayBindedLockDetailActivity.actionStart(GatewayBindedLockListActivity.this,
-						lock.getLockId(), lock.getAlias(),lock.getSpecialValue());
+						lock.getLockId(), lock.getAlias(),lock.getLockName(),lock.getSpecialValue());
 			}
 		});
 	}

@@ -102,6 +102,8 @@ public class Urls {
 	public static final String GATEWAY_LOCK_FREEZE = "gateway/freeze"; //（post）利用网关远程冻结锁，冻结后，所有开锁方式都禁用，但蓝牙还是可以连接的，以便冻结后还可以解冻
 	public static final String GATEWAY_LOCK_UNFREEZE = "gateway/unfreeze"; //（post）利用网关远程网关解冻锁
 	public static final String LOCK_SPECIAL_VALUE_MODIFY = "lock/specialValue/set"; //（post）修改锁的特征值
+	public static final String GATEWAY_REMOTE_LOCK = "gateway/lock"; //（post）网关网关闭锁，利用网关远程关闭锁id对应的锁
+	public static final String GATEWAY_REMOTE_LOCK_QUERY_OPEN_STATE = "gateway/v2/lock/queryOpenState"; //（get）GatewayGroupV2 - 查询锁开关状态
 
 	public static final String GATEWAY_MODIFY_NAME = "gateway/modify-name"; //（post）网关 - 修改网关名称
 	public static final String GATEWAY_SET_HOME = "gateway/set-home"; //（post）网关 - 设置家庭
