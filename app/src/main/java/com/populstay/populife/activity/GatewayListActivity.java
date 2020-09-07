@@ -147,7 +147,7 @@ public class GatewayListActivity extends BaseActivity implements AdapterView.OnI
 			case R.id.btn_dialog_input_ok:
 				String input = mEtDialogInput.getText().toString();
 				if (!StringUtil.isBlank(input)) {
-					renameGateway(mGatewayList.get(mSelectedItemIndex).getGatewayName(), input);
+					renameGateway(mGatewayList.get(mSelectedItemIndex).getGatewayId(), input);
 					DIALOG.cancel();
 				} else {
 					toast(R.string.enter_gateway_name);
@@ -273,16 +273,15 @@ public class GatewayListActivity extends BaseActivity implements AdapterView.OnI
 	/**
 	 * 重命名网关
 	 */
-	private void renameGateway(String gatewayMac, final String gatewayName) {
+	private void renameGateway(int gatewayId, final String gatewayName) {
 		RestClient.builder()
-				.url(Urls.GATEWAY_ADD)
+				.url(Urls.GATEWAY_MODIFY_NAME)
 				.loader(this)
-				.params("gatewayMac", gatewayMac)
+				.params("gatewayId", gatewayId)
 				.params("name", gatewayName)
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {
-						PeachLogger.d("GATEWAY_ADD", response);
 
 						JSONObject result = JSON.parseObject(response);
 						int code = result.getInteger("code");

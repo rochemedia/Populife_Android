@@ -328,9 +328,9 @@ public class GatewayBindedLockDetailActivity extends BaseActivity implements Vie
 						if (code == 200) {
 							// 锁的开关状态:0-关,1-开,2-未知
 							int state =  result.getInteger("data");
-							if (0 == state){
+							if (1 == state){
 								mTvLockStatus.setText(R.string.on);
-							} else if (1 == state){
+							} else if (0 == state){
 								mTvLockStatus.setText(R.string.off);
 							} else{
 								mTvLockStatus.setText(R.string.unknown);
