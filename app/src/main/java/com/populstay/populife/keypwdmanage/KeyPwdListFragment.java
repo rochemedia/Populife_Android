@@ -182,7 +182,7 @@ public class KeyPwdListFragment extends BaseFragment {
                 @Override
                 public void onClick(View view, KeyPwd item) {
                     if (item.isBTKey()){
-
+                        showShareBTKey(item.getShareKeyUrl());
                     }else {
                         showShare(item);
                     }

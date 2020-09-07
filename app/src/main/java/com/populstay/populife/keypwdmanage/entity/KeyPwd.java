@@ -35,6 +35,8 @@ public class KeyPwd implements Parcelable {
     private long createDate;
     // Integer1：蓝牙钥匙，2：键盘密码
     private int keyType;
+    // String 分享钥匙连接
+    private String shareKeyUrl;
 
     protected KeyPwd(Parcel in) {
         id = in.readInt();
@@ -52,6 +54,7 @@ public class KeyPwd implements Parcelable {
         keyboardPwdType = in.readInt();
         createDate = in.readLong();
         keyType = in.readInt();
+        shareKeyUrl = in.readString();
     }
 
     public static final Creator<KeyPwd> CREATOR = new Creator<KeyPwd>() {
@@ -190,6 +193,14 @@ public class KeyPwd implements Parcelable {
         this.keyType = keyType;
     }
 
+    public String getShareKeyUrl() {
+        return shareKeyUrl;
+    }
+
+    public void setShareKeyUrl(String shareKeyUrl) {
+        this.shareKeyUrl = shareKeyUrl;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -212,5 +223,6 @@ public class KeyPwd implements Parcelable {
         dest.writeInt(keyboardPwdType);
         dest.writeLong(createDate);
         dest.writeInt(keyType);
+        dest.writeString(shareKeyUrl);
     }
 }
