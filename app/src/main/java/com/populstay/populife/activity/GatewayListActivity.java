@@ -100,6 +100,7 @@ public class GatewayListActivity extends BaseActivity implements AdapterView.OnI
 		mTvAdd.setText("");
 		mTvAdd.setCompoundDrawablesWithIntrinsicBounds(
 				getResources().getDrawable(R.drawable.ic_add), null, null, null);
+		mTvAdd.setVisibility(View.INVISIBLE);
 
 		mLlNoData = findViewById(R.id.layout_no_data);
 		mListView = findViewById(R.id.list_view);

@@ -7,21 +7,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:gravity="center_vertical"
-        android:padding="8dp">
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginBottom="@dimen/dimens_dp_10"
+        android:layout_marginTop="@dimen/dimens_dp_10">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@drawable/bg_circle_main_color"
-            android:padding="5dp"
-            android:src="@drawable/ic_gateway_list"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gateway_clear_bg_icon"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="15dp"
             android:orientation="vertical">
 
             <TextView
@@ -30,14 +30,14 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/name"
-                android:textColor="@color/text_gray_dark"
-                android:textSize="14sp"/>
+                android:textColor="@color/common_text_color"
+                android:textSize="16sp"
+                android:text="@string/name" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="6dp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -47,7 +47,7 @@
                     android:drawableLeft="@drawable/ic_gateway_online"
                     android:drawablePadding="4dp"
                     android:text="@string/online"
-                    android:textColor="@color/text_gray_medium"
+                    android:textColor="@color/text_color_ffb1b3b6"
                     android:textSize="12sp"/>
 
                 <TextView
@@ -59,7 +59,7 @@
                     android:drawablePadding="4dp"
                     android:padding="2dp"
                     android:text="@string/num_zero"
-                    android:textColor="@color/text_gray_medium"
+                    android:textColor="@color/text_color_ffb1b3b6"
                     android:textSize="12sp"/>
 
             </LinearLayout>
