@@ -15,14 +15,6 @@
         android:paddingBottom="16dp"
         android:gravity="center_vertical">
 
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@drawable/bg_circle_main_color"
-            android:padding="5dp"
-            android:visibility="gone"
-            android:src="@drawable/ic_lock_type_door_small"/>
-
         <TextView
             android:id="@+id/tv_item_device_name"
             android:layout_width="0dp"
@@ -37,7 +29,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_add"
-            android:tint="@color/colorPrimary"
+            android:tint="@color/common_text_color"
             android:visibility="visible"/>
 
     </android.support.v7.widget.LinearLayoutCompat>
