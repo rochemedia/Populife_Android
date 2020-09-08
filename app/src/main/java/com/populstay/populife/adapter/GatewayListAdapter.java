@@ -61,7 +61,7 @@ public class GatewayListAdapter extends BaseAdapter {
 		}
 		Resources res = mContext.getResources();
 		Gateway gateway = mGatewayList.get(position);
-		holder.name.setText(StringUtil.isBlank(gateway.getName())?gateway.getGatewayName():gateway.getName());
+		holder.name.setText(StringUtil.isBlank(gateway.getAlias())?gateway.getGatewayName():gateway.getAlias());
 		if (gateway.getIsOnline() == 1) {
 			holder.netStatus.setText(R.string.online);
 			holder.netStatus.setCompoundDrawablesWithIntrinsicBounds(

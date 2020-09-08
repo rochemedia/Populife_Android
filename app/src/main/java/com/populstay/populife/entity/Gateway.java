@@ -44,6 +44,11 @@ public class Gateway implements Parcelable {
 	 */
 	private int isOnline;
 
+	/**
+	 * 网关别称
+	 */
+	private String alias;
+
 	public Gateway() {
 	}
 
@@ -63,6 +68,7 @@ public class Gateway implements Parcelable {
 		name = in.readString();
 		lockNum = in.readInt();
 		isOnline = in.readInt();
+		alias = in.readString();
 	}
 
 	public int getGatewayId() {
@@ -113,6 +119,14 @@ public class Gateway implements Parcelable {
 		this.isOnline = isOnline;
 	}
 
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
 	@Override
 	public String toString() {
 		return "Gateway{" +
@@ -122,6 +136,7 @@ public class Gateway implements Parcelable {
 				", name='" + name + '\'' +
 				", lockNum=" + lockNum +
 				", isOnline=" + isOnline +
+				", alias=" + alias +
 				'}';
 	}
 
@@ -138,5 +153,6 @@ public class Gateway implements Parcelable {
 		parcel.writeString(name);
 		parcel.writeInt(lockNum);
 		parcel.writeInt(isOnline);
+		parcel.writeString(alias);
 	}
 }

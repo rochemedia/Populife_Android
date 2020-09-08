@@ -207,7 +207,8 @@ public class GatewayListActivity extends BaseActivity implements AdapterView.OnI
 									gateway.setGatewayName(feedbackItem.getString("gatewayName"));
 									gateway.setLockNum(feedbackItem.getInteger("lockNum"));
 									gateway.setIsOnline(feedbackItem.getInteger("isOnline"));
-									gateway.setName(feedbackItem.getString("name"));//网关别名
+									gateway.setName(feedbackItem.getString("name"));
+									gateway.setAlias(feedbackItem.getString("alias"));//网关别名
 
 									mGatewayList.add(gateway);
 								}
@@ -263,8 +264,8 @@ public class GatewayListActivity extends BaseActivity implements AdapterView.OnI
 			AppCompatButton ok = window.findViewById(R.id.btn_dialog_input_ok);
 			title.setText(R.string.modify_name);
 			mEtDialogInput.setHint(R.string.enter_gateway_name);
-			mEtDialogInput.setText(mGatewayList.get(mSelectedItemIndex).getName());
-			mEtDialogInput.setSelection(mGatewayList.get(mSelectedItemIndex).getName().length());
+			mEtDialogInput.setText(mGatewayList.get(mSelectedItemIndex).getAlias());
+			mEtDialogInput.setSelection(mGatewayList.get(mSelectedItemIndex).getAlias().length());
 			cancel.setOnClickListener(this);
 			ok.setOnClickListener(this);
 		}
@@ -287,7 +288,7 @@ public class GatewayListActivity extends BaseActivity implements AdapterView.OnI
 						int code = result.getInteger("code");
 						if (code == 200) {
 							toast(R.string.operation_success);
-							mGatewayList.get(mSelectedItemIndex).setName(gatewayName);
+							mGatewayList.get(mSelectedItemIndex).setAlias(gatewayName);
 							mAdapter.notifyDataSetChanged();
 						} else {
 							toast(R.string.operation_fail);

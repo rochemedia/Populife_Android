@@ -60,7 +60,21 @@ public class KeyPwdListAdapter extends HeaderAndFooterAdapter<KeyPwd> {
             videoViewHolder.tvStartTime.setText(DateUtil.getDateToStringConvert(item.getStartDate(),DateUtil.DATE_TIME_PATTERN_1));
             videoViewHolder.tvEndTime.setText(DateUtil.getDateToStringConvert(item.getEndDate(),DateUtil.DATE_TIME_PATTERN_1));
 
-        }else {
+            // 待接收才显示分享按钮
+            if ("110402".equals(item.getStatus())){
+                videoViewHolder.ivShare.setVisibility(View.VISIBLE);
+            }else {
+                videoViewHolder.ivShare.setVisibility(View.GONE);
+            }
+        }
+        // 密码
+        else {
+            //2失效不显示分享按钮
+            if ("2".equals(item.getStatus())){
+                videoViewHolder.ivShare.setVisibility(View.GONE);
+            }else {
+                videoViewHolder.ivShare.setVisibility(View.VISIBLE);
+            }
             videoViewHolder.tvPwd.setVisibility(View.VISIBLE);
             videoViewHolder.tvPwd.setText(item.getKeyboardPwd());
             // 自定义密码       15
