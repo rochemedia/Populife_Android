@@ -6,6 +6,7 @@
     android:layout_marginLeft="@dimen/common_dialog_left_right_space"
     android:layout_marginRight="@dimen/common_dialog_left_right_space"
     android:background="@drawable/border_round_white"
+
     android:orientation="vertical"
     android:paddingTop="@dimen/common_page_left_right_space"
     android:paddingBottom="@dimen/common_page_left_right_space">

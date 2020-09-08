@@ -11,15 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:padding="16dp">
+        android:paddingBottom="13dp"
+        android:paddingTop="13dp"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:layout_marginLeft="@dimen/common_page_left_right_space">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/automatic_locking"
-            android:textColor="@color/text_gray_dark"
-            android:textSize="14sp"/>
+            android:textColor="@color/common_text_color"
+            android:textSize="16sp"/>
 
         <Switch
             android:id="@+id/switch_lock_auto_lock"
@@ -34,34 +37,57 @@
         android:id="@+id/ll_lock_auto_lock_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_lock_auto_lock_time"
+        <RelativeLayout
+            android:id="@+id/rl_gateway_binded_lock_time_read"
+            android:padding="@dimen/common_page_left_right_space"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:textColor="@color/battery_low_red"
-            android:textSize="30sp"/>
+            android:background="@drawable/device_card_single_bg">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="@string/note_auto_lock"
-            android:textColor="@color/text_gray_light"
-            android:textSize="12sp"/>
+
+            <ImageView
+                android:src="@drawable/clock_icon"
+                android:id="@+id/iv_clock_icon"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/iv_clock_icon"
+                android:id="@+id/tv_lock_auto_lock_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lock_time"
+                android:textColor="@color/common_text_color"
+                android:layout_marginLeft="14dp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_lock_time"
+                android:layout_below="@+id/tv_lock_auto_lock_time"
+                android:layout_toRightOf="@+id/iv_clock_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/note_auto_lock"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="14dp"
+                android:textColor="@color/text_color_ffb1b3b6"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/tv_lock_auto_lock_set_time"
             style="@style/btn_style_main"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="40dp"
             android:text="@string/set_time"/>
 
     </LinearLayout>

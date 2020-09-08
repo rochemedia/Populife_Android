@@ -165,7 +165,7 @@
         <item name="android:layout_marginLeft">4dp</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textColor">@color/text_gray_medium</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
     <!-- ++++++++++++++++++++++++++++++ 列表栏 ++++++++++++++++++++++++++++++ -->
 

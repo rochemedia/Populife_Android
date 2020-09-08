@@ -13,6 +13,7 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.contrarywind.view.WheelView;
 import com.populstay.populife.R;
 import com.populstay.populife.app.MyApplication;
 import com.populstay.populife.base.BaseActivity;
@@ -113,8 +114,7 @@ public class LockAutoLockingActivity extends BaseActivity implements View.OnClic
 				mSeconds = Integer.valueOf(time.substring(0, time.length() - 1));
 				mTvSeconds.setText(mSeconds + getString(R.string.seconds));
 			}
-		})
-				.setLayoutRes(R.layout.pickerview_custom_auto_lock, new CustomListener() {
+		}).setLayoutRes(R.layout.pickerview_custom_auto_lock, new CustomListener() {
 					@Override
 					public void customLayout(View v) {
 						final TextView tvSubmit = v.findViewById(R.id.tv_finish);
@@ -134,7 +134,7 @@ public class LockAutoLockingActivity extends BaseActivity implements View.OnClic
 							}
 						});
 					}
-				})
+				}).isDialog(true).setLineSpacingMultiplier(2.5F)
 				.build();
 
 		mOptionsPicker.setPicker(timeList);//添加数据

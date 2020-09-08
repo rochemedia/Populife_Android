@@ -302,7 +302,7 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 				break;
 		}
 		mIvBattery.setImageResource(imgResInt);
-		mTvBattery.setTextColor(txtColor);
+		//mTvBattery.setTextColor(txtColor);
 	}
 
 	private void showHelpPopupWindow(View anchor){

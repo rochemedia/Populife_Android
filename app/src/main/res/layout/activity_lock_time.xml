@@ -7,19 +7,55 @@
 
     <include layout="@layout/layout_view_titlebar"/>
 
-    <TextView
-        android:id="@+id/tv_lock_time"
+    <RelativeLayout
+        android:id="@+id/rl_gateway_binded_lock_time_read"
+        android:padding="@dimen/common_page_left_right_space"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:textColor="@color/common_text_color"
-        android:textSize="14sp"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/device_card_single_bg">
+
+
+        <ImageView
+            android:src="@drawable/clock_icon"
+            android:id="@+id/iv_clock_icon"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/iv_clock_icon"
+            android:id="@+id/tv_lock_time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lock_time"
+            android:textColor="@color/common_text_color"
+            android:layout_marginLeft="14dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_lock_time"
+            android:layout_below="@+id/tv_lock_time_label"
+            android:layout_toRightOf="@+id/iv_clock_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="14dp"
+            android:textColor="@color/common_text_color"
+            android:textSize="20sp"/>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_lock_time_calibrate"
         style="@style/btn_style_main"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="@dimen/common_page_left_right_space"
+        android:layout_marginRight="@dimen/common_page_left_right_space"
         android:text="@string/calibrate_time"/>
 
 </LinearLayout>

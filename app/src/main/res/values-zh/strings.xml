@@ -259,7 +259,7 @@
     <string name="check_for_update">检查更新</string>
     <string name="no_update">没有更新</string>
     <string name="set_time">设置时间</string>
-    <string name="note_auto_lock">锁将在以下时间内自动关闭</string>
+    <string name="note_auto_lock">这个时间后将自动闭锁</string>
     <string name="seconds">秒</string>
     <string name="reading_auto_lock_time" tools:ignore="TypographyEllipsis">正在读取自动闭锁时间...</string>
     <string name="modify_auto_lock_success">设置自动闭锁时间成功</string>
@@ -672,6 +672,7 @@
     <string name="lock_remotely">远程闭锁</string>
     <string name="query_lock_status">查询锁状态</string>
     <string name="unknown">未知</string>
+    <string name="dwell_lock_time">闭锁时间</string>
 
 
 </resources>

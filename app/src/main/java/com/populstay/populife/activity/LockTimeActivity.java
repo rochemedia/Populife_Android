@@ -51,7 +51,7 @@ public class LockTimeActivity extends BaseActivity {
 	}
 
 	private void initView() {
-		((TextView) findViewById(R.id.page_title)).setText(R.string.lock_time);
+		((TextView) findViewById(R.id.page_title)).setText(R.string.calibrate_time);
 		findViewById(R.id.page_action).setVisibility(View.GONE);
 
 		mTvTime = findViewById(R.id.tv_lock_time);

@@ -723,5 +723,6 @@
     <string name="lock_remotely">Lock remotely</string>
     <string name="query_lock_status">Query lock status</string>
     <string name="unknown">unknown</string>
+    <string name="dwell_lock_time">Blocking time</string>
 
 </resources>
