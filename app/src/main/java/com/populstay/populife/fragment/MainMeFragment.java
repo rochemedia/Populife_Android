@@ -468,11 +468,14 @@ public class MainMeFragment extends BaseVisibilityFragment implements View.OnCli
 	}
 
 	private void setAvatar(String avatarUrl) {
+		if (getActivity().isFinishing()){
+			return;
+		}
 		if (!TextUtils.isEmpty(avatarUrl)) {
 			Glide.with(this)
 					.load(avatarUrl)
 					.asBitmap()
-					.diskCacheStrategy(DiskCacheStrategy.ALL)
+					.diskCacheStrategy(DiskCacheStrategy.RESULT)
 					.dontAnimate()
 					.centerCrop()
 					.placeholder(R.drawable.ic_user_avatar)

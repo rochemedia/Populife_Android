@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -42,6 +43,7 @@ import com.populstay.populife.me.entity.UserInfo;
 import com.populstay.populife.net.RestClient;
 import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.permission.PermissionListener;
+import com.populstay.populife.ui.loader.PeachLoader;
 import com.populstay.populife.util.GsonUtil;
 import com.populstay.populife.util.Utils;
 import com.populstay.populife.util.activity.ActivityCollector;
@@ -142,21 +144,21 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
     }
 
     private void upload(Bitmap bitmap) {
-        Glide.with(this)
+       /* Glide.with(this)
                 .load(mUri)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .dontAnimate()
                 .centerCrop()
                 .placeholder(R.drawable.ic_user_avatar)
                 .error(R.drawable.ic_user_avatar)
-                .into(mCircleImageView);
-        mCircleImageView.setImageBitmap(bitmap);
-        mCircleImageView.setImageURI(mUri);
-
-        uploadAvatar();
+                .into(mCircleImageView);*/
+        //mCircleImageView.setImageBitmap(bitmap);
+        //mCircleImageView.setImageURI(mUri);
+        PeachLoader.showLoading(this,PeachLoader.DEFAULT_LOADER);
+        uploadAvatar(bitmap);
     }
 
-    private void uploadAvatar() {
+    private void uploadAvatar(final Bitmap bitmap) {
         OkHttpClient client = new OkHttpClient();
 
         MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
@@ -181,12 +183,14 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
                     .enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+                            PeachLoader.stopLoading();
                             PeachLogger.d("Http", e.getMessage());
                             toast(R.string.avatar_upload_failed);
                         }
 
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
+                            PeachLoader.stopLoading();
                             String str = response.body().string();
                             PeachLogger.d("Http", str);
                             try {
@@ -196,7 +200,7 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            setAvatar(avatar);
+                                            setAvatar(avatar,bitmap);
                                         }
                                     });
                                     EventBus.getDefault().post(new Event(Event.EventType.USER_AVATAR_MODIFY,avatar));
@@ -415,6 +419,9 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
         if (null != mDialogChoosePhoto){
             mDialogChoosePhoto.dismiss();
         }
+        if (null != mHeadIconBitmap && !mHeadIconBitmap.isRecycled()){
+            mHeadIconBitmap.recycle();
+        }
     }
 
     /**
@@ -470,7 +477,7 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
         if (null == userInfo){
             return;
         }
-        setAvatar(userInfo.getAvatar());
+        setAvatar(userInfo.getAvatar(),null);
         String phone = userInfo.getPhone();
         String email = userInfo.getEmail();
         String nickname = userInfo.getNickname();
@@ -493,17 +500,39 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
         }
     }
 
-    private void setAvatar(String avatarUrl) {
+    private Bitmap mHeadIconBitmap;
+    private void setAvatar(String avatarUrl,Bitmap bitmap) {
+        if (isFinishing()){
+            return;
+        }
+
+        if (null != mHeadIconBitmap && !mHeadIconBitmap.isRecycled()){
+            mHeadIconBitmap.recycle();
+        }
+
         if (!TextUtils.isEmpty(avatarUrl)) {
-            Glide.with(this)
-                    .load(avatarUrl)
-                    .asBitmap()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .dontAnimate()
-                    .centerCrop()
-                    .placeholder(R.drawable.ic_user_avatar)
-                    .error(R.drawable.ic_user_avatar)
-                    .into(mCircleImageView);
+            if ((null != bitmap && !bitmap.isRecycled())) {
+                mHeadIconBitmap = bitmap;
+                Glide.with(this)
+                        .load(avatarUrl)
+                        .asBitmap()
+                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                        .dontAnimate()
+                        .centerCrop()
+                        .placeholder(new BitmapDrawable(this.getResources(), bitmap))
+                        .error(R.drawable.ic_user_avatar)
+                        .into(mCircleImageView);
+            }else {
+                Glide.with(this)
+                        .load(avatarUrl)
+                        .asBitmap()
+                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                        .dontAnimate()
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_user_avatar)
+                        .error(R.drawable.ic_user_avatar)
+                        .into(mCircleImageView);
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ public class PeachLoader {
 
 	private static final ArrayList<AppCompatDialog> LOADERS = new ArrayList<>();
 
-	private static final String DEFAULT_LOADER = LoaderStyle.BallSpinFadeLoaderIndicator.name();
+	public static final String DEFAULT_LOADER = LoaderStyle.BallSpinFadeLoaderIndicator.name();
 
 	public static void showLoading(Context context, Enum<LoaderStyle> type) {
 		showLoading(context, type.name());
