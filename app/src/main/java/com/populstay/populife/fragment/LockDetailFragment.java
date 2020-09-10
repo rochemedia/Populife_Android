@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -808,8 +809,19 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 							List<HomeDevice> datas = GsonUtil.fromJson(result.getJSONArray("data").toJSONString(),new TypeToken<List<HomeDevice>>(){});
 
+							// 过滤一下非法数据
+							List<HomeDevice> tempDatas = null;
+							for (HomeDevice device : datas) {
+								if (null == tempDatas) {
+									tempDatas = new ArrayList<>();
+								}
+								if (!TextUtils.isEmpty(device.getName())){
+									tempDatas.add(device);
+								}
+							}
+
 							// 没有设备,显示添加锁UI
-							if (CollectionUtil.isEmpty(datas)){
+							if (CollectionUtil.isEmpty(tempDatas)){
 								setLockInfoVisible(SHOW_DEVICE_ADD);
 							}
 							// 有一个设备，请求详情
@@ -821,7 +833,7 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 							else {
 								setLockInfoVisible(SHOW_DEVICE_LIST);
 								mDeviceList.clear();
-								mDeviceList.addAll(datas);
+								mDeviceList.addAll(tempDatas);
 								mDeviceListAdapter.notifyDataSetChanged();
 							}
 						}else {

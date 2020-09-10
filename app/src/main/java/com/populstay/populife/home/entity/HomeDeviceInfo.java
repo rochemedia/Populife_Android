@@ -33,7 +33,7 @@ public class HomeDeviceInfo {
 
     public static @StringRes int getTypeNameByName(String deviceName) {
         @StringRes
-        int name = -1;
+        int name = R.string.device_name_gateway;
 
         if (TextUtils.isEmpty(deviceName)){
             return name;
@@ -54,7 +54,7 @@ public class HomeDeviceInfo {
 
     public static @DrawableRes int getIconByName(String deviceName) {
         @DrawableRes
-        int iconActive = -1;
+        int iconActive = R.drawable.device_card_single_icon_gateway_selector;
 
         if (TextUtils.isEmpty(deviceName)){
             return iconActive;
@@ -75,7 +75,7 @@ public class HomeDeviceInfo {
 
     public static @DrawableRes int getIconInactiveByName(String deviceName) {
         @DrawableRes
-        int iconInactive = -1;
+        int iconInactive = R.drawable.device_card_single_icon_gateway_selector;
 
         if (TextUtils.isEmpty(deviceName)){
             return iconInactive;
@@ -95,7 +95,7 @@ public class HomeDeviceInfo {
     }
 
     public static String getModelNumByNameWhenProduct(String deviceName) {
-        String modelNum = "";
+        String modelNum = IModelNum.NAEM_GATEWAY;
 
         if (TextUtils.isEmpty(deviceName)){
             return modelNum;
@@ -116,7 +116,7 @@ public class HomeDeviceInfo {
 
     public static @DrawableRes int getProductPictureByName(String deviceName) {
         @DrawableRes
-        int productPicture = -1;
+        int productPicture = R.drawable.product_gateway;
 
         if (TextUtils.isEmpty(deviceName)){
             return productPicture;
