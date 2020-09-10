@@ -17,9 +17,11 @@ import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.populstay.populife.R;
+import com.populstay.populife.app.CrashHandler;
 import com.populstay.populife.constant.Constant;
 import com.populstay.populife.util.device.DeviceUtil;
 import com.populstay.populife.util.locale.LanguageUtil;
+import com.populstay.populife.util.log.LogToFile;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.toast.ToastUtil;
 import com.ttlock.bl.sdk.util.LogUtil;
@@ -64,6 +66,11 @@ public class BaseApplication extends Application {
 
 		// 初始化美洽（在线客服）
 		initMeiqiaSDK();
+	}
+
+	private void initCollectCrashTool(){
+		LogToFile.init(this);
+		CrashHandler.getInstance().init(this);
 	}
 
 	private void initMeiqiaSDK() {
@@ -117,6 +124,8 @@ public class BaseApplication extends Application {
 	 *                发布模式：false
 	 */
 	private void initDebugMode(boolean isDebug) {
+		// 测试环境异常收集
+		initCollectCrashTool();
 		// Logger 日志
 		initLogger(isDebug);
 		// TTLock SDK
