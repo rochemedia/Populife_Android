@@ -485,7 +485,7 @@
     <string name="create_space">新建空间</string>
     <string name="all_device_num_space">全部设备数量</string>
     <string name="delete_space">删除空间</string>
-    <string name="create_space_name_hint">请输入新建家庭名字</string>
+    <string name="create_space_name_hint">请输入新建空间名字</string>
     <string name="create">创建</string>
     <string name="new_create_space">新建空间</string>
     <string name="rename_space">修改名称</string>
@@ -514,7 +514,7 @@
     <string name="select_home_group">切换空间</string>
     <string name="add_success">添加成功</string>
     <string name="add_lock_help_hint">触摸锁的键盘，键盘应该亮起来，如果不亮，请检查电池是否安装正确，排线是否接好，如果都没有问题，键盘仍然不亮，请联系我们。</string>
-    <string name="delete_home_hint">删除家庭后，所有已设置过的信息将被清除，是否确认删除家庭？</string>
+    <string name="delete_home_hint">删除空间后，所有已设置过的信息将被清除，是否确认删除空间？</string>
     <string name="keys_and_pwd">密钥管理</string>
     <string name="lock_operate_log">操作日志</string>
     <string name="adjus_lock_time">校准时间</string>
@@ -673,6 +673,7 @@
     <string name="query_lock_status">查询锁状态</string>
     <string name="unknown">未知</string>
     <string name="dwell_lock_time">闭锁时间</string>
+    <string name="space_name">空间名称</string>
 
 
 </resources>

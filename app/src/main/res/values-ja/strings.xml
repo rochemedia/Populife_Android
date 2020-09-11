@@ -502,7 +502,7 @@
     <string name="select_home_group">スペースを切り替え</string>
     <string name="add_success">追加成功</string>
     <string name="add_lock_help_hint">鍵のキーボードをタッチしてください。キーボードは明るくならないと、電池が正しくインストールされているかどうかを確認してください。ケーブルが接続されているかどうかを確認してください。</string>
-    <string name="delete_home_hint">家庭を削除すると、設定済みの情報はすべて消去されます。家族の削除は確認されますか？</string>
+    <string name="delete_home_hint">スペースを削除すると、設定済みの情報はすべて消去されます。スペースの削除は確認されますか？</string>
     <string name="keys_and_pwd">鍵の管理</string>
     <string name="lock_operate_log">操作ログ</string>
     <string name="adjus_lock_time">キャリブレーション時間</string>

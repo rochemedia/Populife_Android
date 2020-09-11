@@ -26,7 +26,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="@dimen/common_page_left_right_space"
         android:layout_marginBottom="20dp"
-        android:text="家庭名称"
+        android:text="@string/space_name"
         android:textColor="@color/common_text_color"
         android:textSize="20sp" />
 

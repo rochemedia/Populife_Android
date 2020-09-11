@@ -503,7 +503,7 @@
     <string name="create_space">New space</string>
     <string name="all_device_num_space">Total number of equipment</string>
     <string name="delete_space">Delete space</string>
-    <string name="create_space_name_hint">Please enter new family name</string>
+    <string name="create_space_name_hint">Please enter new space name</string>
     <string name="create">establish</string>
     <string name="new_create_space">New space</string>
     <string name="rename_space">Name modification</string>
@@ -532,7 +532,7 @@
     <string name="select_home_group">Switch space</string>
     <string name="add_success">Added successfully</string>
     <string name="add_lock_help_hint">Touch the lock keyboard, the keyboard should be on, if not, please check whether the battery is installed correctly, whether the cable is connected properly, if there is no problem, the keyboard is still not on, please contact us.</string>
-    <string name="delete_home_hint">After deleting the family, all the information that has been set will be cleared. Are you sure to delete the family?</string>
+    <string name="delete_home_hint">After deleting the space, all the information that has been set will be cleared. Are you sure to delete the space?</string>
     <string name="keys_and_pwd">key management </string>
     <string name="lock_operate_log">Operation log</string>
     <string name="adjus_lock_time">Calibration time</string>
@@ -724,5 +724,6 @@
     <string name="query_lock_status">Query lock status</string>
     <string name="unknown">unknown</string>
     <string name="dwell_lock_time">Blocking time</string>
+    <string name="space_name">Space name</string>
 
 </resources>
