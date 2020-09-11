@@ -544,6 +544,7 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 				.params("endDate", mTvEndTime.getText().toString())
 				.params("timeZone", DateUtil.getTimeZone())
 				.params("keyId", mKey.getKeyId())
+				.params("alias", mEtName.getText().toString().trim())
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {
