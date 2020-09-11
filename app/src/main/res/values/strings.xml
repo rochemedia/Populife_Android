@@ -491,7 +491,6 @@
     <string name="user_name_edit_hint">Mobile number / email</string>
     <string name="verification_code">Verification Code</string>
     <string name="note_sign_up_agree_user_terms">I have read and agree to the [service agreement and privacy policy]</string>
-    <string name="get_verify_code_btn_text">Get captcha</string>
     <string name="terms_of_use">Terms of service</string>
     <string name="note_phone_or_email_invalid">Wrong mobile phone number or email account</string>
     <string name="not_device_hint">No equipment yet</string>

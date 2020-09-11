@@ -473,7 +473,6 @@
     <string name="user_name_edit_hint">手机号/邮箱</string>
     <string name="verification_code">验证码</string>
     <string name="note_sign_up_agree_user_terms">我已阅读并同意[服务协议与隐私政策]</string>
-    <string name="get_verify_code_btn_text">获取验证码</string>
     <string name="terms_of_use">服务条款</string>
     <string name="note_phone_or_email_invalid">手机号或邮箱账号错误</string>
     <string name="not_device_hint">还没有设备</string>
