@@ -8,7 +8,13 @@ import android.widget.TextView;
 
 import com.populstay.populife.R;
 import com.populstay.populife.base.BaseActivity;
+import com.populstay.populife.common.Urls;
+import com.populstay.populife.net.RestClient;
+import com.populstay.populife.net.callback.IFailure;
+import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.util.locale.LanguageUtil;
+
+import java.util.Locale;
 
 public class ChangeLanguageActivity extends BaseActivity implements View.OnClickListener {
 
@@ -184,9 +190,41 @@ public class ChangeLanguageActivity extends BaseActivity implements View.OnClick
 			}else {
 				LanguageUtil.toRestartMainActvity(this);
 			}
+			sendCurrentLanguage();
+		}else {
+			// 设置完语言后缓存type
+			LanguageUtil.putLanguageType(mLanguageType);
+			finish();
 		}
-		// 设置完语言后缓存type
-		LanguageUtil.putLanguageType(mLanguageType);
-		finish();
+	}
+
+	/**
+	 * 请求服务器，告知当前语言环境
+	 */
+	private void sendCurrentLanguage() {
+		Locale locale = LanguageUtil.getLocaleByType(mLanguageType);
+		RestClient.builder()
+				.url(Urls.USER_LANGUAGE_SWITCH)
+				.loader(ChangeLanguageActivity.this)
+				// 语种，取值：en_US（英语），zh_CN（简体中文），ja_JP（日语）
+				.params("locale", locale)
+				.success(new ISuccess() {
+					@Override
+					public void onSuccess(String response) {
+						// 设置完语言后缓存type
+						LanguageUtil.putLanguageType(mLanguageType);
+						finish();
+					}
+				})
+				.failure(new IFailure() {
+					@Override
+					public void onFailure() {
+						// 设置完语言后缓存type
+						LanguageUtil.putLanguageType(mLanguageType);
+						finish();
+					}
+				})
+				.build()
+				.get();
 	}
 }

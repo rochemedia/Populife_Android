@@ -81,7 +81,7 @@ public class LanguageUtil {
 				break;
 
 			case 1: // 英语
-				locale = Locale.ENGLISH;
+				locale = Locale.US;
 				break;
 
 			case 2: // 简体中文
@@ -101,7 +101,7 @@ public class LanguageUtil {
 				break;
 
 			default: // 默认英语
-				locale = Locale.ENGLISH;
+				locale = Locale.US;
 				break;
 		}
 		return locale;

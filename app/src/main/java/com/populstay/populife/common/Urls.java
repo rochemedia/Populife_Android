@@ -130,6 +130,9 @@ public class Urls {
 	public static final String PAYPAL_SUCCESS_REPAIR_PAY_ORDER = "paypal/success/repair/pay/order"; //（post）支付 - 支付成功后，回调的接口（维修费）
 
 
+	public static final String USER_LANGUAGE_SWITCH = "user/language/switch"; //（get）通过参数locale指要切换的目标语言，语言切换后，仅消息和推送通知生效，语言切换后会在客户端一直生效，直到下次切换新的语言
+
+
 
 
 }
