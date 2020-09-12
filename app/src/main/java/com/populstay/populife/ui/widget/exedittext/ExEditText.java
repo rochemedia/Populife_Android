@@ -96,7 +96,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
             setText(typedArray.getString(R.styleable.ExEditText_text));
             setHint(typedArray.getString(R.styleable.ExEditText_hint));
             setLabel(typedArray.getString(R.styleable.ExEditText_label));
-            setMaxLength(typedArray.getInteger(R.styleable.ExEditText_maxLength,0));
+            setMaxLength(typedArray.getInteger(R.styleable.ExEditText_maxLength,Integer.MAX_VALUE));
 
             isVisiblePwd = typedArray.getBoolean(R.styleable.ExEditText_isVisiblePwd,isVisiblePwd);
             inputType = typedArray.getInteger(R.styleable.ExEditText_inputType, TYPE_NORMAL);

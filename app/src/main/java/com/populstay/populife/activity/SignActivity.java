@@ -235,7 +235,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 			@Override
 			public void afterTextChanged(Editable s) {
 				// 正在发送验证码过程中，账号发生变化，恢复验证码初始状态
-				stopTimer();
 				resetVerifictionCodeView();
 
 				setEnableGetCodeBtn();
@@ -459,6 +458,8 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 			if (mSignType == Constant.ACCOUNT_TYPE_PHONE) { // 使用手机注册时，需传入国家编码（如：+86）
 				params.put("country", mCountryCodePicker.getSelectedCountryCodeWithPlus());
 			}
+			// 获取验证码成功，开始倒计时
+			startTimer();
 			RestClient.builder()
 					.url(Urls.VERIFICATION_CODE_REGISTER_OR_BIND)
 					.params(params)
@@ -470,10 +471,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 							int code = result.getInteger("code");
 							switch (code) {
 								case 200:
-									// 获取验证码成功，开始倒计时
-									startTimer();
-
-
 									if (mSignType == Constant.ACCOUNT_TYPE_PHONE) {
 										toast(R.string.note_success_get_verification_code_phone);
 									} else if (mSignType == Constant.ACCOUNT_TYPE_EMAIL) {
@@ -484,13 +481,16 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
 								case 951:
 									toast(R.string.note_phone_has_been_registered);
+									resetVerifictionCodeView();
 									break;
 
 								case 952:
+									resetVerifictionCodeView();
 									toast(R.string.note_email_has_been_registered);
 									break;
 
 								default:
+									resetVerifictionCodeView();
 									toast(R.string.note_get_verification_code_fail);
 									break;
 							}
@@ -499,6 +499,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 					.failure(new IFailure() {
 						@Override
 						public void onFailure() {
+							resetVerifictionCodeView();
 							toast(R.string.note_get_verification_code_fail);
 						}
 					})
@@ -1028,6 +1029,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 	}
 
 	private void resetVerifictionCodeView(){
+		stopTimer();
 		mEtCode.setText("");
 		mEtCode.getVerifictionCodeView().setEnabled(true);
 		mEtCode.getVerifictionCodeView().setText(getString(R.string.get_code));

@@ -169,7 +169,6 @@ public class AccountBindActivity extends BaseActivity
 	}
 
 	private void setEnableGetCodeBtn(){
-		stopTimer();
 		resetGetCodeView();
 		if (Constant.ACCOUNT_TYPE_PHONE == mBindType){
 			String phone = mEtUserName.getTextStr();
@@ -210,6 +209,8 @@ public class AccountBindActivity extends BaseActivity
 		if (mBindType == Constant.ACCOUNT_TYPE_PHONE) { // 绑定手机时，需传入国家编码（如：+86）
 			params.put("country", mCountryCodePicker.getSelectedCountryCodeWithPlus());
 		}
+		// 开始倒计时
+		startTimer();
 		RestClient.builder()
 				.url(Urls.VERIFICATION_CODE_REGISTER_OR_BIND)
 				.params(params)
@@ -221,8 +222,6 @@ public class AccountBindActivity extends BaseActivity
 						int code = result.getInteger("code");
 						switch (code) {
 							case 200:
-								// 获取验证码成功，开始倒计时
-								startTimer();
 								if (mBindType == Constant.ACCOUNT_TYPE_PHONE) {
 									toast(R.string.note_success_get_verification_code_phone);
 								} else if (mBindType == Constant.ACCOUNT_TYPE_EMAIL) {
@@ -231,14 +230,17 @@ public class AccountBindActivity extends BaseActivity
 								break;
 
 							case 951:
+								resetGetCodeView();
 								toast(getString(R.string.note_phone_has_been_used));
 								break;
 
 							case 952:
+								resetGetCodeView();
 								toast(getString(R.string.note_email_has_been_used));
 								break;
 
 							default:
+								resetGetCodeView();
 								toast(R.string.note_get_verification_code_fail);
 								break;
 						}
@@ -247,12 +249,14 @@ public class AccountBindActivity extends BaseActivity
 				.failure(new IFailure() {
 					@Override
 					public void onFailure() {
+						resetGetCodeView();
 						toast(R.string.note_get_verification_code_fail);
 					}
 				})
 				.error(new IError() {
 					@Override
 					public void onError(int code, String msg) {
+						resetGetCodeView();
 						toast(R.string.note_get_verification_code_fail);
 					}
 				})
@@ -430,6 +434,7 @@ public class AccountBindActivity extends BaseActivity
 	}
 
 	private void resetGetCodeView(){
+		stopTimer();
 		mTvGetCode.setEnabled(true);
 		mTvGetCode.setText(getString(R.string.get_code));
 	}
