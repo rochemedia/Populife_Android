@@ -234,6 +234,10 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
 			@Override
 			public void afterTextChanged(Editable s) {
+				// 正在发送验证码过程中，账号发生变化，恢复验证码初始状态
+				stopTimer();
+				resetVerifictionCodeView();
+
 				setEnableGetCodeBtn();
 				setEnableActionBtn();
 				checkUserNameType();
@@ -1020,6 +1024,11 @@ public class SignActivity extends BaseActivity implements View.OnClickListener, 
 
 	@Override
 	public void onTimerFinish() {
+		resetVerifictionCodeView();
+	}
+
+	private void resetVerifictionCodeView(){
+		mEtCode.setText("");
 		mEtCode.getVerifictionCodeView().setEnabled(true);
 		mEtCode.getVerifictionCodeView().setText(getString(R.string.get_code));
 	}
