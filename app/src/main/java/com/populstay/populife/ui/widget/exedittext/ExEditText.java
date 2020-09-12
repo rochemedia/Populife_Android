@@ -3,6 +3,7 @@ package com.populstay.populife.ui.widget.exedittext;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -27,6 +28,8 @@ public class ExEditText extends FrameLayout implements IExEdit {
     public static final int TYPE_VERIFICTION_CODE = 2;
     public static final int TYPE_ACCOUNT = 3;
     public static final int TYPE_NUMBER = 4;
+    public static final int TYPE_PHONE = 5;
+    public static final int TYPE_EMAIL = 6;
     private int inputType = TYPE_NORMAL;
 
     private View rootView;
@@ -140,6 +143,22 @@ public class ExEditText extends FrameLayout implements IExEdit {
                 isShowRightIcon(false);
                 showCcPicker(false);
                 break;
+            case TYPE_PHONE:
+                contentEt.setInputType(InputType.TYPE_CLASS_PHONE);
+                setMaxLength(11);
+                showCcPicker(true);
+                if (null != labelTv){
+                    labelTv.setVisibility(GONE);
+                }
+                break;
+            case TYPE_EMAIL:
+                contentEt.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                setMaxLength(100);
+                showCcPicker(false);
+                if (null != labelTv){
+                    labelTv.setVisibility(VISIBLE);
+                }
+                break;
         }
     }
 
@@ -229,7 +248,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
     @Override
     public void setMaxLength(int maxLength) {
         if (null != contentEt) {
-            contentEt.setMaxEms(maxLength);
+            contentEt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
         }
     }
 

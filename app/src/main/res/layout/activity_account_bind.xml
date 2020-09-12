@@ -18,8 +18,7 @@
         android:hint="@string/enter_email"
         app:inputType="account"
         app:label="@string/email"
-        app:hint="@string/email"
-        android:inputType="phone" />
+        app:hint="@string/email" />
 
     <com.populstay.populife.ui.widget.exedittext.ExEditText
         android:layout_width="match_parent"
@@ -38,7 +37,7 @@
             android:id="@+id/tv_account_bind_btn"
             style="@style/btn_style_main"
             android:layout_marginTop="@dimen/sign_action_btn_margin_top"
-            android:text="@string/bind" />
+            android:text="@string/save" />
 
 
 </LinearLayout>

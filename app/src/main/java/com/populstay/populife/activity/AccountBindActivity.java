@@ -79,7 +79,7 @@ public class AccountBindActivity extends BaseActivity
 
 				mEtUserName.setLabel(getString(R.string.email));
 				mEtUserName.setHint(getString(R.string.email));
-				mEtUserName.setType(ExEditText.TYPE_NORMAL);
+				mEtUserName.setType(ExEditText.TYPE_EMAIL);
 
 				break;
 
@@ -88,8 +88,7 @@ public class AccountBindActivity extends BaseActivity
 
 				mEtUserName.setHint(getString(R.string.phone));
 				mEtUserName.setLabel(getString(R.string.phone));
-				mEtUserName.setType(ExEditText.TYPE_ACCOUNT);
-
+				mEtUserName.setType(ExEditText.TYPE_PHONE);
 
 				break;
 
@@ -170,7 +169,14 @@ public class AccountBindActivity extends BaseActivity
 	}
 
 	private void setEnableGetCodeBtn(){
-		mEtCode.getVerifictionCodeView().setEnabled(!TextUtils.isEmpty(mEtUserName.getTextStr()));
+		stopTimer();
+		resetGetCodeView();
+		if (Constant.ACCOUNT_TYPE_PHONE == mBindType){
+			String phone = mEtUserName.getTextStr();
+			mEtCode.getVerifictionCodeView().setEnabled(!TextUtils.isEmpty(phone) && phone.length() == 11);
+		}else {
+			mEtCode.getVerifictionCodeView().setEnabled(!TextUtils.isEmpty(mEtUserName.getTextStr()));
+		}
 	}
 
 	private void setEnableActionBtn() {
@@ -216,8 +222,7 @@ public class AccountBindActivity extends BaseActivity
 						switch (code) {
 							case 200:
 								// 获取验证码成功，开始倒计时
-								mTimer = new BaseCountDownTimer(60, AccountBindActivity.this);
-								mTimer.start();
+								startTimer();
 								if (mBindType == Constant.ACCOUNT_TYPE_PHONE) {
 									toast(R.string.note_success_get_verification_code_phone);
 								} else if (mBindType == Constant.ACCOUNT_TYPE_EMAIL) {
@@ -392,6 +397,21 @@ public class AccountBindActivity extends BaseActivity
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		stopTimer();
+	}
+
+	/**
+	 * 开始倒计时
+	 */
+	private void startTimer() {
+		mTimer = new BaseCountDownTimer(60, AccountBindActivity.this);
+		mTimer.start();
+	}
+
+	/**
+	 * 停止倒计时
+	 */
+	private void stopTimer() {
 		if (mTimer != null) {
 			mTimer.cancel();
 			mTimer = null;
@@ -406,6 +426,10 @@ public class AccountBindActivity extends BaseActivity
 
 	@Override
 	public void onTimerFinish() {
+		resetGetCodeView();
+	}
+
+	private void resetGetCodeView(){
 		mTvGetCode.setEnabled(true);
 		mTvGetCode.setText(getString(R.string.get_code));
 	}
