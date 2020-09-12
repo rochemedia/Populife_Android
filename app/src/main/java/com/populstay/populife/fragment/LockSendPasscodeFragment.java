@@ -530,7 +530,12 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 						@Override
 						public void run() {
 							PeachLoader.stopLoading();
-							toastFail();
+							// 连接超时说明不在锁附近，用网关设置自定义密码
+							if (DigitUtil.isSupportRemoteUnlock(mKey.getSpecialValue())){
+								requestAddPasscode(mInputPwd,"2");
+							}else {
+								toastFail();
+							}
 						}
 					});
 				}
@@ -538,12 +543,6 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 
 			@Override
 			public void onTimeOut() {
-				// 连接超时说明不在锁附近，用网关设置自定义吗
-				if (DigitUtil.isSupportRemoteUnlock(mKey.getSpecialValue())){
-					requestAddPasscode(mInputPwd,"2");
-				}else {
-					toastFail();
-				}
 			}
 		});
 	}
@@ -577,6 +576,8 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 						int code = result.getInteger("code");
 						if (code == 200) {
 							mTvPasscode.setText(keyboardPwd);
+						} else if (code == 951){
+							toast(R.string.note_password_exist);
 						} else {
 							toast(R.string.note_passcode_customize_fail);
 						}
