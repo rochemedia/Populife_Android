@@ -285,6 +285,9 @@ public class MyApplication extends BaseApplication {
 				case RESET_LOCK:
 					bleSession.getILockResetLock().onFinish();
 					break;
+				case ADD_PASSCODE:
+					bleSession.getILockAddPasscode().onTimeOut();
+					break;
 
 				default:
 					break;

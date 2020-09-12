@@ -114,6 +114,16 @@ public abstract class BaseFragment extends Fragment {
 		return isEnable;
 	}
 
+	public boolean isBleEnableNotHint() {
+		boolean isEnable = true;
+
+		if (!BluetoothUtil.isBleEnable()) {
+			isEnable = false;
+		}
+
+		return isEnable;
+	}
+
 	/**
 	 * 检测网络是否开启，未开启则弹出提示消息
 	 */
@@ -137,6 +147,18 @@ public abstract class BaseFragment extends Fragment {
 		if (!isBleEnable()) {
 			isEnable = false;
 		} else if (!isNetEnable()) {
+			isEnable = false;
+		}
+
+		return isEnable;
+	}
+
+	public boolean isBleNetEnableNotHint() {
+		boolean isEnable = true;
+
+		if (!BluetoothUtil.isBleEnable()) {
+			isEnable = false;
+		} else if (!NetworkUtil.isNetConnected()) {
 			isEnable = false;
 		}
 

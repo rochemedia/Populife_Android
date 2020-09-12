@@ -9,4 +9,6 @@ public interface ILockAddPasscode {
 	void onSuccess();
 
 	void onFail();
+
+	void onTimeOut();
 }

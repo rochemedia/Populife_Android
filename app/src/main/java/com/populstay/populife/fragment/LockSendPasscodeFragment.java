@@ -45,6 +45,7 @@ import com.populstay.populife.util.device.KeyboardUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
+import com.ttlock.bl.sdk.util.DigitUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -386,8 +387,17 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 						mInputPwd = mEtCustomPwd.getText().toString();
 						if (!StringUtil.isBlank(mInputPwd) && StringUtil.isNum(mInputPwd)
 								&& mInputPwd.length() >= 6 && mInputPwd.length() <= 9) {
-							if (isBleNetEnable()) {
-								checkPasswordExist(mInputPwd);
+
+							if (isNetEnable()){
+								if (isBleEnableNotHint()) {
+									checkPasswordExist(mInputPwd);
+								}else {
+									if (DigitUtil.isSupportRemoteUnlock(mKey.getSpecialValue())){
+										requestAddPasscode(mInputPwd,"2");
+									}else {
+										toast(R.string.enable_bluetooth);
+									}
+								}
 							}
 						} else {
 							toast(R.string.note_passcode_invalid);
@@ -507,7 +517,7 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 						@Override
 						public void run() {
 							PeachLoader.stopLoading();
-							requestAddPasscode(pwd);
+							requestAddPasscode(pwd,"1");
 						}
 					});
 				}
@@ -525,6 +535,16 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 					});
 				}
 			}
+
+			@Override
+			public void onTimeOut() {
+				// 连接超时说明不在锁附近，用网关设置自定义吗
+				if (DigitUtil.isSupportRemoteUnlock(mKey.getSpecialValue())){
+					requestAddPasscode(mInputPwd,"2");
+				}else {
+					toastFail();
+				}
+			}
 		});
 	}
 
@@ -532,8 +552,9 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 	 * 请求服务器，添加键盘密码
 	 *
 	 * @param keyboardPwd 键盘密码
+	 * @param mediumType 通讯介质（1：蓝牙，2：网关，默认是1）
 	 */
-	private void requestAddPasscode(final String keyboardPwd) {
+	private void requestAddPasscode(final String keyboardPwd, final String mediumType) {
 		RestClient.builder()
 				.url(Urls.LOCK_PASSCODE_ADD)
 				.loader(getActivity())
@@ -545,6 +566,7 @@ public class LockSendPasscodeFragment extends BaseFragment implements View.OnCli
 				.params("timeZone", DateUtil.getTimeZone())
 				.params("keyId", mKey.getKeyId())
 				.params("alias", mEtName.getText().toString().trim())
+				.params("mediumType", mediumType)
 				.success(new ISuccess() {
 					@Override
 					public void onSuccess(String response) {
