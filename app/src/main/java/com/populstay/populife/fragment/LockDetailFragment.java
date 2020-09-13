@@ -1000,8 +1000,8 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		String pwdInfo = lockInfo.getString("pwdInfo");//密码数据，用于生成密码，SDK提供
 		long timestamp = lockInfo.getLong("timestamp");//时间戳，用于初始化密码数据
 		String aesKeyStr = lockInfo.getString("aesKey");//Aes加解密key
-		long startDate = lockInfo.getLong("startDate");
-		long endDate = lockInfo.getLong("endDate");
+		long startDate = lockInfo.getLong("startDate") * 1000;
+		long endDate = lockInfo.getLong("endDate") * 1000;
 		int specialValue = lockInfo.getInteger("specialValue");//锁特征值，用于表示锁支持的功能
 		int timezoneRawOffset = lockInfo.getInteger("timezoneRawOffSet");//锁所在时区和UTC时区时间的差数，单位milliseconds
 //		int keyRight = lockInfo.getInteger("keyRight");

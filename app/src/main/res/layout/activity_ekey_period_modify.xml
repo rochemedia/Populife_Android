@@ -16,17 +16,12 @@
 
         <TextView
             android:id="@+id/tv_ekey_period_modify_start_time"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="right|center_vertical"
-            android:textColor="@color/text_gray_medium"
-            android:textSize="12sp"/>
+            style="@style/list_item_description" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_arrow_more_detail"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_go_to_light_grey"/>
 
     </LinearLayout>
 
@@ -41,17 +36,12 @@
 
         <TextView
             android:id="@+id/tv_ekey_period_modify_end_time"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="right|center_vertical"
-            android:textColor="@color/text_gray_medium"
-            android:textSize="12sp"/>
+            style="@style/list_item_description" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_arrow_more_detail"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_go_to_light_grey"/>
 
     </LinearLayout>
 
