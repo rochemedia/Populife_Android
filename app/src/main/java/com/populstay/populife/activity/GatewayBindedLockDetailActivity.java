@@ -271,6 +271,7 @@ public class GatewayBindedLockDetailActivity extends BaseActivity implements Vie
 						int code = result.getInteger("code");
 						if (code == 200) {
 							toast(R.string.operation_success);
+							queryLockOpenState(false);
 						} else if (code == 951) {
 							toast(R.string.note_gateway_donot_exists);
 						} else {
@@ -300,6 +301,7 @@ public class GatewayBindedLockDetailActivity extends BaseActivity implements Vie
 						int code = result.getInteger("code");
 						if (code == 200) {
 							toast(R.string.operation_success);
+							queryLockOpenState(false);
 						} else if (code == 951) {
 							toast(R.string.note_gateway_donot_exists);
 						} else {
