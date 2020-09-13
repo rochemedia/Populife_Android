@@ -1382,7 +1382,12 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 			setUnlockLock();
 			enableLockingColorFiltr(true, false, 0);
 		} else if ("110500".equals(keyStatus)){
-			setLockInfoVisible(SHOW_OUT_OF_DATE);
+			mIvRemoteUnlock.setVisibility(View.INVISIBLE);
+			mTvLockStatus.setVisibility(View.VISIBLE);
+			mTvLockStatus.setTextColor(colorGray);
+			mTvLockStatus.setText(R.string.note_key_expired);
+			setUnlockLock();
+			enableLockingColorFiltr(false, true, colorGrayParent);
 		}
 		else {
 			setLockInfoVisible(SHOW_DEVICE_ADD);
