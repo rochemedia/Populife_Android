@@ -26,6 +26,19 @@ public class DateUtil {
 		return sDateFormat.format(new java.util.Date());
 	}
 
+	/**
+	 * 时间戳转换成字符串
+	 *
+	 * @param milSecond 需要乘以1000
+	 * @param pattern
+	 * @return
+	 */
+	public static String getDateToStringConvert(long milSecond, String pattern) {
+		Date date = new Date(milSecond *1000L);
+		SimpleDateFormat format = new SimpleDateFormat(pattern);
+		return format.format(date);
+	}
+
 	public static String getDateToString(long milSecond, String pattern) {
 		Date date = new Date(milSecond);
 		SimpleDateFormat format = new SimpleDateFormat(pattern);

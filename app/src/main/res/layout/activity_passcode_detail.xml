@@ -32,9 +32,9 @@
 
                 <ImageView
                     android:id="@+id/iv_passcode_detail_passcode_more"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_arrow_more_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_go_to_light_grey"
                     android:visibility="gone"/>
 
             </LinearLayout>
@@ -55,10 +55,9 @@
                     android:text="@string/app_name"/>
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_arrow_more_detail"
-                    android:visibility="gone"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_go_to_light_grey" />
 
             </LinearLayout>
 
@@ -66,7 +65,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_passcode_detail_valid_period"
-                style="@style/list_item_overall_minheight54dp">
+                style="@style/list_item_overall">
 
                 <TextView
                     style="@style/list_item_title"
@@ -125,9 +124,9 @@
 
                 <ImageView
                     android:id="@+id/iv_passcode_detail_valid_period_more"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_arrow_more_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_go_to_light_grey"
                     android:visibility="gone"/>
 
             </LinearLayout>
@@ -146,13 +145,8 @@
                         android:text="@string/sender"/>
 
                     <TextView
-                        android:id="@+id/tv_passcode_detail_sender"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        android:textColor="@color/text_gray_medium"
-                        android:textSize="12sp"/>
+                        style="@style/list_item_description"
+                        android:id="@+id/tv_passcode_detail_sender" />
 
                 </LinearLayout>
 
@@ -166,13 +160,8 @@
                         android:text="@string/sending_time"/>
 
                     <TextView
-                        android:id="@+id/tv_passcode_detail_sending_time"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        android:textColor="@color/text_gray_medium"
-                        android:textSize="12sp"/>
+                        style="@style/list_item_description"
+                        android:id="@+id/tv_passcode_detail_sending_time" />
 
                 </LinearLayout>
 
@@ -193,11 +182,13 @@
                     android:layout_weight="1"/>
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_arrow_more_detail"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_go_to_light_grey"/>
 
             </LinearLayout>
+            <include layout="@layout/layout_view_line"/>
+
 
             <TextView
                 android:id="@+id/tv_passcode_detail_delete"

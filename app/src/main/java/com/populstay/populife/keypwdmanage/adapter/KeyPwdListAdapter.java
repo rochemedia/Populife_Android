@@ -57,8 +57,8 @@ public class KeyPwdListAdapter extends HeaderAndFooterAdapter<KeyPwd> {
             videoViewHolder.tvName.setRawIcon(R.drawable.bt_key_icon, iconPadding);
 
             videoViewHolder.llTimeRange.setVisibility(View.VISIBLE);
-            videoViewHolder.tvStartTime.setText(DateUtil.getDateToString(item.getStartDate() * 1000L, DateUtil.DATE_TIME_PATTERN_1));
-            videoViewHolder.tvEndTime.setText(DateUtil.getDateToString(item.getEndDate() * 1000L, DateUtil.DATE_TIME_PATTERN_1));
+            videoViewHolder.tvStartTime.setText(DateUtil.getDateToStringConvert(item.getStartDate(), DateUtil.DATE_TIME_PATTERN_1));
+            videoViewHolder.tvEndTime.setText(DateUtil.getDateToStringConvert(item.getEndDate(), DateUtil.DATE_TIME_PATTERN_1));
 
             // 待接收才显示分享按钮
             if ("110402".equals(item.getStatus())){

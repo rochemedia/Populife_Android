@@ -68,8 +68,8 @@ public class EkeyPeriodModifyActivity extends BaseActivity implements View.OnCli
 			mStartTime = now;
 			mEndTime = now + 3600 * 1000;
 		}
-		mTvStartTime.setText(DateUtil.getDateToString(mStartTime, "yyyy-MM-dd HH:mm"));
-		mTvEndTime.setText(DateUtil.getDateToString(mEndTime, "yyyy-MM-dd HH:mm"));
+		mTvStartTime.setText(DateUtil.getDateToStringConvert(mStartTime, "yyyy-MM-dd HH:mm"));
+		mTvEndTime.setText(DateUtil.getDateToStringConvert(mEndTime, "yyyy-MM-dd HH:mm"));
 		initTimePicker();
 	}
 

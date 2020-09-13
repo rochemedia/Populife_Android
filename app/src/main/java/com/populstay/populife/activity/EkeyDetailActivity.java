@@ -150,8 +150,8 @@ public class EkeyDetailActivity extends BaseActivity implements View.OnClickList
 				mTvValidPeriod.setVisibility(View.GONE);
 				mTvStartTime.setVisibility(View.VISIBLE);
 				mTvEndTime.setVisibility(View.VISIBLE);
-				mTvStartTime.setText(DateUtil.getDateToString(mStartTime, "yyyy-MM-dd HH:mm"));
-				mTvEndTime.setText(DateUtil.getDateToString(mEndTime, "yyyy-MM-dd HH:mm"));
+				mTvStartTime.setText(DateUtil.getDateToStringConvert(mStartTime, "yyyy-MM-dd HH:mm"));
+				mTvEndTime.setText(DateUtil.getDateToStringConvert(mEndTime, "yyyy-MM-dd HH:mm"));
 				break;
 
 			case 2:
