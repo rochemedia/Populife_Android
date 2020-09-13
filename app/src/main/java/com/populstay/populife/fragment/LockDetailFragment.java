@@ -1000,8 +1000,8 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		String pwdInfo = lockInfo.getString("pwdInfo");//密码数据，用于生成密码，SDK提供
 		long timestamp = lockInfo.getLong("timestamp");//时间戳，用于初始化密码数据
 		String aesKeyStr = lockInfo.getString("aesKey");//Aes加解密key
-//		long startDate = lockInfo.getLong("startDate") * 1000;
-//		long endDate = lockInfo.getLong("endDate") * 1000;
+		long startDate = lockInfo.getLong("startDate");
+		long endDate = lockInfo.getLong("endDate");
 		int specialValue = lockInfo.getInteger("specialValue");//锁特征值，用于表示锁支持的功能
 		int timezoneRawOffset = lockInfo.getInteger("timezoneRawOffSet");//锁所在时区和UTC时区时间的差数，单位milliseconds
 //		int keyRight = lockInfo.getInteger("keyRight");
@@ -1040,6 +1040,8 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 
 
 
+
+
 		// 封装lockVersion信息，蓝牙开锁/闭锁需要
 		//{"lockId":2118210,"protocolType":5,"protocolVersion":3,"scene":2,"groupId":10,"orgId":32,"logoUrl":null,"showAdminKbpwdFlag":null}
 		JSONObject lockVersionObj = new JSONObject();
@@ -1068,8 +1070,24 @@ public class LockDetailFragment extends BaseFragment implements View.OnClickList
 		mCurKEY.setPwdInfo(pwdInfo);
 		mCurKEY.setTimestamp(timestamp);
 		mCurKEY.setAesKeyStr(aesKeyStr);
-//		mCurKEY.setStartDate(startDate);
-//		mCurKEY.setEndDate(endDate);
+
+
+		mCurKEY.setStartDate(startDate);
+		mCurKEY.setEndDate(endDate);
+		// startDate有效开始时间，0是永久有效 (时间戳)
+		// endDate 失效时间，0是永久有效，格式(时间戳)
+		// 钥匙类型（1限时，2永久，3单次，4循环）
+		int keyType = 1;
+		if (startDate > 0 && endDate > 0){
+			keyType = 1;
+		}else {
+			keyType = 2;
+		}
+		// 目前只有1限时、2永久
+		mCurKEY.setKeyType(keyType);
+		mKeyType = keyType;
+
+
 		mCurKEY.setSpecialValue(specialValue);
 		mCurKEY.setTimezoneRawOffset(timezoneRawOffset);
 //		mCurKEY.setKeyRight(keyRight);

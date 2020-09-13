@@ -192,8 +192,8 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 				switch (mKeyType) {//钥匙类型（1限时，2永久，3单次，4循环）
 					case 1:
 						mLlValidity.setVisibility(View.GONE);
-						mTvStartTime.setText(DateUtil.getDateToString(mKey.getStartDate(), "yyyy-MM-dd HH:mm"));
-						mTvEndTime.setText(DateUtil.getDateToString(mKey.getEndDate(), "yyyy-MM-dd HH:mm"));
+						mTvStartTime.setText(DateUtil.getDateToStringConvert(mKey.getStartDate(), "yyyy-MM-dd HH:mm"));
+						mTvEndTime.setText(DateUtil.getDateToStringConvert(mKey.getEndDate(), "yyyy-MM-dd HH:mm"));
 
 						break;
 
@@ -223,7 +223,6 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 				mLlMacId.setVisibility(View.GONE);
 				mLlValidity.setVisibility(View.GONE);
 				mLlLockGroup.setVisibility(View.GONE);
-				mLlStartEndTime.setVisibility(View.GONE);
 				mLlAdminPasscode.setVisibility(View.GONE);
 				mLlLockTime.setVisibility(View.GONE);
 				mLlAutoLocking.setVisibility(View.GONE);
@@ -234,9 +233,10 @@ public class LockSettingsActivity extends BaseActivity implements View.OnClickLi
 
 				switch (mKeyType) {//钥匙类型（1限时，2永久，3单次，4循环）
 					case 1:
+						mLlStartEndTime.setVisibility(View.VISIBLE);
 						mLlValidity.setVisibility(View.GONE);
-						mTvStartTime.setText(DateUtil.getDateToString(mKey.getStartDate(), "yyyy-MM-dd HH:mm"));
-						mTvEndTime.setText(DateUtil.getDateToString(mKey.getEndDate(), "yyyy-MM-dd HH:mm"));
+						mTvStartTime.setText(DateUtil.getDateToStringConvert(mKey.getStartDate(), "yyyy-MM-dd HH:mm"));
+						mTvEndTime.setText(DateUtil.getDateToStringConvert(mKey.getEndDate(), "yyyy-MM-dd HH:mm"));
 
 						break;
 
