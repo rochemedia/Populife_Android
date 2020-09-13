@@ -61,7 +61,6 @@ public class GatewayBindedLockDetailActivity extends BaseActivity implements Vie
 		initView();
 		initListener();
 		queryLockOpenState(false);
-		readLockTime();
 	}
 
 	private void getIntentData() {
@@ -144,7 +143,6 @@ public class GatewayBindedLockDetailActivity extends BaseActivity implements Vie
 
 			case R.id.tv_lock_status:
 				queryLockOpenState(true);
-				readLockTime();
 				break;
 
 			case R.id.tv_gateway_binded_lock_freeze:
@@ -348,6 +346,7 @@ public class GatewayBindedLockDetailActivity extends BaseActivity implements Vie
 								toast(R.string.operation_fail);
 							}
 						}
+						readLockTime();
 					}
 				}).failure(new IFailure() {
 					@Override
@@ -356,6 +355,7 @@ public class GatewayBindedLockDetailActivity extends BaseActivity implements Vie
 						if (isNeedHint){
 							toast(R.string.operation_fail);
 						}
+						readLockTime();
 					}
 				})
 				.build()
