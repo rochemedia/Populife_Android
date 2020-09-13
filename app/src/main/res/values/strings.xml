@@ -724,5 +724,8 @@
     <string name="unknown">unknown</string>
     <string name="dwell_lock_time">Blocking time</string>
     <string name="space_name">Space name</string>
+    <string name="wifi_select">Select WiFi</string>
+    <string name="wifi_searching">Searching for available WiFi</string>
+    <string name="wifi_no_found">No WiFi available</string>
 
 </resources>

@@ -673,6 +673,9 @@
     <string name="unknown">未知</string>
     <string name="dwell_lock_time">闭锁时间</string>
     <string name="space_name">空间名称</string>
+    <string name="wifi_select">选择 WiFi</string>
+    <string name="wifi_searching">正在搜索可用WiFi</string>
+    <string name="wifi_no_found">没有找到可用WiFi</string>
 
 
 </resources>

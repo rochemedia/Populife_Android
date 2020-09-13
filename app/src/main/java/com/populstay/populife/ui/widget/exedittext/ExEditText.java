@@ -2,6 +2,7 @@ package com.populstay.populife.ui.widget.exedittext;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -30,6 +31,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
     public static final int TYPE_NUMBER = 4;
     public static final int TYPE_PHONE = 5;
     public static final int TYPE_EMAIL = 6;
+    public static final int TYPE_CUSTOM_RIGHT_ICON = 7;
     private int inputType = TYPE_NORMAL;
 
     private View rootView;
@@ -45,6 +47,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
     private View cCPickerLine;
 
     private boolean isVisiblePwd = false;
+    private Drawable customRightIcon;
 
     public ExEditText(Context context) {
         super(context);
@@ -100,6 +103,7 @@ public class ExEditText extends FrameLayout implements IExEdit {
 
             isVisiblePwd = typedArray.getBoolean(R.styleable.ExEditText_isVisiblePwd,isVisiblePwd);
             inputType = typedArray.getInteger(R.styleable.ExEditText_inputType, TYPE_NORMAL);
+            customRightIcon = typedArray.getDrawable(R.styleable.ExEditText_customRightIcon);
             setType(inputType);
             setPaddingInner((int)typedArray.getDimension(R.styleable.ExEditText_paddingLeftInner,0), 0, (int)typedArray.getDimension(R.styleable.ExEditText_paddingRightInner,0), 0);
             typedArray.recycle();
@@ -158,6 +162,12 @@ public class ExEditText extends FrameLayout implements IExEdit {
                 if (null != labelTv){
                     labelTv.setVisibility(VISIBLE);
                 }
+                break;
+            case TYPE_CUSTOM_RIGHT_ICON:
+                contentEt.setInputType(InputType.TYPE_CLASS_TEXT);
+                rightTv.setVisibility(GONE);
+                rightIcon.setVisibility(VISIBLE);
+                rightIcon.setImageDrawable(customRightIcon);
                 break;
         }
     }
@@ -267,6 +277,12 @@ public class ExEditText extends FrameLayout implements IExEdit {
         if (null != editStatusHintTv){
             editStatusHintTv.setVisibility(isShow ? VISIBLE : GONE);
             editStatusHintTv.setText(hint);
+        }
+    }
+
+    public void setOnRightIconClickListener(OnClickListener listener){
+        if (null != rightIcon){
+            rightIcon.setOnClickListener(listener);
         }
     }
 }

@@ -234,6 +234,7 @@
             <flag name="number" value="4" />
             <flag name="phone" value="5" />
             <flag name="email" value="6" />
+            <flag name="custom_right_icon" value="7" />
         </attr>
         <attr name="hint" format="string" />
         <attr name="text" format="string" />
@@ -242,6 +243,7 @@
         <attr name="maxLength" format="integer" />
         <attr name="paddingLeftInner" format="dimension" />
         <attr name="paddingRightInner" format="dimension" />
+        <attr name="customRightIcon" format="reference" />
     </declare-styleable>
 
     <style name="check_box">

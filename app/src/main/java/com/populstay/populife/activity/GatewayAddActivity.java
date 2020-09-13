@@ -1,8 +1,11 @@
 package com.populstay.populife.activity;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,9 +27,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.populstay.populife.R;
 import com.populstay.populife.adapter.GatewayAddListAdapter;
+import com.populstay.populife.adapter.WifiListAdapter;
 import com.populstay.populife.base.BaseActivity;
 import com.populstay.populife.base.BaseApplication;
 import com.populstay.populife.common.Urls;
+import com.populstay.populife.eventbus.Event;
 import com.populstay.populife.home.entity.HomeDevice;
 import com.populstay.populife.home.entity.HomeDeviceInfo;
 import com.populstay.populife.net.RestClient;
@@ -35,10 +40,12 @@ import com.populstay.populife.net.callback.IFailure;
 import com.populstay.populife.net.callback.ISuccess;
 import com.populstay.populife.ui.CustomProgress;
 import com.populstay.populife.ui.widget.exedittext.ExEditText;
+import com.populstay.populife.util.CollectionUtil;
 import com.populstay.populife.util.log.PeachLogger;
 import com.populstay.populife.util.net.NetworkUtil;
 import com.populstay.populife.util.storage.PeachPreference;
 import com.populstay.populife.util.string.StringUtil;
+import com.populstay.populife.util.toast.ToastUtil;
 import com.ttlock.bl.sdk.scanner.ExtendedBluetoothDevice;
 import com.ttlock.gateway.sdk.api.G2GatewayAPI;
 import com.ttlock.gateway.sdk.callback.G2GatewayCallback;
@@ -49,6 +56,9 @@ import com.ttlock.gateway.sdk.model.DeviceInfo;
 import com.ttlock.gateway.sdk.model.Error;
 import com.ttlock.gateway.sdk.model.WiFi;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,13 +174,24 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 				getUserKeyId();
 			}
 		});
+
+		mEtWifiName.setOnRightIconClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showWifiListDialog(MyHandler.SEARCH_WIFI_STATE_START);
+				mGatewayAPI.scanWiFiByGateway(mSelectedDevice.getAddress());
+			}
+		});
 	}
 
 	private void initData() {
+		mMyHandler = new MyHandler(this);
 		mGatewayAPI = new G2GatewayAPI(this, new G2GatewayCallback() {
 			@Override
-			public void onScanWiFiByGateway(List<WiFi> list, int i, Error error) {
-
+			public void onScanWiFiByGateway(final List<WiFi> list, int i, Error error) {
+				PeachLogger.d("onScanWiFiByGateway=" + list + ",i="+ i +",error="+error.name());
+				mTempWifiList = list;
+				mMyHandler.sendEmptyMessage(MyHandler.WHAT_SHOW_WIFI_LIST_DIALOG);
 			}
 
 			@Override
@@ -189,6 +210,101 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 		initSeekbarScanDevice();
 	}
 
+	private AlertDialog mWifiListDialog;
+	private ListView mWifiListView;
+	private TextView mTvSearchState;
+	private WifiListAdapter mWifiListAdapter;
+	private List<WiFi> mWifiList = new ArrayList<>();
+	private List<WiFi> mTempWifiList;
+	private MyHandler mMyHandler;
+	private long mSearchWifiTime;
+	private boolean isCloseWifiListDialog;
+	private void showWifiListDialog(int state) {
+		if (MyHandler.SEARCH_WIFI_STATE_START == state){
+			isCloseWifiListDialog = false;
+		}
+		if (isCloseWifiListDialog){
+			return;
+		}
+		if (null == mWifiListDialog){
+			mWifiListDialog = new AlertDialog.Builder(this).create();
+			mWifiListDialog.show();
+			final Window window = mWifiListDialog.getWindow();
+			if (window != null) {
+				window.setContentView(R.layout.dialog_wifi_list);
+				window.setGravity(Gravity.CENTER);
+				window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+				//设置属性
+				final WindowManager.LayoutParams params = window.getAttributes();
+				params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+				params.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+				params.dimAmount = 0.5f;
+				window.setAttributes(params);
+
+				window.findViewById(R.id.tv_cancel_btn).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						mWifiListDialog.dismiss();
+					}
+				});
+
+				mWifiListView = window.findViewById(R.id.wifiListView);
+				mTvSearchState = window.findViewById(R.id.tv_search_state);
+			    if(!CollectionUtil.isEmpty(mTempWifiList)){
+					mWifiList.clear();
+					mWifiList.addAll(mTempWifiList);
+				}
+				mWifiListAdapter = new WifiListAdapter(mWifiList,this);
+				mWifiListView.setAdapter(mWifiListAdapter);
+				mWifiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+						WiFi wiFi = (WiFi) parent.getItemAtPosition(position);
+						mEtWifiName.setText(wiFi.getSsid());
+						mWifiListDialog.dismiss();
+					}
+				});
+			}
+			mWifiListDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+					isCloseWifiListDialog = true;
+					mMyHandler.removeMessages(MyHandler.WHAT_SHOW_WIFI_LIST_DIALOG);
+					mMyHandler.removeMessages(MyHandler.WHAT_SEARCH_WIFI_LIST);
+					mGatewayAPI.stopScanGateway();
+				}
+			});
+		}else {
+			if (!mWifiListDialog.isShowing()){
+				mWifiListDialog.show();
+			}
+			mWifiList.clear();
+			if (null != mTempWifiList){
+				mWifiList.addAll(mTempWifiList);
+			}
+			mWifiListAdapter.notifyDataSetChanged();
+		}
+
+		mWifiListView.setVisibility(View.GONE);
+		mTvSearchState.setVisibility(View.GONE);
+		if (MyHandler.SEARCH_WIFI_STATE_START == state){
+			mTvSearchState.setVisibility(View.VISIBLE);
+			mTvSearchState.setText(R.string.wifi_searching);
+			mSearchWifiTime = 0;
+			mMyHandler.sendEmptyMessageDelayed(MyHandler.WHAT_SEARCH_WIFI_LIST,500);
+		}else if (MyHandler.SEARCH_WIFI_STATE_RUNNING == state){
+			mTvSearchState.setVisibility(View.VISIBLE);
+			mMyHandler.sendEmptyMessageDelayed(MyHandler.WHAT_SEARCH_WIFI_LIST,500);
+		}else if (MyHandler.SEARCH_WIFI_STATE_RESULT == state){
+			mWifiListView.setVisibility(View.VISIBLE);
+			mMyHandler.removeMessages(MyHandler.WHAT_SEARCH_WIFI_LIST);
+
+		}else if (MyHandler.SEARCH_WIFI_STATE_END == state){
+			mMyHandler.removeMessages(MyHandler.WHAT_SEARCH_WIFI_LIST);
+			mTvSearchState.setVisibility(View.VISIBLE);
+			mTvSearchState.setText(R.string.wifi_no_found);
+		}
+	}
 
 	private void startScanGateway(){
 		if (null == mGatewayAPI){
@@ -498,5 +614,46 @@ public class GatewayAddActivity extends BaseActivity implements TextWatcher {
 	protected void onDestroy() {
 		super.onDestroy();
 		mGatewayAPI.stopScanGateway();
+		if (null != mMyHandler){
+			mMyHandler.removeCallbacksAndMessages(null);
+			mMyHandler = null;
+		}
+	}
+
+	static class MyHandler extends Handler{
+
+		public static int SEARCH_WIFI_STATE_START = 0;
+		public static int SEARCH_WIFI_STATE_END = 1;
+		public static int SEARCH_WIFI_STATE_RUNNING = 2;
+		public static int SEARCH_WIFI_STATE_RESULT = 3;
+
+
+		public static final int WHAT_SHOW_WIFI_LIST_DIALOG = 1;
+		public static final int WHAT_SEARCH_WIFI_LIST = 2;
+		public static final long WHAT_SEARCH_WIFI_LIST_TIME_OUT = 10 * 1000;
+
+		private WeakReference wf;
+
+		public MyHandler(GatewayAddActivity activity) {
+			this.wf = new WeakReference(activity);
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+				GatewayAddActivity activity = (GatewayAddActivity) wf.get();
+				if (null == activity || activity.isFinishing()){
+					return;
+				}
+				if (WHAT_SHOW_WIFI_LIST_DIALOG == msg.what){
+					activity.showWifiListDialog(SEARCH_WIFI_STATE_RESULT);
+				}else if (WHAT_SEARCH_WIFI_LIST == msg.what){
+					activity.mSearchWifiTime += 500;
+					if (activity.mSearchWifiTime < WHAT_SEARCH_WIFI_LIST_TIME_OUT){
+						activity.showWifiListDialog(SEARCH_WIFI_STATE_RUNNING);
+					}else {
+						activity.showWifiListDialog(SEARCH_WIFI_STATE_END);
+					}
+				}
+		}
 	}
 }

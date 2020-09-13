@@ -31,11 +31,11 @@
             android:visibility="gone">
 
             <com.populstay.populife.ui.widget.exedittext.ExEditText
-                app:inputType="password"
+                app:inputType="custom_right_icon"
                 android:id="@+id/et_gateway_add_wifi_name"
                 app:hint="@string/enter_wifi_name"
                 app:label="@string/wifi_name"
-                app:isVisiblePwd="true"
+                app:customRightIcon="@drawable/arrow_go_to_light_grey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
