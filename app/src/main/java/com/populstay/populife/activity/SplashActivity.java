@@ -85,7 +85,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 	}
 
 	private void playSplashAnim() {
-		AnimatorSet set = new AnimatorSet().setDuration(1200);
+		AnimatorSet set = new AnimatorSet().setDuration(800);
 		AnimatorSet subSet1 = new AnimatorSet();
 		AnimatorSet subSet2 = new AnimatorSet();
 		AnimatorSet subSet3 = new AnimatorSet();
