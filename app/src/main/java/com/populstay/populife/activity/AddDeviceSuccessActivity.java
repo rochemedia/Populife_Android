@@ -171,7 +171,7 @@ public class AddDeviceSuccessActivity extends BaseActivity implements View.OnCli
 
     private void requestLockGroup() {
         RestClient.builder()
-                .url(Urls.LOCK_GROUP_LIST)
+                .url(Urls.GET_HOME_MY_OWN)
                 .loader(this)
                 .params("userId", PeachPreference.readUserId())
                 .success(new ISuccess() {

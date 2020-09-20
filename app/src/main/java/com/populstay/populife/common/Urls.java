@@ -46,6 +46,7 @@ public class Urls {
 
 	public static final String KEY_RECEIVE = "key/receive"; //（get）钥匙 - 接收钥匙
 	public static final String LOCK_GROUP_LIST = "home/get"; //（get）获取家庭（分组）信息和分组下锁的数量
+	public static final String GET_HOME_MY_OWN = "home/my-own/get"; //家庭（分组） - 获取本人创建的空间（设备绑定家庭时，获取家庭列表都用这个接口）
 	public static final String LOCK_GROUP_ADD = "home/add"; //（post）添加家庭（分组），方便对锁分类管理
 	public static final String LOCK_GROUP_MODIFY = "home/modify"; //（post）修改家庭（分组）信息
 	public static final String LOCK_GROUP_DELETE = "home/delete"; //（post）删除家庭（分组）信息，将关联的锁改为未关联家庭（未分组）

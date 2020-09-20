@@ -304,7 +304,7 @@ public class MyApplication extends BaseApplication {
 
 
 			PeachLogger.d("LOCK_INIT", "extendedBluetoothDevice="+",extendedBluetoothDevice="+extendedBluetoothDevice.toString());
-			PeachLogger.d("LOCK_INIT", "onLockInitialize="+",lockData="+lockData.toString());
+			PeachLogger.d("LOCK_INIT", "onLockInitialize="+",lockData="+(lockData != null ? lockData.toString() : "null"));
 
 			PeachLoader.stopLoading();
 			if (error == Error.INVALID_VENDOR) {
