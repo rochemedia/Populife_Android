@@ -348,6 +348,7 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 							toast(R.string.note_lock_init_success);
 							AddDeviceSuccessActivity.actionStart(FoundDeviceActivity.this, HomeDeviceInfo.IDeviceName.NAME_LOCK_DEADBOLT, mHomeDevice);
 						} else {
+							reset();
 							toast(R.string.note_lock_init_fail);
 						}
 					}
@@ -355,6 +356,7 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 				.failure(new IFailure() {
 					@Override
 					public void onFailure() {
+						reset();
 						stopLoading();
 						//customProgress.cancel();
 						toast(R.string.note_lock_init_fail);
@@ -363,6 +365,7 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 				.error(new IError() {
 					@Override
 					public void onError(int code, String msg) {
+						reset();
 						stopLoading();
 						//customProgress.cancel();
 						toast(R.string.note_lock_init_fail);
@@ -370,6 +373,13 @@ public class FoundDeviceActivity extends BaseActivity implements AdapterView.OnI
 				})
 				.build()
 				.post();
+	}
+
+	/**
+	 * 上传失败,重置锁
+	 */
+	private void reset(){
+		MyApplication.bleSession.setOperation(Operation.RESET_LOCK);
 	}
 
 	/**
