@@ -488,8 +488,9 @@ public class KeyPwdListFragment extends BaseFragment {
         String content = "";
         String type = "";
         switch (mPasscode.getKeyboardPwdType()) {
+            // 一次性密码
             case 1:
-                type = getString(R.string.one_time);
+               /* type = getString(R.string.one_time);
                 content = getString(R.string.hello_here_is_your_passcode) + mPasscode.getKeyboardPwd() + "\n" +
                         getString(R.string.start_time) + getString(R.string.symbol_colon) +
                         DateUtil.getDateToString(mPasscode.getCreateDate(), "yyyy-MM-dd HH:mm") + getString(R.string.use_it_within_6_hours) + "\n" +
@@ -498,11 +499,15 @@ public class KeyPwdListFragment extends BaseFragment {
                         "\n" +
                         getString(R.string.to_unlock_press_no_passcode_no) + "\n" +
                         "\n" +
-                        getString(R.string.note_no_key_bottom_right_dont_share_passcode);
+                        getString(R.string.note_no_key_bottom_right_dont_share_passcode);*/
+
+
+               content = String.format(getString(R.string.share_one_pwd_text),mPasscode.getKeyboardPwd());
                 break;
 
+            // 永久密码
             case 2:
-                type = getString(R.string.permanent);
+                /*type = getString(R.string.permanent);
                 content = getString(R.string.hello_here_is_your_passcode) + mPasscode.getKeyboardPwd() + "\n" +
                         getString(R.string.start_time) + getString(R.string.symbol_colon) + DateUtil.getDateToString(mPasscode.getCreateDate(), "yyyy-MM-dd HH:mm") + "\n" +
                         getString(R.string.type) + getString(R.string.symbol_colon) + getString(R.string.permanent) + "\n" +
@@ -510,11 +515,16 @@ public class KeyPwdListFragment extends BaseFragment {
                         "\n" +
                         getString(R.string.to_unlock_press_no_passcode_no) + "\n" +
                         "\n" +
-                        getString(R.string.note_use_passcode_once_before) + DateUtil.getDateToString(DateUtil.getStringToDate(DateUtil.getDateToString(mPasscode.getCreateDate(), "yyyy-MM-dd HH:mm"), "yyyy-MM-dd HH:mm") + 1000 * 3600 * 24, "yyyy-MM-dd HH:mm") + getString(R.string.no_key_bottom_right_dont_share_passcode);
+                        getString(R.string.note_use_passcode_once_before) + DateUtil.getDateToString(DateUtil.getStringToDate(DateUtil.getDateToString(mPasscode.getCreateDate(), "yyyy-MM-dd HH:mm"), "yyyy-MM-dd HH:mm") + 1000 * 3600 * 24, "yyyy-MM-dd HH:mm") + getString(R.string.no_key_bottom_right_dont_share_passcode);*/
+
+                content = String.format(getString(R.string.share_permanent_pwd_text),mPasscode.getKeyboardPwd());
                 break;
 
+            // 限时密码
             case 3:
-                type = getString(R.string.period);
+            // 自定义
+            case 15:
+               /* type = getString(R.string.period);
                 content = getString(R.string.hello_here_is_your_passcode) + mPasscode.getKeyboardPwd() + "\n" +
                         getString(R.string.start_time) + getString(R.string.symbol_colon) + DateUtil.getDateToString(mPasscode.getStartDate(),DateUtil.DATE_TIME_PATTERN_1) + "\n" +
                         getString(R.string.end_time) + getString(R.string.symbol_colon) +  DateUtil.getDateToString(mPasscode.getEndDate(),DateUtil.DATE_TIME_PATTERN_1) + "\n" +
@@ -523,7 +533,9 @@ public class KeyPwdListFragment extends BaseFragment {
                         "\n" +
                         getString(R.string.to_unlock_press_no_passcode_no) + "\n" +
                         "\n" +
-                        getString(R.string.note_use_passcode_once_before) + DateUtil.getDateToString(mPasscode.getStartDate() + 1000 * 3600 * 24, "yyyy-MM-dd HH:mm") + getString(R.string.no_key_bottom_right_dont_share_passcode);
+                        getString(R.string.note_use_passcode_once_before) + DateUtil.getDateToString(mPasscode.getStartDate() + 1000 * 3600 * 24, "yyyy-MM-dd HH:mm") + getString(R.string.no_key_bottom_right_dont_share_passcode);*/
+
+                content = String.format(getString(R.string.share_time_limited_pwd_text),mPasscode.getKeyboardPwd(),DateUtil.getDateToString(mPasscode.getStartDate(),DateUtil.DATE_TIME_PATTERN_1),DateUtil.getDateToString(mPasscode.getEndDate(),DateUtil.DATE_TIME_PATTERN_1));
                 break;
 
             case 4:
@@ -691,8 +703,9 @@ public class KeyPwdListFragment extends BaseFragment {
         }
     }
 
-    public void showShareBTKey(final String data) {
+    public void showShareBTKey(String data) {
         OnekeyShare oks = new OnekeyShare();
+        final String msg =  String.format(mActivity.getResources().getString(R.string.share_bt_key_text),data);
 
         // 自定义分享平台
         oks.setCustomerLogo(BitmapFactory.decodeResource(getResources(), R.drawable.ic_share_zalo),
@@ -703,7 +716,7 @@ public class KeyPwdListFragment extends BaseFragment {
                             Intent vIt = new Intent(Intent.ACTION_SEND);
 //							vIt.setPackage("com.facebook.orca");
                             vIt.setType("text/plain");
-                            vIt.putExtra(Intent.EXTRA_TEXT, data);
+                            vIt.putExtra(Intent.EXTRA_TEXT, msg);
                             startActivity(vIt);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -732,7 +745,7 @@ public class KeyPwdListFragment extends BaseFragment {
 
         // title标题，微信、QQ和QQ空间等平台使用
         oks.setTitle(getString(R.string.app_name));
-        oks.setText(data);
+        oks.setText(msg);
         oks.show(mActivity);
     }
 }

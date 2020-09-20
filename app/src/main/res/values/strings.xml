@@ -728,4 +728,12 @@
     <string name="wifi_searching">Searching for available WiFi</string>
     <string name="wifi_no_found">No WiFi available</string>
 
+
+
+    <string name="share_bt_key_text">您好，我给您分享了蓝牙钥匙。请点击链接领取：%s。在Populife APP中使用钥匙。</string>
+    <string name="share_one_pwd_text">您好，我给您分享的一次性密码是【%s】。请先触摸设备，进入输入界面，输入密码后，再按右下角的#开锁。</string>
+    <string name="share_time_limited_pwd_text">您好，我给您分享的临时密码是【%s】。授权时间段：%s至%s。请先触摸设备，进入输入界面，输入密码后，再按右下角的#开锁。</string>
+    <string name="share_permanent_pwd_text">您好，我给您分享的密码是【%s】。请先触摸设备，进入输入界面，输入密码后，再按右下角的#开锁。</string>
+
+
 </resources>
